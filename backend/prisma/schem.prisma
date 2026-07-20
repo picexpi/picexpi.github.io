@@ -1,0 +1,80 @@
+// This is your updated schema for the Exchange Project
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// --- بخش کاربران ---
+
+model User {
+  id             Int          @id @default(autoincrement())
+  piUserId       String       @unique
+  username       String       @unique
+  role           String       @default("user") // پیشنهاد: استفاده از enum در آینده
+  piWalletAddress String?     @default("")
+  createdAt      DateTime     @default(now())
+  
+  // روابط جدید
+  wallets        Wallet[]     // یک کاربر چندین کیف پول دارد (برای هر ارز)
+  transactions   Transaction[]
+}
+
+// --- بخش دارایی‌ها و کیف پول‌ها (قلب صرافی) ---
+
+model Asset {
+  id          Int      @id @default(autoincrement())
+  symbol      String   @unique // مثال: PI, USDT, BTC
+  name        String
+  decimals    Int      @default(2) // برای دقت ریاضی در محاسبات
+  isNative    Boolean  @default(false) // آیا این ارز اصلی شبکه است؟
+  
+  wallets     Wallet[]
+}
+
+model Wallet {
+  id        Int      @id @default(autoincrement())
+  balance   Decimal  @default(0) @db.Decimal(20, 8) // دقت بالا برای کریپتو
+  
+  // روابط
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  
+  assetId   Int
+  asset     Asset    @relation(fields: [assetId], references: [id])
+
+  @@unique([userId, assetId]) // هر کاربر برای هر ارز فقط یک کیف پول دارد
+}
+
+// --- بخش تراکنش‌ها و سفارشات ---
+
+model Transaction {
+  id        Int      @id @default(autoincrement())
+  amount    Decimal  @db.Decimal(20, 8)
+  orderId   String?  @unique
+  status    String   // pending, completed, failed, cancelled
+  type      String   // DEPOSIT, WITHDRAWAL, TRADE, SWAP
+  
+  createdAt DateTime @default(now())
+  
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+// مدل سفارشات (برای مرحله بعد: Order Book)
+model Order {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  assetId       Int
+  side          String   // BUY or SELL
+  orderType     String   // LIMIT or MARKET
+  price         Decimal  @db.Decimal(20, 8)
+  amount        Decimal  @db.Decimal(20, 8)
+  status        String   // OPEN, FILLED, CANCELLED
+  createdAt     DateTime @default(now())
+}
+
