@@ -1,5 +1,5 @@
 {
-  "name": "Pi Network Dev Environment",
+  "name": "Pi Network Fullstack Dev",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:1": {},
@@ -13,10 +13,11 @@
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "ms-azuretools.vscode-docker",
-        "formulahendry.vscode-dotenv"
+        "formulahendry.vscode-dotenv",
+        "prisma.prisma" 
       ]
     }
   },
-  "forwardPorts": [5173, 5000, 3000, 5432],
-  "postCreateCommand": "yarn install"
+  "forwardPorts": [5173, 5000, 5432],
+  "postCreateCommand": "yarn install --cwd backend && yarn install --cwd frontend"
 }
