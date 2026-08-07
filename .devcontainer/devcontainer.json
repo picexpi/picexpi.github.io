@@ -5,6 +5,9 @@
     "ghcr.io/devcontainers/features/docker-in-docker:1": {},
     "ghcr.io/devcontainers/features/common-utils:1": {
       "configureZshAsDefaultShell": true
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
     }
   },
   "customizations": {
@@ -14,7 +17,7 @@
         "esbenp.prettier-vscode",
         "ms-azuretools.vscode-docker",
         "formulahendry.vscode-dotenv",
-        "prisma.prisma" 
+        "prisma.prisma"
       ]
     }
   },
