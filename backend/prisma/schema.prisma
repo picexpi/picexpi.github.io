@@ -9,30 +9,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// استفاده از Enum برای نقش‌های کاربری جهت امنیت بیشتر
+enum UserRole {
+  USER
+  ADMIN
+}
+
+// استفاده از Enum برای وضعیت‌های تراکنش جهت جلوگیری از خطای منطقی
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
 model User {
   id              Int            @id @default(autoincrement())
   piUserId        String         @unique
   username        String         @unique @default("Pi User")
-  role            String         @default("user") // می‌توانید از enum هم استفاده کنید
+  role            UserRole       @default(USER)
   piWalletAddress String         @default("")
   createdAt       DateTime       @default(now())
   
-  // ایجاد رابطه یک‌به-چند: هر کاربر می‌تواند چندین تراکنش داشته باشد
+  // رابطه با تراکنش‌ها
   transactions    Transaction[]
 }
 
-model Transaction {
-  id        Int      @id @default(autoincrement())
-  amount    Float
-  
-  // فیلد جدید که اضافه شد
-  orderId   String   @unique 
-  
-  status    String   // مقادیر پیشنهادی: 'pending', 'completed', 'failed'
-  createdAt DateTime @default(now())
+model Product {
+  id           String   @id @default(uuid())
+  name         String
+  description  String
+  image        String   // آدرس URL تصویر
+  price        Float    // قیمت عددی برای محاسبات ریاضی
+  priceDisplay String   // قیمت نمایشی (مثلاً "10 π")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
 
-  // تعریف رابطه با مدل User
-  // این فیلد در دیتابیس ذخیره می‌شود و به مدل User متصل است
+model Transaction {
+  id        Int               @id @default(autoincrement())
+  amount    Float
+  orderId   String            @unique 
+  status    TransactionStatus @default(PENDING)
+  createdAt DateTime          @default(now())
+
+  // رابطه با کاربر
   userId    Int
-  user      User     @relation(fields: [userId], references: [id])
+  user      User              @relation(fields: [userId], references: [id])
 }
