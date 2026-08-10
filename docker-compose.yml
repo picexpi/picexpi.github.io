@@ -1,37 +1,33 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:16
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: pidao_db
-    networks:
-      - pi_network
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+  # این بخش را کامنت کردیم تا از تداخل با Neon جلوگیری شود
+  # postgres:
+  #   image: postgres:15
+  #   restart: always
+  #   environment:
+  #     POSTGRES_USER: user
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: pidao
+  #   ports:
+  #     - "5432:5432"
+  #   networks:
+  #     - pi_network
 
   backend:
     build: ./backend
     restart: always
     env_file: ./backend/.env
-    depends_on:
-      - postgres
+    # بک‌اِند مستقیماً از طریق DATABASE_URL به Neon وصل می‌شود
     networks:
       - pi_network
-    # در اینجا پورت 5000 داخلی است. 
-    # اگر بخواهید از بیرون هم به بک دسترسی داشته باشید، می‌توانید مپ کنید:
-    # ports:
-    #   - "5001:5000" 
 
   frontend:
     build: ./frontend
     restart: always
-    # مپ کردن پورت 5000 داخلی به 3000 خارجی برای تست راحت‌تر در مرورگر
-    ports:
-      - "3000:5000" 
+    env_file: ./frontend/.env
+    depends_on:
+      - backend
     networks:
       - pi_network
 
@@ -52,6 +48,3 @@ services:
 networks:
   pi_network:
     driver: bridge
-
-volumes:
-  postgres_data:
