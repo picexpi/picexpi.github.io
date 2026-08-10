@@ -2,20 +2,21 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 const axiosClient = axios.create({
-  // اصلاح پورت به 5000 و استفاده از متغیر محیطی
+  // استفاده از URL محیطی؛ اگر نبود از آدرس پیش‌فرض استفاده کن
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
   headers: {
     'Content-Type': 'application/json',
   },
+  // اضافه کردن تایم‌اوت برای جلوگیری از معلق ماندن درخواست‌ها
+  timeout: 10000, 
 });
 
 /**
- * Interceptor برای درخواست‌ها (Request Interceptor)
- * وظیفه: اضافه کردن توکن به هدر تمام درخواست‌های خروجی
+ * Request Interceptor
+ * اضافه کردن توکن به تمام درخواست‌ها
  */
 axiosClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    // هماهنگ با AuthContext که توکن را با کلید 'token' ذخیره می‌کند
     const token = localStorage.getItem('token');
     
     if (token && config.headers) {
@@ -29,33 +30,43 @@ axiosClient.interceptors.request.use(
 );
 
 /**
- * Interceptor برای پاسخ‌ها (Response Interceptor)
- * وظیفه: مدیریت خطاهای سرور مثل انقضای توکن (401)
+ * Response Interceptor
+ * مدیریت هوشمند خطاها برای جلوگیری از صفحه سفید
  */
 axiosClient.interceptors.response.use(
-  (response) => {
-    // اگر پاسخ موفقیت‌آمیز بود، آن را برگردان
-    return response;
-  },
+  (response) => response,
   (error: AxiosError<any>) => {
+    // ۱. مدیریت خطای عدم دسترسی یا انقضای توکن (401)
     if (error.response) {
       const status = error.response.status;
 
       if (status === 401) {
-        // اگر توکن منقضی شده یا نامعتبر است (Error 401)
-        console.warn('Unauthorized! Redirecting to login...');
+        console.warn('Unauthorized! Cleaning up session...');
         
-        // پاکسازی اطلاعات کاربر از حافظه
+        // پاکسازی حافظه
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         
-        // هدایت کاربر به صفحه لاگین (اگر در صفحه لاگین نباشد)
-        if (window.location.pathname !== '/login') {
-          window.location.href = '/login';
+        // به جای Hard Reload، سعی می‌کنیم کاربر را هدایت کنیم
+        // نکته: اگر از react-router استفاده می‌کنید، بهتر است از navigate استفاده شود
+        // اما برای اطمینان در سطح axios، این روش امن‌تر است:
+        if (!window.location.pathname.includes('/login')) {
+          window.location.assign('/login'); 
         }
+      } 
+      else if (status === 500) {
+        console.error('Server Error: Something went wrong on the backend.');
       }
-      
-      // می‌توانید اینجا خطاهای دیگر مثل 403 یا 500 را هم مدیریت کنید
+    } 
+    // ۲. مدیریت خطای شبکه (وقتی سرور اصلاً پاسخ نمی‌دهد - بسیار مهم!)
+    else if (error.request) {
+      // این بخش زمانی اجرا می‌شود که درخواست فرستاده شده اما پاسخی دریافت نشده (مثلاً سرور خاموش است)
+      console.error('Network Error: Cannot connect to the server. Please check your internet or server status.');
+      // اینجا می‌توانید یک پیام کاربرپسند نشان دهید (مثلاً با استفاده از یک Toast)
+    } 
+    // ۳. مدیریت خطاهای دیگر
+    else {
+      console.error('Error:', error.message);
     }
     
     return Promise.reject(error);
