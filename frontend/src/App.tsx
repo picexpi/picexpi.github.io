@@ -1,24 +1,89 @@
 // frontend/src/App.tsx
-import React from 'react';
+import React, { Component, ErrorInfo, ReactNode } from 'react';
 import AppRouter from './Router';
 
 /**
- * نکته فنی:
- * ما AuthProvider را از اینجا حذف کردیم و به فایل main.tsx منتقل کردیم.
- * این کار باعث می‌شود که کل درخت کامپوننت‌ها (بشمول Router و تمام صفحات) 
- * به درستی به Context دسترسی داشته باشند و از خطاهای تکراری جلوگیری شود.
+ * یک کامپوننت برای مدیریت خطاهای ناگهانی در اپلیکیشن (Error Boundary)
+ * این کامپوننت از "صفحه سفید" جلوگیری می‌کند.
  */
+interface Props {
+  children: ReactNode;
+}
+
+interface State {
+  hasError: boolean;
+}
+
+class ErrorBoundary extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(_: Error): State {
+    // در صورت بروز خطا، وضعیت را به true تغییر می‌دهد تا UI جایگزین شود
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    // اینجا می‌توانید خطا را در کنسول یا یک سرویس مانیتورینگ ثبت کنید
+    console.error("❌ Uncaught Error in React Tree:", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // این بخش نمایش داده می‌شود اگر اپلیکیشن کرش کند
+      return (
+        <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          height: '100vh',
+          textAlign: 'center',
+          padding: '20px',
+          fontFamily: 'sans-serif'
+        }}>
+          <h1 style={{ fontSize: '2rem', color: '#ff4d4f' }}>Oops! Something went wrong.</h1>
+          <p style={{ color: '#666' }}>
+            The application encountered an unexpected error. 
+            Please try refreshing the page.
+          </p>
+          <button 
+            onClick={() => window.location.reload()}
+            style={{
+              marginTop: '20px',
+              padding: '10px 20px',
+              backgroundColor: '#1890ff',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            Reload Page
+          </button>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
 
 const App: React.FC = () => {
   return (
-    <div className="app-container">
-      {/* 
-          AppRouter شامل تمام مسیرهای پروژه (Home, Shop, Payment, History و غیره) است.
-          از آنجایی که AuthProvider در main.tsx قرار دارد، 
-          تمام Routeهای محافظت شده (Protected Routes) درون Router به درستی کار می‌کنند.
-      */}
-      <AppRouter />
-    </div>
+    // کل اپلیکیشن را داخل ErrorBoundary قرار می‌دهیم
+    <ErrorBoundary>
+      <div className="app-container">
+        {/* 
+            AppRouter شامل تمام مسیرهای پروژه است.
+            AuthProvider در main.tsx قرار دارد که باعث می‌شود تمام کامپوننت‌ها 
+            در اینجا به درستی از Context استفاده کنند.
+        */}
+        <AppRouter />
+      </div>
+    </ErrorBoundary>
   );
 };
 
