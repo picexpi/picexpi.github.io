@@ -1,25 +1,22 @@
-const { PrismaClient } = require('@prisma/client');
-// اگر از پوشه generated استفاده می‌کنید، آدرس را تغییر دهید
-// در اینجا فرض می‌کنیم Prisma به درستی نصب شده است
-const prisma = new PrismaClient();
+const { execSync } = require('child_process');
 
 async function main() {
-  console.log('⏳ در حال اتصال به دیتابیس Neon و همگام‌سازی...');
+  console.log('🚀 Attempting to sync database with Neon.tech...');
   try {
-    // این متد مشابه npx prisma db push عمل می‌کند
-    // از آنجایی که db push مستقیماً در کلاینت نیست، 
-    // ما از یک ترفند استفاده می‌کنیم: ایجاد یک تراکنش ساده یا استفاده از مدل‌ها
-    // اما بهترین راه در اینجا اجرای مستقیم دستور از طریق کد است:
+    // ما از مسیر مستقیم استفاده می‌کنیم تا مطمئن شویم prisma پیدا می‌شود
+    console.log('⏳ Running: npx prisma db push');
     
-    const { execSync } = require('child_process');
-    console.log('🚀 اجرای دستور از طریق Child Process...');
-    execSync('npx prisma db push', { stdio: 'inherit' });
+    // اجرای دستور
+    execSync('npx prisma db push', { 
+      stdio: 'inherit',
+      env: { ...process.env } 
+    });
     
-    console.log('✅ عملیات با موفقیت انجام شد!');
-  } catch (e) {
-    console.error('❌ خطا در همگام‌سازی:', e);
-  } finally {
-    await prisma.$disconnect();
+    console.log('✅ SUCCESS: Database is now in sync with Neon!');
+  } catch (error) {
+    console.error('❌ ERROR during sync:');
+    console.error(error.message);
+    console.log('\n💡 TIP: Make sure your DATABASE_URL in .env is correct and points to Neon.tech');
   }
 }
 
