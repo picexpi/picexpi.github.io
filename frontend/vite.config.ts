@@ -7,8 +7,10 @@ export default defineConfig(({ mode }) => {
   // بارگذاری متغیرهای محیطی از فایل .env بر اساس mode (development یا production)
   const env = loadEnv(mode, process.cwd(), '')
 
+  const isDev = mode === 'development'
+
   return {
-    // تغییر از '/' به './' برای حل مشکل صفحه سفید در GitHub Pages
+    // تغییر از '/' به './' برای حل مشکل صفحه سفید در GitHub Pages (بسیار مهم)
     base: './', 
 
     plugins: [react()],
@@ -43,13 +45,11 @@ export default defineConfig(({ mode }) => {
       port: parseInt(env.VITE_PORT || '5173'),
       
       // بسیار مهم برای Docker: اجازه دادن به دسترسی از طریق IP و شبکه کانتینرها
-      host: true, 
-      
-      // تنظیم strictPort برای جلوگیری از پرش خودکار به پورت دیگر در صورت اشغال بودن پورت اصلی
-      strictPort: true,
+      host: true,
 
-      // به محض اجرای دستور، مرورگر را باز می‌کند (اختیاری)
-      open: true,
+      // فقط در حالت توسعه (لوکال) مرورگر رو باز کن؛ در CI/build کاری نکن
+      open: isDev ? true : false,
+      strictPort: false,
     },
   }
 })
