@@ -10,8 +10,13 @@ export default defineConfig(({ mode }) => {
   const isDev = mode === 'development'
 
   return {
-    // تغییر از '/' به './' برای حل مشکل صفحه سفید در GitHub Pages (بسیار مهم)
-    base: './', 
+    /**
+     * اصلاح بسیار مهم برای GitHub Pages:
+     * اگر در حالت توسعه هستی، base باید '/' باشد.
+     * اگر در حالت production (بیلد برای گیت‌هاب) هستی، باید نام مخزن شما باشد.
+     * نام مخزن شما: tiraxturumuz1.github.io
+     */
+    base: isDev ? '/' : '/tiraxturumuz1.github.io/', 
 
     plugins: [react()],
 
