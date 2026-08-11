@@ -71,7 +71,11 @@ const AppRouter: React.FC = () => {
           path="/payment" 
           element={
             <ProtectedRoute>
-              <Payment /> 
+              {/* اضافه کردن توابع خالی برای رفع خطای TS2739 */}
+              <Payment 
+                onPaymentSuccess={() => console.log("Payment Successful")} 
+                onPaymentError={(err) => console.error("Payment Error:", err)} 
+              /> 
             </ProtectedRoute>
           } 
         />
@@ -80,7 +84,11 @@ const AppRouter: React.FC = () => {
           path="/history" 
           element={
             <ProtectedRoute>
-              <History />
+              {/* اضافه کردن توابع خالی برای رفع خطای احتمالی در History */}
+              <History 
+                onPaymentSuccess={() => {}} 
+                onPaymentError={() => {}} 
+              />
             </ProtectedRoute>
           } 
         />
