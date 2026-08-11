@@ -24,7 +24,7 @@ jobs:
         run: |
           cd frontend
           npm install
-          # مقداردهی به متغیر محیطی
+          # نوشتن متغیر در فایل .env داخل پوشه فرانت‌اند
           echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
           npm run build
 
@@ -33,3 +33,5 @@ jobs:
         with:
           folder: frontend/dist
           branch: gh-pages
+          # اضافه کردن این خط برای اطمینان از پاک شدن برنچ قبلی و جایگزینی کامل
+          clean: true
