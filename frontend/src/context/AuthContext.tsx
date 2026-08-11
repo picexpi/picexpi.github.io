@@ -16,11 +16,11 @@ interface AuthContextType {
   logout: () => void;
 }
 
+// مقدار اولیه را null می‌گذاریم تا در حالت undefined بودن، برنامه کرش نکند
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// تنظیم پایه Axios
 const api = axios.create({
-  // حتماً در فایل .env فرانت‌اِند، VITE_API_URL را ست کنید
+  // حتماً در GitHub Actions یا فایل .env مقدار VITE_API_URL را ست کنید
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
 });
 
@@ -31,9 +31,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const initializeAuth = async () => {
-      // در ابتدا لودینگ را true نگه می‌داریم
       setLoading(true);
-      
       const token = localStorage.getItem('token');
       
       if (token) {
@@ -50,18 +48,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           }
         } catch (error) {
           console.error('Auth initialization failed:', error);
-          // در صورت خطا، حتماً پاکسازی کنید تا کاربر در وضعیت لودینگ گیر نکند
           localStorage.removeItem('token');
           setUser(null);
           setIsAuthenticated(false);
         }
       } else {
-        // اگر توکنی وجود نداشت، مستقیماً از حالت لودینگ خارج شویم
         setUser(null);
         setIsAuthenticated(false);
       }
-      
-      // بسیار مهم: در هر شرایطی (موفق یا شکست) لودینگ را تمام کن
       setLoading(false);
     };
 
@@ -71,7 +65,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = async (pi_user_id: string, username: string) => {
     try {
       const response = await api.post('/auth/pi-login', { pi_user_id, username });
-      
       if (response.data && response.data.success) {
         const { token, user: userData } = response.data;
         localStorage.setItem('token', token);
@@ -97,11 +90,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useAuth = (): AuthContextType => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    // اگر این خطا را دیدید، یعنی AuthProvider در main.tsx فراموش شده است
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
+/**
+ * نسخه اصلاح شده هوک useAuth
+ * بجای throw کردن خطا، مقدار undefined را برمی‌گرداند تا Router بتواند آن را مدیریت کند.
+ */
+export const useAuth = (): AuthContextType | undefined => {
+  return useContext(AuthContext);
 };
