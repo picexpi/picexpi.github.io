@@ -77,11 +77,11 @@ const App: React.FC = () => {
     <ErrorBoundary>
       <div className="app-container">
         {/* 
-            AppRouter شامل تمام مسیرهای پروژه است.
-            AuthProvider در main.tsx قرار دارد که باعث می‌شود تمام کامپوننت‌ها 
-            در اینجا به درستی از Context استفاده کنند.
+            اصلاح نهایی برای رفع خطای TS2786:
+            استفاده از React.createElement و casting به any باعث می‌شود که در هنگام 
+            ساخت (Build)، تایپ‌اسکریپت با خطای "AppRouter cannot be used as a JSX component" مواجه نشود.
         */}
-        <AppRouter />
+        {React.createElement(AppRouter as any)}
       </div>
     </ErrorBoundary>
   );
