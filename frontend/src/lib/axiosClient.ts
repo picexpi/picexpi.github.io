@@ -47,11 +47,11 @@ axiosClient.interceptors.response.use(
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         
-        // به جای Hard Reload، سعی می‌کنیم کاربر را هدایت کنیم
-        // نکته: اگر از react-router استفاده می‌کنید، بهتر است از navigate استفاده شود
-        // اما برای اطمینان در سطح axios، این روش امن‌تر است:
-        if (!window.location.pathname.includes('/login')) {
-          window.location.assign('/login'); 
+        // IMPORTANT: با HashRouter باید از hash استفاده کنیم، نه path مستقیم
+        // در GitHub Pages /jugl می‌شود 404، ولی /#/login همیشه کار می‌کند
+        const currentHash = window.location.hash || '#/';
+        if (!currentHash.includes('/login')) {
+          window.location.hash = '#/login'; 
         }
       } 
       else if (status === 500) {
