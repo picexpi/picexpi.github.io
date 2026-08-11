@@ -1,114 +1,76 @@
-// frontend/src/Router.tsx
-import React from 'react';
-// استفاده از HashRouter برای سازگاری کامل با GitHub Pages (حل مشکل صفحه سفید و ۴۰۴)
-import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from './context/AuthContext';
+// frontend/src/lib/axiosClient.ts
+import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
-// Pages & Components
-import Home from './pages/Home';
-import Shop from './pages/Shop';
-import TasksPage from './pages/Engagement/TasksPage';
-import SignIn from './components/SignIn'; 
-import Payment from './components/Payment'; 
-import History from './components/History'; 
-import Success from './components/Success'; 
-
-interface ProtectedRouteProps {
-  children: React.ReactNode;
-}
+const axiosClient = axios.create({
+  // استفاده از URL محیطی؛ اگر نبود از آدرس پیش‌فرض استفاده کن
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  // اضافه کردن تایم‌اوت برای جلوگیری از معلق ماندن درخواست‌ها
+  timeout: 10000, 
+});
 
 /**
- * ProtectedRoute با قابلیت جلوگیری از کرش (Error Handling)
- * اگر Context لود نشده باشد، به جای صفحه سفید، لودینگ نشان می‌دهد.
+ * Request Interceptor
+ * اضافه کردن توکن به تمام درخواست‌ها
  */
-const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const auth = useAuth();
-
-  // ۱. جلوگیری از کرش اگر useAuth مقدار undefined برگرداند
-  if (!auth) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <p>در حال برقراری ارتباط با سرور...</p>
-      </div>
-    );
+axiosClient.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    const token = localStorage.getItem('token');
+    
+    if (token && config.headers) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
   }
+);
 
-  const { isAuthenticated, loading } = auth;
+/**
+ * Response Interceptor
+ * مدیریت هوشمند خطاها برای جلوگیری از صفحه سفید
+ */
+axiosClient.interceptors.response.use(
+  (response) => response,
+  (error: AxiosError<any>) => {
+    // ۱. مدیریت خطای عدم دسترسی یا انقضای توکن (401)
+    if (error.response) {
+      const status = error.response.status;
 
-  // ۲. نمایش وضعیت بارگذاری
-  if (loading) {
-    return (
-      <div className="loading-screen" style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        height: '100vh',
-        fontSize: '1.2rem' 
-      }}>
-        در حال بارگذاری...
-      </div>
-    );
-  }
-
-  // ۳. بررسی احراز هویت
-  // در HashRouter، وقتی به /login Navigate می‌کنیم، خودِ رانتر آن را به #/login تبدیل می‌کند
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return <React.Fragment>{children}</React.Fragment>;
-};
-
-const AppRouter = () => {
-  return (
-    <Router>
-      <Routes>
-        {/* مسیرهای عمومی */}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<SignIn />} />
-
-        {/* بخش‌های محافظت شده با استفاده از ProtectedRoute */}
-        <Route 
-          path="/payment" 
-          element={
-            <ProtectedRoute>
-              <Payment /> 
-            </ProtectedRoute>
-          } 
-        />
+      if (status === 401) {
+        console.warn('Unauthorized! Cleaning up session...');
         
-        <Route 
-          path="/history" 
-          element={
-            <ProtectedRoute>
-              <History />
-            </ProtectedRoute>
-          } 
-        />
+        // پاکسازی حافظه
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        
+        // IMPORTANT: با HashRouter باید از hash استفاده کنیم، نه path مستقیم
+        // در GitHub Pages /jugl می‌شود 404، ولی /#/login همیشه کار می‌کند
+        const currentHash = window.location.hash || '#/';
+        if (!currentHash.includes('/login')) {
+          window.location.hash = '#/login'; 
+        }
+      } 
+      else if (status === 500) {
+        console.error('Server Error: Something went wrong on the backend.');
+      }
+    } 
+    // ۲. مدیریت خطای شبکه (وقتی سرور اصلاً پاسخ نمی‌دهد - بسیار مهم!)
+    else if (error.request) {
+      // این بخش زمانی اجرا می‌شود که درخواست فرستاده شده اما پاسخی دریافت نشده (مثلاً سرور خاموش است)
+      console.error('Network Error: Cannot connect to the server. Please check your internet or server status.');
+      // اینجا می‌توانید یک پیام کاربرپسند نشان دهید (مثلاً با استفاده از یک Toast)
+    } 
+    // ۳. مدیریت خطاهای دیگر
+    else {
+      console.error('Error:', error.message);
+    }
+    
+    return Promise.reject(error);
+  }
+);
 
-        <Route 
-          path="/shop" 
-          element={
-            <ProtectedRoute>
-              <Shop />
-            </ProtectedRoute>
-          } 
-        />
-
-        <Route 
-          path="/tasks" 
-          element={
-            <ProtectedRoute>
-              <TasksPage />
-            </ProtectedRoute>
-          } 
-        />
-
-        {/* مسیر پیش‌فرض: اگر آدرس اشتباه بود، به صفحه اصلی برگردان */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </Router>
-  );
-};
-
-export default AppRouter;
+export default axiosClient;
