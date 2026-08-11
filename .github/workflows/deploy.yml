@@ -5,7 +5,6 @@ on:
     branches:
       - main
 
-# این بخش بسیار حیاتی است تا اکشن اجازه ساخت شاخه را داشته باشد
 permissions:
   contents: write
 
@@ -31,6 +30,9 @@ jobs:
       - name: Build project
         run: |
           cd frontend
+          # تزریق آدرس API به زمان بیلد (بسیار حیاتی)
+          # جایگزین کردن آدرس زیر با آدرس واقعی سرور شما
+          echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
           npm run build
 
       - name: Deploy to GitHub Pages
