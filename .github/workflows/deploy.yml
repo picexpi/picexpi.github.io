@@ -19,19 +19,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
-
-      - name: Install dependencies
-        run: |
-          cd frontend
-          npm install
 
       - name: Build project
         run: |
           cd frontend
-          # تزریق آدرس API به زمان بیلد (بسیار حیاتی)
-          # جایگزین کردن آدرس زیر با آدرس واقعی سرور شما
+          npm install
+          # مقداردهی به متغیر محیطی
           echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
           npm run build
 
