@@ -1,29 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import axiosClient from '../lib/axiosClient';
-import '../components/Payment.css'; // فرض بر وجود استایل
+import '../components/Payment.css';
 
-const Payment = ({ onPaymentSuccess, onPaymentError }) => {
+/**
+ * Payment Component
+ * @param {Function} onPaymentSuccess - تابعی که پس از موفقیت پرداخت صدا زده می‌شود
+ * @param {Function} onPaymentError - تابعی که پس از بروز خطا صدا زده می‌شود
+ */
+const Payment = ({ onPaymentSuccess = () => {}, onPaymentError = () => {} }) => {
   const { user } = useAuth();
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState(null);
 
-  // این مقادیر از .env خوانده می‌شوند (طبق فایل env که فرستادید)
+  // دریافت مقادیر از محیط Vite
   const PI_APP_ID = import.meta.env.VITE_PI_APP_ID;
   const PI_CLIENT_ID = import.meta.env.VITE_PI_CLIENT_ID;
 
   useEffect(() => {
-    // اطمینان از بارگذاری SDK شبکه Pi
+    // بررسی وجود SDK در محیط Pi Browser
     if (window.Pi) {
-      console.log("Pi Network SDK is ready");
+      console.log("✅ Pi Network SDK is ready");
     } else {
-      setError("Pi SDK not found. Please ensure you are running in the Pi Browser.");
+      console.warn("⚠️ Pi SDK not found. This component only works inside the Pi Browser.");
     }
   }, []);
 
   const handlePayment = async () => {
+    // ۱. بررسی موجود بودن SDK
     if (!window.Pi) {
-      setError("Pi SDK is not available.");
+      setError("Pi SDK is not available. Please open this app in the Pi Browser.");
       return;
     }
 
@@ -31,33 +37,31 @@ const Payment = ({ onPaymentSuccess, onPaymentError }) => {
     setError(null);
 
     try {
-      // ۱. ایجاد درخواست پرداخت از طریق Pi SDK
+      // ۲. ایجاد درخواست پرداخت اولیه از طریق SDK
       const payment = await window.Pi.createPayment({
-        amount: 1.0, // این مقدار می‌تواند به عنوان prop ورودی هم باشد
+        amount: 1.0, 
         memo: "Purchase from PiDao",
         metadata: {
-          productId: "item_123", // مثال
-          userId: user?.id || 'guest',
+          productId: "item_123", // در آینده این مقدار از پروپ‌ها گرفته شود
+          userId: user?.uid || 'guest', // استفاده از uid مطابق با Mock SDK که قبلاً ساختیم
         },
       });
 
-      // ۲. مرحله تایید توسط سرور (Server Approval)
-      // به جای fetch مستقیم به localhost:3000، از axiosClient استفاده می‌کنیم
-      // که طبق تنظیمات شما به https://apppidaonkm2562.pinet.com/api وصل می‌شود
-      
+      // ۳. مدیریت تایید سرور (Server Approval)
       await window.Pi.onReadyForServerApproval(async (paymentId) => {
         try {
-          console.log("Waiting for server approval for:", paymentId);
+          console.log("⏳ Waiting for server approval for:", paymentId);
           
-          // ارسال درخواست تایید به بک‌اِند خودمان
+          // ارسال درخواست به بک‌اِند برای تایید پرداخت
           await axiosClient.post('/payment/approve', {
             paymentId: paymentId,
           });
 
-          // اگر بک‌اِند تایید کرد، به مرحله تکمیل برو
+          // ۴. مدیریت تکمیل پرداخت (Server Completion)
           await window.Pi.onReadyForServerCompletion(async (paymentId, txid) => {
             try {
-              // ۳. مرحله نهایی کردن پرداخت (Completion)
+              console.log("⏳ Finalizing transaction with backend...");
+              
               await axiosClient.post('/payment/complete', {
                 paymentId: paymentId,
                 txid: txid,
@@ -67,49 +71,91 @@ const Payment = ({ onPaymentSuccess, onPaymentError }) => {
                 }
               });
 
-              console.log("Payment completed successfully!");
-              onPaymentSuccess(txid); // صدا کردن تابع موفقیت در App.jsx
-            } catch (err) {
-              console.error("Completion error:", err);
-              setError("Failed to complete transaction. Please check your history.");
+              console.log("🎉 Payment completed successfully!");
               setIsProcessing(false);
+              onPaymentSuccess(txid); // اطلاع‌رسانی به کامپوننت والد (مثلاً برای هدایت به صفحه Success)
+            } catch (err) {
+              console.error("❌ Completion error:", err);
+              setError("Failed to finalize transaction. Please check your history.");
+              setIsProcessing(false);
+              onPaymentError(err);
             }
           });
 
         } catch (err) {
-          console.error("Approval error:", err);
-          setError("Server approval failed.");
+          console.error("❌ Approval error:", err);
+          setError("Server approval failed. Please try again.");
           setIsProcessing(false);
+          onPaymentError(err);
         }
       });
 
     } catch (err) {
-      console.error("Payment initiation error:", err);
+      console.error("❌ Payment initiation error:", err);
       setError(err.message || "Payment failed to start.");
       setIsProcessing(false);
+      onPaymentError(err);
     }
   };
 
   return (
     <div className="payment-container">
-      <h2>Complete Your Purchase</h2>
+      <h2 className="payment-title">Complete Your Purchase</h2>
       
-      {error && <div className="error-message" style={{ color: 'red', marginBottom: '1rem' }}>{error}</div>}
+      {error && (
+        <div className="error-message" style={{ 
+          color: '#ff4d4d', 
+          backgroundColor: '#ffe6e6', 
+          padding: '10px', 
+          borderRadius: '5px', 
+          marginBottom: '1rem',
+          fontSize: '0.9rem',
+          textAlign: 'center'
+        }}>
+          {error}
+        </div>
+      )}
       
-      <div className="payment-details">
-        <p>Amount: <strong>1.0 PI</strong></p>
-        <p>Product: <strong>PiDao Premium Item</strong></p>
+      <div className="payment-details" style={{ 
+        margin: '20px 0', 
+        padding: '15px', 
+        border: '1px solid #eee', 
+        borderRadius: '8px',
+        textAlign: 'center'
+      }}>
+        <p style={{ margin: '5px 0' }}>Amount: <strong style={{ color: '#673ab7' }}>1.0 PI</strong></p>
+        <p style={{ margin: '5px 0' }}>Product: <strong>PiDao Premium Item</strong></p>
       </div>
 
       <button 
         className="pay-button" 
         onClick={handlePayment}
         disabled={isProcessing}
+        style={{
+          width: '100%',
+          padding: '12px',
+          borderRadius: '25px',
+          fontWeight: 'bold',
+          cursor: isProcessing ? 'not-allowed' : 'pointer',
+          backgroundColor: isProcessing ? '#ccc' : '#673ab7',
+          color: 'white',
+          border: 'none',
+          fontSize: '1rem'
+        }}
       >
         {isProcessing ? 'Processing...' : 'Pay with Pi'}
       </button>
 
-      {isProcessing && <div className="loader">Please do not close the Pi Browser...</div>}
+      {isProcessing && (
+        <div className="loader-text" style={{ 
+          marginTop: '15px', 
+          fontSize: '0.85rem', 
+          color: '#666',
+          fontStyle: 'italic' 
+        }}>
+          Please do not close the Pi Browser...
+        </div>
+      )}
     </div>
   );
 };
