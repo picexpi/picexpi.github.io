@@ -1,6 +1,6 @@
 // frontend/src/Router.tsx
 import React from 'react';
-// استفاده از HashRouter برای سازگاری کامل با GitHub Pages (حل مشکل صفحه سفید و ۴۰۴)
+// استفاده از HashRouter برای سازگاری کامل با GitHub Pages (جلوگیری از خطای 404)
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 
@@ -18,23 +18,23 @@ interface ProtectedRouteProps {
 }
 
 /**
- * ProtectedRoute با قابلیت جلوگیری از کرش (Error Handling)
+ * ProtectedRoute: کنترل دسترسی به صفحات حساس
  */
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const auth = useAuth();
 
-  // ۱. جلوگیری از کرش اگر Hook در خارج از Provider صدا زده شود
+  // جلوگیری از کرش در صورتی که Context هنوز لود نشده باشد
   if (!auth || auth.loading === undefined) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', color: '#fff' }}>
         <p>در حال برقراری ارتباط با سرور...</p>
-      </div >
+      </div>
     );
   }
 
   const { isAuthenticated, loading } = auth;
 
-  // ۲. نمایش وضعیت بارگذاری
+  // نمایش وضعیت بارگذاری
   if (loading) {
     return (
       <div className="loading-screen" style={{ 
@@ -42,14 +42,16 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
         justifyContent: 'center', 
         alignItems: 'center', 
         height: '100vh',
-        fontSize: '1.2rem' 
+        fontSize: '1.2rem',
+        color: '#fff',
+        background: '#311b92'
       }}>
         در حال بارگذاری...
-      </div >
+      </div>
     );
   }
 
-  // ۳. بررسی احراز هویت
+  // اگر کاربر لاگین نیست، هدایت به صفحه ورود
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
@@ -57,21 +59,20 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   return <React.Fragment>{children}</React.Fragment>;
 };
 
-// اضافه کردن : React.FC برای حل خطای TS2786
 const AppRouter: React.FC = () => {
   return (
     <Router>
       <Routes>
-        {/* مسیرهای عمومی */}
+        {/* --- مسیرهای عمومی --- */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<SignIn />} />
+        <Route path="/success" element={<Success />} />
 
-        {/* بخش‌های محافظت شده با استفاده از ProtectedRoute */}
+        {/* --- مسیرهای محافظت شده (فقط کاربران لاگین شده) --- */}
         <Route 
           path="/payment" 
           element={
             <ProtectedRoute>
-              {/* اضافه کردن توابع خالی برای رفع خطای TS2739 */}
               <Payment 
                 onPaymentSuccess={() => console.log("Payment Successful")} 
                 onPaymentError={(err) => console.error("Payment Error:", err)} 
@@ -84,7 +85,6 @@ const AppRouter: React.FC = () => {
           path="/history" 
           element={
             <ProtectedRoute>
-              {/* اضافه کردن توابع خالی برای رفع خطای احتمالی در History */}
               <History 
                 onPaymentSuccess={() => {}} 
                 onPaymentError={() => {}} 
@@ -111,7 +111,7 @@ const AppRouter: React.FC = () => {
           } 
         />
 
-        {/* مسیر پیش‌فرض */}
+        {/* --- مدیریت مسیرهای اشتباه (Redirect به صفحه اصلی) --- */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
