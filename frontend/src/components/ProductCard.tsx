@@ -1,5 +1,6 @@
 // frontend/src/components/ProductCard.tsx
 import React from 'react';
+import './ProductCard.css'; // این همان خطی است که برای اتصال استایل‌ها اضافه شد
 
 export interface Product {
   id: string;
