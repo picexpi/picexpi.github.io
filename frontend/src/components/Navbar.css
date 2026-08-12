@@ -1,64 +1,72 @@
+/* frontend/src/components/Navbar.css */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 5%;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    border-bottom: 1px solid #e2e8f0;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  background: rgba(15, 10, 30, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  direction: rtl;
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: 800;
-    text-decoration: none;
-    color: var(--primary);
-    letter-spacing: -1px;
+.navbar-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.nav-links {
-    display: flex;
-    gap: 30px;
-    list-style: none;
+.navbar-logo a {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
 }
 
-.nav-links a {
-    text-decoration: none;
-    color: var(--dark);
-    font-weight: 500;
-    transition: color 0.3s;
+.navbar-logo span {
+  color: #ffca28; /* طلایی */
 }
 
-.nav-links a:hover {
-    color: var(--primary);
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 30px;
 }
 
-/* کدهای قبلی را نگه دارید و این را به انتها اضافه کنید */
-
-.lang-selector {
-    padding: 5px 10px;
-    border-radius: 6px;
-    border: 1px solid #e2e8f0;
-    background-color: white;
-    cursor: pointer;
-    font-size: 0.9rem;
-    margin-right: 10px;
+.nav-link {
+  color: #b0b0b0;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: 0.3s;
 }
 
-.lang-selector:focus {
-    outline: none;
-    border-color: var(--primary);
+.nav-link:hover {
+  color: #ffca28;
 }
 
-.btn-login {
-    background-color: var(--primary);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
+.btn-signin {
+  padding: 10px 25px;
+  background: #ffca28;
+  color: #000;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-signin:hover {
+  box-shadow: 0 0 15px rgba(255, 202, 40, 0.5);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none; /* در موبایل باید منوی همبرگری بسازی */
+  }
 }
