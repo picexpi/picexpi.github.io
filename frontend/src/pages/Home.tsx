@@ -1,19 +1,21 @@
+// frontend/src/pages/Home.tsx
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
+import Features from '../components/Features'; // اضافه کن
+import About from '../components/About';     // اضافه کن
 import Footer from '../components/Footer';
-import './Home.css'; // فرض بر این است که استایل‌های خاص صفحه اصلی اینجا هستند
 
-const Home: React.FC = () => {
+const Home = () => {
   return (
-    <div className="home-page-wrapper">
+    <div className="home-container">
       <Navbar />
-      
-      <main className="home-main-content">
-        {/* بخش Hero مسئول خوش‌آمدگویی است */}
+      <main>
         <Hero />
+        <Features />
+        <About />
+        {/* سایر بخش‌ها مثل Shop یا Tasks اگر در Home هستند */}
       </main>
-
       <Footer />
     </div>
   );
