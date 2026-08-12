@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
-const History = () => {
+/**
+ * @param {{ onPaymentSuccess?: (txid: string) => void, onPaymentError?: (err: any) => void }} props
+ */
+const History = (props) => {
+  // استخراج پروپ‌ها برای جلوگیری از خطای TS2322 در Router.tsx
+  const { onPaymentSuccess = () => {}, onPaymentError = () => {} } = props;
+
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // دریافت اطلاعات از بک‌اِند
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        // نکته: برای تست، ما مستقیم به مسیر ادمین درخواست می‌زنیم
-        // در آینده این مسیر باید با توکن کاربر امن شود
         const response = await fetch('http://localhost:5000/api/admin/transactions');
         const data = await response.json();
 
@@ -53,9 +56,9 @@ const History = () => {
             <tbody>
               {transactions.map((tx) => (
                 <tr key={tx._id} style={styles.tableRow}>
-                  <td style={styles.td}>{tx.piTransactionId.substring(0, 10)}...</td>
+                  <td style={styles.td}>{tx.piTransactionId?.substring(0, 10)}...</td>
                   <td style={styles.td}>{tx.amount} {tx.currency}</td>
-                  <td style={styles.td}>{tx.metadata.productName}</td>
+                  <td style={styles.td}>{tx.metadata?.productName || 'N/A'}</td>
                   <td style={styles.td}>
                     <span style={{
                       ...styles.status, 
@@ -76,7 +79,6 @@ const History = () => {
   );
 };
 
-// استایل‌های ساده برای زیبایی (بدون نیاز به فایل CSS جداگانه)
 const styles = {
   container: { padding: '20px', fontFamily: 'Tahoma, sans-serif', direction: 'rtl' },
   title: { textAlign: 'center', color: '#333' },
