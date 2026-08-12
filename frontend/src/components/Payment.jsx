@@ -1,16 +1,23 @@
+// frontend/src/components/Payment.jsx
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import axiosClient from '../lib/axiosClient';
+import './Payment.css'; // اضافه کردن استایل برای ظاهر مدرن
 
 /**
- * @param {{ onPaymentSuccess?: (txid: string) => void, onPaymentError?: (err: any) => void }} props
+ * @param {{ 
+ *   transactionId?: string, 
+ *   onReset?: () => void, 
+ *   onPaymentSuccess?: (txid: string) => void, 
+ *   onPaymentError?: (err: any) => void 
+ * }} props
  */
-const Payment = (props) => {
-  const { 
-    onPaymentSuccess = () => {}, 
-    onPaymentError = () => {} 
-  } = props;
-
+const Payment = ({ 
+  transactionId = "", 
+  onReset = () => {}, 
+  onPaymentSuccess = () => {}, 
+  onPaymentError = () => {} 
+}) => {
   const { user } = useAuth();
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState(null);
@@ -78,48 +85,49 @@ const Payment = (props) => {
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>Complete Your Purchase</h2>
-      
-      {error && (
-        <div style={styles.errorBox}>
-          {error}
+    <div className="payment-container">
+      <div className="payment-card">
+        <h2 className="payment-title">Complete Purchase</h2>
+        
+        {error && (
+          <div className="payment-error-box">
+            {error}
+          </div>
+        )}
+        
+        <div className="payment-details-box">
+          <p>Amount: <span className="amount-highlight">1.0 PI</span></p>
+          <p>Product: <span className="product-name">PiDao Premium Item</span></p>
+          {transactionId && <p className="tx-id">ID: {transactionId}</p>}
         </div>
-      )}
-      
-      <div style={styles.detailsBox}>
-        <p style={{ margin: '5px 0' }}>Amount: <strong style={{ color: '#673ab7' }}>1.0 PI</strong></p>
-        <p style={{ margin: '5px 0' }}>Product: <strong>PiDao Premium Item</strong></p>
+
+        <button 
+          className={`payment-button ${isProcessing ? 'loading' : ''}`}
+          onClick={handlePayment}
+          disabled={isProcessing}
+        >
+          {isProcessing ? (
+            <>
+              <span className="spinner"></span>
+              Processing...
+            </>
+          ) : (
+            'Pay with Pi'
+          )}
+        </button>
+
+        <button className="payment-reset-btn" onClick={onReset}>
+          Cancel / Reset
+        </button>
+
+        {isProcessing && (
+          <p className="payment-loader-text">
+            Please do not close the Pi Browser...
+          </p>
+        )}
       </div>
-
-      <button 
-        onClick={handlePayment}
-        disabled={isProcessing}
-        style={{
-          ...styles.button,
-          backgroundColor: isProcessing ? '#ccc' : '#673ab7',
-          cursor: isProcessing ? 'not-allowed' : 'pointer'
-        }}
-      >
-        {isProcessing ? 'Processing...' : 'Pay with Pi'}
-      </button>
-
-      {isProcessing && (
-        <div style={styles.loaderText}>
-          Please do not close the Pi Browser...
-        </div>
-      )}
     </div>
   );
-};
-
-const styles = {
-  container: { padding: '20px', fontFamily: 'sans-serif', maxWidth: '400px', margin: '0 auto' },
-  title: { textAlign: 'center', color: '#333' },
-  errorBox: { color: '#ff4d4d', backgroundColor: '#ffe6e6', padding: '10px', borderRadius: '5px', marginBottom: '1rem', textAlign: 'center', fontSize: '0.9rem' },
-  detailsBox: { margin: '20px 0', padding: '15px', border: '1px solid #eee', borderRadius: '8px', textAlign: 'center' },
-  button: { width: '100%', padding: '12px', borderRadius: '25px', fontWeight: 'bold', color: 'white', border: 'none', fontSize: '1rem' },
-  loaderText: { marginTop: '15px', fontSize: '0.85rem', color: '#666', fontStyle: 'italic', textAlign: 'center' }
 };
 
 export default Payment;
