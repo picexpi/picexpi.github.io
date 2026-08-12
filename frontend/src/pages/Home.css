@@ -1,0 +1,19 @@
+/* frontend/src/pages/Home.css */
+
+.home-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    /* استفاده از رنگ پس‌زمینه استاندارد پروژه یا سفید */
+    background-color: #ffffff; 
+}
+
+main {
+    flex: 1; /* باعث می‌شود فوتر همیشه به پایین چسبیده باشد */
+    display: flex;
+    flex-direction: column;
+}
+
+/* اگر خواستید استایل خاصی فقط برای صفحه اصلی داشته باشید اینجا بنویسید */
+
