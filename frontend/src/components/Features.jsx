@@ -1,55 +1,34 @@
-// frontend/src/components/Features.jsx
 import React from 'react';
 import './Features.css';
 
 const features = [
   {
-    icon: '🔐',
-    title: 'ورود با کیف پول Pi',
-    desc: 'بدون رمز عبور؛ با امضای دیجیتال کیف پول Pi وارد شوید. هویت شما روی بلاک‌چین تأیید می‌شود و اطلاعات شخصی‌تان هرگز روی سرور ذخیره نمی‌شود.',
+    title: "پرداخت‌های امن با Pi",
+    description: "انتقال سریع و شفاف دارایی‌های دیجیتال مبتنی بر شبکه پای در محیطی کاملاً امن.",
+    icon: "🔐"
   },
   {
-    icon: '🛍️',
-    title: 'بازارگاه غیرمتمرکز',
-    desc: 'خرید و فروش مستقیم بین کاربران (P2P) با تراکنش‌های شفاف و امن که روی شبکه Pi ثبت می‌شوند؛ بدون واسطه و بدون نگرانی.',
+    title: "تعامل غیرمتمرکز (DAO)",
+    description: "مشارکت در تصمیم‌گیری‌ها و مدیریت اکوسیستم به صورت توزیع شده و شفاف.",
+    icon: "🌐"
   },
   {
-    icon: '🎯',
-    title: 'تسک‌ها و پاداش',
-    desc: 'با انجام تسک‌های روزانه — تعامل، دعوت دوستان و بازخورد — Pi بیشتری کسب کنید و پیشرفت خود را لحظه‌ای دنبال کنید.',
-  },
-  {
-    icon: '⚡',
-    title: 'پرداخت آنی و کم‌هزینه',
-    desc: 'تراکنش‌ها در چند ثانیه و با کارمزد تقریباً صفر انجام می‌شوند؛ سریع‌تر و ارزان‌تر از هر روش سنتی.',
-  },
-  {
-    icon: '📜',
-    title: 'تاریخچه شفاف',
-    desc: 'تمام پرداخت‌ها و فعالیت‌های شما در یک تاریخچه شخصی، قابل جستجو و همیشه در دسترس ثبت می‌شود.',
-  },
-  {
-    icon: '🗳️',
-    title: 'جامعه خودگردان (DAO)',
-    desc: 'دارندگان Pi در تصمیم‌های کلیدی پروژه مشارکت می‌کنند؛ آینده‌ی پلتفرم را جامعه تعیین می‌کند، نه یک نهاد مرکزی.',
-  },
+    title: "پنل کاربری پیشرفته",
+    description: "مدیریت کامل تراکنش‌ها، مشاهده تاریخچه و کنترل کیف پول در یک محیط یکپارچه.",
+    icon: "📊"
+  }
 ];
 
-const Features: React.FC = () => {
+const Features = () => {
   return (
-    <section id="features" className="features">
-      <div className="features-header">
-        <span className="features-badge">امکانات</span>
-        <h2>چرا PiDao؟</h2>
-        <p>هر چیزی که برای ورود به اقتصاد غیرمتمرکز Pi نیاز دارید، در یک پلتفرم.</p>
-      </div>
-
+    <section id="features" className="features-section">
+      <h2 className="section-title">ویژگی‌های ما</h2>
       <div className="features-grid">
-        {features.map((f) => (
-          <div className="feature-card" key={f.title}>
+        {features.map((f, index) => (
+          <div key={index} className="feature-card">
             <div className="feature-icon">{f.icon}</div>
             <h3>{f.title}</h3>
-            <p>{f.desc}</p>
+            <p>{f.description}</p>
           </div>
         ))}
       </div>
