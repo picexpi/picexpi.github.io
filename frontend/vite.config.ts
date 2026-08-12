@@ -11,12 +11,11 @@ export default defineConfig(({ mode }) => {
 
   return {
     /**
-     * اصلاح برای GitHub Pages:
-     * اگر پروژه شما در آدرس username.github.io/repo-name/ است، مقدار زیر را '/repo-name/' بگذارید.
-     * اما اگر پروژه در آدرس username.github.io است (User Page)، مقدار باید '/' باشد.
-     * با توجه به تجربه، اگر صفحه سفید می‌آید، احتمالاً باید نام دقیق ریپازیتوری را اینجا بگذارید.
+     * اصلاح نهایی برای GitHub Pages (User Page):
+     * چون ریپازیتوری شما tiraxturumuz1.github.io است، سایت در ریشه (Root) قرار می‌گیرد.
+     * بنابراین base در حالت production باید '/' باشد.
      */
-    base: isDev ? '/' : '/tiraxturumuz1.github.io/', 
+    base: '/', 
 
     plugins: [react()],
 
