@@ -2,18 +2,16 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
+import './Home.css'; // فرض بر این است که استایل‌های خاص صفحه اصلی اینجا هستند
 
 const Home: React.FC = () => {
   return (
     <div className="home-page-wrapper">
-      {/* استفاده از کامپوننت‌های اصلی برای هماهنگی کامل */}
       <Navbar />
       
-      <main>
-        {/* کامپوننت Hero حالا مسئول نمایش پیام خوش‌آمدگویی و دکمه اصلی است */}
+      <main className="home-main-content">
+        {/* بخش Hero مسئول خوش‌آمدگویی است */}
         <Hero />
-        
-        {/* اگر می‌خواهید بخش‌های دیگری مثل ویژگی‌ها را اینجا اضافه کنید، می‌توانید اضافه کنید */}
       </main>
 
       <Footer />
