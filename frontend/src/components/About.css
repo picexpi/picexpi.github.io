@@ -1,0 +1,143 @@
+/* frontend/src/components/About.css */
+
+.about-section {
+    padding: 100px 20px;
+    background-color: #0f0a1e; /* هماهنگ با بخش فیچرز */
+    color: #ffffff;
+    direction: rtl;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+/* ستون محتوا */
+.about-content {
+    flex: 1;
+}
+
+.about-subtitle {
+    color: #ffca28; /* طلایی */
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.about-title {
+    font-size: 3rem;
+    line-height: 1.3;
+    margin-bottom: 25px;
+}
+
+.highlight {
+    color: #ffca28;
+    text-shadow: 0 0 20px rgba(255, 202, 40, 0.4);
+}
+
+.about-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #b0b0b0;
+    margin-bottom: 40px;
+}
+
+/* بخش آمار (Stats) */
+.about-stats {
+    display: flex;
+    gap: 30px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-number {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #ffca28;
+}
+
+/* ستون بصری (Vision Card) */
+.about-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.vision-card {
+    background: linear-gradient(145deg, rgba(138, 43, 226, 0.2), rgba(0, 0, 0, 0.4));
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 50px 40px;
+    border-radius: 30px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.vision-icon {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.vision-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.vision-card p {
+    color: #d1d1d1;
+    line-height: 1.6;
+}
+
+.vision-badge {
+    margin-top: 25px;
+    display: inline-block;
+    padding: 8px 20px;
+    background: #ffca28;
+    color: #000;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+/* واکنش‌گرایی برای موبایل و تبلت */
+@media (max-width: 992px) {
+    .about-wrapper {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .about-stats {
+        justify-content: center;
+    }
+
+    .about-title {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-stats {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
