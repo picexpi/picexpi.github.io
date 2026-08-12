@@ -35,3 +35,30 @@
 .nav-links a:hover {
     color: var(--primary);
 }
+
+/* کدهای قبلی را نگه دارید و این را به انتها اضافه کنید */
+
+.lang-selector {
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-right: 10px;
+}
+
+.lang-selector:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.btn-login {
+    background-color: var(--primary);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
