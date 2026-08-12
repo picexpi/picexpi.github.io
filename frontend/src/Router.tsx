@@ -69,11 +69,15 @@ const AppRouter: React.FC = () => {
         <Route path="/success" element={<Success />} />
 
         {/* --- مسیرهای محافظت شده (فقط کاربران لاگین شده) --- */}
+        
+        {/* اصلاح شده: اضافه کردن transactionId و onReset برای رفع ارور TS2739 */}
         <Route 
           path="/payment" 
           element={
             <ProtectedRoute>
               <Payment 
+                transactionId="" // مقدار پیش‌فرض برای رفع ارور
+                onReset={() => console.log("Resetting payment...")} // تابع پیش‌فرض برای رفع ارور
                 onPaymentSuccess={() => console.log("Payment Successful")} 
                 onPaymentError={(err) => console.error("Payment Error:", err)} 
               /> 
