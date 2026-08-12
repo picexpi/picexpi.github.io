@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
+import './Navbar.css';
 
 const Navbar = () => {
     const { user, isAuthenticated, login, logout } = useAuth();
@@ -9,16 +10,20 @@ const Navbar = () => {
             <div className="logo">PiDao</div>
             
             <div className="nav-links">
+                {/* انتخابگر زبان */}
+                <select className="lang-selector">
+                    <option value="en">English</option>
+                    <option value="fa">فارسی</option>
+                </select>
+
                 <a href="#features">Features</a>
                 <a href="#about">About</a>
                 
-                {/* اگر کاربر لاگین نکرده بود، دکمه Login را نشان بده */}
                 {!isAuthenticated ? (
                     <button className="btn-login" onClick={login}>
                         Login with Pi
                     </button>
                 ) : (
-                    /* اگر کاربر لاگین کرده بود، نام او و دکمه Logout را نشان بده */
                     <div className="user-menu">
                         <span className="username">@{user?.username || 'User'}</span>
                         <button className="btn-logout" onClick={logout}>
