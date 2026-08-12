@@ -1,39 +1,43 @@
+// frontend/src/components/Navbar.jsx
 import React from 'react';
-import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
-    const { user, isAuthenticated, login, logout } = useAuth();
+  return (
+    <nav className="navbar">
+      <div className="navbar-container">
+        {/* بخش لوگو - جایگزین Header قبلی */}
+        <div className="navbar-logo">
+          <Link to="/">Pi<span>DAO</span></Link>
+        </div>
 
-    return (
-        <nav className="navbar">
-            <div className="logo">PiDao</div>
-            
-            <div className="nav-links">
-                {/* انتخابگر زبان */}
-                <select className="lang-selector">
-                    <option value="en">English</option>
-                    <option value="fa">فارسی</option>
-                </select>
+        {/* منوی اصلی */}
+        <ul className="nav-menu">
+          <li className="nav-item">
+            <Link to="/" className="nav-link">خانه</Link>
+          </li>
+          <li className="nav-item">
+            <a href="/#features" className="nav-link">ویژگی‌ها</a>
+          </li>
+          <li className="nav-item">
+            <a href="/#about" className="nav-link">درباره ما</a>
+          </li>
+          <li className="nav-item">
+            <Link to="/shop" className="nav-link">فروشگاه</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/tasks" className="nav-link">تسک‌ها</Link>
+          </li>
+        </ul>
 
-                <a href="#features">Features</a>
-                <a href="#about">About</a>
-                
-                {!isAuthenticated ? (
-                    <button className="btn-login" onClick={login}>
-                        Login with Pi
-                    </button>
-                ) : (
-                    <div className="user-menu">
-                        <span className="username">@{user?.username || 'User'}</span>
-                        <button className="btn-logout" onClick={logout}>
-                            Logout
-                        </button>
-                    </div>
-                )}
-            </div>
-        </nav>
-    );
+        {/* دکمه ورود */}
+        <div className="nav-auth">
+          <Link to="/signin" className="btn-signin">ورود</Link>
+        </div>
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;
