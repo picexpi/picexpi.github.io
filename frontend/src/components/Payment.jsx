@@ -5,8 +5,9 @@ import '../components/Payment.css';
 
 /**
  * Payment Component
- * @param {Function} onPaymentSuccess - تابعی که پس از موفقیت پرداخت صدا زده می‌شود
- * @param {Function} onPaymentError - تابعی که پس از بروز خطا صدا زده می‌شود
+ * @param {Object} props
+ * @param {Function} props.onPaymentSuccess - تابعی که پس از موفقیت پرداخت صدا زده می‌شود
+ * @param {Function} props.onPaymentError - تابعی که پس از بروز خطا صدا زده می‌شود
  */
 const Payment = ({ onPaymentSuccess = () => {}, onPaymentError = () => {} }) => {
   const { user } = useAuth();
@@ -18,7 +19,6 @@ const Payment = ({ onPaymentSuccess = () => {}, onPaymentError = () => {} }) => 
   const PI_CLIENT_ID = import.meta.env.VITE_PI_CLIENT_ID;
 
   useEffect(() => {
-    // بررسی وجود SDK در محیط Pi Browser
     if (window.Pi) {
       console.log("✅ Pi Network SDK is ready");
     } else {
@@ -27,7 +27,6 @@ const Payment = ({ onPaymentSuccess = () => {}, onPaymentError = () => {} }) => 
   }, []);
 
   const handlePayment = async () => {
-    // ۱. بررسی موجود بودن SDK
     if (!window.Pi) {
       setError("Pi SDK is not available. Please open this app in the Pi Browser.");
       return;
@@ -37,30 +36,29 @@ const Payment = ({ onPaymentSuccess = () => {}, onPaymentError = () => {} }) => 
     setError(null);
 
     try {
-      // ۲. ایجاد درخواست پرداخت اولیه از طریق SDK
+      // ۱. ایجاد درخواست پرداخت
       const payment = await window.Pi.createPayment({
         amount: 1.0, 
         memo: "Purchase from PiDao",
         metadata: {
-          productId: "item_123", // در آینده این مقدار از پروپ‌ها گرفته شود
-          userId: user?.uid || 'guest', // استفاده از uid مطابق با Mock SDK که قبلاً ساختیم
+          productId: "item_123",
+          userId: user?.uid || 'guest',
         },
       });
 
-      // ۳. مدیریت تایید سرور (Server Approval)
+      // ۲. مدیریت تایید سرور
       await window.Pi.onReadyForServerApproval(async (paymentId) => {
         try {
           console.log("⏳ Waiting for server approval for:", paymentId);
           
-          // ارسال درخواست به بک‌اِند برای تایید پرداخت
           await axiosClient.post('/payment/approve', {
             paymentId: paymentId,
           });
 
-          // ۴. مدیریت تکمیل پرداخت (Server Completion)
+          // ۳. مدیریت تکمیل پرداخت
           await window.Pi.onReadyForServerCompletion(async (paymentId, txid) => {
             try {
-              console.log("⏳ Finalizing transaction with backend...");
+              console.log("⏳ Finalizing transaction...");
               
               await axiosClient.post('/payment/complete', {
                 paymentId: paymentId,
@@ -73,7 +71,7 @@ const Payment = ({ onPaymentSuccess = () => {}, onPaymentError = () => {} }) => 
 
               console.log("🎉 Payment completed successfully!");
               setIsProcessing(false);
-              onPaymentSuccess(txid); // اطلاع‌رسانی به کامپوننت والد (مثلاً برای هدایت به صفحه Success)
+              onPaymentSuccess(txid); 
             } catch (err) {
               console.error("❌ Completion error:", err);
               setError("Failed to finalize transaction. Please check your history.");
