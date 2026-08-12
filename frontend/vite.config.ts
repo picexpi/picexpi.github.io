@@ -11,10 +11,10 @@ export default defineConfig(({ mode }) => {
 
   return {
     /**
-     * اصلاح بسیار مهم برای GitHub Pages:
-     * اگر در حالت توسعه هستی، base باید '/' باشد.
-     * اگر در حالت production (بیلد برای گیت‌هاب) هستی، باید نام مخزن شما باشد.
-     * نام مخزن شما: tiraxturumuz1.github.io
+     * اصلاح برای GitHub Pages:
+     * اگر پروژه شما در آدرس username.github.io/repo-name/ است، مقدار زیر را '/repo-name/' بگذارید.
+     * اما اگر پروژه در آدرس username.github.io است (User Page)، مقدار باید '/' باشد.
+     * با توجه به تجربه، اگر صفحه سفید می‌آید، احتمالاً باید نام دقیق ریپازیتوری را اینجا بگذارید.
      */
     base: isDev ? '/' : '/tiraxturumuz1.github.io/', 
 
