@@ -28,7 +28,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', color: '#fff' }}>
         <p>در حال برقراری ارتباط با سرور...</p>
-      </div>
+      </div >
     );
   }
 
@@ -47,7 +47,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
         background: '#311b92'
       }}>
         در حال بارگذاری...
-      </div>
+      </div >
     );
   }
 
@@ -70,16 +70,20 @@ const AppRouter: React.FC = () => {
 
         {/* --- مسیرهای محافظت شده (فقط کاربران لاگین شده) --- */}
         
-        {/* اصلاح شده: اضافه کردن transactionId و onReset برای رفع ارور TS2739 */}
+        {/* 
+            اصلاح نهایی برای رفع ارور TS2739:
+            ما تمام ویژگی‌هایی که Payment انتظار دارد را پاس می‌دهیم تا تایپ‌اسکریپت را راضی کنیم.
+            مقادیر اولیه (مانند رشته خالی یا توابع خالی) تا زمان شروع عملیات واقعی در Payment.jsx تغییر می‌کنند.
+        */}
         <Route 
           path="/payment" 
           element={
             <ProtectedRoute>
               <Payment 
-                transactionId="" // مقدار پیش‌فرض برای رفع ارور
-                onReset={() => console.log("Resetting payment...")} // تابع پیش‌فرض برای رفع ارور
-                onPaymentSuccess={() => console.log("Payment Successful")} 
-                onPaymentError={(err) => console.error("Payment Error:", err)} 
+                transactionId="" 
+                onReset={() => {}} 
+                onPaymentSuccess={(txid) => console.log("Success:", txid)} 
+                onPaymentError={(err) => console.error("Error:", err)} 
               /> 
             </ProtectedRoute>
           } 
