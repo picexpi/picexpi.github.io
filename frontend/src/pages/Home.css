@@ -1,19 +1,36 @@
-/* frontend/src/pages/Home.css */
-
-.home-page-wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    width: 100%;
-    /* استفاده از رنگ پس‌زمینه استاندارد پروژه یا سفید */
-    background-color: #ffffff; 
+.home-container { 
+    min-height: 100vh; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    background: linear-gradient(135deg, #673ab7 0%, #311b92 100%); 
+    color: #fff; 
+    text-align: center; 
+    padding: 20px; 
+    direction: rtl; 
 }
-
-main {
-    flex: 1; /* باعث می‌شود فوتر همیشه به پایین چسبیده باشد */
-    display: flex;
-    flex-direction: column;
+.home-card { 
+    background: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(15px); 
+    padding: 40px; 
+    border-radius: 24px; 
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); 
+    border: 1px solid rgba(255, 255, 255, 0.15); 
+    max-width: 450px; 
+    width: 100%; 
 }
-
-/* اگر خواستید استایل خاصی فقط برای صفحه اصلی داشته باشید اینجا بنویسید */
-
+.pi-icon { font-size: 50px; margin-bottom: 10px; }
+.login-btn { 
+    width: 100%; 
+    padding: 14px; 
+    margin-top: 20px; 
+    font-weight: bold; 
+    border: none; 
+    border-radius: 12px; 
+    cursor: pointer; 
+    background: #fff; 
+    color: #673ab7; 
+    transition: 0.3s;
+}
+.login-btn:hover { background: #f0f0f0; }
+.home-footer { margin-top: 40px; font-size: 12px; opacity: 0.5; }
