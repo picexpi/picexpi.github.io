@@ -11,15 +11,26 @@ const helmet = require('helmet');
 
 const prisma = new PrismaClient();
 
-const allowedOrigins = [
+const defaultAllowedOrigins = [
   'https://tiraxturumuz1.github.io',
+  'https://apppidaonkm2562.pinet.com',
   'http://localhost:5173',
   'http://localhost:3000',
 ];
 
-if (process.env.FRONTEND_URL) {
-  allowedOrigins.push(process.env.FRONTEND_URL);
-}
+const envAllowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(',').map((origin) => origin.trim())
+  : [];
+
+const allowedOrigins = Array.from(
+  new Set([
+    ...defaultAllowedOrigins,
+    ...envAllowedOrigins,
+    process.env.FRONTEND_URL,
+  ].filter(Boolean))
+);
+
+console.log('✅ Allowed CORS origins:', allowedOrigins);
 
 const corsOptions = {
   origin: function (origin, callback) {
