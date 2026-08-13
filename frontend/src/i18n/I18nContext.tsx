@@ -96,6 +96,46 @@ const translations: Translations = {
     en: 'Mainnet',
     tr: 'Mainnet',
   },
+  signInTitle: {
+    fa: 'ورود به Pi DAO',
+    en: 'Pi DAO Login',
+    tr: 'Pi DAO Giriş',
+  },
+  signInDescription: {
+    fa: 'با حساب Pi Network خود وارد شوید.',
+    en: 'Sign in with your Pi Network account.',
+    tr: 'Pi Network hesabınızla giriş yapın.',
+  },
+  pleaseWait: {
+    fa: 'لطفاً صبر کنید...',
+    en: 'Please wait...',
+    tr: 'Lütfen bekleyin...',
+  },
+  pleaseUsePiBrowser: {
+    fa: 'لطفاً برای احراز هویت از Pi Browser استفاده کنید.',
+    en: 'Please use Pi Browser for authentication.',
+    tr: 'Kimlik doğrulama için lütfen Pi Browser kullanın.',
+  },
+  piSdkReadyLogin: {
+    fa: 'Pi SDK آماده است. می‌توانید با Pi وارد شوید.',
+    en: 'Pi SDK is ready. You can login with Pi.',
+    tr: 'Pi SDK hazır. Pi ile giriş yapabilirsiniz.',
+  },
+  redirecting: {
+    fa: 'در حال انتقال...',
+    en: 'Redirecting...',
+    tr: 'Yönlendiriliyor...',
+  },
+  buyNow: {
+    fa: 'خرید',
+    en: 'Buy Now',
+    tr: 'Satın Al',
+  },
+  processing: {
+    fa: 'در حال پردازش...',
+    en: 'Processing...',
+    tr: 'İşleniyor...',
+  },
 };
 
 interface I18nContextType {
