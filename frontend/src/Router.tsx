@@ -3,6 +3,7 @@ import React from 'react';
 // استفاده از HashRouter برای سازگاری کامل با GitHub Pages
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
+import { useI18n } from './i18n/I18nContext';
 
 // Pages & Components
 import Home from './pages/Home';
@@ -13,6 +14,8 @@ import Payment from './components/Payment';
 import History from './components/History';
 import Success from './components/Success';
 import PiTestnetPayment from './components/PiTestnetPayment';
+import LanguageSwitcher from './components/LanguageSwitcher';
+import PiHomeLogin from './components/PiHomeLogin';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -23,6 +26,7 @@ interface ProtectedRouteProps {
  */
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const auth = useAuth();
+  const { t } = useI18n();
 
   if (!auth || auth.loading === undefined) {
     return (
@@ -33,9 +37,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
           alignItems: 'center',
           height: '100vh',
           color: '#fff',
+          background: '#311b92',
+          fontFamily: 'sans-serif',
         }}
       >
-        <p>در حال برقراری ارتباط با سرور...</p>
+        <p>{t('connectingToServer')}</p>
       </div>
     );
   }
@@ -54,9 +60,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
           fontSize: '1.2rem',
           color: '#fff',
           background: '#311b92',
+          fontFamily: 'sans-serif',
         }}
       >
-        در حال بارگذاری...
+        {t('loading')}
       </div>
     );
   }
@@ -81,16 +88,40 @@ const AppRouter: React.FC = () => {
           path="/"
           element={
             <>
+              {/* انتخاب زبان کل برنامه */}
+              <LanguageSwitcher />
+
+              {/* صفحه اصلی فعلی */}
               <Home />
 
-              {/* بخش موقت لاگین/پرداخت تست‌نت پای در صفحه اصلی */}
+              {/* ورود واقعی با Pi SDK در صفحه اول */}
+              <PiHomeLogin />
+
+              {/* بخش پرداخت Pi با مبلغ متغیر و Testnet/Mainnet */}
               <PiTestnetPayment />
             </>
           }
         />
 
-        <Route path="/login" element={<SignIn />} />
-        <Route path="/success" element={<Success />} />
+        <Route
+          path="/login"
+          element={
+            <>
+              <LanguageSwitcher />
+              <SignIn />
+            </>
+          }
+        />
+
+        <Route
+          path="/success"
+          element={
+            <>
+              <LanguageSwitcher />
+              <Success />
+            </>
+          }
+        />
 
         {/* --- مسیرهای محافظت شده --- */}
         <Route
