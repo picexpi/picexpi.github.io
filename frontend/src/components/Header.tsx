@@ -1,13 +1,21 @@
+// frontend/src/components/Header.tsx
 import React from 'react';
-// اگر عکس وجود ندارد، این خط را کامنت کنید تا صفحه سفید نشود
-// import myLogo from '../assets/my-logo.png'; 
+import { useI18n } from '../i18n/I18nContext';
+// اگر عکس وجود ندارد، این خط را کامنت نگه دارید تا صفحه سفید نشود
+// import myLogo from '../assets/my-logo.png';
 
-const Header = () => {
+const Header: React.FC = () => {
+  const { t } = useI18n();
+
   return (
     <header className="main-header">
-      {/* اگر عکس ندارید، فعلاً یک متن بگذارید تا خطا رفع شود */}
-      <div className="logo-placeholder">PiDao</div>
-      {/* <img src={myLogo} alt="Logo" width="100" /> */}
+      {/* اگر لوگو ندارید، متن چندزبانه نمایش داده می‌شود */}
+      <div className="logo-placeholder">
+        {t('brandName')}
+      </div>
+
+      {/* اگر بعداً لوگو اضافه کردی، این را فعال کن */}
+      {/* <img src={myLogo} alt={t('brandName')} width="100" /> */}
     </header>
   );
 };
