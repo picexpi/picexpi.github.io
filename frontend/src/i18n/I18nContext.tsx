@@ -244,6 +244,81 @@ const translations: Translations = {
     en: 'Access a wide range of digital goods and services in the dedicated marketplace.',
     tr: 'Özel mağazada geniş bir dijital ürün ve hizmet yelpazesine erişin.',
   },
+  heroTitle: {
+  fa: 'آینده خود را با PiDao غیرمتمرکز کنید',
+  en: 'Decentralize Your Future with PiDao',
+  tr: 'Geleceğinizi PiDao ile Merkeziyetsizleştirin',
+},
+heroDescription: {
+  fa: 'نسل بعدی تصمیم‌گیری خودمختار؛ توانمندسازی جوامع از طریق حاکمیت شفاف.',
+  en: 'The next generation of autonomous decision-making. Empowering communities through transparent governance.',
+  tr: 'Otonom karar almanın yeni nesli. Toplulukları şeffaf yönetişimle güçlendiriyoruz.',
+},
+loginWithPiWallet: {
+  fa: 'ورود با کیف پول Pi',
+  en: 'Login with Pi Wallet',
+  tr: 'Pi Wallet ile Giriş',
+},
+home: {
+  fa: 'خانه',
+  en: 'Home',
+  tr: 'Ana Sayfa',
+},
+features: {
+  fa: 'ویژگی‌ها',
+  en: 'Features',
+  tr: 'Özellikler',
+},
+aboutUs: {
+  fa: 'درباره ما',
+  en: 'About Us',
+  tr: 'Hakkımızda',
+},
+shop: {
+  fa: 'فروشگاه',
+  en: 'Shop',
+  tr: 'Mağaza',
+},
+tasks: {
+  fa: 'تسک‌ها',
+  en: 'Tasks',
+  tr: 'Görevler',
+},
+login: {
+  fa: 'ورود',
+  en: 'Login',
+  tr: 'Giriş',
+},
+pollQuestion: {
+  fa: 'آیا دوست دارید بخش‌های مهمی از تصمیم‌گیری جهانی غیرمتمرکز شود؟',
+  en: 'Would you like to decentralize important parts of global decision-making?',
+  tr: 'Küresel karar alma süreçlerinin önemli bölümlerinin merkeziyetsizleşmesini ister misiniz?',
+},
+pollYes: {
+  fa: 'بله، قطعاً',
+  en: 'Yes, definitely',
+  tr: 'Evet, kesinlikle',
+},
+pollNo: {
+  fa: 'نه، متمرکز بماند',
+  en: 'No, keep it centralized',
+  tr: 'Hayır, merkezi kalsın',
+},
+yesLabel: {
+  fa: 'بله',
+  en: 'Yes',
+  tr: 'Evet',
+},
+noLabel: {
+  fa: 'خیر',
+  en: 'No',
+  tr: 'Hayır',
+},
+alreadyVoted: {
+  fa: 'رأی شما ثبت شد.',
+  en: 'Your vote has been recorded.',
+  tr: 'Oyunuz kaydedildi.',
+},
 };
 
 interface I18nContextType {
