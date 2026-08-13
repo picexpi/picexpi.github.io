@@ -1,16 +1,17 @@
 {
   "name": "pidao-backend",
   "version": "1.0.0",
-  "description": "Backend for PiDao Project on Bonto",
+  "description": "Backend for PiDao Project",
   "main": "server.js",
   "type": "commonjs",
+  "license": "MIT",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "postinstall": "prisma generate",
-    "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate deploy",
-    "prisma:studio": "prisma studio"
+    "postinstall": "prisma generate --schema=prisma/schema.prisma",
+    "prisma:generate": "prisma generate --schema=prisma/schema.prisma",
+    "prisma:migrate": "prisma migrate deploy --schema=prisma/schema.prisma",
+    "prisma:studio": "prisma studio --schema=prisma/schema.prisma"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
@@ -27,8 +28,5 @@
   },
   "engines": {
     "node": ">=18.0.0"
-  },
-  "prisma": {
-    "schema": "prisma/schema.prisma"
   }
 }
