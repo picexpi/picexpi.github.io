@@ -1,43 +1,57 @@
 // frontend/src/components/Features.jsx
 import React from 'react';
 import './Features.css';
-
-const features = [
-  {
-    title: "پرداخت‌های امن با Pi",
-    description: "انتقال سریع و شفاف دارایی‌های دیجیتال بر پایه پروتکل‌های امن شبکه پای.",
-    icon: "🔐"
-  },
-  {
-    title: "تعامل غیرمتمرکز (DAO)",
-    description: "مشارکت در تصمیم‌گیری‌های شبکه و تاثیرگذاری بر آینده اکوسیستم بلاک‌چین.",
-    icon: "🌐"
-  },
-  {
-    title: "پنل مدیریت تراکنش",
-    description: "مشاهده لحظه‌ای تاریخچه پرداخت‌ها و مدیریت موجودی در یک محیط کاربرپسند.",
-    icon: "📊"
-  },
-  {
-    title: "پشتیبانی از محصولات دیجیتال",
-    description: "دسترسی به طیف وسیعی از خدمات و کالاهای دیجیتال در فروشگاه اختصاصی.",
-    icon: "🛒"
-  }
-];
+import { useI18n } from '../i18n/I18nContext';
 
 const Features = () => {
+  const { t } = useI18n();
+
+  const features = [
+    {
+      title: t('featureSecurePaymentsTitle'),
+      description: t('featureSecurePaymentsDescription'),
+      icon: '🔐',
+    },
+    {
+      title: t('featureDaoTitle'),
+      description: t('featureDaoDescription'),
+      icon: '🌐',
+    },
+    {
+      title: t('featureTransactionPanelTitle'),
+      description: t('featureTransactionPanelDescription'),
+      icon: '📊',
+    },
+    {
+      title: t('featureDigitalProductsTitle'),
+      description: t('featureDigitalProductsDescription'),
+      icon: '🛒',
+    },
+  ];
+
   return (
     <section id="features" className="features-section">
       <div className="container">
-        <h2 className="section-title">ویژگی‌های کلیدی سیستم</h2>
+        <h2 className="section-title">
+          {t('featuresSectionTitle')}
+        </h2>
+
         <div className="features-grid">
-          {features.map((f, index) => (
+          {features.map((feature, index) => (
             <div key={index} className="feature-card">
               <div className="feature-icon-wrapper">
-                <span className="feature-icon">{f.icon}</span>
+                <span className="feature-icon">
+                  {feature.icon}
+                </span>
               </div>
-              <h3 className="feature-title">{f.title}</h3>
-              <p className="feature-description">{f.description}</p>
+
+              <h3 className="feature-title">
+                {feature.title}
+              </h3>
+
+              <p className="feature-description">
+                {feature.description}
+              </p>
             </div>
           ))}
         </div>
