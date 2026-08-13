@@ -7,6 +7,8 @@ const { PrismaClient } = require('@prisma/client');
 dotenv.config();
 
 const app = express();
+const helmet = require('helmet');
+
 const prisma = new PrismaClient();
 
 const allowedOrigins = [
