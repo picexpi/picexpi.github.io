@@ -24,8 +24,7 @@ function getPiApiKey() {
 
 /**
  * Helper: هدرهای درخواست به Pi API
- * نکته مهم:
- * برای Payment API باید از Authorization: Key استفاده شود، نه Bearer
+ * برای Pi Payment API باید از Authorization: Key استفاده شود
  */
 function getPiApiHeaders() {
   return {
@@ -40,8 +39,8 @@ function getPiApiHeaders() {
  * @access  Private
  *
  * نکته:
- * پرداخت Pi با SDK در فرانت‌اند ساخته می‌شود.
- * بنابراین این route فقط برای ساخت order/transaction داخلی است.
+ * خود پرداخت Pi با Pi.createPayment در فرانت‌اند ساخته می‌شود.
+ * این route فقط رکورد داخلی سفارش/تراکنش را می‌سازد.
  */
 router.post('/create', authenticateToken, async (req, res) => {
   try {
@@ -74,7 +73,9 @@ router.post('/create', authenticateToken, async (req, res) => {
     }
 
     const existingTransaction = await prisma.transaction.findUnique({
-      where: { orderId: String(orderId) },
+      where: {
+        orderId: String(orderId),
+      },
     });
 
     if (existingTransaction) {
@@ -89,7 +90,7 @@ router.post('/create', authenticateToken, async (req, res) => {
         userId,
         amount: parsedAmount,
         orderId: String(orderId),
-        status: 'pending',
+        status: 'PENDING',
       },
     });
 
@@ -113,7 +114,10 @@ router.post('/create', authenticateToken, async (req, res) => {
     return res.status(500).json({
       success: false,
       message: 'خطای غیرمنتظره در ایجاد پرداخت',
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined,
+      error:
+        process.env.NODE_ENV === 'development'
+          ? error.message
+          : undefined,
     });
   }
 });
@@ -122,10 +126,10 @@ router.post('/create', authenticateToken, async (req, res) => {
  * @route   POST /api/payment/approve
  * @alias   POST /api/pi/approve
  * @desc    تأیید پرداخت Pi از سمت سرور
- * @access  Public for SDK callback / بهتر است بعداً امن‌تر شود
+ * @access  Public for Pi SDK callback
  *
- * این route همان چیزی است که کیف پول منتظر آن می‌ماند.
- * اگر این route صدا زده نشود، Wallet روی Preparing for a payment گیر می‌کند.
+ * این route همان چیزی است که اگر صدا زده نشود،
+ * Pi Wallet روی Preparing for a payment گیر می‌کند.
  */
 router.post('/approve', async (req, res) => {
   try {
@@ -138,7 +142,10 @@ router.post('/approve', async (req, res) => {
       });
     }
 
-    console.log('🟡 Approving Pi payment:', paymentId);
+    console.log('🟡 Approving Pi payment:', {
+      paymentId,
+      orderId,
+    });
 
     const piResponse = await axios.post(
       `${PI_API_BASE_URL}/payments/${paymentId}/approve`,
@@ -150,18 +157,25 @@ router.post('/approve', async (req, res) => {
     );
 
     /**
-     * اگر orderId از فرانت ارسال شود، وضعیت تراکنش داخلی را هم آپدیت می‌کنیم.
-     * چون schema فعلی تو را کامل نداریم، فقط فیلدهای موجود قبلی را استفاده می‌کنیم:
-     * orderId و status
+     * اگر orderId از فرانت ارسال شده باشد،
+     * تراکنش داخلی را به APPROVED تغییر می‌دهیم.
      */
     if (orderId) {
       try {
         await prisma.transaction.updateMany({
-          where: { orderId: String(orderId) },
-          data: { status: 'approved' },
+          where: {
+            orderId: String(orderId),
+          },
+          data: {
+            status: 'APPROVED',
+            paymentId: String(paymentId),
+          },
         });
       } catch (dbError) {
-        console.warn('⚠️ Could not update transaction status to approved:', dbError.message);
+        console.warn(
+          '⚠️ Could not update transaction status to APPROVED:',
+          dbError.message
+        );
       }
     }
 
@@ -171,14 +185,18 @@ router.post('/approve', async (req, res) => {
       data: piResponse.data,
     });
   } catch (error) {
-    console.error('❌ Pi Approve Error:', error.response?.data || error.message);
+    console.error(
+      '❌ Pi Approve Error:',
+      error.response?.data || error.message
+    );
 
     return res.status(500).json({
       success: false,
       message: 'خطا در approve کردن پرداخت Pi',
-      error: process.env.NODE_ENV === 'development'
-        ? error.response?.data || error.message
-        : undefined,
+      error:
+        process.env.NODE_ENV === 'development'
+          ? error.response?.data || error.message
+          : undefined,
     });
   }
 });
@@ -186,8 +204,8 @@ router.post('/approve', async (req, res) => {
 /**
  * @route   POST /api/payment/complete
  * @alias   POST /api/pi/complete
- * @desc    تکمیل پرداخت Pi بعد از تایید کاربر در Wallet
- * @access  Public for SDK callback / بهتر است بعداً امن‌تر شود
+ * @desc    تکمیل پرداخت Pi بعد از تأیید کاربر در Wallet
+ * @access  Public for Pi SDK callback
  */
 router.post('/complete', async (req, res) => {
   try {
@@ -200,7 +218,11 @@ router.post('/complete', async (req, res) => {
       });
     }
 
-    console.log('🟢 Completing Pi payment:', { paymentId, txid });
+    console.log('🟢 Completing Pi payment:', {
+      paymentId,
+      txid,
+      orderId,
+    });
 
     const piResponse = await axios.post(
       `${PI_API_BASE_URL}/payments/${paymentId}/complete`,
@@ -214,17 +236,26 @@ router.post('/complete', async (req, res) => {
     );
 
     /**
-     * اگر orderId ارسال شده باشد، وضعیت تراکنش داخلی را completed می‌کنیم.
-     * اگر schema تو فیلد txid ندارد، فقط status را تغییر می‌دهیم تا خطای Prisma نگیری.
+     * اگر orderId ارسال شده باشد،
+     * تراکنش داخلی را completed می‌کنیم.
      */
     if (orderId) {
       try {
         await prisma.transaction.updateMany({
-          where: { orderId: String(orderId) },
-          data: { status: 'completed' },
+          where: {
+            orderId: String(orderId),
+          },
+          data: {
+            status: 'COMPLETED',
+            paymentId: String(paymentId),
+            txid: String(txid),
+          },
         });
       } catch (dbError) {
-        console.warn('⚠️ Could not update transaction status to completed:', dbError.message);
+        console.warn(
+          '⚠️ Could not update transaction status to COMPLETED:',
+          dbError.message
+        );
       }
     }
 
@@ -234,14 +265,59 @@ router.post('/complete', async (req, res) => {
       data: piResponse.data,
     });
   } catch (error) {
-    console.error('❌ Pi Complete Error:', error.response?.data || error.message);
+    console.error(
+      '❌ Pi Complete Error:',
+      error.response?.data || error.message
+    );
 
     return res.status(500).json({
       success: false,
       message: 'خطا در complete کردن پرداخت Pi',
-      error: process.env.NODE_ENV === 'development'
-        ? error.response?.data || error.message
-        : undefined,
+      error:
+        process.env.NODE_ENV === 'development'
+          ? error.response?.data || error.message
+          : undefined,
+    });
+  }
+});
+
+/**
+ * @route   POST /api/payment/cancel
+ * @desc    ثبت لغو پرداخت در دیتابیس
+ * @access  Public / optional
+ */
+router.post('/cancel', async (req, res) => {
+  try {
+    const { orderId, paymentId } = req.body;
+
+    if (!orderId && !paymentId) {
+      return res.status(400).json({
+        success: false,
+        message: 'orderId یا paymentId الزامی است',
+      });
+    }
+
+    const whereCondition = orderId
+      ? { orderId: String(orderId) }
+      : { paymentId: String(paymentId) };
+
+    await prisma.transaction.updateMany({
+      where: whereCondition,
+      data: {
+        status: 'CANCELLED',
+      },
+    });
+
+    return res.json({
+      success: true,
+      message: 'Payment cancelled status saved',
+    });
+  } catch (error) {
+    console.error('❌ Payment Cancel Error:', error);
+
+    return res.status(500).json({
+      success: false,
+      message: 'خطا در ثبت لغو پرداخت',
     });
   }
 });
@@ -263,8 +339,12 @@ router.get('/history', authenticateToken, async (req, res) => {
     }
 
     const history = await prisma.transaction.findMany({
-      where: { userId },
-      orderBy: { createdAt: 'desc' },
+      where: {
+        userId,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
       include: {
         user: {
           select: {
