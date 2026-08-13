@@ -9,28 +9,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// استفاده از Enum برای نقش‌های کاربری جهت امنیت بیشتر
+// نقش‌های کاربری
 enum UserRole {
   USER
   ADMIN
 }
 
-// استفاده از Enum برای وضعیت‌های تراکنش جهت جلوگیری از خطای منطقی
+// وضعیت‌های تراکنش
 enum TransactionStatus {
   PENDING
+  APPROVED
   COMPLETED
   FAILED
+  CANCELLED
 }
 
 model User {
-  id              Int            @id @default(autoincrement())
-  piUserId        String         @unique
-  username        String         @unique @default("Pi User")
-  role            UserRole       @default(USER)
-  piWalletAddress String         @default("")
-  createdAt       DateTime       @default(now())
-  
-  // رابطه با تراکنش‌ها
+  id              Int           @id @default(autoincrement())
+  piUserId        String        @unique
+  username        String        @unique
+  role            UserRole      @default(USER)
+  piWalletAddress String        @default("")
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
   transactions    Transaction[]
 }
 
@@ -38,9 +40,9 @@ model Product {
   id           String   @id @default(uuid())
   name         String
   description  String
-  image        String   // آدرس URL تصویر
-  price        Float    // قیمت عددی برای محاسبات ریاضی
-  priceDisplay String   // قیمت نمایشی (مثلاً "10 π")
+  image        String
+  price        Float
+  priceDisplay String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
@@ -48,11 +50,19 @@ model Product {
 model Transaction {
   id        Int               @id @default(autoincrement())
   amount    Float
-  orderId   String            @unique 
-  status    TransactionStatus @default(PENDING)
-  createdAt DateTime          @default(now())
+  orderId   String            @unique
 
-  // رابطه با کاربر
+  // شناسه پرداخت Pi، اگر بعداً خواستی ذخیره کنی
+  paymentId String?           @unique
+
+  // txid بعد از تأیید کیف پول
+  txid      String?           @unique
+
+  status    TransactionStatus @default(PENDING)
+
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
   userId    Int
   user      User              @relation(fields: [userId], references: [id])
 }
