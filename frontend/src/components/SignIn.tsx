@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useI18n } from '../i18n/I18nContext';
 
 declare global {
   interface Window {
@@ -10,16 +11,20 @@ declare global {
   }
 }
 
+const PI_SANDBOX =
+  String(import.meta.env.VITE_PI_SANDBOX ?? 'true') === 'true';
+
 const SignIn: React.FC = () => {
   const auth = useAuth();
   const navigate = useNavigate();
+  const { t } = useI18n();
 
-  const [status, setStatus] = useState<string>('Initializing Pi SDK...');
+  const [status, setStatus] = useState<string>(t('initializingPiSdk'));
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (!window.Pi) {
-      setStatus('Pi SDK not found. Please open this app inside Pi Browser.');
+      setStatus(t('piSdkNotFound'));
       return;
     }
 
@@ -28,37 +33,38 @@ const SignIn: React.FC = () => {
       if (!window.__PI_SDK_INITIALIZED__) {
         window.Pi.init({
           version: '2.0',
-          sandbox: true,
+          sandbox: PI_SANDBOX,
         });
 
         window.__PI_SDK_INITIALIZED__ = true;
       }
 
-      setStatus('Pi SDK is ready. You can login with Pi.');
+      setStatus(t('piSdkReadyLogin'));
     } catch (error: any) {
       console.error('Pi SDK init error:', error);
       setStatus('Pi SDK init error: ' + (error?.message || error));
     }
-  }, []);
+  }, [t]);
 
   const onIncompletePaymentFound = (payment: any) => {
     console.log('Incomplete payment found:', payment);
+    setStatus(t('incompletePaymentFound'));
   };
 
   const handlePiLogin = async () => {
     if (!auth) {
-      setStatus('Auth context is not available.');
+      setStatus(t('authContextMissing'));
       return;
     }
 
     if (!window.Pi) {
-      setStatus('Pi SDK not available. Please open this website in Pi Browser.');
+      setStatus(t('piSdkNotFound'));
       return;
     }
 
     try {
       setIsLoading(true);
-      setStatus('Authenticating with Pi...');
+      setStatus(t('authenticating'));
 
       const authResult = await window.Pi.authenticate(
         ['username', 'payments'],
@@ -78,16 +84,25 @@ const SignIn: React.FC = () => {
         throw new Error('Invalid Pi user data received.');
       }
 
-      // اتصال نتیجه Pi SDK به سیستم AuthContext فعلی پروژه
-      await auth.login(piUserId, username);
+      /**
+       * اگر AuthContext تو ۳ ورودی را قبول کند:
+       * login(piUserId, username, accessToken)
+       *
+       * اگر هنوز فقط ۲ ورودی قبول کند، any باعث می‌شود بیلد گیر نکند.
+       */
+      await (auth.login as any)(
+        piUserId,
+        username,
+        authResult?.accessToken
+      );
 
-      setStatus('Login successful. Redirecting...');
+      setStatus(`${t('loginSuccess')} ${t('redirecting')}`);
       navigate('/', { replace: true });
     } catch (error: any) {
       console.error('Pi login error:', error);
 
       setStatus(
-        'Login failed: ' +
+        `${t('loginFailed')} ` +
           (
             error?.response?.data?.message ||
             error?.message ||
@@ -98,6 +113,8 @@ const SignIn: React.FC = () => {
       setIsLoading(false);
     }
   };
+
+  const networkLabel = PI_SANDBOX ? t('testnet') : t('mainnet');
 
   return (
     <div
@@ -129,18 +146,34 @@ const SignIn: React.FC = () => {
             fontSize: '28px',
           }}
         >
-          Pi DAO Login
+          {t('signInTitle')}
         </h1>
 
         <p
           style={{
             color: '#666',
-            marginBottom: '24px',
+            marginBottom: '14px',
             fontSize: '15px',
+            lineHeight: 1.6,
           }}
         >
-          Sign in with your Pi Network account.
+          {t('signInDescription')}
         </p>
+
+        <div
+          style={{
+            display: 'inline-block',
+            marginBottom: '22px',
+            padding: '6px 12px',
+            borderRadius: '999px',
+            background: PI_SANDBOX ? '#fff3e0' : '#e8f5e9',
+            color: PI_SANDBOX ? '#ef6c00' : '#2e7d32',
+            fontSize: '12px',
+            fontWeight: 700,
+          }}
+        >
+          {t('network')}: {networkLabel}
+        </div>
 
         <button
           onClick={handlePiLogin}
@@ -157,7 +190,7 @@ const SignIn: React.FC = () => {
             fontWeight: 700,
           }}
         >
-          {isLoading ? 'Please wait...' : 'Login with Pi'}
+          {isLoading ? t('pleaseWait') : t('loginWithPi')}
         </button>
 
         <div
@@ -182,7 +215,7 @@ const SignIn: React.FC = () => {
             fontSize: '12px',
           }}
         >
-          Please use Pi Browser for authentication.
+          {t('pleaseUsePiBrowser')}
         </p>
       </div>
     </div>
