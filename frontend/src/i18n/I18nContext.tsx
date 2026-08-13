@@ -136,6 +136,114 @@ const translations: Translations = {
     en: 'Processing...',
     tr: 'İşleniyor...',
   },
+  brandName: {
+  fa: 'PiDao',
+  en: 'PiDao',
+  tr: 'PiDao',
+  },
+
+  aboutSubtitle: {
+    fa: 'درباره پروژه ما',
+    en: 'About Our Project',
+    tr: 'Projemiz Hakkında',
+  },
+  aboutTitleBefore: {
+    fa: 'پل ارتباطی شما با آینده',
+    en: 'Your gateway to the future of',
+    tr: 'Geleceğin kapısı',
+  },
+  aboutTitleHighlight: {
+    fa: 'Pi Network',
+    en: 'Pi Network',
+    tr: 'Pi Network',
+  },
+  aboutText: {
+    fa: 'ما در این پلتفرم، بستری امن و غیرمتمرکز را برای کاربران شبکه پای فراهم کرده‌ایم تا بتوانند خدمات دیجیتال را به شکلی ساده، سریع و بدون واسطه مبادله کنند. هدف ما، قدرتمندسازی جامعه Pi از طریق تکنولوژی‌های مدرن بلاک‌چین است.',
+    en: 'On this platform, we provide a secure and decentralized environment for Pi Network users to exchange digital services simply, quickly, and without intermediaries. Our goal is to empower the Pi community through modern blockchain technologies.',
+    tr: 'Bu platformda, Pi Network kullanıcılarının dijital hizmetleri basit, hızlı ve aracısız şekilde paylaşabilmesi için güvenli ve merkeziyetsiz bir ortam sunuyoruz. Amacımız, modern blockchain teknolojileriyle Pi topluluğunu güçlendirmektir.',
+  },
+
+  transactionSecurity: {
+    fa: 'امنیت تراکنش',
+    en: 'Transaction Security',
+    tr: 'İşlem Güvenliği',
+  },
+  technicalSupport: {
+    fa: 'پشتیبانی فنی',
+    en: 'Technical Support',
+    tr: 'Teknik Destek',
+  },
+  decentralizedGovernance: {
+    fa: 'حاکمیت غیرمتمرکز',
+    en: 'Decentralized Governance',
+    tr: 'Merkeziyetsiz Yönetim',
+  },
+
+  ourVision: {
+    fa: 'چشم‌انداز ما',
+    en: 'Our Vision',
+    tr: 'Vizyonumuz',
+  },
+  visionText: {
+    fa: 'ایجاد یک اکوسیستم اقتصادی خودکفا، که در آن هر کاربر Pi می‌تواند با کمترین ریسک، تجارت و تعاملات مالی جهانی خود را مدیریت کند.',
+    en: 'Creating a self-sustaining economic ecosystem where every Pi user can manage global trade and financial interactions with minimal risk.',
+    tr: 'Her Pi kullanıcısının küresel ticaret ve finansal etkileşimlerini düşük riskle yönetebileceği kendi kendine yeten bir ekonomik ekosistem oluşturmak.',
+  },
+  web3Ready: {
+    fa: 'آماده Web3',
+    en: 'Web3 Ready',
+    tr: 'Web3 Hazır',
+  },
+
+  featuresSectionTitle: {
+    fa: 'ویژگی‌های کلیدی سیستم',
+    en: 'Key System Features',
+    tr: 'Sistemin Temel Özellikleri',
+  },
+
+  featureSecurePaymentsTitle: {
+    fa: 'پرداخت‌های امن با Pi',
+    en: 'Secure Payments with Pi',
+    tr: 'Pi ile Güvenli Ödemeler',
+  },
+  featureSecurePaymentsDescription: {
+    fa: 'انتقال سریع و شفاف دارایی‌های دیجیتال بر پایه پروتکل‌های امن شبکه پای.',
+    en: 'Fast and transparent transfer of digital assets based on secure Pi Network protocols.',
+    tr: 'Pi Network güvenli protokolleriyle dijital varlıkların hızlı ve şeffaf transferi.',
+  },
+
+  featureDaoTitle: {
+    fa: 'تعامل غیرمتمرکز DAO',
+    en: 'Decentralized DAO Interaction',
+    tr: 'Merkeziyetsiz DAO Etkileşimi',
+  },
+  featureDaoDescription: {
+    fa: 'مشارکت در تصمیم‌گیری‌های شبکه و تأثیرگذاری بر آینده اکوسیستم بلاک‌چین.',
+    en: 'Participate in network decisions and influence the future of the blockchain ecosystem.',
+    tr: 'Ağ kararlarına katılın ve blockchain ekosisteminin geleceğini etkileyin.',
+  },
+
+  featureTransactionPanelTitle: {
+    fa: 'پنل مدیریت تراکنش',
+    en: 'Transaction Management Panel',
+    tr: 'İşlem Yönetim Paneli',
+  },
+  featureTransactionPanelDescription: {
+    fa: 'مشاهده لحظه‌ای تاریخچه پرداخت‌ها و مدیریت موجودی در یک محیط کاربرپسند.',
+    en: 'View payment history in real time and manage balances in a user-friendly environment.',
+    tr: 'Ödeme geçmişini anlık görüntüleyin ve bakiyenizi kullanıcı dostu bir ortamda yönetin.',
+  },
+
+  featureDigitalProductsTitle: {
+    fa: 'پشتیبانی از محصولات دیجیتال',
+    en: 'Digital Products Support',
+    tr: 'Dijital Ürün Desteği',
+  },
+  featureDigitalProductsDescription: {
+    fa: 'دسترسی به طیف وسیعی از خدمات و کالاهای دیجیتال در فروشگاه اختصاصی.',
+    en: 'Access a wide range of digital goods and services in the dedicated marketplace.',
+    tr: 'Özel mağazada geniş bir dijital ürün ve hizmet yelpazesine erişin.',
+  },
 };
 
 interface I18nContextType {
