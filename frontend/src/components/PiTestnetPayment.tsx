@@ -8,13 +8,25 @@ declare global {
   }
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '';
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || 'https://pidao.bonto.run/api';
+
+const PI_SANDBOX =
+  String(import.meta.env.VITE_PI_SANDBOX ?? 'true') === 'true';
+
+const PI_NETWORK_LABEL = PI_SANDBOX ? 'Testnet / Sandbox' : 'Mainnet';
+
+const DEFAULT_AMOUNT =
+  import.meta.env.VITE_DEFAULT_PI_AMOUNT || '0.01';
+
+const MIN_AMOUNT =
+  Number(import.meta.env.VITE_MIN_PI_AMOUNT || '0.001');
+
+const MAX_AMOUNT =
+  Number(import.meta.env.VITE_MAX_PI_AMOUNT || '100');
 
 function getHealthUrl() {
-  // اگر VITE_API_URL = https://domain.com/api باشد،
-  // health باید بشود https://domain.com/health
   if (!API_BASE_URL) return '';
-
   return API_BASE_URL.replace(/\/api\/?$/, '') + '/health';
 }
 
@@ -23,6 +35,7 @@ const PiTestnetPayment: React.FC = () => {
   const [username, setUsername] = useState<string>('');
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isPaying, setIsPaying] = useState<boolean>(false);
+  const [amount, setAmount] = useState<string>(DEFAULT_AMOUNT);
 
   useEffect(() => {
     if (!window.Pi) {
@@ -34,13 +47,13 @@ const PiTestnetPayment: React.FC = () => {
       if (!window.__PI_SDK_INITIALIZED__) {
         window.Pi.init({
           version: '2.0',
-          sandbox: true,
+          sandbox: PI_SANDBOX,
         });
 
         window.__PI_SDK_INITIALIZED__ = true;
       }
 
-      setStatus('Pi SDK initialized in Testnet/Sandbox mode.');
+      setStatus(`Pi SDK initialized in ${PI_NETWORK_LABEL} mode.`);
     } catch (error: any) {
       console.error('Pi SDK init error:', error);
       setStatus('Pi SDK init error: ' + (error?.message || error));
@@ -70,8 +83,6 @@ const PiTestnetPayment: React.FC = () => {
       });
     } catch (error) {
       console.warn('Backend warm-up failed:', error);
-      // اینجا throw نمی‌کنیم چون ممکن است /health مشکل CORS داشته باشد
-      // ولی approve route کار کند.
     }
   };
 
@@ -107,14 +118,57 @@ const PiTestnetPayment: React.FC = () => {
     }
   };
 
-  const approvePaymentOnServer = async (paymentId: string, orderId: string) => {
+  const validateAmount = () => {
+    const parsedAmount = Number(amount);
+
+    if (Number.isNaN(parsedAmount)) {
+      return {
+        valid: false,
+        value: 0,
+        message: 'Please enter a valid payment amount.',
+      };
+    }
+
+    if (parsedAmount < MIN_AMOUNT) {
+      return {
+        valid: false,
+        value: parsedAmount,
+        message: `Minimum payment amount is ${MIN_AMOUNT} Pi.`,
+      };
+    }
+
+    if (parsedAmount > MAX_AMOUNT) {
+      return {
+        valid: false,
+        value: parsedAmount,
+        message: `Maximum payment amount is ${MAX_AMOUNT} Pi.`,
+      };
+    }
+
+    return {
+      valid: true,
+      value: parsedAmount,
+      message: '',
+    };
+  };
+
+  const approvePaymentOnServer = async (
+    paymentId: string,
+    orderId: string,
+    paymentAmount: number
+  ) => {
     if (!API_BASE_URL) {
       throw new Error('VITE_API_URL is not set.');
     }
 
     const url = `${API_BASE_URL}/pi/approve`;
 
-    console.log('Calling approve endpoint:', url, { paymentId, orderId });
+    console.log('Calling approve endpoint:', url, {
+      paymentId,
+      orderId,
+      amount: paymentAmount,
+      network: PI_NETWORK_LABEL,
+    });
 
     const response = await fetch(url, {
       method: 'POST',
@@ -124,6 +178,8 @@ const PiTestnetPayment: React.FC = () => {
       body: JSON.stringify({
         paymentId,
         orderId,
+        amount: paymentAmount,
+        network: PI_SANDBOX ? 'testnet' : 'mainnet',
       }),
     });
 
@@ -153,7 +209,8 @@ const PiTestnetPayment: React.FC = () => {
   const completePaymentOnServer = async (
     paymentId: string,
     txid: string,
-    orderId: string
+    orderId: string,
+    paymentAmount: number
   ) => {
     if (!API_BASE_URL) {
       throw new Error('VITE_API_URL is not set.');
@@ -161,7 +218,13 @@ const PiTestnetPayment: React.FC = () => {
 
     const url = `${API_BASE_URL}/pi/complete`;
 
-    console.log('Calling complete endpoint:', url, { paymentId, txid, orderId });
+    console.log('Calling complete endpoint:', url, {
+      paymentId,
+      txid,
+      orderId,
+      amount: paymentAmount,
+      network: PI_NETWORK_LABEL,
+    });
 
     const response = await fetch(url, {
       method: 'POST',
@@ -172,6 +235,8 @@ const PiTestnetPayment: React.FC = () => {
         paymentId,
         txid,
         orderId,
+        amount: paymentAmount,
+        network: PI_SANDBOX ? 'testnet' : 'mainnet',
       }),
     });
 
@@ -198,7 +263,7 @@ const PiTestnetPayment: React.FC = () => {
     return data;
   };
 
-  const createTestPayment = async () => {
+  const createPiPayment = async () => {
     if (!window.Pi) {
       setStatus('Pi SDK not available.');
       return;
@@ -214,24 +279,33 @@ const PiTestnetPayment: React.FC = () => {
       return;
     }
 
-    const orderId = 'test_order_' + Date.now();
+    const amountValidation = validateAmount();
+
+    if (!amountValidation.valid) {
+      setStatus(amountValidation.message);
+      return;
+    }
+
+    const paymentAmount = amountValidation.value;
+    const orderId =
+      (PI_SANDBOX ? 'test_order_' : 'main_order_') + Date.now();
 
     try {
       setIsPaying(true);
 
-      // خیلی مهم برای Render/Railway Free:
-      // قبل از createPayment بک‌اند را بیدار می‌کنیم.
       await warmUpBackend();
 
-      setStatus('Creating Testnet Pi payment...');
+      setStatus(`Creating ${PI_NETWORK_LABEL} Pi payment...`);
 
       const paymentData = {
-        amount: 0.01,
-        memo: 'Temporary Testnet payment for Pi DAO',
+        amount: paymentAmount,
+        memo: `Pi DAO payment - ${paymentAmount} Pi`,
         metadata: {
-          type: 'temporary_testnet_payment',
+          type: PI_SANDBOX ? 'testnet_payment' : 'mainnet_payment',
           orderId,
           username,
+          amount: paymentAmount,
+          network: PI_SANDBOX ? 'testnet' : 'mainnet',
         },
       };
 
@@ -241,7 +315,7 @@ const PiTestnetPayment: React.FC = () => {
             console.log('Ready for server approval:', paymentId);
             setStatus('Approving payment on server...');
 
-            await approvePaymentOnServer(paymentId, orderId);
+            await approvePaymentOnServer(paymentId, orderId, paymentAmount);
 
             setStatus('Payment approved by server. Continue in Pi Wallet.');
           } catch (error: any) {
@@ -261,7 +335,12 @@ const PiTestnetPayment: React.FC = () => {
             console.log('Ready for server completion:', paymentId, txid);
             setStatus('Completing payment on server...');
 
-            await completePaymentOnServer(paymentId, txid, orderId);
+            await completePaymentOnServer(
+              paymentId,
+              txid,
+              orderId,
+              paymentAmount
+            );
 
             setStatus('Payment completed successfully. TXID: ' + txid);
             setIsPaying(false);
@@ -313,12 +392,27 @@ const PiTestnetPayment: React.FC = () => {
       }}
     >
       <h2 style={{ color: '#673ab7', marginBottom: '8px' }}>
-        Pi Testnet Payment
+        Pi Payment
       </h2>
 
       <p style={{ color: '#666', fontSize: '14px' }}>
-        Temporary Pi Network login and Testnet payment section.
+        Login with Pi and create a variable amount payment.
       </p>
+
+      <div
+        style={{
+          display: 'inline-block',
+          marginBottom: '14px',
+          padding: '6px 12px',
+          borderRadius: '999px',
+          background: PI_SANDBOX ? '#fff3e0' : '#e8f5e9',
+          color: PI_SANDBOX ? '#ef6c00' : '#2e7d32',
+          fontSize: '12px',
+          fontWeight: 700,
+        }}
+      >
+        Network: {PI_NETWORK_LABEL}
+      </div>
 
       {!isLoggedIn ? (
         <button
@@ -342,8 +436,52 @@ const PiTestnetPayment: React.FC = () => {
             Logged in as <strong>@{username}</strong>
           </p>
 
+          <div style={{ marginTop: '15px', marginBottom: '15px' }}>
+            <label
+              style={{
+                display: 'block',
+                marginBottom: '6px',
+                color: '#333',
+                fontSize: '14px',
+                fontWeight: 600,
+              }}
+            >
+              Payment Amount Pi
+            </label>
+
+            <input
+              type="number"
+              min={MIN_AMOUNT}
+              max={MAX_AMOUNT}
+              step="0.001"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              disabled={isPaying}
+              style={{
+                width: '100%',
+                maxWidth: '220px',
+                padding: '10px 12px',
+                borderRadius: '10px',
+                border: '1px solid #ccc',
+                textAlign: 'center',
+                fontSize: '15px',
+                boxSizing: 'border-box',
+              }}
+            />
+
+            <div
+              style={{
+                marginTop: '6px',
+                fontSize: '11px',
+                color: '#888',
+              }}
+            >
+              Min: {MIN_AMOUNT} Pi / Max: {MAX_AMOUNT} Pi
+            </div>
+          </div>
+
           <button
-            onClick={createTestPayment}
+            onClick={createPiPayment}
             disabled={isPaying}
             style={{
               padding: '12px 22px',
@@ -356,7 +494,9 @@ const PiTestnetPayment: React.FC = () => {
               fontWeight: 600,
             }}
           >
-            {isPaying ? 'Processing...' : 'Pay 0.01 Testnet Pi'}
+            {isPaying
+              ? 'Processing...'
+              : `Pay ${amount || '0'} Pi`}
           </button>
         </>
       )}
