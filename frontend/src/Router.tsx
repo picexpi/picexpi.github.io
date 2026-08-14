@@ -1,6 +1,5 @@
 // frontend/src/Router.tsx
 import React from 'react';
-// استفاده از HashRouter برای سازگاری کامل با GitHub Pages
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import { useI18n } from './i18n/I18nContext';
@@ -13,17 +12,12 @@ import SignIn from './components/SignIn';
 import Payment from './components/Payment';
 import History from './components/History';
 import Success from './components/Success';
-import PiTestnetPayment from './components/PiTestnetPayment';
 import LanguageSwitcher from './components/LanguageSwitcher';
-import PiHomeLogin from './components/PiHomeLogin';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
-/**
- * ProtectedRoute: کنترل دسترسی به صفحات حساس
- */
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const auth = useAuth();
   const { t } = useI18n();
@@ -75,7 +69,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   return <React.Fragment>{children}</React.Fragment>;
 };
 
-// برای دور زدن مشکل تایپ‌اسکریپت در بیلد
 const PaymentAny = Payment as any;
 const HistoryAny = History as any;
 
@@ -83,25 +76,8 @@ const AppRouter: React.FC = () => {
   return (
     <Router>
       <Routes>
-        {/* --- مسیرهای عمومی --- */}
-        <Route
-          path="/"
-          element={
-            <>
-              {/* انتخاب زبان کل برنامه */}
-              <LanguageSwitcher />
-
-              {/* صفحه اصلی فعلی */}
-              <Home />
-
-              {/* ورود واقعی با Pi SDK در صفحه اول */}
-              <PiHomeLogin />
-
-              {/* بخش پرداخت Pi با مبلغ متغیر و Testnet/Mainnet */}
-              <PiTestnetPayment />
-            </>
-          }
-        />
+        {/* صفحه اصلی */}
+        <Route path="/" element={<Home />} />
 
         <Route
           path="/login"
@@ -123,7 +99,6 @@ const AppRouter: React.FC = () => {
           }
         />
 
-        {/* --- مسیرهای محافظت شده --- */}
         <Route
           path="/payment"
           element={
@@ -168,7 +143,6 @@ const AppRouter: React.FC = () => {
           }
         />
 
-        {/* --- مدیریت مسیرهای اشتباه --- */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
