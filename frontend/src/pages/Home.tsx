@@ -2,20 +2,23 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
-import Features from '../components/Features'; // اضافه کن
-import About from '../components/About';     // اضافه کن
+import Features from '../components/Features';
+import About from '../components/About';
+import Poll from '../components/Poll';
 import Footer from '../components/Footer';
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <div className="home-container">
       <Navbar />
+
       <main>
         <Hero />
         <Features />
         <About />
-        {/* سایر بخش‌ها مثل Shop یا Tasks اگر در Home هستند */}
+        <Poll />
       </main>
+
       <Footer />
     </div>
   );
