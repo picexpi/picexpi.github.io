@@ -319,6 +319,159 @@ alreadyVoted: {
   en: 'Your vote has been recorded.',
   tr: 'Oyunuz kaydedildi.',
 },
+  historyTitle: {
+  fa: '📜 تاریخچه تراکنش‌های PiDao',
+  en: '📜 PiDao Transaction History',
+  tr: '📜 PiDao İşlem Geçmişi',
+},
+noTransactions: {
+  fa: 'هنوز هیچ تراکنشی ثبت نشده است.',
+  en: 'No transactions have been recorded yet.',
+  tr: 'Henüz hiç işlem kaydedilmedi.',
+},
+transactionId: {
+  fa: 'ID تراکنش',
+  en: 'Transaction ID',
+  tr: 'İşlem ID',
+},
+amount: {
+  fa: 'مبلغ',
+  en: 'Amount',
+  tr: 'Tutar',
+},
+product: {
+  fa: 'محصول',
+  en: 'Product',
+  tr: 'Ürün',
+},
+status: {
+  fa: 'وضعیت',
+  en: 'Status',
+  tr: 'Durum',
+},
+date: {
+  fa: 'تاریخ',
+  en: 'Date',
+  tr: 'Tarih',
+},
+successful: {
+  fa: 'موفق',
+  en: 'Successful',
+  tr: 'Başarılı',
+},
+failed: {
+  fa: 'ناموفق',
+  en: 'Failed',
+  tr: 'Başarısız',
+},
+pending: {
+  fa: 'در انتظار',
+  en: 'Pending',
+  tr: 'Beklemede',
+},
+approved: {
+  fa: 'تأیید شده',
+  en: 'Approved',
+  tr: 'Onaylandı',
+},
+cancelled: {
+  fa: 'لغو شده',
+  en: 'Cancelled',
+  tr: 'İptal edildi',
+},
+serverConnectionError: {
+  fa: 'خطا در اتصال به سرور. لطفاً دوباره تلاش کنید.',
+  en: 'Server connection error. Please try again.',
+  tr: 'Sunucu bağlantı hatası. Lütfen tekrar deneyin.',
+},
+
+shopTitle: {
+  fa: 'بازار Pi DAO',
+  en: 'Pi DAO Marketplace',
+  tr: 'Pi DAO Pazarı',
+},
+shopSubtitle: {
+  fa: 'محصولات دیجیتال با امنیت بلاک‌چین',
+  en: 'Digital products secured by blockchain',
+  tr: 'Blockchain güvenliğiyle dijital ürünler',
+},
+purchaseSuccess: {
+  fa: 'خرید با موفقیت انجام شد',
+  en: 'Purchase completed successfully',
+  tr: 'Satın alma başarıyla tamamlandı',
+},
+purchaseError: {
+  fa: 'خطا در تراکنش. دوباره تلاش کنید.',
+  en: 'Transaction error. Please try again.',
+  tr: 'İşlem hatası. Lütfen tekrar deneyin.',
+},
+
+productDigitalArtName: {
+  fa: 'هنر دیجیتال Pi',
+  en: 'Pi Digital Art',
+  tr: 'Pi Dijital Sanat',
+},
+productDigitalArtDesc: {
+  fa: 'مجموعه اختصاصی NFT برای کاربران Pi.',
+  en: 'Exclusive NFT collection for Pi users.',
+  tr: 'Pi kullanıcıları için özel NFT koleksiyonu.',
+},
+productMembershipName: {
+  fa: 'عضویت Pi',
+  en: 'Pi Membership',
+  tr: 'Pi Üyeliği',
+},
+productMembershipDesc: {
+  fa: 'دسترسی به حق رأی ممتاز DAO.',
+  en: 'Access to premium DAO voting rights.',
+  tr: 'Premium DAO oy haklarına erişim.',
+},
+productCourseName: {
+  fa: 'دوره کریپتو',
+  en: 'Crypto Course',
+  tr: 'Kripto Kursu',
+},
+productCourseDesc: {
+  fa: 'یاد بگیرید چگونه کوین‌های کوچک بازار را معامله کنید.',
+  en: 'Learn how to trade micro-cap coins.',
+  tr: 'Mikro piyasa değerli coinleri nasıl trade edeceğinizi öğrenin.',
+},
+
+tasksTitle: {
+  fa: 'تسک‌های روزانه تعامل',
+  en: 'Daily Engagement Tasks',
+  tr: 'Günlük Etkileşim Görevleri',
+},
+tasksSubtitle: {
+  fa: 'این تسک‌ها را کامل کنید و پاداش Pi دریافت کنید.',
+  en: 'Complete these tasks to earn Pi rewards.',
+  tr: 'Pi ödülleri kazanmak için bu görevleri tamamlayın.',
+},
+taskWatchVideo: {
+  fa: 'تماشای تبلیغ ویدیویی',
+  en: 'Watch Video Ad',
+  tr: 'Video Reklam İzle',
+},
+taskJoinPoll: {
+  fa: 'شرکت در نظرسنجی جامعه',
+  en: 'Join Community Poll',
+  tr: 'Topluluk Anketine Katıl',
+},
+taskDailyCheckin: {
+  fa: 'ورود روزانه',
+  en: 'Daily Check-in',
+  tr: 'Günlük Giriş',
+},
+reward: {
+  fa: 'پاداش',
+  en: 'Reward',
+  tr: 'Ödül',
+},
+claim: {
+  fa: 'دریافت',
+  en: 'Claim',
+  tr: 'Talep Et',
+},
 };
 
 interface I18nContextType {
