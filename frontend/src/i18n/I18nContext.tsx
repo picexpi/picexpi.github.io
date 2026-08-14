@@ -472,6 +472,46 @@ claim: {
   en: 'Claim',
   tr: 'Talep Et',
 },
+  governance: {
+  fa: 'حاکمیت',
+  en: 'Governance',
+  tr: 'Yönetişim',
+},
+  features: {
+  fa: 'ویژگی‌ها',
+  en: 'Features',
+  tr: 'Özellikler',
+},
+aboutUs: {
+  fa: 'درباره ما',
+  en: 'About',
+  tr: 'Hakkımızda',
+},
+home: {
+  fa: 'خانه',
+  en: 'Home',
+  tr: 'Ana Sayfa',
+},
+shop: {
+  fa: 'فروشگاه',
+  en: 'Shop',
+  tr: 'Mağaza',
+},
+tasks: {
+  fa: 'تسک‌ها',
+  en: 'Tasks',
+  tr: 'Görevler',
+},
+login: {
+  fa: 'ورود',
+  en: 'Login',
+  tr: 'Giriş',
+},
+logout: {
+  fa: 'خروج',
+  en: 'Logout',
+  tr: 'Çıkış',
+},
 };
 
 interface I18nContextType {
