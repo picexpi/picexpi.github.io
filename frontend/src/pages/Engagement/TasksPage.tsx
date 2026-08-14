@@ -1,31 +1,60 @@
+// frontend/src/pages/Engagement/TasksPage.tsx
 import React from 'react';
+import { useI18n } from '../../i18n/I18nContext';
 
 interface Task {
   id: number;
-  title: string;
+  titleKey: string;
   reward: string;
 }
 
 const tasks: Task[] = [
-  { id: 1, title: "Watch Video Ad", reward: "0.01 Pi" },
-  { id: 2, title: "Join Community Poll", reward: "0.05 Pi" },
-  { id: 3, title: "Daily Check-in", reward: "0.005 Pi" },
+  {
+    id: 1,
+    titleKey: 'taskWatchVideo',
+    reward: '0.01 Pi',
+  },
+  {
+    id: 2,
+    titleKey: 'taskJoinPoll',
+    reward: '0.05 Pi',
+  },
+  {
+    id: 3,
+    titleKey: 'taskDailyCheckin',
+    reward: '0.005 Pi',
+  },
 ];
 
 const EngagementTasksPage: React.FC = () => {
+  const { t, lang } = useI18n();
+
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Daily Engagement Tasks</h2>
-      <p>Complete these tasks to earn Pi rewards.</p>
-      
+    <div
+      style={{
+        padding: '20px',
+        direction: lang === 'fa' ? 'rtl' : 'ltr',
+        fontFamily: 'sans-serif',
+      }}
+    >
+      <h2>{t('tasksTitle')}</h2>
+
+      <p>{t('tasksSubtitle')}</p>
+
       <div style={{ marginTop: '20px' }}>
-        {tasks.map(task => (
+        {tasks.map((task) => (
           <div key={task.id} style={taskCardStyle}>
             <div>
-              <strong>{task.title}</strong>
-              <div style={{ fontSize: '0.8rem', color: '#666' }}>Reward: {task.reward}</div>
+              <strong>{t(task.titleKey)}</strong>
+
+              <div style={{ fontSize: '0.8rem', color: '#666' }}>
+                {t('reward')}: {task.reward}
+              </div>
             </div>
-            <button style={actionButtonStyle}>Claim</button>
+
+            <button style={actionButtonStyle}>
+              {t('claim')}
+            </button>
           </div>
         ))}
       </div>
@@ -33,24 +62,25 @@ const EngagementTasksPage: React.FC = () => {
   );
 };
 
-const taskCardStyle = {
+const taskCardStyle: React.CSSProperties = {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+  gap: '12px',
   padding: '15px',
   border: '1px solid #ddd',
   borderRadius: '10px',
   marginBottom: '10px',
-  backgroundColor: '#f9f9f9'
+  backgroundColor: '#f9f9f9',
 };
 
-const actionButtonStyle = {
+const actionButtonStyle: React.CSSProperties = {
   padding: '8px 16px',
   backgroundColor: '#4caf50',
   color: 'white',
   border: 'none',
   borderRadius: '5px',
-  cursor: 'pointer'
+  cursor: 'pointer',
 };
 
 export default EngagementTasksPage;
