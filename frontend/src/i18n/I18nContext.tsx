@@ -512,6 +512,51 @@ logout: {
   en: 'Logout',
   tr: 'Çıkış',
 },
+  pollLoading: {
+  fa: 'در حال دریافت نتایج رأی‌گیری...',
+  en: 'Loading poll results...',
+  tr: 'Anket sonuçları yükleniyor...',
+},
+pollLoginRequired: {
+  fa: 'برای ثبت رأی باید ابتدا با Pi وارد شوید.',
+  en: 'You must login with Pi before voting.',
+  tr: 'Oy vermeden önce Pi ile giriş yapmalısınız.',
+},
+pollAlreadyVoted: {
+  fa: 'شما قبلاً در این رأی‌گیری شرکت کرده‌اید.',
+  en: 'You have already voted in this poll.',
+  tr: 'Bu ankette zaten oy kullandınız.',
+},
+pollVoteSuccess: {
+  fa: 'رأی شما با موفقیت ثبت شد.',
+  en: 'Your vote has been recorded successfully.',
+  tr: 'Oyunuz başarıyla kaydedildi.',
+},
+totalVotes: {
+  fa: 'مجموع رأی‌ها',
+  en: 'Total votes',
+  tr: 'Toplam oy',
+},
+yourVote: {
+  fa: 'رأی شما',
+  en: 'Your vote',
+  tr: 'Oyunuz',
+},
+voteDate: {
+  fa: 'تاریخ رأی',
+  en: 'Vote date',
+  tr: 'Oy tarihi',
+},
+voteHistory: {
+  fa: 'تاریخچه رأی شما',
+  en: 'Your vote history',
+  tr: 'Oy geçmişiniz',
+},
+pollConnectionError: {
+  fa: 'خطا در ارتباط با سرور رأی‌گیری.',
+  en: 'Error connecting to poll server.',
+  tr: 'Anket sunucusuna bağlanırken hata oluştu.',
+},
 };
 
 interface I18nContextType {
