@@ -1,6 +1,6 @@
 // frontend/src/components/Navbar.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import { useI18n } from '../i18n/I18nContext';
 import { useAuth } from '../context/AuthContext';
@@ -8,12 +8,43 @@ import { useAuth } from '../context/AuthContext';
 const Navbar = () => {
   const { t } = useI18n();
   const auth = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const isAuthenticated = auth?.isAuthenticated;
   const user = auth?.user;
 
   const handleLogout = () => {
     auth?.logout();
+  };
+
+  const scrollToSection = (sectionId) => {
+    const doScroll = () => {
+      const element = document.getElementById(sectionId);
+
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      } else {
+        console.warn(`Section not found: #${sectionId}`);
+      }
+    };
+
+    /**
+     * اگر در صفحه اصلی نیستیم، اول برو صفحه اصلی،
+     * بعد کمی صبر کن تا Home رندر شود، سپس اسکرول کن.
+     */
+    if (location.pathname !== '/') {
+      navigate('/');
+
+      setTimeout(() => {
+        doScroll();
+      }, 250);
+    } else {
+      doScroll();
+    }
   };
 
   return (
@@ -35,15 +66,36 @@ const Navbar = () => {
           </li>
 
           <li className="nav-item">
-            <a href="#features" className="nav-link">
+            <button
+              type="button"
+              className="nav-link"
+              onClick={() => scrollToSection('features')}
+              style={navButtonStyle}
+            >
               {t('features')}
-            </a>
+            </button>
           </li>
 
           <li className="nav-item">
-            <a href="#about" className="nav-link">
+            <button
+              type="button"
+              className="nav-link"
+              onClick={() => scrollToSection('poll')}
+              style={navButtonStyle}
+            >
+              {t('governance')}
+            </button>
+          </li>
+
+          <li className="nav-item">
+            <button
+              type="button"
+              className="nav-link"
+              onClick={() => scrollToSection('about')}
+              style={navButtonStyle}
+            >
               {t('aboutUs')}
-            </a>
+            </button>
           </li>
 
           <li className="nav-item">
@@ -99,6 +151,14 @@ const Navbar = () => {
       </div>
     </nav>
   );
+};
+
+const navButtonStyle = {
+  background: 'none',
+  border: 'none',
+  padding: 0,
+  cursor: 'pointer',
+  font: 'inherit',
 };
 
 export default Navbar;
