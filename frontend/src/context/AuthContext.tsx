@@ -6,78 +6,115 @@ import React, {
   useEffect,
   ReactNode,
 } from 'react';
-import axios from 'axios';
+import axiosClient from '../lib/axiosClient';
 
 export interface User {
   id: string;
   username: string;
-  role: 'user' | 'admin';
+  role: 'user' | 'admin' | string;
+  piUserId?: string;
 }
 
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   loading: boolean;
+  error: string | null;
   login: (
     pi_user_id: string,
     username: string,
     accessToken?: string
   ) => Promise<void>;
   logout: () => void;
+  refreshAuth: () => Promise<void>;
+  clearError: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
-});
+const normalizeUser = (userData: any): User => {
+  return {
+    id: String(userData.id || userData.piUserId || userData.uid),
+    username: userData.username || 'Pi User',
+    role: String(userData.role || 'user').toLowerCase(),
+    piUserId: userData.piUserId || userData.id || userData.uid,
+  };
+};
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(() => {
+    try {
+      const savedUser = localStorage.getItem('user');
+      return savedUser ? normalizeUser(JSON.parse(savedUser)) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return Boolean(localStorage.getItem('token'));
+  });
+
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const initializeAuth = async () => {
-      setLoading(true);
+  const persistAuth = (token: string, userData: any) => {
+    const normalizedUser = normalizeUser(userData);
 
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(normalizedUser));
+
+    setUser(normalizedUser);
+    setIsAuthenticated(true);
+  };
+
+  const clearAuth = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    setUser(null);
+    setIsAuthenticated(false);
+  };
+
+  const refreshAuth = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
       const token = localStorage.getItem('token');
 
       if (!token) {
-        setUser(null);
-        setIsAuthenticated(false);
-        setLoading(false);
+        clearAuth();
         return;
       }
 
-      try {
-        const response = await api.get('/auth/me', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+      const response = await axiosClient.get('/auth/me');
 
-        if (response.data && response.data.success) {
-          setUser(response.data.user);
-          setIsAuthenticated(true);
-        } else {
-          throw new Error('Invalid token response');
+      if (response.data?.success && response.data?.user) {
+        const savedToken = localStorage.getItem('token');
+
+        if (savedToken) {
+          persistAuth(savedToken, response.data.user);
         }
-      } catch (error: any) {
-        console.error(
-          'Auth initialization failed:',
-          error.response?.data || error.message
-        );
+      } else if (response.data?.user) {
+        const savedToken = localStorage.getItem('token');
 
-        localStorage.removeItem('token');
-        setUser(null);
-        setIsAuthenticated(false);
-      } finally {
-        setLoading(false);
+        if (savedToken) {
+          persistAuth(savedToken, response.data.user);
+        }
+      } else {
+        clearAuth();
       }
-    };
+    } catch (err: any) {
+      console.error('Auth refresh failed:', err);
+      clearAuth();
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    initializeAuth();
+  useEffect(() => {
+    refreshAuth();
   }, []);
 
   const login = async (
@@ -85,36 +122,44 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     username: string,
     accessToken?: string
   ) => {
+    setLoading(true);
+    setError(null);
+
     try {
-      const response = await api.post('/auth/pi-login', {
+      const response = await axiosClient.post('/auth/pi-login', {
         pi_user_id,
         username,
         accessToken,
       });
 
-      if (response.data && response.data.success) {
-        const { token, user: userData } = response.data;
-
-        if (!token || !userData) {
-          throw new Error('Invalid login response from server');
-        }
-
-        localStorage.setItem('token', token);
-        setUser(userData);
-        setIsAuthenticated(true);
+      if (response.data?.success && response.data?.token && response.data?.user) {
+        persistAuth(response.data.token, response.data.user);
+      } else if (response.data?.token && response.data?.user) {
+        persistAuth(response.data.token, response.data.user);
       } else {
         throw new Error(response.data?.message || 'Login failed');
       }
-    } catch (error: any) {
-      console.error('Login Error:', error.response?.data || error.message);
-      throw error;
+    } catch (err: any) {
+      const message =
+        err?.response?.data?.message ||
+        err?.message ||
+        'Login failed';
+
+      setError(message);
+      clearAuth();
+      console.error('Login Error:', err?.response?.data || err);
+      throw err;
+    } finally {
+      setLoading(false);
     }
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    setUser(null);
-    setIsAuthenticated(false);
+    clearAuth();
+  };
+
+  const clearError = () => {
+    setError(null);
   };
 
   return (
@@ -123,8 +168,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         user,
         isAuthenticated,
         loading,
+        error,
         login,
         logout,
+        refreshAuth,
+        clearError,
       }}
     >
       {children}
