@@ -1,6 +1,7 @@
 {
   "name": "Pi Network Fullstack Dev",
   "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
+
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:1": {},
     "ghcr.io/devcontainers/features/common-utils:1": {
@@ -10,6 +11,7 @@
       "version": "20"
     }
   },
+
   "customizations": {
     "vscode": {
       "extensions": [
@@ -17,10 +19,36 @@
         "esbenp.prettier-vscode",
         "ms-azuretools.vscode-docker",
         "formulahendry.vscode-dotenv",
-        "prisma.prisma"
-      ]
+        "prisma.prisma",
+        "bradlc.vscode-tailwindcss",
+        "ms-vscode.vscode-typescript-next"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      }
     }
   },
+
   "forwardPorts": [5173, 5000, 5432],
-  "postCreateCommand": "yarn install --cwd backend && yarn install --cwd frontend"
+
+  "portsAttributes": {
+    "5173": {
+      "label": "Vite Frontend",
+      "onAutoForward": "notify"
+    },
+    "5000": {
+      "label": "Backend API",
+      "onAutoForward": "notify"
+    },
+    "5432": {
+      "label": "PostgreSQL",
+      "onAutoForward": "silent"
+    }
+  },
+
+  "postCreateCommand": "corepack enable && if [ -d backend ]; then yarn install --cwd backend; fi && if [ -d frontend ]; then yarn install --cwd frontend; fi",
+
+  "remoteUser": "node"
 }
