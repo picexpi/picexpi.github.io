@@ -1,59 +1,73 @@
-import { defineConfig, loadEnv } from 'vite'
-import react from '@vitejs/plugin-react'
-import path from 'path'
+import { defineConfig, loadEnv } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  // بارگذاری متغیرهای محیطی از فایل .env بر اساس mode (development یا production)
-  const env = loadEnv(mode, process.cwd(), '')
+  const env = loadEnv(mode, process.cwd(), '');
 
-  const isDev = mode === 'development'
+  const isDev = mode === 'development';
+
+  const port = Number(env.VITE_PORT || 5173);
 
   return {
     /**
-     * اصلاح نهایی برای GitHub Pages (User Page):
-     * چون ریپازیتوری شما tiraxturumuz1.github.io است، سایت در ریشه (Root) قرار می‌گیرد.
-     * بنابراین base در حالت production باید '/' باشد.
+     * برای GitHub User Page مثل:
+     * https://tiraxturumuz1.github.io
+     * و همچنین دامنه PiNet:
+     * https://apppidaonkm2562.pinet.com
+     * مقدار base باید '/' باشد.
      */
-    base: '/', 
+    base: '/',
 
     plugins: [react()],
 
     resolve: {
       alias: {
-        // تنظیم Alias برای استفاده راحت‌تر از @ در پروژه‌های React
         '@': path.resolve(__dirname, './src'),
       },
     },
 
     build: {
-      // پوشه خروجی نهایی
       outDir: 'dist',
-      // پوشه مربوط به فایل‌های استاتیک مثل عکس‌ها و فونت‌ها
       assetsDir: 'assets',
-      // غیرفعال کردن sourcemap برای کاهش حجم فایل‌های نهایی در حالت Production
       sourcemap: false,
+
       rollupOptions: {
-        // تنظیمات برای مدیریت بهتر نام فایل‌ها و جلوگیری از تداخل کش مرورگر با استفاده از Hash
         output: {
-          entryFileNames: `assets/[name]-[hash].js`,
-          chunkFileNames: `assets/[name]-[hash].js`,
-          assetFileNames: `assets/[name]-[hash].[ext]`,
+          entryFileNames: 'assets/[name]-[hash].js',
+          chunkFileNames: 'assets/[name]-[hash].js',
+          assetFileNames: 'assets/[name]-[hash].[ext]',
         },
       },
     },
 
     server: {
-      // استفاده از پورت تعریف شده در فایل .env (مثلاً VITE_PORT=5000)
-      // اگر در .env چیزی تعریف نشده باشد، پیش‌فرض روی 5173 قرار می‌گیرد
-      port: parseInt(env.VITE_PORT || '5173'),
-      
-      // بسیار مهم برای Docker: اجازه دادن به دسترسی از طریق IP و شبکه کانتینرها
+      port,
       host: true,
+      open: isDev,
+      strictPort: false,
 
-      // فقط در حالت توسعه (لوکال) مرورگر رو باز کن؛ در CI/build کاری نکن
-      open: isDev ? true : false,
+      /**
+       * اگر در development خواستی از مسیر نسبی /api استفاده کنی،
+       * می‌توانی این proxy را فعال نگه داری.
+       * اما چون در env فعلی از Bonto مستقیم استفاده می‌کنی:
+       * VITE_API_URL=https://pidao.bonto.run/api
+       * این proxy ضروری نیست.
+       */
+      proxy: {
+        '/api': {
+          target: env.VITE_PROXY_API_TARGET || 'https://pidao.bonto.run',
+          changeOrigin: true,
+          secure: true,
+        },
+      },
+    },
+
+    preview: {
+      port,
+      host: true,
       strictPort: false,
     },
-  }
-})
+  };
+});
