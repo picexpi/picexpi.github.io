@@ -16,14 +16,11 @@ const PI_SANDBOX =
 
 const PI_NETWORK_LABEL = PI_SANDBOX ? 'Testnet / Sandbox' : 'Mainnet';
 
-const DEFAULT_AMOUNT =
-  import.meta.env.VITE_DEFAULT_PI_AMOUNT || '0.01';
+const DEFAULT_AMOUNT = import.meta.env.VITE_DEFAULT_PI_AMOUNT || '0.01';
 
-const MIN_AMOUNT =
-  Number(import.meta.env.VITE_MIN_PI_AMOUNT || '0.001');
+const MIN_AMOUNT = Number(import.meta.env.VITE_MIN_PI_AMOUNT || '0.001');
 
-const MAX_AMOUNT =
-  Number(import.meta.env.VITE_MAX_PI_AMOUNT || '100');
+const MAX_AMOUNT = Number(import.meta.env.VITE_MAX_PI_AMOUNT || '100');
 
 function getHealthUrl() {
   if (!API_BASE_URL) return '';
@@ -83,6 +80,46 @@ const PiTestnetPayment: React.FC = () => {
       });
     } catch (error) {
       console.warn('Backend warm-up failed:', error);
+    }
+  };
+
+  const debugOrigin = async () => {
+    try {
+      if (!API_BASE_URL) {
+        setStatus('VITE_API_URL is not set.');
+        return;
+      }
+
+      setStatus('Sending debug origin request...');
+
+      const response = await fetch(`${API_BASE_URL}/debug-origin`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          source: 'PiTestnetPayment',
+          pageUrl: window.location.href,
+          origin: window.location.origin,
+          userAgent: navigator.userAgent,
+          sandbox: PI_SANDBOX,
+          network: PI_NETWORK_LABEL,
+        }),
+      });
+
+      const data = await response.json();
+
+      console.log('Debug origin response:', data);
+
+      setStatus(
+        'Debug sent. Origin: ' +
+          (data?.headers?.origin || 'null') +
+          ' | Referer: ' +
+          (data?.headers?.referer || 'null')
+      );
+    } catch (error: any) {
+      console.error('Debug origin error:', error);
+      setStatus('Debug origin error: ' + (error?.message || String(error)));
     }
   };
 
@@ -180,6 +217,8 @@ const PiTestnetPayment: React.FC = () => {
         orderId,
         amount: paymentAmount,
         network: PI_SANDBOX ? 'testnet' : 'mainnet',
+        pageUrl: window.location.href,
+        pageOrigin: window.location.origin,
       }),
     });
 
@@ -237,6 +276,8 @@ const PiTestnetPayment: React.FC = () => {
         orderId,
         amount: paymentAmount,
         network: PI_SANDBOX ? 'testnet' : 'mainnet',
+        pageUrl: window.location.href,
+        pageOrigin: window.location.origin,
       }),
     });
 
@@ -287,8 +328,7 @@ const PiTestnetPayment: React.FC = () => {
     }
 
     const paymentAmount = amountValidation.value;
-    const orderId =
-      (PI_SANDBOX ? 'test_order_' : 'main_order_') + Date.now();
+    const orderId = (PI_SANDBOX ? 'test_order_' : 'main_order_') + Date.now();
 
     try {
       setIsPaying(true);
@@ -306,6 +346,7 @@ const PiTestnetPayment: React.FC = () => {
           username,
           amount: paymentAmount,
           network: PI_SANDBOX ? 'testnet' : 'mainnet',
+          pageOrigin: window.location.origin,
         },
       };
 
@@ -494,9 +535,7 @@ const PiTestnetPayment: React.FC = () => {
               fontWeight: 600,
             }}
           >
-            {isPaying
-              ? 'Processing...'
-              : `Pay ${amount || '0'} Pi`}
+            {isPaying ? 'Processing...' : `Pay ${amount || '0'} Pi`}
           </button>
         </>
       )}
@@ -515,6 +554,22 @@ const PiTestnetPayment: React.FC = () => {
       >
         {status}
       </div>
+
+      <button
+        onClick={debugOrigin}
+        style={{
+          marginTop: '10px',
+          padding: '8px 14px',
+          borderRadius: '12px',
+          border: '1px solid #673ab7',
+          background: '#fff',
+          color: '#673ab7',
+          cursor: 'pointer',
+          fontSize: '12px',
+        }}
+      >
+        Debug Origin
+      </button>
 
       <div
         style={{
