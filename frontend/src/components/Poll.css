@@ -1,52 +1,136 @@
+/* frontend/src/components/Poll.css */
+
 .poll-section {
-    padding: 80px 5%;
-    background-color: #f1f5f9;
-    text-align: center;
+  padding: 80px 5%;
+  background-color: #f1f5f9;
+  text-align: center;
 }
 
 .poll-container {
-    max-width: 600px;
-    margin: 0 auto;
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  max-width: 640px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
 .poll-question {
-    font-size: 1.5rem;
-    margin-bottom: 30px;
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  color: #1e293b;
+  line-height: 1.6;
+  font-weight: 800;
 }
 
 .poll-options {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .poll-btn {
-    padding: 15px;
-    border-radius: 10px;
-    background: #fff;
-    border: 2px solid #e2e8f0;
-    font-weight: 600;
-    transition: all 0.2s;
+  padding: 15px 18px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  color: #1e293b;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
 }
 
-.poll-btn:hover {
-    border-color: var(--primary);
+.poll-btn:hover:not(:disabled) {
+  border-color: var(--primary, #673ab7);
+  color: var(--primary, #673ab7);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(103, 58, 183, 0.12);
+}
+
+.poll-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.poll-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  background: #f8fafc;
+}
+
+.poll-results {
+  margin-top: 20px;
+  text-align: initial;
 }
 
 .result-bar-container {
-    margin-top: 20px;
-    background: #e2e8f0;
-    height: 12px;
-    border-radius: 6px;
-    overflow: hidden;
+  margin-top: 8px;
+  background: #e2e8f0;
+  height: 12px;
+  border-radius: 999px;
+  overflow: hidden;
 }
 
 .result-bar {
-    height: 100%;
-    background: var(--primary);
-    transition: width 0.5s ease-in-out;
+  height: 100%;
+  background: var(--primary, #673ab7);
+  border-radius: 999px;
+  transition: width 0.5s ease-in-out;
+}
+
+/* پیام‌ها و باکس‌های داخلی که در Poll.jsx با inline style هم کنترل می‌شوند */
+.poll-section strong {
+  color: #1e293b;
+}
+
+.poll-section ul {
+  list-style-position: outside;
+}
+
+.poll-section li {
+  margin-bottom: 6px;
+  color: #475569;
+}
+
+/* سازگاری بهتر با RTL */
+html[dir='rtl'] .poll-results {
+  direction: rtl;
+}
+
+html[dir='ltr'] .poll-results {
+  direction: ltr;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .poll-section {
+    padding: 60px 4%;
+  }
+
+  .poll-container {
+    padding: 28px 20px;
+    border-radius: 16px;
+  }
+
+  .poll-question {
+    font-size: 1.25rem;
+    margin-bottom: 24px;
+  }
+
+  .poll-btn {
+    padding: 14px 16px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .poll-container {
+    padding: 24px 16px;
+  }
+
+  .poll-question {
+    font-size: 1.15rem;
+  }
 }
