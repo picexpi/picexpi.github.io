@@ -557,6 +557,31 @@ pollConnectionError: {
   en: 'Error connecting to poll server.',
   tr: 'Anket sunucusuna bağlanırken hata oluştu.',
 },
+  paymentSuccessful: {
+  fa: 'پرداخت موفقیت‌آمیز بود!',
+  en: 'Payment was successful!',
+  tr: 'Ödeme başarılı!',
+},
+transactionRegistered: {
+  fa: 'تراکنش شما با موفقیت در شبکه ثبت شد.',
+  en: 'Your transaction was successfully registered on the network.',
+  tr: 'İşleminiz ağ üzerinde başarıyla kaydedildi.',
+},
+transactionIdentifier: {
+  fa: 'شناسه تراکنش',
+  en: 'Transaction ID',
+  tr: 'İşlem Kimliği',
+},
+processing: {
+  fa: 'در حال پردازش...',
+  en: 'Processing...',
+  tr: 'İşleniyor...',
+},
+backToHome: {
+  fa: 'بازگشت به صفحه اصلی',
+  en: 'Back to Home',
+  tr: 'Ana Sayfaya Dön',
+},
 };
 
 interface I18nContextType {
