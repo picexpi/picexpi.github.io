@@ -1,24 +1,98 @@
-# Node / Yarn
-node_modules/
-dist/
+# ==============================
+# OS files
+# ==============================
 .DS_Store
+Thumbs.db
 
+# ==============================
+# Node / Package managers
+# ==============================
+node_modules/
+*/node_modules/
+
+# Keep lock files committed for reproducible installs
+# Do NOT ignore:
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ==============================
+# Build outputs
+# ==============================
+dist/
+build/
+frontend/dist/
+frontend/build/
+backend/dist/
+
+# ==============================
 # Environment files
+# ==============================
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
+backend/.env
+backend/.env.local
+backend/.env.development.local
+backend/.env.production.local
+
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# اگر نمی‌خواهی frontend/.env و frontend/.env.production در GitHub باشند، این‌ها را هم فعال نگه دار:
+frontend/.env
+frontend/.env.production
+frontend/.env.development
+
+# اما فایل‌های نمونه باید قابل commit باشند
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+
+# ==============================
 # Logs
+# ==============================
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# Docker
+pnpm-debug.log*
 *.log
-backend/db_data/
 
-# IDEs
+# ==============================
+# Docker / Database volumes
+# ==============================
+backend/db_data/
+postgres_data/
+*.pid
+
+# ==============================
+# Prisma
+# ==============================
+# معمولاً schema.prisma باید commit شود
+# prisma/schema.prisma را ignore نکن
+
+# ==============================
+# IDEs / Editors
+# ==============================
 .vscode/
 .idea/
+*.swp
+*.swo
+
+# ==============================
+# Coverage / Test
+# ==============================
+coverage/
+.nyc_output/
+
+# ==============================
+# Temporary files
+# ==============================
+tmp/
+temp/
+.cache/
