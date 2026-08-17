@@ -15,6 +15,8 @@ dotenv.config();
 const app = express();
 const prisma = new PrismaClient();
 
+const APP_VERSION = 'poll-enabled-v5-db-health';
+
 // اگر پشت reverse-proxy یا Bonto proxy هستی
 app.set('trust proxy', 1);
 
@@ -22,13 +24,11 @@ app.set('trust proxy', 1);
 // Security & Parsers
 // -------------------------
 
-// Security headers
 app.use(helmet());
 
-// Body parser
 app.use(express.json({ limit: '1mb' }));
 
-// Request logger سبک برای دیباگ در Bonto / Docker
+// لاگ سبک برای اینکه در Bonto ببینی دقیقاً چه routeهایی صدا زده می‌شوند
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
   next();
@@ -42,6 +42,8 @@ const defaultAllowedOrigins = [
   'https://tiraxturumuz1.github.io',
   'https://apppidaonkm2562.pinet.com',
   'https://pidao.bonto.run',
+  'https://sandbox.minepi.com',
+  'https://minepi.com',
   'http://localhost:5173',
   'http://localhost:3000',
 ];
@@ -79,7 +81,7 @@ const corsOptions = {
     return callback(new Error(`Not allowed by CORS: ${origin}`));
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-admin-key'],
   credentials: true,
 };
 
@@ -121,6 +123,7 @@ app.get('/', (req, res) => {
   return res.status(200).json({
     success: true,
     message: 'Pi DAO backend is running',
+    version: APP_VERSION,
     api: process.env.PUBLIC_API_URL || null,
     time: new Date().toISOString(),
   });
@@ -130,24 +133,26 @@ app.get('/', (req, res) => {
 // Health Checks
 // -------------------------
 
-// Health سبک، بدون وابستگی به دیتابیس
 const healthHandler = (req, res) => {
   return res.status(200).json({
     status: 'OK',
     success: true,
-    message: 'Server is running',
+    message: req.originalUrl.startsWith('/api')
+      ? 'API is running'
+      : 'Server is running',
     service: 'Pi DAO Backend',
+    version: APP_VERSION,
     time: new Date().toISOString(),
   });
 };
 
-// Health اصلی
 app.get('/health', healthHandler);
-
-// Alias برای health داخل /api
 app.get('/api/health', healthHandler);
 
-// تست جداگانه دیتابیس
+// -------------------------
+// Database Health Check
+// -------------------------
+
 const dbHealthHandler = async (req, res) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
@@ -158,6 +163,7 @@ const dbHealthHandler = async (req, res) => {
       message: 'Server is connected to PostgreSQL via Prisma',
       database: 'PostgreSQL',
       orm: 'Prisma',
+      version: APP_VERSION,
       time: new Date().toISOString(),
     });
   } catch (error) {
@@ -168,12 +174,13 @@ const dbHealthHandler = async (req, res) => {
       success: false,
       message: 'Database connection failed.',
       error: process.env.NODE_ENV === 'production' ? undefined : error.message,
+      version: APP_VERSION,
       time: new Date().toISOString(),
     });
   }
 };
 
-// هر دو مسیر را فعال نگه می‌داریم تا هم مستقیم و هم پشت /api کار کند
+// هر دو مسیر فعال هستند
 app.get('/db-health', dbHealthHandler);
 app.get('/api/db-health', dbHealthHandler);
 
@@ -189,11 +196,16 @@ const envCheckHandler = (req, res) => {
     PUBLIC_API_URL: process.env.PUBLIC_API_URL,
     FRONTEND_URL: process.env.FRONTEND_URL,
     ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS,
-    HAS_DATABASE_URL: Boolean(process.env.DATABASE_URL),
-    HAS_JWT_SECRET: Boolean(process.env.JWT_SECRET),
+
     HAS_PI_API_KEY: Boolean(process.env.PI_API_KEY),
+    HAS_JWT_SECRET: Boolean(process.env.JWT_SECRET),
+    HAS_DATABASE_URL: Boolean(process.env.DATABASE_URL),
     HAS_ADMIN_SECRET_KEY: Boolean(process.env.ADMIN_SECRET_KEY),
+
     PI_REQUIRE_ACCESS_TOKEN: process.env.PI_REQUIRE_ACCESS_TOKEN || null,
+
+    allowedOrigins,
+    version: APP_VERSION,
     time: new Date().toISOString(),
   });
 };
@@ -209,6 +221,7 @@ app.use((req, res) => {
   return res.status(404).json({
     success: false,
     message: `Route not found: ${req.method} ${req.originalUrl}`,
+    version: APP_VERSION,
     time: new Date().toISOString(),
   });
 });
@@ -224,6 +237,7 @@ app.use((err, req, res, next) => {
     return res.status(403).json({
       success: false,
       message: err.message,
+      version: APP_VERSION,
       time: new Date().toISOString(),
     });
   }
@@ -231,6 +245,7 @@ app.use((err, req, res, next) => {
   return res.status(500).json({
     success: false,
     message: err.message || 'Something went wrong on the server!',
+    version: APP_VERSION,
     time: new Date().toISOString(),
   });
 });
@@ -250,6 +265,7 @@ const server = app.listen(PORT, () => {
   console.log('==========================================');
   console.log(`🚀 Server is running on port ${PORT}`);
   console.log(`🔗 Public API URL: ${publicApiUrl}/api`);
+  console.log(`🧩 Version: ${APP_VERSION}`);
   console.log('✅ Routes:');
   console.log('   - GET  /');
   console.log('   - GET  /health');
@@ -282,7 +298,6 @@ const shutdown = async (signal) => {
       process.exit(0);
     });
 
-    // اگر server.close گیر کرد، بعد از 10 ثانیه خارج شود
     setTimeout(() => {
       console.error('Force shutdown after timeout.');
       process.exit(1);
