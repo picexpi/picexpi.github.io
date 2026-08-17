@@ -19,14 +19,11 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: frontend/package-lock.json
+          node-version: 22
 
       - name: Install dependencies and build
         run: |
           cd frontend
-          npm ci || npm install
 
           cat > .env.production <<EOF
           VITE_API_URL=${{ secrets.VITE_API_URL }}
@@ -38,6 +35,12 @@ jobs:
           VITE_MIN_PI_AMOUNT=${{ secrets.VITE_MIN_PI_AMOUNT }}
           VITE_MAX_PI_AMOUNT=${{ secrets.VITE_MAX_PI_AMOUNT }}
           EOF
+
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
 
           npm run build
 
