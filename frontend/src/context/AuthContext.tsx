@@ -32,27 +32,64 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+/**
+ * نرمال‌سازی اطلاعات کاربر
+ * چون ممکن است Backend یا Pi SDK نام فیلدها را متفاوت برگرداند.
+ */
 const normalizeUser = (userData: any): User => {
+  const id =
+    userData?.id ||
+    userData?.piUserId ||
+    userData?.pi_user_id ||
+    userData?.uid ||
+    userData?._id;
+
+  const piUserId =
+    userData?.piUserId ||
+    userData?.pi_user_id ||
+    userData?.uid ||
+    userData?.id ||
+    userData?._id;
+
   return {
-    id: String(userData.id || userData.piUserId || userData.uid),
-    username: userData.username || 'Pi User',
-    role: String(userData.role || 'user').toLowerCase(),
-    piUserId: userData.piUserId || userData.id || userData.uid,
+    id: String(id || ''),
+    username: userData?.username || userData?.name || 'Pi User',
+    role: String(userData?.role || 'user').toLowerCase(),
+    piUserId: piUserId ? String(piUserId) : undefined,
   };
 };
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(() => {
-    try {
-      const savedUser = localStorage.getItem('user');
-      return savedUser ? normalizeUser(JSON.parse(savedUser)) : null;
-    } catch {
+const getSavedUser = (): User | null => {
+  try {
+    const savedUser = localStorage.getItem('user');
+
+    if (!savedUser) {
       return null;
     }
-  });
+
+    const parsedUser = JSON.parse(savedUser);
+    const normalizedUser = normalizeUser(parsedUser);
+
+    if (!normalizedUser.id) {
+      localStorage.removeItem('user');
+      return null;
+    }
+
+    return normalizedUser;
+  } catch {
+    localStorage.removeItem('user');
+    return null;
+  }
+};
+
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUser] = useState<User | null>(() => getSavedUser());
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return Boolean(localStorage.getItem('token'));
+    const token = localStorage.getItem('token');
+    const savedUser = localStorage.getItem('user');
+
+    return Boolean(token && savedUser);
   });
 
   const [loading, setLoading] = useState<boolean>(true);
@@ -60,6 +97,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const persistAuth = (token: string, userData: any) => {
     const normalizedUser = normalizeUser(userData);
+
+    if (!token || !normalizedUser.id) {
+      throw new Error('Invalid authentication data received from server.');
+    }
 
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(normalizedUser));
@@ -90,23 +131,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       const response = await axiosClient.get('/auth/me');
 
-      if (response.data?.success && response.data?.user) {
-        const savedToken = localStorage.getItem('token');
+      const responseUser = response.data?.user;
+      const success = response.data?.success;
 
-        if (savedToken) {
-          persistAuth(savedToken, response.data.user);
-        }
-      } else if (response.data?.user) {
-        const savedToken = localStorage.getItem('token');
-
-        if (savedToken) {
-          persistAuth(savedToken, response.data.user);
-        }
+      if ((success && responseUser) || responseUser) {
+        persistAuth(token, responseUser);
       } else {
         clearAuth();
       }
     } catch (err: any) {
-      console.error('Auth refresh failed:', err);
+      console.error('Auth refresh failed:', err?.response?.data || err);
       clearAuth();
     } finally {
       setLoading(false);
@@ -126,16 +160,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setError(null);
 
     try {
+      if (!pi_user_id || !username) {
+        throw new Error('Invalid Pi user data.');
+      }
+
       const response = await axiosClient.post('/auth/pi-login', {
         pi_user_id,
         username,
         accessToken,
       });
 
-      if (response.data?.success && response.data?.token && response.data?.user) {
-        persistAuth(response.data.token, response.data.user);
-      } else if (response.data?.token && response.data?.user) {
-        persistAuth(response.data.token, response.data.user);
+      const responseToken = response.data?.token;
+      const responseUser = response.data?.user;
+      const success = response.data?.success;
+
+      if ((success && responseToken && responseUser) || (responseToken && responseUser)) {
+        persistAuth(responseToken, responseUser);
       } else {
         throw new Error(response.data?.message || 'Login failed');
       }
@@ -147,7 +187,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       setError(message);
       clearAuth();
+
       console.error('Login Error:', err?.response?.data || err);
+
       throw err;
     } finally {
       setLoading(false);
@@ -156,6 +198,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     clearAuth();
+    setError(null);
   };
 
   const clearError = () => {
