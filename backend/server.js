@@ -18,11 +18,21 @@ const prisma = new PrismaClient();
 // اگر پشت reverse-proxy یا Bonto proxy هستی
 app.set('trust proxy', 1);
 
+// -------------------------
+// Security & Parsers
+// -------------------------
+
 // Security headers
 app.use(helmet());
 
 // Body parser
 app.use(express.json({ limit: '1mb' }));
+
+// Request logger سبک برای دیباگ در Bonto / Docker
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
+  next();
+});
 
 // -------------------------
 // CORS
@@ -37,7 +47,10 @@ const defaultAllowedOrigins = [
 ];
 
 const envAllowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',').map((origin) => origin.trim()).filter(Boolean)
+  ? process.env.ALLOWED_ORIGINS
+      .split(',')
+      .map((origin) => origin.trim())
+      .filter(Boolean)
   : [];
 
 const allowedOrigins = Array.from(
@@ -105,7 +118,7 @@ try {
 // -------------------------
 
 app.get('/', (req, res) => {
-  res.json({
+  return res.status(200).json({
     success: true,
     message: 'Pi DAO backend is running',
     api: process.env.PUBLIC_API_URL || null,
@@ -118,33 +131,33 @@ app.get('/', (req, res) => {
 // -------------------------
 
 // Health سبک، بدون وابستگی به دیتابیس
-app.get('/health', (req, res) => {
+const healthHandler = (req, res) => {
   return res.status(200).json({
     status: 'OK',
+    success: true,
     message: 'Server is running',
     service: 'Pi DAO Backend',
     time: new Date().toISOString(),
   });
-});
+};
+
+// Health اصلی
+app.get('/health', healthHandler);
 
 // Alias برای health داخل /api
-app.get('/api/health', (req, res) => {
-  return res.status(200).json({
-    status: 'OK',
-    message: 'API is running',
-    service: 'Pi DAO Backend',
-    time: new Date().toISOString(),
-  });
-});
+app.get('/api/health', healthHandler);
 
 // تست جداگانه دیتابیس
-app.get('/db-health', async (req, res) => {
+const dbHealthHandler = async (req, res) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
 
     return res.status(200).json({
       status: 'OK',
+      success: true,
       message: 'Server is connected to PostgreSQL via Prisma',
+      database: 'PostgreSQL',
+      orm: 'Prisma',
       time: new Date().toISOString(),
     });
   } catch (error) {
@@ -152,18 +165,24 @@ app.get('/db-health', async (req, res) => {
 
     return res.status(500).json({
       status: 'ERROR',
+      success: false,
       message: 'Database connection failed.',
       error: process.env.NODE_ENV === 'production' ? undefined : error.message,
+      time: new Date().toISOString(),
     });
   }
-});
+};
+
+// هر دو مسیر را فعال نگه می‌داریم تا هم مستقیم و هم پشت /api کار کند
+app.get('/db-health', dbHealthHandler);
+app.get('/api/db-health', dbHealthHandler);
 
 // -------------------------
 // Debug Env Check
 // -------------------------
 
-app.get('/env-check', (req, res) => {
-  return res.json({
+const envCheckHandler = (req, res) => {
+  return res.status(200).json({
     success: true,
     NODE_ENV: process.env.NODE_ENV,
     PORT: process.env.PORT,
@@ -173,8 +192,14 @@ app.get('/env-check', (req, res) => {
     HAS_DATABASE_URL: Boolean(process.env.DATABASE_URL),
     HAS_JWT_SECRET: Boolean(process.env.JWT_SECRET),
     HAS_PI_API_KEY: Boolean(process.env.PI_API_KEY),
+    HAS_ADMIN_SECRET_KEY: Boolean(process.env.ADMIN_SECRET_KEY),
+    PI_REQUIRE_ACCESS_TOKEN: process.env.PI_REQUIRE_ACCESS_TOKEN || null,
+    time: new Date().toISOString(),
   });
-});
+};
+
+app.get('/env-check', envCheckHandler);
+app.get('/api/env-check', envCheckHandler);
 
 // -------------------------
 // 404 Handler
@@ -184,6 +209,7 @@ app.use((req, res) => {
   return res.status(404).json({
     success: false,
     message: `Route not found: ${req.method} ${req.originalUrl}`,
+    time: new Date().toISOString(),
   });
 });
 
@@ -198,12 +224,14 @@ app.use((err, req, res, next) => {
     return res.status(403).json({
       success: false,
       message: err.message,
+      time: new Date().toISOString(),
     });
   }
 
   return res.status(500).json({
     success: false,
     message: err.message || 'Something went wrong on the server!',
+    time: new Date().toISOString(),
   });
 });
 
@@ -227,7 +255,9 @@ const server = app.listen(PORT, () => {
   console.log('   - GET  /health');
   console.log('   - GET  /api/health');
   console.log('   - GET  /db-health');
+  console.log('   - GET  /api/db-health');
   console.log('   - GET  /env-check');
+  console.log('   - GET  /api/env-check');
   console.log('   - POST /api/auth/pi-login');
   console.log('   - GET  /api/auth/me');
   console.log('   - POST /api/pi/approve');
@@ -241,8 +271,8 @@ const server = app.listen(PORT, () => {
 // Graceful Shutdown
 // -------------------------
 
-const shutdown = async () => {
-  console.log('\nStopping server...');
+const shutdown = async (signal) => {
+  console.log(`\n${signal} received. Stopping server...`);
 
   try {
     await prisma.$disconnect();
@@ -251,11 +281,17 @@ const shutdown = async () => {
       console.log('Server closed and Prisma disconnected.');
       process.exit(0);
     });
+
+    // اگر server.close گیر کرد، بعد از 10 ثانیه خارج شود
+    setTimeout(() => {
+      console.error('Force shutdown after timeout.');
+      process.exit(1);
+    }, 10000).unref();
   } catch (error) {
     console.error('❌ Shutdown Error:', error);
     process.exit(1);
   }
 };
 
-process.on('SIGINT', shutdown);
-process.on('SIGTERM', shutdown);
+process.on('SIGINT', () => shutdown('SIGINT'));
+process.on('SIGTERM', () => shutdown('SIGTERM'));
