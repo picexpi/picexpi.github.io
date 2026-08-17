@@ -3,6 +3,7 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import { useI18n } from '../i18n/I18nContext';
+import logo from '../assets/logo.png';
 
 const Navbar = () => {
   const { t } = useI18n();
@@ -39,8 +40,15 @@ const Navbar = () => {
       <div className="navbar-container">
         {/* لوگو */}
         <div className="navbar-logo">
-          <Link to="/">
-            Pi<span>DAO</span>
+          <Link to="/" className="navbar-logo-link" aria-label="PiDAO Home">
+            <img
+              src={logo}
+              alt="PiDAO Logo"
+              className="navbar-logo-img"
+            />
+            <span className="navbar-logo-text">
+              Pi<span>DAO</span>
+            </span>
           </Link>
         </div>
 
@@ -55,9 +63,8 @@ const Navbar = () => {
           <li className="nav-item">
             <button
               type="button"
-              className="nav-link"
+              className="nav-link nav-button"
               onClick={() => scrollToSection('features')}
-              style={navButtonStyle}
             >
               {t('features')}
             </button>
@@ -66,9 +73,8 @@ const Navbar = () => {
           <li className="nav-item">
             <button
               type="button"
-              className="nav-link"
+              className="nav-link nav-button"
               onClick={() => scrollToSection('poll')}
-              style={navButtonStyle}
             >
               {t('governance')}
             </button>
@@ -77,9 +83,8 @@ const Navbar = () => {
           <li className="nav-item">
             <button
               type="button"
-              className="nav-link"
+              className="nav-link nav-button"
               onClick={() => scrollToSection('about')}
-              style={navButtonStyle}
             >
               {t('aboutUs')}
             </button>
@@ -102,14 +107,6 @@ const Navbar = () => {
       </div>
     </nav>
   );
-};
-
-const navButtonStyle = {
-  background: 'none',
-  border: 'none',
-  padding: 0,
-  cursor: 'pointer',
-  font: 'inherit',
 };
 
 export default Navbar;
