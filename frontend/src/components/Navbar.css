@@ -1,4 +1,5 @@
 /* frontend/src/components/Navbar.css */
+
 .navbar {
   height: 80px;
   display: flex;
@@ -22,21 +23,51 @@
   align-items: center;
 }
 
-.navbar-logo a {
-  font-size: 1.8rem;
-  font-weight: bold;
+/* Logo */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   color: #fff;
   text-decoration: none;
 }
 
-.navbar-logo span {
+.navbar-logo-img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  display: block;
+}
+
+.navbar-logo-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+  line-height: 1;
+}
+
+.navbar-logo-text span {
   color: #ffca28; /* طلایی */
 }
 
+/* Menu */
 .nav-menu {
   display: flex;
+  align-items: center;
   list-style: none;
   gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
 }
 
 .nav-link {
@@ -50,6 +81,27 @@
   color: #ffca28;
 }
 
+/* Button links inside nav */
+.nav-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  direction: rtl;
+}
+
+.nav-button:focus {
+  outline: none;
+}
+
+.nav-button:focus-visible {
+  outline: 2px solid #ffca28;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* اگر بعداً دوباره دکمه ورود را اضافه کردی */
 .btn-signin {
   padding: 10px 25px;
   background: #ffca28;
@@ -68,5 +120,14 @@
 @media (max-width: 768px) {
   .nav-menu {
     display: none; /* در موبایل باید منوی همبرگری بسازی */
+  }
+
+  .navbar-logo-img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .navbar-logo-text {
+    font-size: 1.5rem;
   }
 }
