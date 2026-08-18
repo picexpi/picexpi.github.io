@@ -158,7 +158,13 @@ const Poll = () => {
     return (
       <section id="poll" className="poll-section">
         <div className="poll-container">
-          <p>{t('pollLoading')}</p>
+          <div className="poll-badge">
+            {t('digShortName')} · {t('governance')}
+          </div>
+
+          <p className="poll-loading-text">
+            {t('pollLoading')}
+          </p>
         </div>
       </section>
     );
@@ -167,25 +173,27 @@ const Poll = () => {
   return (
     <section id="poll" className="poll-section">
       <div className="poll-container">
+        <div className="poll-badge">
+          {t('digShortName')} · {t('governance')}
+        </div>
+
         <h2 className="poll-question">
           {t('pollQuestion')}
         </h2>
 
-        <div
-          style={{
-            marginBottom: '16px',
-            color: '#64748b',
-            fontSize: '14px',
-            textAlign: 'center',
-          }}
-        >
-          {t('totalVotes')}: {votes.total}
+        <p className="poll-description">
+          {t('pollDescription')}
+        </p>
+
+        <div className="poll-total">
+          <span>{t('totalVotes')}</span>
+          <strong>{votes.total}</strong>
         </div>
 
         {!userVote ? (
           <div className="poll-options">
             <button
-              className="poll-btn"
+              className="poll-btn poll-btn-yes"
               onClick={() => handleVote('yes')}
               disabled={voting}
             >
@@ -193,7 +201,7 @@ const Poll = () => {
             </button>
 
             <button
-              className="poll-btn"
+              className="poll-btn poll-btn-no"
               onClick={() => handleVote('no')}
               disabled={voting}
             >
@@ -201,57 +209,38 @@ const Poll = () => {
             </button>
           </div>
         ) : (
-          <div
-            style={{
-              marginBottom: '16px',
-              padding: '12px',
-              borderRadius: '10px',
-              background: '#e8f5e9',
-              color: '#2e7d32',
-              fontSize: '14px',
-              textAlign: 'center',
-            }}
-          >
-            {t('yourVote')}:{' '}
-            <strong>
-              {userVote.option === 'yes' ? t('yesLabel') : t('noLabel')}
-            </strong>
-            <br />
-            <span style={{ fontSize: '12px' }}>
+          <div className="poll-user-vote">
+            <div>
+              {t('yourVote')}:{' '}
+              <strong>
+                {userVote.option === 'yes' ? t('yesLabel') : t('noLabel')}
+              </strong>
+            </div>
+
+            <span>
               {t('voteDate')}: {formatDate(userVote.createdAt)}
             </span>
           </div>
         )}
 
         {(message || error) && (
-          <div
-            style={{
-              marginTop: '14px',
-              padding: '10px',
-              borderRadius: '8px',
-              background: error ? '#ffebee' : '#e3f2fd',
-              color: error ? '#c62828' : '#1565c0',
-              fontSize: '13px',
-              textAlign: 'center',
-            }}
-          >
+          <div className={error ? 'poll-alert poll-alert-error' : 'poll-alert'}>
             {error || message}
           </div>
         )}
 
-        <div className="poll-results" style={{ marginTop: '24px' }}>
+        <div className="poll-results">
           <div
-            style={{
-              textAlign,
-              marginBottom: '5px',
-            }}
+            className="poll-result-label"
+            style={{ textAlign }}
           >
-            {t('yesLabel')}: {votes.yesPercent}% ({votes.yes})
+            <span>{t('yesLabel')}</span>
+            <strong>{votes.yesPercent}% ({votes.yes})</strong>
           </div>
 
           <div className="result-bar-container">
             <div
-              className="result-bar"
+              className="result-bar result-bar-yes"
               style={{
                 width: `${votes.yesPercent}%`,
               }}
@@ -259,21 +248,18 @@ const Poll = () => {
           </div>
 
           <div
-            style={{
-              textAlign,
-              marginTop: '20px',
-              marginBottom: '5px',
-            }}
+            className="poll-result-label poll-result-label-no"
+            style={{ textAlign }}
           >
-            {t('noLabel')}: {votes.noPercent}% ({votes.no})
+            <span>{t('noLabel')}</span>
+            <strong>{votes.noPercent}% ({votes.no})</strong>
           </div>
 
           <div className="result-bar-container">
             <div
-              className="result-bar"
+              className="result-bar result-bar-no"
               style={{
                 width: `${votes.noPercent}%`,
-                backgroundColor: '#94a3b8',
               }}
             ></div>
           </div>
@@ -281,19 +267,12 @@ const Poll = () => {
 
         {history.length > 0 && (
           <div
-            style={{
-              marginTop: '24px',
-              padding: '14px',
-              borderRadius: '12px',
-              background: '#f8fafc',
-              border: '1px solid #e2e8f0',
-              textAlign,
-              fontSize: '13px',
-            }}
+            className="poll-history"
+            style={{ textAlign }}
           >
             <strong>{t('voteHistory')}</strong>
 
-            <ul style={{ marginTop: '10px', paddingInlineStart: '20px' }}>
+            <ul>
               {history.map((item) => (
                 <li key={item.id}>
                   {item.vote_option === 'yes' ? t('yesLabel') : t('noLabel')}
