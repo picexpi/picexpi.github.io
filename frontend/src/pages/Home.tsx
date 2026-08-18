@@ -4,7 +4,7 @@ import './Home.css';
 
 import Navbar from '../components/Navbar';
 import LanguageSwitcher from '../components/LanguageSwitcher';
-import PiTestnetPayment from '../components/PiTestnetPayment';
+import PiTestnetPayment from '../components/PiPayment';
 import Hero from '../components/Hero';
 import Features from '../components/Features';
 import Roadmap from '../components/Roadmap';
