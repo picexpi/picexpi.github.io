@@ -1,4 +1,4 @@
-/* frontend/src/pages/home.css */
+/* frontend/src/pages/Home.css */
 
 .home-container {
   min-height: 100vh;
@@ -38,7 +38,7 @@
   scroll-margin-top: 95px;
 }
 
-/* یک جداکننده نرم برای بخش پنل Pi */
+/* جداکننده نرم برای بخش پنل Pi */
 .home-pi-panel::before {
   content: '';
   position: absolute;
@@ -67,9 +67,14 @@
   width: 100%;
 }
 
-/* اگر مرورگر با scroll smooth پشتیبانی کند */
+/* scroll smooth */
 html {
   scroll-behavior: smooth;
+}
+
+/* LTR compatibility */
+html[dir='ltr'] .home-container {
+  direction: ltr;
 }
 
 /* Responsive */
