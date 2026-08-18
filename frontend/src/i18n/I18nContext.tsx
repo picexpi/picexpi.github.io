@@ -1420,6 +1420,14 @@ const translations: Translations = {
     hi: 'सेवा की शर्तें',
     ar: 'شروط الخدمة',
   },
+  whitepaper: {
+  fa: 'وایت‌پیپر',
+  en: 'Whitepaper',
+  tr: 'Whitepaper',
+  zh: '白皮书',
+  hi: 'व्हाइटपेपर',
+  ar: 'الورقة البيضاء',
+},
 };
 
 interface I18nContextType {
