@@ -24,6 +24,7 @@ const Poll = () => {
     noPercent: 0,
   });
 
+  const [pollData, setPollData] = useState(null);
   const [userVote, setUserVote] = useState(null);
   const [history, setHistory] = useState([]);
 
@@ -31,6 +32,21 @@ const Poll = () => {
 
   const getToken = () => {
     return localStorage.getItem('token');
+  };
+
+  const getLocalizedQuestion = () => {
+    if (!pollData) {
+      return t('pollQuestion');
+    }
+
+    if (lang === 'fa') return pollData.questionFa || pollData.question || t('pollQuestion');
+    if (lang === 'en') return pollData.questionEn || pollData.question || t('pollQuestion');
+    if (lang === 'tr') return pollData.questionTr || pollData.question || t('pollQuestion');
+    if (lang === 'zh') return pollData.questionZh || pollData.question || t('pollQuestion');
+    if (lang === 'hi') return pollData.questionHi || pollData.question || t('pollQuestion');
+    if (lang === 'ar') return pollData.questionAr || pollData.question || t('pollQuestion');
+
+    return pollData.question || t('pollQuestion');
   };
 
   const maskUsername = (username) => {
@@ -77,6 +93,7 @@ const Poll = () => {
 
       setVotes(data.data.votes);
       setUserVote(data.data.userVote);
+      setPollData(data.data.poll || null);
     } catch (err) {
       console.error('Poll fetch error:', err);
       setError(err.message || t('pollConnectionError'));
@@ -158,6 +175,7 @@ const Poll = () => {
         if (response.status === 409 && data.data) {
           setVotes(data.data.votes);
           setUserVote(data.data.userVote);
+          setPollData(data.data.poll || null);
           setMessage(t('pollAlreadyVoted'));
           return;
         }
@@ -167,6 +185,7 @@ const Poll = () => {
 
       setVotes(data.data.votes);
       setUserVote(data.data.userVote);
+      setPollData(data.data.poll || null);
       setMessage(t('pollVoteSuccess'));
 
       await fetchVoteHistory();
@@ -220,7 +239,7 @@ const Poll = () => {
         </div>
 
         <h2 className="poll-question">
-          {t('pollQuestion')}
+          {getLocalizedQuestion()}
         </h2>
 
         <p className="poll-description">
@@ -317,23 +336,31 @@ const Poll = () => {
             <ul>
               {history.map((item) => (
                 <li key={item.id}>
-                  <span className="poll-history-user">
-                    {maskUsername(item.username)}
-                  </span>
+                  {item.question_snapshot && (
+                    <div className="poll-history-question">
+                      {item.question_snapshot}
+                    </div>
+                  )}
 
-                  <span className="poll-history-separator"> · </span>
+                  <div className="poll-history-meta">
+                    <span className="poll-history-user">
+                      {maskUsername(item.username)}
+                    </span>
 
-                  <span>
-                    {item.vote_option === 'yes'
-                      ? t('yesLabel')
-                      : t('noLabel')}
-                  </span>
+                    <span className="poll-history-separator"> · </span>
 
-                  <span className="poll-history-separator"> - </span>
+                    <span>
+                      {item.vote_option === 'yes'
+                        ? t('yesLabel')
+                        : t('noLabel')}
+                    </span>
 
-                  <span>
-                    {formatDate(item.created_at)}
-                  </span>
+                    <span className="poll-history-separator"> - </span>
+
+                    <span>
+                      {formatDate(item.created_at)}
+                    </span>
+                  </div>
                 </li>
               ))}
             </ul>
