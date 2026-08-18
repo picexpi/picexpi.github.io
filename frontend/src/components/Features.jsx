@@ -8,33 +8,53 @@ const Features = () => {
 
   const features = [
     {
-      title: t('featureSecurePaymentsTitle'),
-      description: t('featureSecurePaymentsDescription'),
-      icon: '🔐',
+      title: t('featureGlobalVotingTitle'),
+      description: t('featureGlobalVotingDescription'),
+      icon: '🗳️',
     },
     {
-      title: t('featureDaoTitle'),
-      description: t('featureDaoDescription'),
+      title: t('featureTransparentGovernanceTitle'),
+      description: t('featureTransparentGovernanceDescription'),
+      icon: '🔍',
+    },
+    {
+      title: t('featurePiIdentityTitle'),
+      description: t('featurePiIdentityDescription'),
+      icon: 'π',
+    },
+    {
+      title: t('featureDaoInfrastructureTitle'),
+      description: t('featureDaoInfrastructureDescription'),
       icon: '🌐',
     },
     {
-      title: t('featureTransactionPanelTitle'),
-      description: t('featureTransactionPanelDescription'),
-      icon: '📊',
+      title: t('featureDigitalEconomyTitle'),
+      description: t('featureDigitalEconomyDescription'),
+      icon: '💠',
     },
     {
-      title: t('featureDigitalProductsTitle'),
-      description: t('featureDigitalProductsDescription'),
-      icon: '🛒',
+      title: t('featureConflictResolutionTitle'),
+      description: t('featureConflictResolutionDescription'),
+      icon: '🤝',
     },
   ];
 
   return (
     <section id="features" className="features-section">
       <div className="container">
-        <h2 className="section-title">
-          {t('featuresSectionTitle')}
-        </h2>
+        <div className="features-heading">
+          <span className="features-kicker">
+            {t('digShortName')}
+          </span>
+
+          <h2 className="section-title">
+            {t('digFeaturesSectionTitle')}
+          </h2>
+
+          <p className="features-intro">
+            {t('digFeaturesSectionIntro')}
+          </p>
+        </div>
 
         <div className="features-grid">
           {features.map((feature, index) => (
