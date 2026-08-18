@@ -252,9 +252,23 @@
 }
 
 .poll-history li {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   color: #475569;
   line-height: 1.8;
+}
+
+.poll-history-question {
+  margin-bottom: 5px;
+  color: #334155;
+  font-weight: 800;
+  line-height: 1.7;
+}
+
+.poll-history-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
 }
 
 .poll-history-user {
@@ -277,6 +291,14 @@ html[dir='rtl'] .poll-history {
 html[dir='ltr'] .poll-results,
 html[dir='ltr'] .poll-history {
   direction: ltr;
+}
+
+html[dir='ltr'] .poll-history-meta {
+  justify-content: flex-start;
+}
+
+html[dir='rtl'] .poll-history-meta {
+  justify-content: flex-start;
 }
 
 /* Responsive */
@@ -321,5 +343,15 @@ html[dir='ltr'] .poll-history {
 
   .poll-history {
     font-size: 0.82rem;
+  }
+
+  .poll-history-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .poll-history-separator {
+    display: none;
   }
 }
