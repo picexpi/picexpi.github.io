@@ -6,6 +6,7 @@ import { useI18n } from './i18n/I18nContext';
 
 // Pages & Components
 import Home from './pages/Home';
+import Dig from './pages/Dig';
 import Shop from './pages/Shop';
 import TasksPage from './pages/Engagement/TasksPage';
 import SignIn from './components/SignIn';
@@ -79,6 +80,10 @@ const AppRouter: React.FC = () => {
         {/* صفحه اصلی */}
         <Route path="/" element={<Home />} />
 
+        {/* صفحه معرفی DIG / Manifesto */}
+        <Route path="/dig" element={<Dig />} />
+
+        {/* ورود با Pi */}
         <Route
           path="/login"
           element={
@@ -89,6 +94,7 @@ const AppRouter: React.FC = () => {
           }
         />
 
+        {/* صفحه موفقیت پرداخت */}
         <Route
           path="/success"
           element={
@@ -99,6 +105,7 @@ const AppRouter: React.FC = () => {
           }
         />
 
+        {/* پرداخت - محافظت‌شده */}
         <Route
           path="/payment"
           element={
@@ -113,6 +120,7 @@ const AppRouter: React.FC = () => {
           }
         />
 
+        {/* تاریخچه - محافظت‌شده */}
         <Route
           path="/history"
           element={
@@ -125,6 +133,7 @@ const AppRouter: React.FC = () => {
           }
         />
 
+        {/* فروشگاه - محافظت‌شده */}
         <Route
           path="/shop"
           element={
@@ -134,6 +143,7 @@ const AppRouter: React.FC = () => {
           }
         />
 
+        {/* تسک‌ها - محافظت‌شده */}
         <Route
           path="/tasks"
           element={
@@ -143,6 +153,7 @@ const AppRouter: React.FC = () => {
           }
         />
 
+        {/* fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
