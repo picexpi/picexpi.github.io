@@ -8,11 +8,19 @@ declare global {
   interface Window {
     Pi?: any;
     __PI_SDK_INITIALIZED__?: boolean;
+    __PI_SDK_SANDBOX__?: boolean;
   }
 }
 
-const PI_SANDBOX =
-  String(import.meta.env.VITE_PI_SANDBOX ?? 'true') === 'true';
+const parseBooleanEnv = (value: unknown, defaultValue = true): boolean => {
+  if (value === undefined || value === null || value === '') {
+    return defaultValue;
+  }
+
+  return String(value).trim().toLowerCase() === 'true';
+};
+
+const PI_SANDBOX = parseBooleanEnv(import.meta.env.VITE_PI_SANDBOX, true);
 
 const SignIn: React.FC = () => {
   const auth = useAuth();
@@ -29,7 +37,10 @@ const SignIn: React.FC = () => {
     }
 
     try {
-      // جلوگیری از اجرای دوباره Pi.init در React StrictMode
+      /**
+       * جلوگیری از اجرای دوباره Pi.init در React StrictMode
+       * اگر قبلاً با mode متفاوت init شده باشد، هشدار می‌دهیم.
+       */
       if (!window.__PI_SDK_INITIALIZED__) {
         window.Pi.init({
           version: '2.0',
@@ -37,6 +48,15 @@ const SignIn: React.FC = () => {
         });
 
         window.__PI_SDK_INITIALIZED__ = true;
+        window.__PI_SDK_SANDBOX__ = PI_SANDBOX;
+      } else if (window.__PI_SDK_SANDBOX__ !== PI_SANDBOX) {
+        console.warn(
+          'Pi SDK was already initialized with a different sandbox value.',
+          {
+            initializedSandbox: window.__PI_SDK_SANDBOX__,
+            currentSandbox: PI_SANDBOX,
+          }
+        );
       }
 
       setStatus(t('piSdkReadyLogin'));
@@ -84,17 +104,7 @@ const SignIn: React.FC = () => {
         throw new Error('Invalid Pi user data received.');
       }
 
-      /**
-       * اگر AuthContext تو ۳ ورودی را قبول کند:
-       * login(piUserId, username, accessToken)
-       *
-       * اگر هنوز فقط ۲ ورودی قبول کند، any باعث می‌شود بیلد گیر نکند.
-       */
-      await (auth.login as any)(
-        piUserId,
-        username,
-        authResult?.accessToken
-      );
+      await auth.login(piUserId, username, authResult?.accessToken);
 
       setStatus(`${t('loginSuccess')} ${t('redirecting')}`);
       navigate('/', { replace: true });
