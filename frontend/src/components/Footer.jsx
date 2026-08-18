@@ -36,61 +36,89 @@ const Footer = () => {
 
   return (
     <footer className="footer">
-      <Link to="/" className="footer-logo">
-        PiDao
-      </Link>
+      <div className="footer-inner">
+        <div className="footer-brand">
+          <Link to="/" className="footer-logo">
+            Pi<span>DAO</span>
+          </Link>
 
-      <ul className="footer-links">
-        <li>
-          <button
-            type="button"
-            onClick={() => scrollToSection('features')}
-            style={footerButtonStyle}
-          >
-            {t('features')}
-          </button>
-        </li>
+          <div className="footer-badge">
+            {t('digShortName')} · {t('digFullName')}
+          </div>
 
-        <li>
-          <button
-            type="button"
-            onClick={() => scrollToSection('poll')}
-            style={footerButtonStyle}
-          >
-            {t('governance')}
-          </button>
-        </li>
+          <p className="footer-description">
+            {t('footerDescription')}
+          </p>
+        </div>
 
-        <li>
-          <button
-            type="button"
-            onClick={() => scrollToSection('about')}
-            style={footerButtonStyle}
-          >
-            {t('aboutUs')}
-          </button>
-        </li>
-      </ul>
+        <ul className="footer-links">
+          <li>
+            <button
+              type="button"
+              onClick={() => scrollToSection('features')}
+              className="footer-link-button"
+            >
+              {t('features')}
+            </button>
+          </li>
 
-      <div className="copyright">
-        <p>
-          &copy; {new Date().getFullYear()} PiDao {t('project')}.{' '}
-          {t('footerRights')}
-        </p>
+          <li>
+            <button
+              type="button"
+              onClick={() => scrollToSection('roadmap')}
+              className="footer-link-button"
+            >
+              {t('navRoadmap')}
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              onClick={() => scrollToSection('poll')}
+              className="footer-link-button"
+            >
+              {t('governance')}
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              onClick={() => scrollToSection('about')}
+              className="footer-link-button"
+            >
+              {t('aboutUs')}
+            </button>
+          </li>
+
+          <li>
+            <Link to="/shop" className="footer-link">
+              {t('shop')}
+            </Link>
+          </li>
+
+          <li>
+            <Link to="/tasks" className="footer-link">
+              {t('tasks')}
+            </Link>
+          </li>
+        </ul>
+
+        <div className="footer-note">
+          <p>
+            {t('footerNote')}
+          </p>
+        </div>
+
+        <div className="copyright">
+          <p>
+            &copy; {new Date().getFullYear()} PiDao. {t('footerRights')}
+          </p>
+        </div>
       </div>
     </footer>
   );
-};
-
-const footerButtonStyle = {
-  background: 'none',
-  border: 'none',
-  padding: 0,
-  margin: 0,
-  color: 'inherit',
-  cursor: 'pointer',
-  font: 'inherit',
-  textDecoration: 'none',
 };
 
 export default Footer;
