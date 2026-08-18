@@ -2,12 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import './Poll.css';
 import { useI18n } from '../i18n/I18nContext';
+import { useAuth } from '../context/AuthContext';
 
 const API_BASE_URL =
   import.meta.env.VITE_API_URL || 'https://pidao.bonto.run/api';
 
 const Poll = () => {
   const { t, lang } = useI18n();
+  const auth = useAuth();
 
   const [loading, setLoading] = useState(true);
   const [voting, setVoting] = useState(false);
@@ -25,7 +27,7 @@ const Poll = () => {
   const [userVote, setUserVote] = useState(null);
   const [history, setHistory] = useState([]);
 
-  const textAlign = lang === 'fa' ? 'right' : 'left';
+  const textAlign = lang === 'fa' || lang === 'ar' ? 'right' : 'left';
 
   const getToken = () => {
     return localStorage.getItem('token');
@@ -89,12 +91,26 @@ const Poll = () => {
   useEffect(() => {
     fetchPoll();
     fetchVoteHistory();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  /**
+   * وقتی کاربر از PiTestnetPayment یا SignIn لاگین می‌کند،
+   * AuthContext و localStorage آپدیت می‌شوند.
+   * با این useEffect، Poll دوباره وضعیت رأی کاربر را می‌گیرد.
+   */
+  useEffect(() => {
+    if (auth?.isAuthenticated && getToken()) {
+      fetchPoll();
+      fetchVoteHistory();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth?.isAuthenticated]);
 
   const handleVote = async (option) => {
     const token = getToken();
 
-    if (!token) {
+    if (!auth?.isAuthenticated || !token) {
       setMessage(t('pollLoginRequired'));
       return;
     }
@@ -150,7 +166,17 @@ const Poll = () => {
     if (!date) return '';
 
     return new Date(date).toLocaleString(
-      lang === 'fa' ? 'fa-IR' : lang === 'tr' ? 'tr-TR' : 'en-US'
+      lang === 'fa'
+        ? 'fa-IR'
+        : lang === 'tr'
+          ? 'tr-TR'
+          : lang === 'zh'
+            ? 'zh-CN'
+            : lang === 'hi'
+              ? 'hi-IN'
+              : lang === 'ar'
+                ? 'ar'
+                : 'en-US'
     );
   };
 
