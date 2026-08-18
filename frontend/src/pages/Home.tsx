@@ -1,6 +1,6 @@
 // frontend/src/pages/Home.tsx
 import React from 'react';
-import './home.css';
+import './Home.css';
 
 import Navbar from '../components/Navbar';
 import LanguageSwitcher from '../components/LanguageSwitcher';
