@@ -1,4 +1,4 @@
-// frontend/src/components/PiTestnetPayment.tsx
+// frontend/src/components/PiPaymentPanel.tsx
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useI18n } from '../i18n/I18nContext';
