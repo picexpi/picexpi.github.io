@@ -39,9 +39,9 @@ app.use((req, res, next) => {
 // -------------------------
 
 const defaultAllowedOrigins = [
-  'https://tiraxturumuz1.github.io',
-  'https://apppidaonkm2562.pinet.com',
-  'https://pidao.bonto.run',
+  'https://picexpi.github.io',
+  'https://apppicexcfbf4957.pinet.com',
+  'https://picex.bonto.run',
   'https://sandbox.minepi.com',
   'https://minepi.com',
   'http://localhost:5173',
@@ -122,7 +122,7 @@ try {
 app.get('/', (req, res) => {
   return res.status(200).json({
     success: true,
-    message: 'Pi DAO backend is running',
+    message: 'Pi CEX backend is running',
     version: APP_VERSION,
     api: process.env.PUBLIC_API_URL || null,
     time: new Date().toISOString(),
@@ -140,7 +140,7 @@ const healthHandler = (req, res) => {
     message: req.originalUrl.startsWith('/api')
       ? 'API is running'
       : 'Server is running',
-    service: 'Pi DAO Backend',
+    service: 'Pi CEX Backend',
     version: APP_VERSION,
     time: new Date().toISOString(),
   });
