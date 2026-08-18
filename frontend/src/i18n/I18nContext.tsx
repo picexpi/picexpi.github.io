@@ -853,6 +853,11 @@ const translations: Translations = {
     en: 'In later phases, exploring the possibility of an international decentralized bank or financial system as the economic complement to DIG.',
     tr: 'Sonraki aşamalarda DIG’in ekonomik tamamlayıcısı olarak uluslararası merkeziyetsiz bir banka veya finansal sistem olasılığını araştırmak.',
   },
+    navRoadmap: {
+    fa: 'مسیر راه',
+    en: 'Roadmap',
+    tr: 'Yol Haritası',
+  },
 };
 
 interface I18nContextType {
