@@ -28,7 +28,7 @@ const Home: React.FC = () => {
 
         {/* پنل ورود / پرداخت Pi */}
         <section id="pi-payment-panel" className="home-pi-panel">
-          <PiTestnetPayment />
+          <PiPayment />
         </section>
 
         {/* زیرساخت‌ها و ویژگی‌های DIG */}
