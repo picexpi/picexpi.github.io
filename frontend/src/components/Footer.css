@@ -234,3 +234,43 @@ html[dir='ltr'] .footer-link-button::after {
     font-size: 0.82rem;
   }
 }
+.footer-legal-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: -14px 0 30px 0;
+  flex-wrap: wrap;
+}
+
+.footer-legal-link {
+  color: #a9a3bd;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-legal-link:hover {
+  color: #ffca28;
+  transform: translateY(-1px);
+}
+
+.footer-legal-link:focus-visible {
+  outline: 2px solid #ffca28;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.footer-legal-separator {
+  color: #6f6883;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 460px) {
+  .footer-legal-links {
+    margin-top: -8px;
+    margin-bottom: 24px;
+  }
+}
+
