@@ -62,6 +62,12 @@ const Navbar = () => {
           </li>
 
           <li className="nav-item">
+            <Link to="/dig" className="nav-link">
+              {t('navDig')}
+            </Link>
+          </li>
+
+          <li className="nav-item">
             <button
               type="button"
               className="nav-link nav-button"
