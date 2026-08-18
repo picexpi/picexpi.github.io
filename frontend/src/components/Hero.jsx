@@ -17,15 +17,34 @@ const Hero = () => {
     }
   };
 
+  const scrollToAbout = () => {
+    const element = document.getElementById('about');
+
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
   return (
     <section className="hero">
-      <h1>{t('heroTitle')}</h1>
+      <div className="hero-badge">
+        {t('digShortName')} · {t('digFullName')}
+      </div>
 
-      <p>{t('heroDescription')}</p>
+      <h1>{t('digHeroTitle')}</h1>
+
+      <p>{t('digHeroDescription')}</p>
 
       <div className="hero-btns">
         <button onClick={scrollToPiPanel} className="btn-primary">
-          🔐 {t('loginWithPiWallet')}
+          🔐 {t('joinWithPi')}
+        </button>
+
+        <button onClick={scrollToAbout} className="btn-secondary">
+          🌐 {t('exploreDig')}
         </button>
       </div>
     </section>
