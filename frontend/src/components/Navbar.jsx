@@ -40,12 +40,13 @@ const Navbar = () => {
       <div className="navbar-container">
         {/* لوگو */}
         <div className="navbar-logo">
-          <Link to="/" className="navbar-logo-link" aria-label="PiDAO Home">
+          <Link to="/" className="navbar-logo-link" aria-label="PiDao Home">
             <img
               src={logo}
-              alt="PiDAO Logo"
+              alt="PiDao Logo"
               className="navbar-logo-img"
             />
+
             <span className="navbar-logo-text">
               Pi<span>DAO</span>
             </span>
@@ -67,6 +68,16 @@ const Navbar = () => {
               onClick={() => scrollToSection('features')}
             >
               {t('features')}
+            </button>
+          </li>
+
+          <li className="nav-item">
+            <button
+              type="button"
+              className="nav-link nav-button"
+              onClick={() => scrollToSection('roadmap')}
+            >
+              {t('navRoadmap')}
             </button>
           </li>
 
@@ -103,7 +114,7 @@ const Navbar = () => {
           </li>
         </ul>
 
-        {/* دکمه Login از Navbar حذف شد تا فقط پنل اصلی Pi در بالای صفحه استفاده شود */}
+        {/* دکمه Login از Navbar حذف شده تا ورود اصلی با Pi داخل صفحه انجام شود */}
       </div>
     </nav>
   );
