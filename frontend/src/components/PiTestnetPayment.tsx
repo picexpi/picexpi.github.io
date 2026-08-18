@@ -22,6 +22,10 @@ const parseBooleanEnv = (value: unknown, defaultValue = false): boolean => {
   return String(value).trim().toLowerCase() === 'true';
 };
 
+/**
+ * Mainnet by default.
+ * Set VITE_PI_SANDBOX=true only when you really want Sandbox/Testnet.
+ */
 const PI_SANDBOX = parseBooleanEnv(import.meta.env.VITE_PI_SANDBOX, false);
 
 const DEFAULT_AMOUNT = import.meta.env.VITE_DEFAULT_PI_AMOUNT || '0.01';
@@ -115,49 +119,6 @@ const PiTestnetPayment: React.FC = () => {
     }
   };
 
-  const debugOrigin = async () => {
-    try {
-      if (!API_BASE_URL) {
-        setStatus('VITE_API_URL is not set.');
-        return;
-      }
-
-      setStatus('Sending debug origin request...');
-
-      const response = await fetch(`${API_BASE_URL}/debug-origin`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(localStorage.getItem('token')
-            ? { Authorization: `Bearer ${localStorage.getItem('token')}` }
-            : {}),
-        },
-        body: JSON.stringify({
-          source: 'PiPayment',
-          pageUrl: window.location.href,
-          origin: window.location.origin,
-          userAgent: navigator.userAgent,
-          sandbox: PI_SANDBOX,
-          network: networkValue,
-        }),
-      });
-
-      const data = await response.json();
-
-      console.log('Debug origin response:', data);
-
-      setStatus(
-        'Debug sent. Origin: ' +
-          (data?.headers?.origin || 'null') +
-          ' | Referer: ' +
-          (data?.headers?.referer || 'null')
-      );
-    } catch (error: any) {
-      console.error('Debug origin error:', error);
-      setStatus('Debug origin error: ' + (error?.message || String(error)));
-    }
-  };
-
   const loginWithPi = async () => {
     if (!auth) {
       setStatus(t('authContextMissing'));
@@ -191,6 +152,11 @@ const PiTestnetPayment: React.FC = () => {
         throw new Error('Invalid Pi user data received.');
       }
 
+      /**
+       * Important:
+       * This calls backend /api/auth/pi-login and stores JWT in localStorage.
+       * Poll voting depends on this token.
+       */
       await auth.login(piUserId, piUsername, authResult?.accessToken);
 
       setUsername(piUsername);
@@ -637,37 +603,6 @@ const PiTestnetPayment: React.FC = () => {
         }}
       >
         {status}
-      </div>
-
-      <button
-        onClick={debugOrigin}
-        style={{
-          marginTop: '10px',
-          padding: '8px 14px',
-          borderRadius: '12px',
-          border: '1px solid #673ab7',
-          background: '#fff',
-          color: '#673ab7',
-          cursor: 'pointer',
-          fontSize: '12px',
-        }}
-      >
-        Debug Origin
-      </button>
-
-      <div
-        style={{
-          marginTop: '10px',
-          fontSize: '11px',
-          color: '#999',
-          wordBreak: 'break-word',
-        }}
-      >
-        API: {API_BASE_URL || 'VITE_API_URL is missing'}
-        <br />
-        Sandbox env: {String(import.meta.env.VITE_PI_SANDBOX)}
-        <br />
-        Parsed sandbox: {String(PI_SANDBOX)}
       </div>
     </section>
   );
