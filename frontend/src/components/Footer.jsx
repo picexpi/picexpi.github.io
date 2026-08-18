@@ -53,6 +53,12 @@ const Footer = () => {
 
         <ul className="footer-links">
           <li>
+            <Link to="/dig" className="footer-link">
+              {t('navDig')}
+            </Link>
+          </li>
+
+          <li>
             <button
               type="button"
               onClick={() => scrollToSection('features')}
