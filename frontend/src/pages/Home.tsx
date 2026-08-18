@@ -1,10 +1,13 @@
 // frontend/src/pages/Home.tsx
 import React from 'react';
+import './home.css';
+
 import Navbar from '../components/Navbar';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import PiTestnetPayment from '../components/PiTestnetPayment';
 import Hero from '../components/Hero';
 import Features from '../components/Features';
+import Roadmap from '../components/Roadmap';
 import Poll from '../components/Poll';
 import About from '../components/About';
 import Footer from '../components/Footer';
@@ -14,20 +17,30 @@ const Home: React.FC = () => {
     <div className="home-container">
       <Navbar />
 
-      <main>
+      <main className="home-main">
         {/* انتخاب زبان */}
-        <LanguageSwitcher />
-
-        {/* پنل اصلی و سالم Login/Payment پای - منتقل شده به اول صفحه */}
-        <div id="pi-payment-panel">
-          <PiTestnetPayment />
+        <div className="home-language-switcher">
+          <LanguageSwitcher />
         </div>
 
-        {/* Hero بدون Login */}
+        {/* معرفی اصلی پروژه DIG / PiDao */}
         <Hero />
 
+        {/* پنل ورود / پرداخت Pi */}
+        <section id="pi-payment-panel" className="home-pi-panel">
+          <PiTestnetPayment />
+        </section>
+
+        {/* زیرساخت‌ها و ویژگی‌های DIG */}
         <Features />
+
+        {/* مسیر راه پروژه */}
+        <Roadmap />
+
+        {/* نمونه اولیه رأی‌گیری غیرمتمرکز */}
         <Poll />
+
+        {/* درباره پروژه */}
         <About />
       </main>
 
