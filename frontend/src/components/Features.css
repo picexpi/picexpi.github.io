@@ -1,83 +1,212 @@
 /* frontend/src/components/Features.css */
 
 .features-section {
-    padding: 80px 20px;
-    background-color: #0f0a1e; /* تیره بسیار عمیق برای تم Pi */
-    color: #ffffff;
-    direction: rtl;
+  position: relative;
+  padding: 95px 20px;
+  background:
+    radial-gradient(circle at top left, rgba(103, 58, 183, 0.2) 0%, transparent 30%),
+    radial-gradient(circle at bottom right, rgba(255, 202, 40, 0.1) 0%, transparent 28%),
+    #0f0a1e;
+  color: #ffffff;
+  direction: rtl;
+  overflow: hidden;
+}
+
+.features-section::before {
+  content: '';
+  position: absolute;
+  top: 80px;
+  right: -120px;
+  width: 260px;
+  height: 260px;
+  border-radius: 999px;
+  background: rgba(255, 202, 40, 0.08);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.features-section::after {
+  content: '';
+  position: absolute;
+  bottom: 60px;
+  left: -120px;
+  width: 300px;
+  height: 300px;
+  border-radius: 999px;
+  background: rgba(103, 58, 183, 0.16);
+  filter: blur(10px);
+  pointer-events: none;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.features-heading {
+  max-width: 820px;
+  margin: 0 auto 54px auto;
+  text-align: center;
+}
+
+.features-kicker {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: rgba(255, 202, 40, 0.12);
+  border: 1px solid rgba(255, 202, 40, 0.28);
+  color: #ffca28;
+  font-size: 0.86rem;
+  font-weight: 900;
+  letter-spacing: 1px;
 }
 
 .section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 50px;
-    color: #ffca28; /* رنگ طلایی Pi */
-    text-shadow: 0 2px 10px rgba(255, 202, 40, 0.3);
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  line-height: 1.35;
+  margin-bottom: 18px;
+  color: #ffca28;
+  text-shadow: 0 2px 14px rgba(255, 202, 40, 0.28);
+}
+
+.features-intro {
+  margin: 0 auto;
+  max-width: 760px;
+  color: #c9c5d8;
+  font-size: 1.05rem;
+  line-height: 1.9;
 }
 
 .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
 }
 
 .feature-card {
-    background: rgba(255, 255, 255, 0.05); /* افکت شیشه‌ای */
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 40px 30px;
-    text-align: center;
-    transition: all 0.3s ease;
-    cursor: default;
+  position: relative;
+  min-height: 270px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.035));
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.105);
+  border-radius: 24px;
+  padding: 36px 28px;
+  text-align: center;
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease,
+    background 0.28s ease;
+  cursor: default;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(255, 202, 40, 0.08), transparent 44%);
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  pointer-events: none;
 }
 
 .feature-card:hover {
-    transform: translateY(-10px);
-    background: rgba(255, 255, 255, 0.08);
-    border-color: #ffca28; /* در هنگام هاور طلایی می‌شود */
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  transform: translateY(-10px);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.045));
+  border-color: rgba(255, 202, 40, 0.55);
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, 0.42),
+    0 0 28px rgba(255, 202, 40, 0.08);
+}
+
+.feature-card:hover::before {
+  opacity: 1;
 }
 
 .feature-icon-wrapper {
-    width: 70px;
-    height: 70px;
-    background: rgba(138, 43, 226, 0.2); /* بنفش ملایم */
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
+  position: relative;
+  width: 76px;
+  height: 76px;
+  background:
+    linear-gradient(145deg, rgba(103, 58, 183, 0.28), rgba(255, 202, 40, 0.11));
+  border: 1px solid rgba(255, 255, 255, 0.095);
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.26);
 }
 
 .feature-icon {
-    font-size: 2rem;
+  font-size: 2rem;
+  line-height: 1;
+  color: #ffca28;
+  font-weight: 900;
 }
 
 .feature-title {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    color: #ffffff;
+  font-size: 1.36rem;
+  line-height: 1.45;
+  margin-bottom: 14px;
+  color: #ffffff;
+  font-weight: 900;
 }
 
 .feature-description {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #b0b0b0; /* خاکستری روشن برای متن */
+  font-size: 0.98rem;
+  line-height: 1.85;
+  color: #bcb7cf;
 }
 
-/* واکنش‌گرایی برای موبایل */
+/* واکنش‌گرایی */
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
-    .section-title {
-        font-size: 2rem;
-    }
-    
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
+  .features-section {
+    padding: 78px 18px;
+  }
+
+  .features-heading {
+    margin-bottom: 38px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .feature-card {
+    min-height: auto;
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 420px) {
+  .features-section {
+    padding-inline: 14px;
+  }
+
+  .features-intro {
+    font-size: 0.98rem;
+  }
+
+  .feature-title {
+    font-size: 1.22rem;
+  }
+
+  .feature-description {
+    font-size: 0.94rem;
+  }
 }
