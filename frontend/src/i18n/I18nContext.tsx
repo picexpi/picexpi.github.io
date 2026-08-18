@@ -770,6 +770,89 @@ const translations: Translations = {
     en: 'This poll is an early prototype for measuring community participation in decentralized global decision-making. Each Pi-authenticated user can submit only one vote.',
     tr: 'Bu anket, merkeziyetsiz küresel karar alma süreçlerinde topluluk katılımını ölçmek için erken bir prototiptir. Pi ile doğrulanan her kullanıcı yalnızca bir oy kullanabilir.',
   },
+    roadmapTitle: {
+    fa: 'مسیر راه DIG',
+    en: 'DIG Roadmap',
+    tr: 'DIG Yol Haritası',
+  },
+
+  roadmapIntro: {
+    fa: 'DIG یک تغییر یک‌مرحله‌ای نیست؛ مسیری تدریجی برای ساخت اعتماد، مشارکت، رأی‌گیری، حاکمیت و اقتصاد غیرمتمرکز جهانی است.',
+    en: 'DIG is not a one-step change; it is a gradual path toward building trust, participation, voting, governance, and a decentralized global economy.',
+    tr: 'DIG tek aşamalı bir değişim değildir; güven, katılım, oylama, yönetişim ve merkeziyetsiz küresel ekonomi inşa etmeye yönelik kademeli bir yoldur.',
+  },
+
+  roadmapStep1Title: {
+    fa: 'جامعه اولیه PiDao',
+    en: 'Early PiDao Community',
+    tr: 'İlk PiDao Topluluğu',
+  },
+
+  roadmapStep1Description: {
+    fa: 'شروع پروژه با ایجاد جامعه‌ای از کاربران Pi، علاقه‌مندان به DAO و افرادی که به تصمیم‌گیری شفاف و مردمی باور دارند.',
+    en: 'Starting the project by building a community of Pi users, DAO supporters, and people who believe in transparent, people-driven decision-making.',
+    tr: 'Projeye Pi kullanıcıları, DAO destekçileri ve şeffaf, halk odaklı karar almaya inanan kişilerden oluşan bir toplulukla başlamak.',
+  },
+
+  roadmapStep2Title: {
+    fa: 'رأی‌گیری‌های آزمایشی',
+    en: 'Experimental Voting',
+    tr: 'Deneysel Oylamalar',
+  },
+
+  roadmapStep2Description: {
+    fa: 'اجرای رأی‌گیری‌های ساده برای سنجش مشارکت، رفتار جامعه و آمادگی کاربران برای تصمیم‌گیری غیرمتمرکز.',
+    en: 'Running simple voting experiments to measure participation, community behavior, and user readiness for decentralized decision-making.',
+    tr: 'Katılımı, topluluk davranışını ve kullanıcıların merkeziyetsiz karar almaya hazır olup olmadığını ölçmek için basit oylamalar yürütmek.',
+  },
+
+  roadmapStep3Title: {
+    fa: 'احراز هویت با Pi',
+    en: 'Pi Authentication',
+    tr: 'Pi Kimlik Doğrulaması',
+  },
+
+  roadmapStep3Description: {
+    fa: 'استفاده از Pi SDK برای ورود کاربران، کاهش رأی‌های تکراری و ایجاد پایه‌ای اولیه برای مشارکت معتبرتر.',
+    en: 'Using the Pi SDK for user login, reducing duplicate votes, and creating an early foundation for more trusted participation.',
+    tr: 'Kullanıcı girişi, tekrar oyların azaltılması ve daha güvenilir katılım için Pi SDK kullanmak.',
+  },
+
+  roadmapStep4Title: {
+    fa: 'زیرساخت DAO',
+    en: 'DAO Infrastructure',
+    tr: 'DAO Altyapısı',
+  },
+
+  roadmapStep4Description: {
+    fa: 'توسعه تدریجی ساختار پیشنهادها، رأی‌گیری‌ها، سوابق تصمیم‌گیری و مشارکت جامعه در مدیریت پروژه.',
+    en: 'Gradually developing proposals, voting flows, decision records, and community participation in project governance.',
+    tr: 'Öneriler, oylama süreçleri, karar kayıtları ve proje yönetişiminde topluluk katılımını kademeli olarak geliştirmek.',
+  },
+
+  roadmapStep5Title: {
+    fa: 'حرکت به سمت DIG',
+    en: 'Moving Toward DIG',
+    tr: 'DIG’e Doğru İlerleme',
+  },
+
+  roadmapStep5Description: {
+    fa: 'گسترش مفهوم از یک جامعه دیجیتال به مدلی برای بررسی موضوعات بزرگ‌تر و تصمیم‌گیری‌های جهانی با مشارکت مستقیم مردم.',
+    en: 'Expanding the concept from a digital community into a model for examining larger issues and global decisions through direct public participation.',
+    tr: 'Kavramı dijital bir topluluktan, daha büyük konuların ve küresel kararların doğrudan halk katılımıyla ele alındığı bir modele genişletmek.',
+  },
+
+  roadmapStep6Title: {
+    fa: 'بررسی DIB',
+    en: 'Exploring DIB',
+    tr: 'DIB Araştırması',
+  },
+
+  roadmapStep6Description: {
+    fa: 'در مراحل بعدی، بررسی امکان ایجاد بانک یا سیستم مالی بین‌المللی غیرمتمرکز به عنوان مکمل اقتصادی DIG.',
+    en: 'In later phases, exploring the possibility of an international decentralized bank or financial system as the economic complement to DIG.',
+    tr: 'Sonraki aşamalarda DIG’in ekonomik tamamlayıcısı olarak uluslararası merkeziyetsiz bir banka veya finansal sistem olasılığını araştırmak.',
+  },
 };
 
 interface I18nContextType {
