@@ -252,8 +252,20 @@
 }
 
 .poll-history li {
-  margin-bottom: 7px;
+  margin-bottom: 8px;
   color: #475569;
+  line-height: 1.8;
+}
+
+.poll-history-user {
+  font-weight: 900;
+  color: var(--primary, #673ab7);
+  direction: ltr;
+  unicode-bidi: plaintext;
+}
+
+.poll-history-separator {
+  color: #94a3b8;
 }
 
 /* سازگاری بهتر با RTL/LTR */
@@ -305,5 +317,9 @@ html[dir='ltr'] .poll-history {
   .poll-result-label {
     flex-direction: column;
     gap: 4px;
+  }
+
+  .poll-history {
+    font-size: 0.82rem;
   }
 }
