@@ -1,9 +1,15 @@
 // frontend/src/components/LanguageSwitcher.tsx
 import React from 'react';
-import { useI18n } from '../i18n/I18nContext';
+import { Language, useI18n } from '../i18n/I18nContext';
 
 const LanguageSwitcher: React.FC = () => {
-  const { lang, setLang, t } = useI18n();
+  const {
+    lang,
+    setLang,
+    t,
+    supportedLanguages,
+    languageLabels,
+  } = useI18n();
 
   return (
     <div
@@ -14,24 +20,41 @@ const LanguageSwitcher: React.FC = () => {
         gap: '8px',
         margin: '16px auto',
         fontFamily: 'sans-serif',
+        direction: lang === 'fa' || lang === 'ar' ? 'rtl' : 'ltr',
       }}
     >
-      <span style={{ fontSize: '13px', color: '#666' }}>{t('language')}:</span>
+      <label
+        htmlFor="language-switcher"
+        style={{
+          fontSize: '13px',
+          color: '#666',
+          fontWeight: 600,
+        }}
+      >
+        {t('language')}:
+      </label>
 
       <select
+        id="language-switcher"
         value={lang}
-        onChange={(e) => setLang(e.target.value as 'fa' | 'en' | 'tr')}
+        onChange={(e) => setLang(e.target.value as Language)}
+        aria-label={t('language')}
         style={{
           padding: '8px 12px',
           borderRadius: '10px',
           border: '1px solid #ccc',
           background: '#fff',
+          color: '#111827',
           cursor: 'pointer',
+          fontWeight: 600,
+          minWidth: '130px',
         }}
       >
-        <option value="fa">فارسی</option>
-        <option value="en">English</option>
-        <option value="tr">Türkçe</option>
+        {supportedLanguages.map((language) => (
+          <option key={language} value={language}>
+            {languageLabels[language]}
+          </option>
+        ))}
       </select>
     </div>
   );
