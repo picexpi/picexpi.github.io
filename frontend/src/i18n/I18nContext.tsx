@@ -647,6 +647,41 @@ const translations: Translations = {
     en: 'Back to Home',
     tr: 'Ana Sayfaya Dön',
   },
+    digShortName: {
+    fa: 'DIG',
+    en: 'DIG',
+    tr: 'DIG',
+  },
+
+  digFullName: {
+    fa: 'دولت بین‌المللی غیرمتمرکز',
+    en: 'Decentralized International Government',
+    tr: 'Merkeziyetsiz Uluslararası Hükümet',
+  },
+
+  digHeroTitle: {
+    fa: 'تصمیم‌گیری جهانی را غیرمتمرکز کنیم',
+    en: 'Decentralizing Global Decision-Making',
+    tr: 'Küresel Karar Almayı Merkeziyetsizleştirelim',
+  },
+
+  digHeroDescription: {
+    fa: 'PiDao گامی اولیه برای ساخت زیرساختی شفاف، مردمی و غیرمتمرکز است؛ جایی که آینده تصمیم‌گیری جهانی می‌تواند با رأی مستقیم مردم شکل بگیرد.',
+    en: 'PiDao is an early step toward building a transparent, people-powered, decentralized infrastructure where the future of global decision-making can be shaped by direct public participation.',
+    tr: 'PiDao, küresel karar alma süreçlerinin doğrudan halk katılımıyla şekillenebileceği şeffaf, topluluk odaklı ve merkeziyetsiz bir altyapı oluşturma yolunda ilk adımdır.',
+  },
+
+  exploreDig: {
+    fa: 'آشنایی با DIG',
+    en: 'Explore DIG',
+    tr: 'DIG’i Keşfet',
+  },
+
+  joinWithPi: {
+    fa: 'ورود با Pi و مشارکت',
+    en: 'Join with Pi',
+    tr: 'Pi ile Katıl',
+  },
 };
 
 interface I18nContextType {
