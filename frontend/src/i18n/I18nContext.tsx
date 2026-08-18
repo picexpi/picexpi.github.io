@@ -875,6 +875,119 @@ const translations: Translations = {
     en: 'All rights reserved.',
     tr: 'Tüm hakları saklıdır.',
   },
+    navDig: {
+    fa: 'معرفی DIG',
+    en: 'DIG',
+    tr: 'DIG',
+  },
+
+  digPageTitle: {
+    fa: 'مانیفست دولت بین‌المللی غیرمتمرکز',
+    en: 'Decentralized International Government Manifesto',
+    tr: 'Merkeziyetsiz Uluslararası Hükümet Manifestosu',
+  },
+
+  digPageLead: {
+    fa: 'DIG چشم‌اندازی برای آینده‌ای است که در آن بخشی از تصمیم‌گیری‌های بزرگ جهانی می‌تواند شفاف‌تر، مردمی‌تر و با مشارکت مستقیم انسان‌ها انجام شود.',
+    en: 'DIG is a vision for a future where part of major global decision-making can become more transparent, people-powered, and directly participatory.',
+    tr: 'DIG, büyük küresel kararların bir bölümünün daha şeffaf, halk odaklı ve doğrudan katılımcı hale gelebileceği bir gelecek vizyonudur.',
+  },
+
+  digWhatTitle: {
+    fa: 'DIG چیست؟',
+    en: 'What is DIG?',
+    tr: 'DIG Nedir?',
+  },
+
+  digWhatText: {
+    fa: 'DIG یا دولت بین‌المللی غیرمتمرکز، یک مدل پیشنهادی برای تصمیم‌گیری جهانی است؛ مدلی که تلاش می‌کند به‌تدریج نقش مردم را در رأی‌گیری، قانون‌گذاری، حل اختلافات و مدیریت مسائل جهانی پررنگ‌تر کند.',
+    en: 'DIG, or Decentralized International Government, is a proposed model for global decision-making that aims to gradually increase the role of people in voting, legislation, conflict resolution, and global issue management.',
+    tr: 'DIG yani Merkeziyetsiz Uluslararası Hükümet, halkın oylama, yasa yapımı, uyuşmazlık çözümü ve küresel sorunların yönetimindeki rolünü kademeli olarak artırmayı amaçlayan önerilen bir karar alma modelidir.',
+  },
+
+  digVotingTitle: {
+    fa: 'رأی مستقیم مردم',
+    en: 'Direct Public Voting',
+    tr: 'Doğrudan Halk Oylaması',
+  },
+
+  digVotingText: {
+    fa: 'در چشم‌انداز DIG، رأی‌گیری‌های شفاف و ضدتقلب می‌توانند به ابزاری برای سنجش اراده عمومی در موضوعات مهم تبدیل شوند.',
+    en: 'In the DIG vision, transparent and tamper-resistant voting can become a tool for measuring public will on important issues.',
+    tr: 'DIG vizyonunda şeffaf ve müdahaleye dayanıklı oylamalar, önemli konularda halk iradesini ölçmek için bir araç olabilir.',
+  },
+
+  digTransparencyTitle: {
+    fa: 'شفافیت و اعتماد',
+    en: 'Transparency & Trust',
+    tr: 'Şeffaflık ve Güven',
+  },
+
+  digTransparencyText: {
+    fa: 'تصمیم‌گیری غیرمتمرکز بدون شفافیت ممکن نیست. هدف، ساخت سازوکارهایی است که رأی‌ها، نتایج و فرآیندها تا حد امکان قابل بررسی باشند.',
+    en: 'Decentralized decision-making is impossible without transparency. The goal is to build mechanisms where votes, results, and processes are as verifiable as possible.',
+    tr: 'Şeffaflık olmadan merkeziyetsiz karar alma mümkün değildir. Amaç; oyların, sonuçların ve süreçlerin mümkün olduğunca doğrulanabilir olduğu mekanizmalar oluşturmaktır.',
+  },
+
+  digPiRoleTitle: {
+    fa: 'نقش Pi Network',
+    en: 'Role of Pi Network',
+    tr: 'Pi Network’ün Rolü',
+  },
+
+  digPiRoleText: {
+    fa: 'Pi می‌تواند نقطه شروعی برای ورود کاربران، مشارکت اولیه، پرداخت‌ها و کاهش رأی‌های تکراری باشد؛ نه پایان مسیر، بلکه آغاز جامعه DIG.',
+    en: 'Pi can be a starting point for user entry, early participation, payments, and reducing duplicate votes—not the final destination, but the beginning of the DIG community.',
+    tr: 'Pi; kullanıcı girişi, erken katılım, ödemeler ve tekrar oyların azaltılması için bir başlangıç noktası olabilir; son hedef değil, DIG topluluğunun başlangıcıdır.',
+  },
+
+  digConflictTitle: {
+    fa: 'حل اختلافات جهانی',
+    en: 'Global Conflict Resolution',
+    tr: 'Küresel Uyuşmazlık Çözümü',
+  },
+
+  digConflictText: {
+    fa: 'در آینده، DIG می‌تواند مدل‌هایی آزمایشی برای بررسی اختلافات و بحران‌ها با رأی‌گیری چندمرحله‌ای و مشارکت عمومی ارائه دهد.',
+    en: 'In the future, DIG can provide experimental models for examining disputes and crises through multi-step voting and public participation.',
+    tr: 'Gelecekte DIG, uyuşmazlıkları ve krizleri çok aşamalı oylama ve halk katılımıyla değerlendirmek için deneysel modeller sunabilir.',
+  },
+
+  digDibTitle: {
+    fa: 'DIB و اقتصاد غیرمتمرکز',
+    en: 'DIB & Decentralized Economy',
+    tr: 'DIB ve Merkeziyetsiz Ekonomi',
+  },
+
+  digDibText: {
+    fa: 'DIB می‌تواند در آینده به عنوان ایده‌ای برای بانک یا سیستم مالی بین‌المللی غیرمتمرکز بررسی شود؛ مکملی اقتصادی برای DIG.',
+    en: 'DIB can later be explored as an idea for an international decentralized bank or financial system: an economic complement to DIG.',
+    tr: 'DIB, ileride uluslararası merkeziyetsiz bir banka veya finansal sistem fikri olarak araştırılabilir; DIG’in ekonomik tamamlayıcısıdır.',
+  },
+
+  digManifestoRoadmapTitle: {
+    fa: 'مسیر توسعه DIG',
+    en: 'DIG Development Path',
+    tr: 'DIG Gelişim Yolu',
+  },
+
+  digManifestoRoadmapIntro: {
+    fa: 'این مسیر مرحله‌ای است. ابتدا جامعه، ابزار و رأی‌گیری آزمایشی ساخته می‌شود؛ سپس مدل‌های بزرگ‌تر تصمیم‌گیری و اقتصاد غیرمتمرکز بررسی می‌شوند.',
+    en: 'This path is gradual. First, the community, tools, and experimental voting are built; then larger decision-making and decentralized economy models are explored.',
+    tr: 'Bu yol kademelidir. Önce topluluk, araçlar ve deneysel oylama oluşturulur; ardından daha büyük karar alma ve merkeziyetsiz ekonomi modelleri araştırılır.',
+  },
+
+  digDisclaimerTitle: {
+    fa: 'یادداشت مهم',
+    en: 'Important Note',
+    tr: 'Önemli Not',
+  },
+
+  digDisclaimerText: {
+    fa: 'DIG در این مرحله یک چشم‌انداز، ایده و مسیر توسعه است. هدف فعلی، ساخت ابزارهای آزمایشی، سنجش مشارکت جامعه و حرکت تدریجی به سمت سازوکارهای شفاف‌تر برای تصمیم‌گیری مردمی است.',
+    en: 'At this stage, DIG is a vision, idea, and development path. The current goal is to build experimental tools, measure community participation, and gradually move toward more transparent mechanisms for people-driven decision-making.',
+    tr: 'Bu aşamada DIG bir vizyon, fikir ve gelişim yoludur. Mevcut hedef; deneysel araçlar oluşturmak, topluluk katılımını ölçmek ve halk odaklı karar alma için daha şeffaf mekanizmalara kademeli olarak ilerlemektir.',
+  },
 };
 
 interface I18nContextType {
