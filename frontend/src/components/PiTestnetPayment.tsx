@@ -14,7 +14,7 @@ declare global {
 const API_BASE_URL =
   import.meta.env.VITE_API_URL || 'https://pidao.bonto.run/api';
 
-const parseBooleanEnv = (value: unknown, defaultValue = true): boolean => {
+const parseBooleanEnv = (value: unknown, defaultValue = false): boolean => {
   if (value === undefined || value === null || value === '') {
     return defaultValue;
   }
@@ -22,7 +22,7 @@ const parseBooleanEnv = (value: unknown, defaultValue = true): boolean => {
   return String(value).trim().toLowerCase() === 'true';
 };
 
-const PI_SANDBOX = parseBooleanEnv(import.meta.env.VITE_PI_SANDBOX, true);
+const PI_SANDBOX = parseBooleanEnv(import.meta.env.VITE_PI_SANDBOX, false);
 
 const DEFAULT_AMOUNT = import.meta.env.VITE_DEFAULT_PI_AMOUNT || '0.01';
 
@@ -133,7 +133,7 @@ const PiTestnetPayment: React.FC = () => {
             : {}),
         },
         body: JSON.stringify({
-          source: 'PiTestnetPayment',
+          source: 'PiPayment',
           pageUrl: window.location.href,
           origin: window.location.origin,
           userAgent: navigator.userAgent,
@@ -404,7 +404,7 @@ const PiTestnetPayment: React.FC = () => {
 
       const paymentData = {
         amount: paymentAmount,
-        memo: `${PI_SANDBOX ? '[TESTNET] ' : ''}Pi DAO payment - ${paymentAmount} Pi`,
+        memo: `Pi DAO payment - ${paymentAmount} Pi`,
         metadata: {
           type: PI_SANDBOX ? 'testnet_payment' : 'mainnet_payment',
           orderId,
@@ -520,24 +520,6 @@ const PiTestnetPayment: React.FC = () => {
         {t('network')}: {networkLabel}
       </div>
 
-      {PI_SANDBOX && (
-        <div
-          style={{
-            margin: '0 auto 14px',
-            padding: '10px 12px',
-            borderRadius: '12px',
-            background: '#fff8e1',
-            color: '#8a5a00',
-            border: '1px solid rgba(255, 202, 40, 0.45)',
-            fontSize: '12px',
-            lineHeight: 1.7,
-          }}
-        >
-          Testnet mode is enabled. Before confirming, make sure Pi Wallet shows
-          a Sandbox/Testnet payment.
-        </div>
-      )}
-
       {!isAuthenticated ? (
         <button
           onClick={loginWithPi}
@@ -630,22 +612,14 @@ const PiTestnetPayment: React.FC = () => {
               padding: '12px 22px',
               borderRadius: '24px',
               border: 'none',
-              background: isPaying
-                ? '#999'
-                : PI_SANDBOX
-                  ? '#ef6c00'
-                  : '#00c853',
+              background: isPaying ? '#999' : '#00c853',
               color: '#fff',
               cursor: isPaying ? 'not-allowed' : 'pointer',
               fontSize: '15px',
               fontWeight: 700,
             }}
           >
-            {isPaying
-              ? t('processing')
-              : PI_SANDBOX
-                ? `Testnet Pay ${amount || '0'} Pi`
-                : `Pay ${amount || '0'} Pi`}
+            {isPaying ? t('processing') : `Pay ${amount || '0'} Pi`}
           </button>
         </>
       )}
