@@ -4,7 +4,7 @@ import './Home.css';
 
 import Navbar from '../components/Navbar';
 import LanguageSwitcher from '../components/LanguageSwitcher';
-import PiTestnetPayment from '../components/PiPayment';
+import PiPaymentPanel from '../components/PiPaymentPanel';
 import Hero from '../components/Hero';
 import Features from '../components/Features';
 import Roadmap from '../components/Roadmap';
@@ -28,7 +28,7 @@ const Home: React.FC = () => {
 
         {/* پنل ورود / پرداخت Pi */}
         <section id="pi-payment-panel" className="home-pi-panel">
-          <PiPayment />
+          <PiPaymentPanel />
         </section>
 
         {/* زیرساخت‌ها و ویژگی‌های DIG */}
