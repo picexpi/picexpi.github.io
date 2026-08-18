@@ -858,6 +858,23 @@ const translations: Translations = {
     en: 'Roadmap',
     tr: 'Yol Haritası',
   },
+    footerDescription: {
+    fa: 'PiDao زیرساختی اولیه برای مشارکت، رأی‌گیری، پرداخت‌های Pi و حرکت تدریجی به سمت چشم‌انداز DIG است؛ مدلی شفاف‌تر و مردمی‌تر برای تصمیم‌گیری جهانی.',
+    en: 'PiDao is an early infrastructure for participation, voting, Pi payments, and a gradual move toward the DIG vision: a more transparent and people-powered model for global decision-making.',
+    tr: 'PiDao; katılım, oylama, Pi ödemeleri ve DIG vizyonuna kademeli geçiş için erken bir altyapıdır: küresel karar alma için daha şeffaf ve halk odaklı bir model.',
+  },
+
+  footerNote: {
+    fa: 'DIG در این مرحله یک چشم‌انداز و مسیر توسعه است. هدف فعلی، ساخت ابزارهای آزمایشی، جامعه اولیه و سازوکارهای شفاف برای مشارکت مردم است.',
+    en: 'At this stage, DIG is a vision and development path. The current goal is to build experimental tools, an early community, and transparent mechanisms for public participation.',
+    tr: 'Bu aşamada DIG bir vizyon ve gelişim yoludur. Mevcut amaç; deneysel araçlar, erken bir topluluk ve halk katılımı için şeffaf mekanizmalar oluşturmaktır.',
+  },
+
+  footerRights: {
+    fa: 'تمام حقوق محفوظ است.',
+    en: 'All rights reserved.',
+    tr: 'Tüm hakları saklıdır.',
+  },
 };
 
 interface I18nContextType {
