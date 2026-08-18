@@ -682,6 +682,89 @@ const translations: Translations = {
     en: 'Join with Pi',
     tr: 'Pi ile Katıl',
   },
+    digFeaturesSectionTitle: {
+    fa: 'زیرساخت‌های اصلی DIG',
+    en: 'Core DIG Infrastructure',
+    tr: 'DIG Temel Altyapısı',
+  },
+
+  digFeaturesSectionIntro: {
+    fa: 'DIG فقط یک ایده سیاسی نیست؛ یک مسیر فنی، اجتماعی و اقتصادی برای ساخت تصمیم‌گیری شفاف، مشارکتی و جهانی است.',
+    en: 'DIG is not only a political idea; it is a technical, social, and economic path toward transparent, participatory, and global decision-making.',
+    tr: 'DIG yalnızca politik bir fikir değildir; şeffaf, katılımcı ve küresel karar alma için teknik, sosyal ve ekonomik bir yoldur.',
+  },
+
+  featureGlobalVotingTitle: {
+    fa: 'رأی‌گیری جهانی',
+    en: 'Global Voting',
+    tr: 'Küresel Oylama',
+  },
+
+  featureGlobalVotingDescription: {
+    fa: 'ایجاد سازوکاری برای مشارکت مستقیم مردم در موضوعات مهم جهانی، بدون وابستگی کامل به ساختارهای متمرکز.',
+    en: 'Creating a mechanism for direct public participation in important global issues without full dependence on centralized structures.',
+    tr: 'Merkezi yapılara tamamen bağımlı olmadan önemli küresel konularda doğrudan halk katılımı için bir mekanizma oluşturmak.',
+  },
+
+  featureTransparentGovernanceTitle: {
+    fa: 'حاکمیت شفاف',
+    en: 'Transparent Governance',
+    tr: 'Şeffaf Yönetişim',
+  },
+
+  featureTransparentGovernanceDescription: {
+    fa: 'تصمیم‌ها، رأی‌ها و نتایج باید تا حد امکان قابل بررسی، شفاف و مقاوم در برابر دستکاری باشند.',
+    en: 'Decisions, votes, and results should be as verifiable, transparent, and tamper-resistant as possible.',
+    tr: 'Kararlar, oylar ve sonuçlar mümkün olduğunca doğrulanabilir, şeffaf ve müdahaleye dayanıklı olmalıdır.',
+  },
+
+  featurePiIdentityTitle: {
+    fa: 'هویت و مشارکت با Pi',
+    en: 'Pi Identity & Participation',
+    tr: 'Pi Kimliği ve Katılım',
+  },
+
+  featurePiIdentityDescription: {
+    fa: 'Pi Network می‌تواند نقطه شروعی برای ورود کاربران، کاهش رأی‌های تکراری و ایجاد جامعه اولیه مشارکت‌کنندگان باشد.',
+    en: 'Pi Network can be a starting point for user entry, reducing duplicate votes, and forming an early community of participants.',
+    tr: 'Pi Network; kullanıcı girişi, tekrar oyların azaltılması ve ilk katılımcı topluluğunun oluşması için bir başlangıç noktası olabilir.',
+  },
+
+  featureDaoInfrastructureTitle: {
+    fa: 'زیرساخت DAO',
+    en: 'DAO Infrastructure',
+    tr: 'DAO Altyapısı',
+  },
+
+  featureDaoInfrastructureDescription: {
+    fa: 'ساختار DAO می‌تواند پایه‌ای برای پیشنهادها، رأی‌گیری‌ها، تصمیم‌سازی جمعی و توسعه تدریجی حاکمیت غیرمتمرکز باشد.',
+    en: 'DAO structure can become a foundation for proposals, voting, collective decision-making, and the gradual development of decentralized governance.',
+    tr: 'DAO yapısı; öneriler, oylamalar, kolektif karar alma ve merkeziyetsiz yönetişimin kademeli gelişimi için temel olabilir.',
+  },
+
+  featureDigitalEconomyTitle: {
+    fa: 'اقتصاد دیجیتال',
+    en: 'Digital Economy',
+    tr: 'Dijital Ekonomi',
+  },
+
+  featureDigitalEconomyDescription: {
+    fa: 'فروشگاه، پرداخت‌های Pi و خدمات دیجیتال می‌توانند پایه‌های اولیه یک اقتصاد مردمی و غیرمتمرکز را شکل دهند.',
+    en: 'The marketplace, Pi payments, and digital services can form the early foundations of a people-powered decentralized economy.',
+    tr: 'Pazar yeri, Pi ödemeleri ve dijital hizmetler, topluluk odaklı merkeziyetsiz bir ekonominin ilk temellerini oluşturabilir.',
+  },
+
+  featureConflictResolutionTitle: {
+    fa: 'حل اختلاف با رأی مردم',
+    en: 'People-Driven Conflict Resolution',
+    tr: 'Halk Odaklı Uyuşmazlık Çözümü',
+  },
+
+  featureConflictResolutionDescription: {
+    fa: 'در چشم‌انداز DIG، اختلافات بزرگ می‌توانند به‌تدریج با سازوکارهای شفاف، چندمرحله‌ای و مبتنی بر رأی عمومی بررسی شوند.',
+    en: 'In the DIG vision, major disputes can gradually be examined through transparent, multi-step mechanisms based on public voting.',
+    tr: 'DIG vizyonunda büyük anlaşmazlıklar, kamu oylamasına dayalı şeffaf ve çok aşamalı mekanizmalarla kademeli olarak değerlendirilebilir.',
+  },
 };
 
 interface I18nContextType {
