@@ -33,6 +33,27 @@ const Poll = () => {
     return localStorage.getItem('token');
   };
 
+  const maskUsername = (username) => {
+    if (!username) return '@Pi***';
+
+    const clean = String(username).replace(/^@/, '').trim();
+
+    if (!clean) return '@Pi***';
+
+    if (clean.length <= 2) {
+      return `@${clean[0] || 'P'}***`;
+    }
+
+    if (clean.length <= 5) {
+      return `@${clean.slice(0, 2)}***`;
+    }
+
+    const visiblePart = clean.slice(0, Math.min(4, clean.length - 2));
+    const hiddenLength = Math.max(3, clean.length - visiblePart.length);
+
+    return `@${visiblePart}${'*'.repeat(hiddenLength)}`;
+  };
+
   const fetchPoll = async () => {
     try {
       setLoading(true);
@@ -94,11 +115,6 @@ const Poll = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /**
-   * وقتی کاربر از PiTestnetPayment یا SignIn لاگین می‌کند،
-   * AuthContext و localStorage آپدیت می‌شوند.
-   * با این useEffect، Poll دوباره وضعیت رأی کاربر را می‌گیرد.
-   */
   useEffect(() => {
     if (auth?.isAuthenticated && getToken()) {
       fetchPoll();
@@ -301,9 +317,23 @@ const Poll = () => {
             <ul>
               {history.map((item) => (
                 <li key={item.id}>
-                  {item.vote_option === 'yes' ? t('yesLabel') : t('noLabel')}
-                  {' - '}
-                  {formatDate(item.created_at)}
+                  <span className="poll-history-user">
+                    {maskUsername(item.username)}
+                  </span>
+
+                  <span className="poll-history-separator"> · </span>
+
+                  <span>
+                    {item.vote_option === 'yes'
+                      ? t('yesLabel')
+                      : t('noLabel')}
+                  </span>
+
+                  <span className="poll-history-separator"> - </span>
+
+                  <span>
+                    {formatDate(item.created_at)}
+                  </span>
                 </li>
               ))}
             </ul>
