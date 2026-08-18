@@ -1403,6 +1403,23 @@ const translations: Translations = {
     hi: 'सर्वाधिकार सुरक्षित।',
     ar: 'جميع الحقوق محفوظة.',
   },
+    privacyPolicy: {
+    fa: 'سیاست حفظ حریم خصوصی',
+    en: 'Privacy Policy',
+    tr: 'Gizlilik Politikası',
+    zh: '隐私政策',
+    hi: 'गोपनीयता नीति',
+    ar: 'سياسة الخصوصية',
+  },
+
+  termsOfService: {
+    fa: 'شرایط استفاده',
+    en: 'Terms of Service',
+    tr: 'Kullanım Şartları',
+    zh: '服务条款',
+    hi: 'सेवा की शर्तें',
+    ar: 'شروط الخدمة',
+  },
 };
 
 interface I18nContextType {
