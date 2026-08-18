@@ -111,6 +111,28 @@ const Footer = () => {
           </li>
         </ul>
 
+        <div className="footer-legal-links">
+          <a
+            href="/privacy.html"
+            className="footer-legal-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t('privacyPolicy')}
+          </a>
+
+          <span className="footer-legal-separator">•</span>
+
+          <a
+            href="/terms.html"
+            className="footer-legal-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t('termsOfService')}
+          </a>
+        </div>
+
         <div className="footer-note">
           <p>
             {t('footerNote')}
