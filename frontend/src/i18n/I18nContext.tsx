@@ -765,6 +765,11 @@ const translations: Translations = {
     en: 'In the DIG vision, major disputes can gradually be examined through transparent, multi-step mechanisms based on public voting.',
     tr: 'DIG vizyonunda büyük anlaşmazlıklar, kamu oylamasına dayalı şeffaf ve çok aşamalı mekanizmalarla kademeli olarak değerlendirilebilir.',
   },
+    pollDescription: {
+    fa: 'این رأی‌گیری یک نمونه اولیه برای سنجش مشارکت جامعه در تصمیم‌گیری‌های غیرمتمرکز جهانی است. هر کاربر واردشده با Pi فقط یک رأی می‌تواند ثبت کند.',
+    en: 'This poll is an early prototype for measuring community participation in decentralized global decision-making. Each Pi-authenticated user can submit only one vote.',
+    tr: 'Bu anket, merkeziyetsiz küresel karar alma süreçlerinde topluluk katılımını ölçmek için erken bir prototiptir. Pi ile doğrulanan her kullanıcı yalnızca bir oy kullanabilir.',
+  },
 };
 
 interface I18nContextType {
