@@ -131,6 +131,17 @@ const Footer = () => {
           >
             {t('termsOfService')}
           </a>
+
+          <span className="footer-legal-separator">•</span>
+
+          <a
+            href="/whitepaper.html"
+            className="footer-legal-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t('whitepaper')}
+          </a>
         </div>
 
         <div className="footer-note">
