@@ -4,8 +4,9 @@
   height: 80px;
   display: flex;
   align-items: center;
-  background: rgba(15, 10, 30, 0.8);
-  backdrop-filter: blur(10px);
+  background: rgba(15, 10, 30, 0.86);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   position: sticky;
   top: 0;
@@ -15,9 +16,9 @@
 
 .navbar-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 22px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,13 +28,14 @@
 .navbar-logo {
   display: flex;
   align-items: center;
+  flex: 0 0 auto;
 }
 
 .navbar-logo-link {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
 }
 
@@ -42,17 +44,19 @@
   height: 44px;
   object-fit: contain;
   display: block;
+  filter: drop-shadow(0 4px 10px rgba(255, 202, 40, 0.18));
 }
 
 .navbar-logo-text {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #fff;
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: #ffffff;
   line-height: 1;
+  letter-spacing: 0.2px;
 }
 
 .navbar-logo-text span {
-  color: #ffca28; /* طلایی */
+  color: #ffca28;
 }
 
 /* Menu */
@@ -60,7 +64,7 @@
   display: flex;
   align-items: center;
   list-style: none;
-  gap: 30px;
+  gap: 24px;
   margin: 0;
   padding: 0;
 }
@@ -71,14 +75,34 @@
 }
 
 .nav-link {
-  color: #b0b0b0;
+  position: relative;
+  color: #c8c3d8;
   text-decoration: none;
-  font-size: 1rem;
-  transition: 0.3s;
+  font-size: 0.98rem;
+  font-weight: 700;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -7px;
+  width: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: #ffca28;
+  transition: width 0.25s ease;
 }
 
 .nav-link:hover {
   color: #ffca28;
+}
+
+.nav-link:hover::after {
+  width: 100%;
 }
 
 /* Button links inside nav */
@@ -97,7 +121,7 @@
 
 .nav-button:focus-visible {
   outline: 2px solid #ffca28;
-  outline-offset: 4px;
+  outline-offset: 5px;
   border-radius: 4px;
 }
 
@@ -117,9 +141,33 @@
   transform: translateY(-2px);
 }
 
-@media (max-width: 768px) {
+/* Tablet */
+@media (max-width: 1024px) {
   .nav-menu {
-    display: none; /* در موبایل باید منوی همبرگری بسازی */
+    gap: 16px;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+  }
+
+  .navbar-logo-text {
+    font-size: 1.55rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .navbar {
+    height: 72px;
+  }
+
+  .navbar-container {
+    padding: 0 16px;
+  }
+
+  .nav-menu {
+    display: none; /* بعداً می‌توانیم منوی همبرگری اضافه کنیم */
   }
 
   .navbar-logo-img {
@@ -128,6 +176,6 @@
   }
 
   .navbar-logo-text {
-    font-size: 1.5rem;
+    font-size: 1.45rem;
   }
 }
