@@ -7,11 +7,19 @@ declare global {
   interface Window {
     Pi?: any;
     __PI_SDK_INITIALIZED__?: boolean;
+    __PI_SDK_SANDBOX__?: boolean;
   }
 }
 
-const PI_SANDBOX =
-  String(import.meta.env.VITE_PI_SANDBOX ?? 'true') === 'true';
+const parseBooleanEnv = (value: unknown, defaultValue = false): boolean => {
+  if (value === undefined || value === null || value === '') {
+    return defaultValue;
+  }
+
+  return String(value).trim().toLowerCase() === 'true';
+};
+
+const PI_SANDBOX = parseBooleanEnv(import.meta.env.VITE_PI_SANDBOX, false);
 
 const PiHomeLogin: React.FC = () => {
   const auth = useAuth();
@@ -19,6 +27,8 @@ const PiHomeLogin: React.FC = () => {
 
   const [status, setStatus] = useState<string>(t('initializingPiSdk'));
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const networkLabel = PI_SANDBOX ? t('testnet') : t('mainnet');
 
   useEffect(() => {
     if (!window.Pi) {
@@ -34,14 +44,20 @@ const PiHomeLogin: React.FC = () => {
         });
 
         window.__PI_SDK_INITIALIZED__ = true;
+        window.__PI_SDK_SANDBOX__ = PI_SANDBOX;
+      } else if (window.__PI_SDK_SANDBOX__ !== PI_SANDBOX) {
+        console.warn('Pi SDK already initialized with a different sandbox value.', {
+          initializedSandbox: window.__PI_SDK_SANDBOX__,
+          currentSandbox: PI_SANDBOX,
+        });
       }
 
-      setStatus(t('piSdkReady'));
+      setStatus(`${t('piSdkReady')} ${t('network')}: ${networkLabel}`);
     } catch (error: any) {
       console.error('Pi SDK init error:', error);
       setStatus('Pi SDK error: ' + (error?.message || error));
     }
-  }, [t]);
+  }, [t, networkLabel]);
 
   const onIncompletePaymentFound = (payment: any) => {
     console.log('Incomplete payment found:', payment);
@@ -68,8 +84,6 @@ const PiHomeLogin: React.FC = () => {
         onIncompletePaymentFound
       );
 
-      console.log('Pi auth result:', authResult);
-
       const piUserId =
         authResult?.user?.uid ||
         authResult?.user?.id ||
@@ -81,10 +95,6 @@ const PiHomeLogin: React.FC = () => {
         throw new Error('Invalid Pi user data received.');
       }
 
-      /**
-       * اگر AuthContext تو هنوز فقط دو ورودی می‌گیرد،
-       * این خط را به auth.login(piUserId, username) تغییر بده.
-       */
       await auth.login(piUserId, username, authResult?.accessToken);
 
       setStatus(`${t('loginSuccess')} @${username}`);
@@ -104,7 +114,7 @@ const PiHomeLogin: React.FC = () => {
 
   const handleLogout = () => {
     auth?.logout();
-    setStatus(t('piSdkReady'));
+    setStatus(`${t('piSdkReady')} ${t('network')}: ${networkLabel}`);
   };
 
   const isAuthenticated = auth?.isAuthenticated;
@@ -144,7 +154,7 @@ const PiHomeLogin: React.FC = () => {
           fontWeight: 700,
         }}
       >
-        {t('network')}: {PI_SANDBOX ? t('testnet') : t('mainnet')}
+        {t('network')}: {networkLabel}
       </div>
 
       {!isAuthenticated ? (
@@ -164,7 +174,7 @@ const PiHomeLogin: React.FC = () => {
             fontWeight: 700,
           }}
         >
-          {isLoading ? '...' : t('loginWithPi')}
+          {isLoading ? t('pleaseWait') : t('loginWithPi')}
         </button>
       ) : (
         <>
