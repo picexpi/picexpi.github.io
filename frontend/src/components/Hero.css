@@ -50,3 +50,33 @@
 }
 
 /* حذف استایل‌های btn-secondary چون دیگر در Hero استفاده نمی‌شوند */
+.hero-badge {
+    
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 202, 40, 0.14);
+  border: 1px solid rgba(255, 202, 40, 0.35);
+  color: #ffca28;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.btn-secondary {
+  padding: 14px 28px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 202, 40, 0.5);
+  background: transparent;
+  color: #ffca28;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 202, 40, 0.12);
+  box-shadow: 0 0 18px rgba(255, 202, 40, 0.25);
+  transform: translateY(-2px);
+}
