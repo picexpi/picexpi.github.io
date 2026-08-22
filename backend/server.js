@@ -1,514 +1,762 @@
-// backend/server.js
-const path = require('path');
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
-const helmet = require('helmet');
-const { PrismaClient } = require('@prisma/client');
-
-// اگر Bonto یا Docker از ریشه پروژه اجرا کند، این باعث می‌شود backend/.env هم خوانده شود
-dotenv.config({ path: path.resolve(__dirname, '.env') });
-
-// اگر متغیرها از پنل Bonto / Docker env آمده باشند، همین‌ها استفاده می‌شوند
-dotenv.config();
+const jwt = require('jsonwebtoken');
+const { Pool } = require('pg');
 
 const app = express();
-const prisma = new PrismaClient();
 
-const APP_VERSION = 'poll-enabled-v6-pi-browser-guard';
+const PORT = Number(process.env.PORT || 5000);
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const PUBLIC_API_URL =
+  process.env.PUBLIC_API_URL || `http://localhost:${PORT}`;
 
-// اگر پشت reverse-proxy یا Bonto proxy هستی
-app.set('trust proxy', 1);
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
-// -------------------------
-// Pi Browser Guard Config
-// -------------------------
+const ALLOWED_ORIGINS = String(
+  process.env.ALLOWED_ORIGINS ||
+    `${FRONTEND_URL},http://localhost:5173,http://localhost:3000`
+)
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
-const REQUIRED_PI_BROWSER_DOMAIN = 'picexpi.github.io';
-const REQUIRED_PI_BROWSER_APP_URL = `https://${REQUIRED_PI_BROWSER_DOMAIN}`;
+const TOKEN_EXPIRATION = process.env.TOKEN_EXPIRATION || '7d';
+const ADMIN_SECRET_KEY = process.env.ADMIN_SECRET_KEY || null;
+const PI_API_KEY = process.env.PI_API_KEY || null;
+const PI_APP_ID = process.env.PI_APP_ID || null;
+const DATABASE_URL = process.env.DATABASE_URL || null;
 
-const PI_BROWSER_DEEP_LINK = `pi://browser?url=${encodeURIComponent(
-  REQUIRED_PI_BROWSER_APP_URL
-)}`;
+function getJwtSecret() {
+  const secret = process.env.JWT_SECRET;
 
-function isPiBrowserRequest(req) {
-  const userAgent = req.headers['user-agent'] || '';
+  if (!secret) {
+    throw new Error(
+      'JWT_SECRET is not configured. Please add JWT_SECRET to backend environment variables and restart the server.'
+    );
+  }
 
-  return /PiBrowser|Pi Browser|MinePi/i.test(userAgent);
+  return secret;
 }
 
-function getRequestSourceHost(req) {
-  const origin = req.headers.origin;
-  const referer = req.headers.referer || req.headers.referrer;
+if (!DATABASE_URL) {
+  console.warn(
+    'DATABASE_URL is not configured. Database routes may fail until DATABASE_URL is added.'
+  );
+}
 
-  try {
-    if (origin) {
-      return new URL(origin).hostname;
-    }
+const pool = DATABASE_URL
+  ? new Pool({
+      connectionString: DATABASE_URL,
+      ssl:
+        NODE_ENV === 'production'
+          ? {
+              rejectUnauthorized: false,
+            }
+          : false,
+    })
+  : null;
 
-    if (referer) {
-      return new URL(referer).hostname;
-    }
-  } catch {
+app.set('trust proxy', 1);
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      if (ALLOWED_ORIGINS.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'X-Admin-Secret',
+      'x-admin-secret',
+    ],
+  })
+);
+
+app.use(express.json({ limit: '2mb' }));
+app.use(express.urlencoded({ extended: true }));
+
+function asyncHandler(fn) {
+  return function wrappedAsyncHandler(req, res, next) {
+    Promise.resolve(fn(req, res, next)).catch(next);
+  };
+}
+
+function normalizeUser(row) {
+  if (!row) {
     return null;
   }
 
-  return req.hostname || null;
+  return {
+    id: String(row.id || row.pi_user_id || row.piUserId),
+    piUserId: String(row.pi_user_id || row.piUserId || row.id),
+    username: row.username || 'Pi User',
+    role: row.role || 'user',
+    createdAt: row.created_at || row.createdAt || null,
+  };
 }
 
-function isFromRequiredGithubDomain(req) {
-  const sourceHost = getRequestSourceHost(req);
+function signToken(user) {
+  const payload = {
+    id: String(user.id),
+    piUserId: String(user.piUserId || user.id),
+    username: user.username,
+    role: user.role || 'user',
+  };
 
-  return sourceHost === REQUIRED_PI_BROWSER_DOMAIN;
+  return jwt.sign(payload, getJwtSecret(), {
+    expiresIn: TOKEN_EXPIRATION,
+  });
 }
 
-function sendPiBrowserGuide(req, res) {
-  const accept = req.headers.accept || '';
-  const wantsHtml = accept.includes('text/html');
+function authenticateToken(req, res, next) {
+  try {
+    const authHeader = req.headers.authorization || '';
+    const token = authHeader.startsWith('Bearer ')
+      ? authHeader.slice(7)
+      : null;
 
-  if (!wantsHtml || req.path.startsWith('/api')) {
-    return res.status(426).json({
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication token is missing.',
+      });
+    }
+
+    const decoded = jwt.verify(token, getJwtSecret());
+    req.user = decoded;
+
+    return next();
+  } catch (error) {
+    return res.status(401).json({
       success: false,
-      code: 'PI_BROWSER_REQUIRED',
-      message: 'Please open this app inside Pi Browser.',
-      messageFa: 'لطفاً این برنامه را داخل Pi Browser باز کنید.',
-      appUrl: REQUIRED_PI_BROWSER_APP_URL,
-      piBrowserDeepLink: PI_BROWSER_DEEP_LINK,
-      version: APP_VERSION,
-      time: new Date().toISOString(),
+      message: 'Invalid or expired authentication token.',
+    });
+  }
+}
+
+function authenticateAdmin(req, res, next) {
+  const providedSecret =
+    req.headers['x-admin-secret'] ||
+    req.headers['X-Admin-Secret'] ||
+    req.body?.adminSecret ||
+    req.query?.adminSecret;
+
+  if (!ADMIN_SECRET_KEY) {
+    return res.status(500).json({
+      success: false,
+      message: 'ADMIN_SECRET_KEY is not configured.',
     });
   }
 
-  return res.status(426).send(`
-<!doctype html>
-<html lang="en" dir="ltr">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Open in Pi Browser</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #111827;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 24px;
-    }
-    .box {
-      max-width: 520px;
-      background: #1f2937;
-      border-radius: 18px;
-      padding: 28px;
-      box-shadow: 0 20px 40px rgba(0,0,0,.35);
-    }
-    h1 {
-      margin-top: 0;
-      font-size: 24px;
-    }
-    p {
-      line-height: 1.8;
-      color: #d1d5db;
-    }
-    a {
-      display: block;
-      margin-top: 14px;
-      padding: 14px 18px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .primary {
-      background: #fbbf24;
-      color: #111827;
-    }
-    .secondary {
-      background: #374151;
-      color: #fff;
-    }
-    .note {
-      margin-top: 16px;
-      font-size: 13px;
-      color: #9ca3af;
-      line-height: 1.8;
-    }
-  </style>
-</head>
-<body>
-  <div class="box">
-    <h1>To continue, open the app in Pi Browser.</h1>
+  if (providedSecret !== ADMIN_SECRET_KEY) {
+    return res.status(403).json({
+      success: false,
+      message: 'Invalid admin secret.',
+    });
+  }
 
-    <p>
-      This app is built for Pi Network and must be opened inside
-      <strong>Pi Browser</strong>
-      to use Pi login, payments, and Pi features.
-    </p>
+  return next();
+}
 
-    <a class="primary" href="${PI_BROWSER_DEEP_LINK}">
-      Open in Pi Browser
-    </a>
+async function ensureDatabase() {
+  if (!pool) {
+    return;
+  }
 
-    <a class="secondary" href="${REQUIRED_PI_BROWSER_APP_URL}">
-      Open the app address
-    </a>
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS users (
+      id SERIAL PRIMARY KEY,
+      pi_user_id TEXT UNIQUE NOT NULL,
+      username TEXT NOT NULL,
+      role TEXT NOT NULL DEFAULT 'user',
+      access_token TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+  `);
 
-    <p class="note">
-      If the button does not open Pi Browser, please open Pi Browser manually and open this app from there.
-    </p>
-  </div>
-</body>
-</html>
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS payments (
+      id SERIAL PRIMARY KEY,
+      payment_id TEXT UNIQUE,
+      txid TEXT,
+      pi_user_id TEXT,
+      username TEXT,
+      amount NUMERIC,
+      memo TEXT,
+      status TEXT NOT NULL DEFAULT 'created',
+      raw_payload JSONB,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+  `);
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS polls (
+      id SERIAL PRIMARY KEY,
+      pi_user_id TEXT,
+      username TEXT,
+      option_key TEXT NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
   `);
 }
 
-function requirePiBrowserForGithubDomain(req, res, next) {
-  if (req.method === 'OPTIONS') {
-    return next();
+async function verifyPiAccessToken(accessToken) {
+  if (!accessToken) {
+    return {
+      verified: false,
+      reason: 'No Pi access token provided.',
+    };
   }
 
-  if (!isFromRequiredGithubDomain(req)) {
-    return next();
+  if (!PI_API_KEY) {
+    return {
+      verified: false,
+      reason: 'PI_API_KEY is not configured.',
+    };
   }
 
-  if (isPiBrowserRequest(req)) {
-    return next();
-  }
+  try {
+    const response = await fetch('https://api.minepi.com/v2/me', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
-  return sendPiBrowserGuide(req, res);
-}
+    const data = await response.json().catch(() => null);
 
-// -------------------------
-// Security & Parsers
-// -------------------------
-
-app.use(helmet());
-
-app.use(express.json({ limit: '1mb' }));
-
-// لاگ سبک برای اینکه در Bonto ببینی دقیقاً چه routeهایی صدا زده می‌شوند
-app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
-  next();
-});
-
-// -------------------------
-// CORS
-// -------------------------
-
-const defaultAllowedOrigins = [
-  'https://picexpi.github.io',
-  'https://apppicexcfbf4957.pinet.com',
-  'https://picex.bonto.run',
-  'https://sandbox.minepi.com',
-  'https://minepi.com',
-  'http://localhost:5173',
-  'http://localhost:3000',
-];
-
-const envAllowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS
-      .split(',')
-      .map((origin) => origin.trim())
-      .filter(Boolean)
-  : [];
-
-const allowedOrigins = Array.from(
-  new Set([
-    ...defaultAllowedOrigins,
-    ...envAllowedOrigins,
-    process.env.FRONTEND_URL,
-  ].filter(Boolean))
-);
-
-console.log('✅ Allowed CORS origins:', allowedOrigins);
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    // اجازه به درخواست‌های بدون origin مثل Postman، health check، curl
-    if (!origin) {
-      return callback(null, true);
+    if (!response.ok) {
+      return {
+        verified: false,
+        reason: data?.message || 'Pi token verification failed.',
+        data,
+      };
     }
 
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-
-    console.warn(`⚠️ CORS blocked origin: ${origin}`);
-
-    return callback(new Error(`Not allowed by CORS: ${origin}`));
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'x-admin-key'],
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
-
-// -------------------------
-// Pi Browser Check Route
-// -------------------------
-
-app.get('/api/pi-browser-check', (req, res) => {
-  const sourceHost = getRequestSourceHost(req);
-  const isRequiredDomain = sourceHost === REQUIRED_PI_BROWSER_DOMAIN;
-  const isPiBrowser = isPiBrowserRequest(req);
-
-  return res.status(200).json({
-    success: true,
-    requiredDomain: REQUIRED_PI_BROWSER_DOMAIN,
-    sourceHost,
-    isRequiredDomain,
-    isPiBrowser,
-    mustOpenInPiBrowser: isRequiredDomain && !isPiBrowser,
-    appUrl: REQUIRED_PI_BROWSER_APP_URL,
-    piBrowserDeepLink: PI_BROWSER_DEEP_LINK,
-    message:
-      isRequiredDomain && !isPiBrowser
-        ? 'Please open this app inside Pi Browser.'
-        : 'OK',
-    messageFa:
-      isRequiredDomain && !isPiBrowser
-        ? 'لطفاً برنامه را داخل Pi Browser باز کنید.'
-        : 'OK',
-    version: APP_VERSION,
-    time: new Date().toISOString(),
-  });
-});
-
-// این middleware بعد از CORS و بعد از check route قرار می‌گیرد
-// تا درخواست‌های API از دامنه GitHub خارج از Pi Browser محدود شوند.
-app.use(requirePiBrowserForGithubDomain);
-
-// -------------------------
-// Routes
-// -------------------------
-
-const authRoutes = require('./routes/auth');
-const paymentRoutes = require('./routes/payment');
-
-app.use('/api/auth', authRoutes);
-
-// مسیر اصلی پرداخت‌های پروژه
-app.use('/api/payment', paymentRoutes);
-
-// Alias برای فرانت‌اندی که /api/pi/approve و /api/pi/complete صدا می‌زند
-app.use('/api/pi', paymentRoutes);
-
-// Alias برای حالت /api/payments
-app.use('/api/payments', paymentRoutes);
-
-// Admin routes اگر وجود داشته باشد
-try {
-  const adminRoutes = require('./routes/admin');
-  app.use('/api/admin', adminRoutes);
-  console.log('✅ Admin routes loaded');
-} catch (error) {
-  console.warn('⚠️ Admin routes not loaded:', error.message);
+    return {
+      verified: true,
+      data,
+    };
+  } catch (error) {
+    return {
+      verified: false,
+      reason: error.message,
+    };
+  }
 }
-
-// -------------------------
-// Root Check
-// -------------------------
 
 app.get('/', (req, res) => {
-  return res.status(200).json({
+  res.json({
     success: true,
-    message: 'Pi CEX backend is running',
-    version: APP_VERSION,
-    api: process.env.PUBLIC_API_URL || null,
-    appUrl: REQUIRED_PI_BROWSER_APP_URL,
-    piBrowserDeepLink: PI_BROWSER_DEEP_LINK,
-    time: new Date().toISOString(),
+    message: 'picex backend is running',
+    service: 'picex Backend',
+    environment: NODE_ENV,
+    publicApiUrl: PUBLIC_API_URL,
+    apiBase: '/api',
+    timestamp: new Date().toISOString(),
   });
 });
 
-// -------------------------
-// Health Checks
-// -------------------------
-
-const healthHandler = (req, res) => {
-  return res.status(200).json({
-    status: 'OK',
+app.get('/health', (req, res) => {
+  res.json({
     success: true,
-    message: req.originalUrl.startsWith('/api')
-      ? 'API is running'
-      : 'Server is running',
-    service: 'Pi CEX Backend',
-    version: APP_VERSION,
-    time: new Date().toISOString(),
+    status: 'ok',
+    service: 'picex Backend',
+    environment: NODE_ENV,
+    timestamp: new Date().toISOString(),
   });
-};
+});
 
-app.get('/health', healthHandler);
-app.get('/api/health', healthHandler);
+app.get('/api/health', (req, res) => {
+  res.json({
+    success: true,
+    status: 'ok',
+    service: 'picex Backend',
+    environment: NODE_ENV,
+    timestamp: new Date().toISOString(),
+  });
+});
 
-// -------------------------
-// Database Health Check
-// -------------------------
+app.post(
+  '/api/auth/pi-login',
+  asyncHandler(async (req, res) => {
+    const piUserId =
+      req.body.pi_user_id ||
+      req.body.piUserId ||
+      req.body.uid ||
+      req.body.userId;
 
-const dbHealthHandler = async (req, res) => {
-  try {
-    await prisma.$queryRaw`SELECT 1`;
+    const username = req.body.username || req.body.name || 'Pi User';
+    const accessToken = req.body.accessToken || req.body.access_token || null;
 
-    return res.status(200).json({
-      status: 'OK',
+    if (!piUserId) {
+      return res.status(400).json({
+        success: false,
+        message: 'pi_user_id is required.',
+      });
+    }
+
+    const piVerification = await verifyPiAccessToken(accessToken);
+
+    if (accessToken && piVerification.verified && piVerification.data?.uid) {
+      const verifiedUid = String(piVerification.data.uid);
+
+      if (verifiedUid !== String(piUserId)) {
+        return res.status(401).json({
+          success: false,
+          message: 'Pi access token does not match the provided user.',
+        });
+      }
+    }
+
+    let user;
+
+    if (pool) {
+      const result = await pool.query(
+        `
+        INSERT INTO users (pi_user_id, username, role, access_token, updated_at)
+        VALUES ($1, $2, 'user', $3, NOW())
+        ON CONFLICT (pi_user_id)
+        DO UPDATE SET
+          username = EXCLUDED.username,
+          access_token = EXCLUDED.access_token,
+          updated_at = NOW()
+        RETURNING id, pi_user_id, username, role, created_at;
+        `,
+        [String(piUserId), String(username), accessToken]
+      );
+
+      user = normalizeUser(result.rows[0]);
+    } else {
+      user = {
+        id: String(piUserId),
+        piUserId: String(piUserId),
+        username: String(username),
+        role: 'user',
+        createdAt: null,
+      };
+    }
+
+    const token = signToken(user);
+
+    return res.json({
       success: true,
-      message: 'Server is connected to PostgreSQL via Prisma',
-      database: 'PostgreSQL',
-      orm: 'Prisma',
-      version: APP_VERSION,
-      time: new Date().toISOString(),
+      message: 'Login successful.',
+      token,
+      user,
+      piVerification: {
+        verified: piVerification.verified,
+        reason: piVerification.reason || null,
+      },
     });
-  } catch (error) {
-    console.error('❌ Database Connection Error:', error);
+  })
+);
 
-    return res.status(500).json({
-      status: 'ERROR',
-      success: false,
-      message: 'Database connection failed.',
-      error: process.env.NODE_ENV === 'production' ? undefined : error.message,
-      version: APP_VERSION,
-      time: new Date().toISOString(),
-    });
+app.get('/api/auth/me', authenticateToken, asyncHandler(async (req, res) => {
+  let user = {
+    id: String(req.user.id),
+    piUserId: String(req.user.piUserId || req.user.id),
+    username: req.user.username || 'Pi User',
+    role: req.user.role || 'user',
+  };
+
+  if (pool && user.piUserId) {
+    const result = await pool.query(
+      `
+      SELECT id, pi_user_id, username, role, created_at
+      FROM users
+      WHERE pi_user_id = $1
+      LIMIT 1;
+      `,
+      [user.piUserId]
+    );
+
+    if (result.rows[0]) {
+      user = normalizeUser(result.rows[0]);
+    }
   }
-};
 
-// هر دو مسیر فعال هستند
-app.get('/db-health', dbHealthHandler);
-app.get('/api/db-health', dbHealthHandler);
-
-// -------------------------
-// Debug Env Check
-// -------------------------
-
-const envCheckHandler = (req, res) => {
-  return res.status(200).json({
+  return res.json({
     success: true,
-    NODE_ENV: process.env.NODE_ENV,
-    PORT: process.env.PORT,
-    PUBLIC_API_URL: process.env.PUBLIC_API_URL,
-    FRONTEND_URL: process.env.FRONTEND_URL,
-    ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS,
-
-    HAS_PI_API_KEY: Boolean(process.env.PI_API_KEY),
-    HAS_JWT_SECRET: Boolean(process.env.JWT_SECRET),
-    HAS_DATABASE_URL: Boolean(process.env.DATABASE_URL),
-    HAS_ADMIN_SECRET_KEY: Boolean(process.env.ADMIN_SECRET_KEY),
-
-    PI_REQUIRE_ACCESS_TOKEN: process.env.PI_REQUIRE_ACCESS_TOKEN || null,
-
-    allowedOrigins,
-    requiredPiBrowserDomain: REQUIRED_PI_BROWSER_DOMAIN,
-    piBrowserAppUrl: REQUIRED_PI_BROWSER_APP_URL,
-    piBrowserDeepLink: PI_BROWSER_DEEP_LINK,
-    version: APP_VERSION,
-    time: new Date().toISOString(),
+    user,
   });
-};
+}));
 
-app.get('/env-check', envCheckHandler);
-app.get('/api/env-check', envCheckHandler);
+app.post('/api/auth/logout', authenticateToken, (req, res) => {
+  return res.json({
+    success: true,
+    message: 'Logout successful.',
+  });
+});
 
-// -------------------------
-// 404 Handler
-// -------------------------
+app.get('/api/poll', asyncHandler(async (req, res) => {
+  const options = [
+    {
+      key: 'excellent',
+      label: 'Excellent',
+    },
+    {
+      key: 'good',
+      label: 'Good',
+    },
+    {
+      key: 'average',
+      label: 'Average',
+    },
+    {
+      key: 'needs_work',
+      label: 'Needs work',
+    },
+  ];
 
-app.use((req, res) => {
+  let results = options.map((option) => ({
+    ...option,
+    votes: 0,
+  }));
+
+  if (pool) {
+    const dbResult = await pool.query(`
+      SELECT option_key, COUNT(*)::int AS votes
+      FROM polls
+      GROUP BY option_key;
+    `);
+
+    const voteMap = new Map(
+      dbResult.rows.map((row) => [row.option_key, Number(row.votes)])
+    );
+
+    results = options.map((option) => ({
+      ...option,
+      votes: voteMap.get(option.key) || 0,
+    }));
+  }
+
+  return res.json({
+    success: true,
+    question: 'How do you rate your picex experience?',
+    options: results,
+  });
+}));
+
+app.post(
+  '/api/poll/vote',
+  authenticateToken,
+  asyncHandler(async (req, res) => {
+    const optionKey = req.body.optionKey || req.body.option_key;
+
+    const allowedOptions = ['excellent', 'good', 'average', 'needs_work'];
+
+    if (!allowedOptions.includes(optionKey)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid poll option.',
+      });
+    }
+
+    if (pool) {
+      await pool.query(
+        `
+        INSERT INTO polls (pi_user_id, username, option_key)
+        VALUES ($1, $2, $3);
+        `,
+        [
+          String(req.user.piUserId || req.user.id),
+          req.user.username || 'Pi User',
+          optionKey,
+        ]
+      );
+    }
+
+    return res.json({
+      success: true,
+      message: 'Vote submitted successfully.',
+    });
+  })
+);
+
+app.post(
+  '/api/payments/create',
+  authenticateToken,
+  asyncHandler(async (req, res) => {
+    const amount = req.body.amount || null;
+    const memo = req.body.memo || 'picex payment';
+    const paymentId = req.body.paymentId || req.body.payment_id || null;
+
+    if (pool) {
+      await pool.query(
+        `
+        INSERT INTO payments
+          (payment_id, pi_user_id, username, amount, memo, status, raw_payload)
+        VALUES
+          ($1, $2, $3, $4, $5, 'created', $6)
+        ON CONFLICT (payment_id)
+        DO UPDATE SET
+          amount = EXCLUDED.amount,
+          memo = EXCLUDED.memo,
+          raw_payload = EXCLUDED.raw_payload,
+          updated_at = NOW();
+        `,
+        [
+          paymentId,
+          String(req.user.piUserId || req.user.id),
+          req.user.username || 'Pi User',
+          amount,
+          memo,
+          JSON.stringify(req.body || {}),
+        ]
+      );
+    }
+
+    return res.json({
+      success: true,
+      message: 'Payment created.',
+      payment: {
+        paymentId,
+        amount,
+        memo,
+        status: 'created',
+      },
+    });
+  })
+);
+
+app.post(
+  '/api/payments/approve',
+  authenticateToken,
+  asyncHandler(async (req, res) => {
+    const paymentId = req.body.paymentId || req.body.payment_id;
+
+    if (!paymentId) {
+      return res.status(400).json({
+        success: false,
+        message: 'paymentId is required.',
+      });
+    }
+
+    if (pool) {
+      await pool.query(
+        `
+        INSERT INTO payments
+          (payment_id, pi_user_id, username, status, raw_payload)
+        VALUES
+          ($1, $2, $3, 'approved', $4)
+        ON CONFLICT (payment_id)
+        DO UPDATE SET
+          status = 'approved',
+          raw_payload = EXCLUDED.raw_payload,
+          updated_at = NOW();
+        `,
+        [
+          String(paymentId),
+          String(req.user.piUserId || req.user.id),
+          req.user.username || 'Pi User',
+          JSON.stringify(req.body || {}),
+        ]
+      );
+    }
+
+    return res.json({
+      success: true,
+      message: 'Payment approved.',
+      paymentId,
+    });
+  })
+);
+
+app.post(
+  '/api/payments/complete',
+  authenticateToken,
+  asyncHandler(async (req, res) => {
+    const paymentId = req.body.paymentId || req.body.payment_id;
+    const txid = req.body.txid || req.body.transactionId || null;
+
+    if (!paymentId) {
+      return res.status(400).json({
+        success: false,
+        message: 'paymentId is required.',
+      });
+    }
+
+    if (pool) {
+      await pool.query(
+        `
+        INSERT INTO payments
+          (payment_id, txid, pi_user_id, username, status, raw_payload)
+        VALUES
+          ($1, $2, $3, $4, 'completed', $5)
+        ON CONFLICT (payment_id)
+        DO UPDATE SET
+          txid = EXCLUDED.txid,
+          status = 'completed',
+          raw_payload = EXCLUDED.raw_payload,
+          updated_at = NOW();
+        `,
+        [
+          String(paymentId),
+          txid,
+          String(req.user.piUserId || req.user.id),
+          req.user.username || 'Pi User',
+          JSON.stringify(req.body || {}),
+        ]
+      );
+    }
+
+    return res.json({
+      success: true,
+      message: 'Payment completed.',
+      paymentId,
+      txid,
+    });
+  })
+);
+
+app.post(
+  '/api/payments/cancel',
+  authenticateToken,
+  asyncHandler(async (req, res) => {
+    const paymentId = req.body.paymentId || req.body.payment_id;
+
+    if (!paymentId) {
+      return res.status(400).json({
+        success: false,
+        message: 'paymentId is required.',
+      });
+    }
+
+    if (pool) {
+      await pool.query(
+        `
+        UPDATE payments
+        SET status = 'cancelled',
+            raw_payload = $2,
+            updated_at = NOW()
+        WHERE payment_id = $1;
+        `,
+        [String(paymentId), JSON.stringify(req.body || {})]
+      );
+    }
+
+    return res.json({
+      success: true,
+      message: 'Payment cancelled.',
+      paymentId,
+    });
+  })
+);
+
+app.get(
+  '/api/admin/users',
+  authenticateAdmin,
+  asyncHandler(async (req, res) => {
+    if (!pool) {
+      return res.json({
+        success: true,
+        users: [],
+      });
+    }
+
+    const result = await pool.query(`
+      SELECT id, pi_user_id, username, role, created_at, updated_at
+      FROM users
+      ORDER BY created_at DESC
+      LIMIT 200;
+    `);
+
+    return res.json({
+      success: true,
+      users: result.rows.map(normalizeUser),
+    });
+  })
+);
+
+app.get(
+  '/api/admin/payments',
+  authenticateAdmin,
+  asyncHandler(async (req, res) => {
+    if (!pool) {
+      return res.json({
+        success: true,
+        payments: [],
+      });
+    }
+
+    const result = await pool.query(`
+      SELECT id, payment_id, txid, pi_user_id, username, amount, memo, status, created_at, updated_at
+      FROM payments
+      ORDER BY created_at DESC
+      LIMIT 200;
+    `);
+
+    return res.json({
+      success: true,
+      payments: result.rows,
+    });
+  })
+);
+
+app.use('/api', (req, res) => {
   return res.status(404).json({
     success: false,
-    message: `Route not found: ${req.method} ${req.originalUrl}`,
-    version: APP_VERSION,
-    time: new Date().toISOString(),
+    message: 'API route not found.',
+    path: req.originalUrl,
   });
 });
 
-// -------------------------
-// Global Error Handler
-// -------------------------
+app.use((error, req, res, next) => {
+  console.error('picex backend error:', error);
 
-app.use((err, req, res, next) => {
-  console.error('⚠️ Unhandled Error:', err.stack || err);
+  const statusCode = error.statusCode || error.status || 500;
 
-  if (err.message && err.message.includes('CORS')) {
-    return res.status(403).json({
-      success: false,
-      message: err.message,
-      version: APP_VERSION,
-      time: new Date().toISOString(),
-    });
-  }
-
-  return res.status(500).json({
+  return res.status(statusCode).json({
     success: false,
-    message: err.message || 'Something went wrong on the server!',
-    version: APP_VERSION,
-    time: new Date().toISOString(),
+    message:
+      NODE_ENV === 'production'
+        ? error.message || 'Internal server error.'
+        : error.message || 'Internal server error.',
+    stack: NODE_ENV === 'production' ? undefined : error.stack,
   });
 });
 
-// -------------------------
-// Start Server
-// -------------------------
-
-const PORT = process.env.PORT || 5000;
-
-const server = app.listen(PORT, () => {
-  const publicApiUrl =
-    process.env.PUBLIC_API_URL ||
-    process.env.RENDER_EXTERNAL_URL ||
-    `http://localhost:${PORT}`;
-
-  console.log('==========================================');
-  console.log(`🚀 Server is running on port ${PORT}`);
-  console.log(`🔗 Public API URL: ${publicApiUrl}/api`);
-  console.log(`🧩 Version: ${APP_VERSION}`);
-  console.log('✅ Routes:');
-  console.log('   - GET  /');
-  console.log('   - GET  /health');
-  console.log('   - GET  /api/health');
-  console.log('   - GET  /db-health');
-  console.log('   - GET  /api/db-health');
-  console.log('   - GET  /env-check');
-  console.log('   - GET  /api/env-check');
-  console.log('   - GET  /api/pi-browser-check');
-  console.log('   - POST /api/auth/pi-login');
-  console.log('   - GET  /api/auth/me');
-  console.log('   - POST /api/pi/approve');
-  console.log('   - POST /api/pi/complete');
-  console.log('   - POST /api/payment/approve');
-  console.log('   - POST /api/payment/complete');
-  console.log('==========================================');
-});
-
-// -------------------------
-// Graceful Shutdown
-// -------------------------
-
-const shutdown = async (signal) => {
-  console.log(`\n${signal} received. Stopping server...`);
-
+async function startServer() {
   try {
-    await prisma.$disconnect();
+    await ensureDatabase();
 
-    server.close(() => {
-      console.log('Server closed and Prisma disconnected.');
-      process.exit(0);
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`picex backend running on port ${PORT}`);
+      console.log(`Environment: ${NODE_ENV}`);
+      console.log(`Public API URL: ${PUBLIC_API_URL}`);
+      console.log(`Frontend URL: ${FRONTEND_URL}`);
+      console.log(`Allowed origins: ${ALLOWED_ORIGINS.join(', ')}`);
+      console.log(`Pi App ID: ${PI_APP_ID || 'not configured'}`);
+      console.log(`JWT_SECRET configured: ${Boolean(process.env.JWT_SECRET)}`);
+      console.log(`DATABASE_URL configured: ${Boolean(DATABASE_URL)}`);
     });
-
-    setTimeout(() => {
-      console.error('Force shutdown after timeout.');
-      process.exit(1);
-    }, 10000).unref();
   } catch (error) {
-    console.error('❌ Shutdown Error:', error);
+    console.error('Failed to start picex backend:', error);
     process.exit(1);
   }
-};
+}
 
-process.on('SIGINT', () => shutdown('SIGINT'));
-process.on('SIGTERM', () => shutdown('SIGTERM'));
+if (require.main === module) {
+  startServer();
+}
+
+module.exports = {
+  app,
+  startServer,
+  pool,
+};
