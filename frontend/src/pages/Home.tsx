@@ -23,7 +23,7 @@ const Home: React.FC = () => {
           <LanguageSwitcher />
         </div>
 
-        {/* معرفی اصلی پروژه DIG / PiDao */}
+        {/* معرفی اصلی پروژه Picex Hybrid exchange*/}
         <Hero />
 
         {/* پنل ورود / پرداخت Pi */}
