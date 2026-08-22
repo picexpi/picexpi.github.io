@@ -83,7 +83,10 @@ const Roadmap = () => {
           </span>
 
           <h2 className="roadmap-title">
-            {tx('picexRoadmapTitle', 'From Pi payment app to trading infrastructure')}
+            {tx(
+              'picexRoadmapTitle',
+              'From Pi payment app to trading infrastructure'
+            )}
           </h2>
 
           <p className="roadmap-intro">
