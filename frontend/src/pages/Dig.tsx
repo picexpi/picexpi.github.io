@@ -10,6 +10,113 @@ import './Dig.css';
 const Dig: React.FC = () => {
   const { t } = useI18n();
 
+  const tx = (key: string, fallback: string) => {
+    const value = t(key);
+    return value && value !== key ? value : fallback;
+  };
+
+  const architectureCards = [
+    {
+      icon: '⚡',
+      title: tx('picexArchMatchingTitle', 'Off-chain Matching Engine'),
+      text: tx(
+        'picexArchMatchingText',
+        'Orders are planned to be matched inside a low-latency backend engine so traders can experience fast execution similar to modern centralized exchanges.'
+      ),
+    },
+    {
+      icon: '👛',
+      title: tx('picexArchWalletTitle', 'Wallet & Settlement Layer'),
+      text: tx(
+        'picexArchWalletText',
+        'Deposits, withdrawals, pending balances, hot wallet operations, cold wallet treasury, and reconciliation are separated from the trading engine.'
+      ),
+    },
+    {
+      icon: 'π',
+      title: tx('picexArchPiTitle', 'Pi Identity & Payment Flows'),
+      text: tx(
+        'picexArchPiText',
+        'Pi SDK is used for login and payment authorization where supported, while custody and ledger accounting remain controlled by picex infrastructure.'
+      ),
+    },
+    {
+      icon: '📈',
+      title: tx('picexArchChartsTitle', 'Native Market Data'),
+      text: tx(
+        'picexArchChartsText',
+        'Charts, tickers, trades, and OHLC candles are designed to come from picex internal executed trades and order book data.'
+      ),
+    },
+    {
+      icon: '🤖',
+      title: tx('picexArchAiTitle', 'AI Support Layer'),
+      text: tx(
+        'picexArchAiText',
+        'AI support will answer user questions using picex documentation, wallet rules, payment flows, KYC policy, and troubleshooting guides.'
+      ),
+    },
+    {
+      icon: '🛡️',
+      title: tx('picexArchRiskTitle', 'Risk, KYC & Compliance Controls'),
+      text: tx(
+        'picexArchRiskText',
+        'Account limits, withdrawal reviews, suspicious activity alerts, and future derivatives controls are part of the operational risk framework.'
+      ),
+    },
+  ];
+
+  const roadmapItems = [
+    {
+      number: '01',
+      title: tx('picexRoadmapStep1Title', 'Foundation & Pi Integration'),
+      text: tx(
+        'picexRoadmapStep1Description',
+        'React/Vite frontend, Node/Express backend, PostgreSQL, Pi login, JWT, payment flow, and stable deployment.'
+      ),
+    },
+    {
+      number: '02',
+      title: tx('picexRoadmapStep2Title', 'Wallet, Deposit & Withdraw Layer'),
+      text: tx(
+        'picexRoadmapStep2Description',
+        'Address mapping, deposit monitoring, withdrawal queue, hot/cold wallet policy, and reconciliation.'
+      ),
+    },
+    {
+      number: '03',
+      title: tx('picexRoadmapStep3Title', 'Spot Market & Order Book'),
+      text: tx(
+        'picexRoadmapStep3Description',
+        'Limit orders, market orders, internal ledger settlement, trade history, maker/taker fee logic.'
+      ),
+    },
+    {
+      number: '04',
+      title: tx('picexRoadmapStep4Title', 'Native Charts & Market Data'),
+      text: tx(
+        'picexRoadmapStep4Description',
+        'OHLC candle generation, ticker endpoint, order book snapshots, and WebSocket updates.'
+      ),
+    },
+    {
+      number: '05',
+      title: tx('picexRoadmapStep5Title', 'AI Support & Knowledge Base'),
+      text: tx(
+        'picexRoadmapStep5Description',
+        'RAG support assistant using project documentation, policies, and troubleshooting records.'
+      ),
+    },
+    {
+      number: '06',
+      title: tx('picexRoadmapStep6Title', 'Futures, Risk Engine & Scaling'),
+      text: tx(
+        'picexRoadmapStep6Description',
+        'Perpetual futures, margin system, liquidation engine, Docker/Nginx scaling, and market maker API.'
+      ),
+    },
+  ];
+
   return (
     <div className="dig-page">
       <Navbar />
@@ -22,24 +129,27 @@ const Dig: React.FC = () => {
         <section className="dig-hero-section">
           <div className="dig-container">
             <div className="dig-badge">
-              {t('digShortName')} · {t('digFullName')}
+              picex · Architecture
             </div>
 
             <h1 className="dig-title">
-              {t('digPageTitle')}
+              {tx('picexArchitecturePageTitle', 'picex Hybrid Exchange Architecture')}
             </h1>
 
             <p className="dig-lead">
-              {t('digPageLead')}
+              {tx(
+                'picexArchitecturePageLead',
+                'A technical overview of how picex evolves from a Pi login and payment application into a hybrid trading hub with wallet operations, native charts, AI support, and future futures infrastructure.'
+              )}
             </p>
 
             <div className="dig-actions">
               <Link to="/" className="dig-primary-link">
-                {t('backToHome')}
+                {tx('backToHome', 'Back to Home')}
               </Link>
 
               <a href="#dig-roadmap" className="dig-secondary-link">
-                {t('navRoadmap')}
+                {tx('navRoadmap', 'Roadmap')}
               </a>
             </div>
           </div>
@@ -48,99 +158,58 @@ const Dig: React.FC = () => {
         <section className="dig-content-section">
           <div className="dig-container dig-grid">
             <article className="dig-card dig-card-large">
-              <span className="dig-card-icon">🌍</span>
-              <h2>{t('digWhatTitle')}</h2>
-              <p>{t('digWhatText')}</p>
+              <span className="dig-card-icon">🏦</span>
+
+              <h2>
+                {tx('picexWhatTitle', 'What is picex?')}
+              </h2>
+
+              <p>
+                {tx(
+                  'picexWhatText',
+                  'picex is a Pi-first hybrid exchange concept. It keeps fast trading operations inside an internal matching and ledger system, while Pi login, Pi payments, deposits, withdrawals, and settlement rules connect the platform to the Pi ecosystem.'
+                )}
+              </p>
             </article>
 
-            <article className="dig-card">
-              <span className="dig-card-icon">🗳️</span>
-              <h3>{t('digVotingTitle')}</h3>
-              <p>{t('digVotingText')}</p>
-            </article>
-
-            <article className="dig-card">
-              <span className="dig-card-icon">🔍</span>
-              <h3>{t('digTransparencyTitle')}</h3>
-              <p>{t('digTransparencyText')}</p>
-            </article>
-
-            <article className="dig-card">
-              <span className="dig-card-icon">π</span>
-              <h3>{t('digPiRoleTitle')}</h3>
-              <p>{t('digPiRoleText')}</p>
-            </article>
-
-            <article className="dig-card">
-              <span className="dig-card-icon">🤝</span>
-              <h3>{t('digConflictTitle')}</h3>
-              <p>{t('digConflictText')}</p>
-            </article>
-
-            <article className="dig-card">
-              <span className="dig-card-icon">💠</span>
-              <h3>{t('digDibTitle')}</h3>
-              <p>{t('digDibText')}</p>
-            </article>
+            {architectureCards.map((item, index) => (
+              <article key={index} className="dig-card">
+                <span className="dig-card-icon">{item.icon}</span>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
           </div>
         </section>
 
         <section id="dig-roadmap" className="dig-roadmap-section">
           <div className="dig-container">
             <div className="dig-section-heading">
-              <span>{t('digShortName')}</span>
-              <h2>{t('digManifestoRoadmapTitle')}</h2>
-              <p>{t('digManifestoRoadmapIntro')}</p>
+              <span>picex</span>
+
+              <h2>
+                {tx('picexManifestoRoadmapTitle', 'Technical Roadmap')}
+              </h2>
+
+              <p>
+                {tx(
+                  'picexManifestoRoadmapIntro',
+                  'The project should grow in controlled phases: preserve the working Pi login, poll, and payment flows first, then add wallet operations, spot markets, native chart data, AI support, and futures only after risk controls are mature.'
+                )}
+              </p>
             </div>
 
             <div className="dig-roadmap-list">
-              <div className="dig-roadmap-item">
-                <strong>01</strong>
-                <div>
-                  <h3>{t('roadmapStep1Title')}</h3>
-                  <p>{t('roadmapStep1Description')}</p>
-                </div>
-              </div>
+              {roadmapItems.map((item) => (
+                <div key={item.number} className="dig-roadmap-item">
+                  <strong>{item.number}</strong>
 
-              <div className="dig-roadmap-item">
-                <strong>02</strong>
-                <div>
-                  <h3>{t('roadmapStep2Title')}</h3>
-                  <p>{t('roadmapStep2Description')}</p>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </div>
                 </div>
-              </div>
-
-              <div className="dig-roadmap-item">
-                <strong>03</strong>
-                <div>
-                  <h3>{t('roadmapStep3Title')}</h3>
-                  <p>{t('roadmapStep3Description')}</p>
-                </div>
-              </div>
-
-              <div className="dig-roadmap-item">
-                <strong>04</strong>
-                <div>
-                  <h3>{t('roadmapStep4Title')}</h3>
-                  <p>{t('roadmapStep4Description')}</p>
-                </div>
-              </div>
-
-              <div className="dig-roadmap-item">
-                <strong>05</strong>
-                <div>
-                  <h3>{t('roadmapStep5Title')}</h3>
-                  <p>{t('roadmapStep5Description')}</p>
-                </div>
-              </div>
-
-              <div className="dig-roadmap-item">
-                <strong>06</strong>
-                <div>
-                  <h3>{t('roadmapStep6Title')}</h3>
-                  <p>{t('roadmapStep6Description')}</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
@@ -148,8 +217,16 @@ const Dig: React.FC = () => {
         <section className="dig-disclaimer-section">
           <div className="dig-container">
             <div className="dig-disclaimer">
-              <h2>{t('digDisclaimerTitle')}</h2>
-              <p>{t('digDisclaimerText')}</p>
+              <h2>
+                {tx('picexDisclaimerTitle', 'Important technical disclaimer')}
+              </h2>
+
+              <p>
+                {tx(
+                  'picexDisclaimerText',
+                  'Pi SDK should not be treated as a complete custodial wallet system. Login, authentication, and payment flows must be separated from internal ledger accounting, blockchain monitoring, hot wallet, cold wallet, reconciliation, KYC, and withdrawal controls.'
+                )}
+              </p>
             </div>
           </div>
         </section>
