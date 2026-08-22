@@ -1,339 +1,889 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PiDao & DIG Whitepaper</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>picex Whitepaper | Hybrid Trading Ecosystem for Pi Network</title>
+  <meta
+    name="description"
+    content="picex whitepaper: an advanced hybrid trading ecosystem for Pi Network, combining off-chain matching, Pi-based identity, KYC, settlement, internal market data, fees, and the $PIC token economy."
+  />
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.75;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 36px 20px;
-      color: #1f2937;
-      background: #ffffff;
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #152238;
+      --muted: #607089;
+      --border: #dce4ef;
+      --primary: #145ee8;
+      --primary-soft: #eaf1ff;
+      --accent: #ffca28;
+      --danger: #b42318;
+      --warning: #8a4b00;
+      --success: #0f8b7a;
+      --shadow: 0 12px 32px rgba(21, 34, 56, 0.08);
+      --radius: 16px;
+      --max: 1120px;
     }
 
-    h1, h2, h3 {
-      color: #4c1d95;
-      line-height: 1.35;
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, #e8f0ff 0, transparent 320px),
+        radial-gradient(circle at bottom left, rgba(255, 202, 40, 0.16) 0, transparent 360px),
+        linear-gradient(180deg, #f8fbff 0, var(--bg) 100%);
+      line-height: 1.75;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header {
+      padding: 34px 0 26px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 13px;
+      margin-bottom: 14px;
+      letter-spacing: 0.2px;
     }
 
     h1 {
-      font-size: 2.4rem;
-      margin-bottom: 8px;
+      font-size: clamp(30px, 4vw, 48px);
+      margin: 0 0 14px;
+      line-height: 1.18;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      margin: 0;
+      max-width: 920px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .meta-card {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .meta-label {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .meta-value {
+      font-weight: 800;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 292px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    nav {
+      position: sticky;
+      top: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    nav h2 {
+      font-size: 16px;
+      margin: 0 0 12px;
+    }
+
+    nav ol {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    nav li {
+      margin: 7px 0;
+    }
+
+    nav a {
+      color: var(--text);
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
     }
 
     h2 {
-      margin-top: 42px;
-      border-bottom: 1px solid #e5e7eb;
-      padding-bottom: 8px;
+      margin: 0 0 14px;
+      font-size: 24px;
+      line-height: 1.35;
+      letter-spacing: -0.2px;
+    }
+
+    h3 {
+      margin: 22px 0 8px;
+      font-size: 18px;
+      line-height: 1.4;
     }
 
     p {
-      color: #374151;
+      margin: 10px 0;
     }
 
-    ul {
+    ul,
+    ol {
+      margin: 10px 0;
       padding-left: 22px;
     }
 
     li {
-      margin-bottom: 8px;
+      margin: 7px 0;
     }
 
-    a {
-      color: #673ab7;
-    }
-
-    .meta {
-      color: #6b7280;
-      font-size: 14px;
-      margin-bottom: 32px;
+    .notice,
+    .warning,
+    .summary {
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin: 15px 0;
     }
 
     .notice {
-      background: #f8f7ff;
-      border: 1px solid #ddd6fe;
+      background: #eef5ff;
+      border-left: 4px solid var(--primary);
+    }
+
+    .warning {
+      background: #fff8ea;
+      border-left: 4px solid var(--warning);
+    }
+
+    .summary {
+      background: #f3fffb;
+      border-left: 4px solid var(--success);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 14px 0;
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 740px;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f0f5fb;
+      font-weight: 800;
+    }
+
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 13px;
+    }
+
+    .toc-note {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #f1f5fb;
+      border: 1px solid var(--border);
+      color: #334155;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .roadmap {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .roadmap-item {
+      border: 1px solid var(--border);
+      background: #fbfdff;
       border-radius: 14px;
-      padding: 18px;
-      margin: 24px 0;
+      padding: 16px;
     }
 
-    .toc {
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 14px;
-      padding: 18px 22px;
-      margin: 28px 0;
+    .roadmap-item strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--primary);
     }
 
-    .toc a {
-      text-decoration: none;
+    .references li {
+      word-break: break-word;
     }
 
-    .footer {
-      margin-top: 50px;
-      padding-top: 24px;
-      border-top: 1px solid #e5e7eb;
-      color: #6b7280;
+    footer {
+      color: var(--muted);
       font-size: 14px;
+      padding: 24px 0 44px;
+      text-align: center;
+    }
+
+    @media (max-width: 960px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        position: static;
+      }
+
+      .meta {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 20px;
+      }
     }
   </style>
 </head>
+
 <body>
-  <h1>PiDao & DIG Whitepaper</h1>
-  <p class="meta">
-    Version 1.0 · Last updated: August 2026
-  </p>
+  <div class="container">
+    <header>
+      <span class="badge">picex Whitepaper</span>
 
-  <div class="notice">
-    <strong>Important Note:</strong>
-    This whitepaper describes an experimental vision and development path.
-    DIG is not an official government, legal authority, financial institution,
-    or recognized international organization. PiDao is an early-stage platform
-    exploring participation, voting, Pi payments, and decentralized governance concepts.
+      <h1>picex: The Advanced Hybrid Trading Ecosystem for Pi Network</h1>
+
+      <p class="subtitle">
+        A product and technical whitepaper for a Pi-first hybrid exchange architecture
+        that combines high-speed off-chain order execution with Pi-based identity,
+        KYC-aware access control, secure settlement, transparent market data, and an
+        in-platform token economy.
+      </p>
+
+      <div class="meta">
+        <div class="meta-card">
+          <span class="meta-label">Project</span>
+          <span class="meta-value">picex</span>
+        </div>
+
+        <div class="meta-card">
+          <span class="meta-label">Ecosystem</span>
+          <span class="meta-value">Pi Network</span>
+        </div>
+
+        <div class="meta-card">
+          <span class="meta-label">Document Date</span>
+          <span class="meta-value">August 20, 2026</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <nav aria-label="Table of contents">
+        <h2>Table of Contents</h2>
+        <ol>
+          <li><a href="#executive-summary">Executive Summary</a></li>
+          <li><a href="#problem-statement">Problem Statement</a></li>
+          <li><a href="#hybrid-architecture">picex Hybrid Architecture</a></li>
+          <li><a href="#access-fees">Access Model and Fee Economy</a></li>
+          <li><a href="#pic-token">$PIC Token and Platform Economy</a></li>
+          <li><a href="#kyc-security-settlement">KYC, Security and Pi SDK-Based Settlement</a></li>
+          <li><a href="#technical-stack">Technical Stack and Operational Requirements</a></li>
+          <li><a href="#roadmap">Execution Roadmap</a></li>
+          <li><a href="#conclusion">Conclusion</a></li>
+          <li><a href="#references">References</a></li>
+        </ol>
+
+        <div class="toc-note">
+          This HTML page is an English conversion of the uploaded whitepaper document.
+        </div>
+      </nav>
+
+      <main>
+        <section id="executive-summary">
+          <h2>1. Executive Summary</h2>
+
+          <p>
+            picex is a hybrid exchange designed for the Pi Network ecosystem. Its goal
+            is to connect professional market experience with the accessibility, identity
+            and settlement capabilities of the Pi ecosystem.
+          </p>
+
+          <p>
+            The product strategy is built on two core pillars:
+          </p>
+
+          <ul>
+            <li>
+              A high-speed off-chain layer for order matching, order book management
+              and market execution.
+            </li>
+            <li>
+              A Pi-based trust and settlement layer for user identity, payment flows,
+              final registration and settlement where applicable.
+            </li>
+          </ul>
+
+          <p>
+            Official Pi SDK documentation emphasizes that developers can use native
+            ecosystem capabilities to authenticate users with Pi accounts, manage payments,
+            and interact with standardized Pi Wallet and server-side payment validation
+            flows. In parallel, Pi Network’s official whitepaper and roadmap highlight
+            the importance of practical utilities, KYC, migration and ecosystem growth.
+          </p>
+
+          <p>
+            In this context, picex is not designed as a simple dashboard or a fully
+            on-chain DEX that repeats the limitations of congested settlement layers.
+            Instead, it is designed as real market infrastructure: a transparent order
+            book, market and limit orders, professional pricing paths, market-maker
+            incentives, and user access levels based on KYC.
+          </p>
+
+          <div class="summary">
+            picex aims to provide an exchange-grade trading experience while keeping
+            identity, access control and final trust aligned with the logic of the Pi
+            ecosystem.
+          </div>
+
+          <div class="pill-row">
+            <span class="pill">Hybrid Exchange</span>
+            <span class="pill">Pi Login</span>
+            <span class="pill">Off-Chain Matching</span>
+            <span class="pill">Pi-Based Settlement</span>
+            <span class="pill">KYC-Aware Access</span>
+            <span class="pill">Market Maker Incentives</span>
+          </div>
+        </section>
+
+        <section id="problem-statement">
+          <h2>2. Problem Statement</h2>
+
+          <p>
+            Digital markets become efficient only when three conditions exist at the
+            same time:
+          </p>
+
+          <ul>
+            <li>Low latency execution.</li>
+            <li>Complete and professional trading tools.</li>
+            <li>Deep and aggregated liquidity.</li>
+          </ul>
+
+          <p>
+            In many fully decentralized structures, congestion and settlement delay at
+            the on-chain layer make professional order execution difficult. As a result,
+            price efficiency declines, volatility increases, slippage rises, and the
+            attractiveness of daily trading activity is reduced.
+          </p>
+
+          <p>
+            On the other hand, when tools such as a deep order book, limit orders,
+            predictable pricing routes and liquidity incentives do not exist, everyday
+            use of Pi for trading remains limited for both ordinary users and active
+            traders.
+          </p>
+
+          <p>
+            Pi Network’s own official documentation is built around the idea that the
+            ecosystem should be practical, broad and useful for developers. The Pi
+            Whitepaper introduces the network as a utility-based peer-to-peer ecosystem,
+            and the official roadmap shows that the Enclosed Mainnet phase was designed
+            around KYC, migration and building useful applications.
+          </p>
+
+          <p>
+            This creates a clear need for a professional trading layer. If users and
+            assets exist in a widely distributed network, there must also be an
+            infrastructure capable of aggregating liquidity, controlling access, and
+            preserving speed at the same time.
+          </p>
+
+          <div class="notice">
+            picex is designed to fill this gap: an exchange that is compatible with
+            professional market behavior and also aligned with the logic of the Pi
+            ecosystem.
+          </div>
+        </section>
+
+        <section id="hybrid-architecture">
+          <h2>3. picex Hybrid Architecture</h2>
+
+          <p>
+            The architecture of picex consists of two layers. Each layer is responsible
+            for a clear part of the trading cycle.
+          </p>
+
+          <h3>3.1 Off-Chain Matching Engine</h3>
+
+          <p>
+            The first layer is the off-chain matching engine. This engine processes
+            orders in memory and within low-latency infrastructure. It is responsible
+            for:
+          </p>
+
+          <ul>
+            <li>Order registration.</li>
+            <li>Order prioritization.</li>
+            <li>Order book state management.</li>
+            <li>Real-time order book updates.</li>
+            <li>Market and limit order execution.</li>
+            <li>Professional-scale matching.</li>
+          </ul>
+
+          <p>
+            This design separates the execution path from the limitations of direct
+            interaction with a congested chain. It enables real-time order books, faster
+            execution, precise state management and a trading experience closer to
+            professional exchanges.
+          </p>
+
+          <h3>3.2 On-Chain Settlement Layer</h3>
+
+          <p>
+            The second layer is the settlement layer. In this layer, final ownership
+            control and asset movement are handled through Pi ecosystem capabilities
+            where applicable.
+          </p>
+
+          <p>
+            Official Pi SDK documentation states that the SDK is designed for user
+            authentication, User-to-App and App-to-User payments, native interaction
+            with Pi Wallet, and standardized server-side integration patterns. In the
+            language of the picex architecture, Pi is not only a visual identifier; it
+            is used as a layer of identity and trust.
+          </p>
+
+          <p>
+            Even though orders are matched quickly off-chain, the final transaction
+            logic is designed to rely on verifiable flows, user identity and asset
+            movement rules connected to the Pi ecosystem.
+          </p>
+
+          <div class="summary">
+            The core advantage of this model is balance: speed and user experience are
+            optimized off-chain, while final trust and validation remain connected to
+            the settlement and identity path of the Pi ecosystem.
+          </div>
+        </section>
+
+        <section id="access-fees">
+          <h2>4. Access Model and Fee Economy</h2>
+
+          <p>
+            The picex economic model is based on the assumption that greater access
+            should be accompanied by greater trust. For this reason, the fee structure
+            is built around two main user levels:
+          </p>
+
+          <ul>
+            <li>Unverified users.</li>
+            <li>KYC-Verified users.</li>
+          </ul>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>User Level</th>
+                  <th>Fee Logic</th>
+                  <th>Access Logic</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Unverified</td>
+                  <td>Higher fees</td>
+                  <td>Lower limits and more operational restrictions</td>
+                  <td>Risk control and compensation for additional compliance overhead</td>
+                </tr>
+                <tr>
+                  <td>KYC-Verified</td>
+                  <td>Significantly lower fees</td>
+                  <td>Higher limits and broader platform access</td>
+                  <td>Encourage trust, compliance, long-term participation and higher trading volume</td>
+                </tr>
+                <tr>
+                  <td>Market Makers</td>
+                  <td>Discounts or rebates</td>
+                  <td>Special market-making status based on liquidity contribution</td>
+                  <td>Maintain deep order books and reduce slippage</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            At the Unverified level, fees remain higher so that risk, operational
+            restrictions and withdrawal controls can be properly managed. At the
+            KYC-Verified level, fees decrease meaningfully to give verified users an
+            incentive to trade more actively, hold assets longer and remain compliant.
+          </p>
+
+          <p>
+            Market makers also require a special position within this structure.
+            Participants who continuously provide liquidity can receive fee discounts
+            or rebates so that order book depth is preserved. This policy is essential
+            for a hybrid exchange because a fast matching engine without sufficient
+            liquidity only increases the speed at which market gaps appear.
+          </p>
+
+          <div class="notice">
+            The economic goal of picex is not simply “low fees.” The goal is a structure
+            that rewards liquidity providers, reduces slippage, and gives ordinary users
+            a clear path toward higher account status.
+          </div>
+        </section>
+
+        <section id="pic-token">
+          <h2>5. $PIC Token and the In-Platform Economy</h2>
+
+          <p>
+            The $PIC token is designed as a coordination tool for the in-platform
+            economy of picex. It is not intended to be merely a speculative asset or
+            a decorative token on the interface.
+          </p>
+
+          <h3>5.1 Fee Reduction</h3>
+
+          <p>
+            The first function of $PIC is fee reduction. Holding or locking $PIC can
+            create discounts of up to 30% on trading fees, allowing active users to
+            return part of the generated value back into the platform cycle.
+          </p>
+
+          <h3>5.2 Governance</h3>
+
+          <p>
+            The second function is governance. $PIC holders can participate in voting
+            on new asset listings, protocol updates and important platform decisions.
+            This moves the system away from a fully centralized structure and gives
+            active community members meaningful influence.
+          </p>
+
+          <h3>5.3 Buyback and Burn</h3>
+
+          <p>
+            The third function is an anti-inflationary policy. Allocating 20% of net
+            fees to periodic buyback and burn can reduce supply pressure and create a
+            direct connection between platform revenue growth and token scarcity.
+          </p>
+
+          <h3>5.4 Staking and Liquidity Locking</h3>
+
+          <p>
+            The fourth function is staking. Users can lock $PIC in liquidity pools to
+            receive rewards while also strengthening their trading level. This model
+            encourages long-term behavior and helps align users, traders, market makers
+            and governance participants.
+          </p>
+
+          <div class="summary">
+            At the product design level, $PIC should directly connect to liquidity
+            generation, cost reduction and participation in decision-making.
+          </div>
+        </section>
+
+        <section id="kyc-security-settlement">
+          <h2>6. KYC, Security and Pi SDK-Based Settlement</h2>
+
+          <p>
+            Security in picex consists of three layers:
+          </p>
+
+          <ul>
+            <li>Identity validation.</li>
+            <li>Transaction validation.</li>
+            <li>Asset control.</li>
+          </ul>
+
+          <p>
+            Pi SDK documentation explains that the SDK provides a foundation for secure
+            user login, native Pi payments, wallet interaction and server APIs. This is
+            important for picex because an exchange can only be trusted when user
+            identity and payment events are validated on the server side, not only on
+            the client side.
+          </p>
+
+          <p>
+            At the KYC level, users must complete identification processes to reach
+            Verified status. This requirement is not only for legal compliance; it is
+            also necessary for reducing fraud, managing risk, enforcing different
+            withdrawal limits and improving the overall safety of the platform.
+          </p>
+
+          <p>
+            From a custody and settlement perspective, the logic must be designed so
+            that user assets remain under secure control until the final settlement
+            moment. Final transfer should only happen after consistency is verified
+            between balance, order status and settlement state.
+          </p>
+
+          <div class="warning">
+            In picex, security is not only a technical layer. It is part of the access
+            model and the economic model: the more verified and trustworthy a user is,
+            the lower the cost and the greater the available functionality.
+          </div>
+        </section>
+
+        <section id="technical-stack">
+          <h2>7. Technical Stack and Operational Requirements</h2>
+
+          <p>
+            For a hybrid exchange, the technical stack must serve reliability,
+            scalability and operational clarity. picex can be designed with:
+          </p>
+
+          <ul>
+            <li><strong>Node.js</strong> and <strong>TypeScript</strong> for the service layer.</li>
+            <li><strong>PostgreSQL</strong> for transactional data.</li>
+            <li><strong>Prisma</strong> for schema management and migrations.</li>
+            <li><strong>Docker</strong> for service separation and deployment consistency.</li>
+            <li><strong>Nginx</strong> for routing, load balancing and production delivery.</li>
+          </ul>
+
+          <p>
+            This combination is suitable for a system that requires both development
+            speed and data integrity. From the perspective of Pi ecosystem integration,
+            Pi SDK acts as the main gateway for user login and interaction validation.
+          </p>
+
+          <p>
+            From an operational perspective, the backend must be designed for:
+          </p>
+
+          <ul>
+            <li>Audit trails.</li>
+            <li>Error logging.</li>
+            <li>Monitoring and observability.</li>
+            <li>Matching engine state checks.</li>
+            <li>Settlement layer coordination.</li>
+            <li>Balance and order state reconciliation.</li>
+          </ul>
+
+          <p>
+            In an exchange with a live order book, even a small mismatch between
+            off-chain state and on-chain assets can become an operational risk.
+            Therefore, observability and control are inseparable parts of the
+            architecture.
+          </p>
+        </section>
+
+        <section id="roadmap">
+          <h2>8. Execution Roadmap</h2>
+
+          <p>
+            The picex roadmap can be divided into four logical phases.
+          </p>
+
+          <div class="roadmap">
+            <div class="roadmap-item">
+              <strong>Phase 1 — Infrastructure</strong>
+              <p>
+                Define the architecture, implement the backend, set up PostgreSQL and
+                Prisma, and establish the initial Pi SDK connection for login and
+                authorization. Security and compliance frameworks should also be
+                stabilized in this phase so that the product is built on trust from
+                the beginning.
+              </p>
+            </div>
+
+            <div class="roadmap-item">
+              <strong>Phase 2 — Spot Market</strong>
+              <p>
+                Launch the matching engine, order book, market and limit orders, and
+                secure settlement flows. At this point, picex can move from an
+                infrastructure system into a real market platform.
+              </p>
+            </div>
+
+            <div class="roadmap-item">
+              <strong>Phase 3 — Derivatives</strong>
+              <p>
+                Introduce perpetual futures, margin logic and a liquidation engine.
+                This stage should only be launched when liquidity control, real-time
+                risk monitoring and operational stability have reached sufficient
+                maturity.
+              </p>
+            </div>
+
+            <div class="roadmap-item">
+              <strong>Phase 4 — Ecosystem Expansion</strong>
+              <p>
+                Expand staking, governance or DAO functionality, advanced APIs and
+                deeper institutional liquidity access. The official Pi roadmap also
+                shows that the network moves in the direction of ecosystem growth and
+                utility development. Therefore, picex should prioritize market depth
+                and operational stability instead of rushed expansion.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="conclusion">
+          <h2>9. Conclusion</h2>
+
+          <p>
+            picex is not intended to be just another exchange. The project aims to build
+            the professional trading layer of the Pi ecosystem.
+          </p>
+
+          <p>
+            Its primary value comes from combining three elements:
+          </p>
+
+          <ul>
+            <li>Fast off-chain execution.</li>
+            <li>Pi-based identity and settlement logic.</li>
+            <li>A fee economy that rewards liquidity and verified participation.</li>
+          </ul>
+
+          <p>
+            Based on the Pi SDK and official Pi documentation, this approach is aligned
+            with the logic of the ecosystem and can evolve from a simple user experience
+            into a deep and sustainable market.
+          </p>
+
+          <div class="summary">
+            picex is designed to become a professional, secure and liquidity-aware
+            trading infrastructure for Pi Network users, developers, traders and market
+            makers.
+          </div>
+        </section>
+
+        <section id="references">
+          <h2>10. References</h2>
+
+          <p>
+            This whitepaper is based on the following official resources:
+          </p>
+
+          <ol class="references">
+            <li>
+              <strong>[S1] Pi Network SDK Documentation</strong> —
+              for user authentication, Pi payments and Pi SDK integration patterns.
+              <br />
+              <a href="https://pi-apps.github.io/pi-sdk-docs/" target="_blank" rel="noopener noreferrer">
+                https://pi-apps.github.io/pi-sdk-docs/
+              </a>
+            </li>
+
+            <li>
+              <strong>[S2] Pi Whitepaper</strong> —
+              for the general mission, economic model and Mainnet context.
+              <br />
+              <a href="https://minepi.com/white-paper/" target="_blank" rel="noopener noreferrer">
+                https://minepi.com/white-paper/
+              </a>
+            </li>
+
+            <li>
+              <strong>[S3] Pi Roadmap</strong> —
+              for network phases, Enclosed Mainnet, KYC and ecosystem development direction.
+              <br />
+              <a href="https://minepi.com/roadmap/" target="_blank" rel="noopener noreferrer">
+                https://minepi.com/roadmap/
+              </a>
+            </li>
+          </ol>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      © <span id="year"></span> picex. All rights reserved.
+    </footer>
   </div>
 
-  <div class="toc">
-    <h3>Table of Contents</h3>
-    <ul>
-      <li><a href="#abstract">1. Abstract</a></li>
-      <li><a href="#problem">2. The Problem</a></li>
-      <li><a href="#vision">3. Vision</a></li>
-      <li><a href="#pidao">4. What is PiDao?</a></li>
-      <li><a href="#dig">5. What is DIG?</a></li>
-      <li><a href="#pi-network">6. Role of Pi Network</a></li>
-      <li><a href="#governance">7. Governance Model</a></li>
-      <li><a href="#voting">8. Voting System</a></li>
-      <li><a href="#economy">9. Digital Economy</a></li>
-      <li><a href="#dib">10. DIB Concept</a></li>
-      <li><a href="#roadmap">11. Roadmap</a></li>
-      <li><a href="#security">12. Security & Transparency</a></li>
-      <li><a href="#disclaimer">13. Disclaimer</a></li>
-      <li><a href="#conclusion">14. Conclusion</a></li>
-    </ul>
-  </div>
-
-  <h2 id="abstract">1. Abstract</h2>
-  <p>
-    PiDao is an early infrastructure project designed to explore participation,
-    voting, Pi-based interactions, digital services, and decentralized governance.
-    Its long-term vision is connected to DIG, the Decentralized International
-    Government concept.
-  </p>
-  <p>
-    DIG is a proposed model for future global decision-making where people can
-    gradually play a more direct role in voting, public participation, conflict
-    resolution, and transparent governance mechanisms.
-  </p>
-
-  <h2 id="problem">2. The Problem</h2>
-  <p>
-    Many important global decisions are currently made through highly centralized
-    structures. While governments and institutions have historically played
-    important roles, modern technology creates new possibilities for broader
-    participation, transparent voting, and direct public involvement.
-  </p>
-  <p>
-    Existing systems face several challenges:
-  </p>
-  <ul>
-    <li>Limited direct participation of ordinary people in global decisions</li>
-    <li>Lack of transparency in many decision-making processes</li>
-    <li>Slow adaptation to global technological and social changes</li>
-    <li>Limited mechanisms for cross-border public voting</li>
-    <li>Dependence on centralized financial and governance structures</li>
-  </ul>
-
-  <h2 id="vision">3. Vision</h2>
-  <p>
-    The vision of PiDao and DIG is to gradually build tools that allow people
-    to participate more directly in transparent and decentralized decision-making.
-    This does not require an immediate replacement of existing systems. Instead,
-    the project follows a gradual, experimental, and community-driven path.
-  </p>
-  <p>
-    The long-term goal is a more transparent global participation layer where
-    people can express their will, vote on important issues, and help shape
-    collective decisions.
-  </p>
-
-  <h2 id="pidao">4. What is PiDao?</h2>
-  <p>
-    PiDao is the practical starting point of the project. It provides an early
-    platform for:
-  </p>
-  <ul>
-    <li>Pi-based authentication and participation</li>
-    <li>Experimental community voting</li>
-    <li>Digital products and services</li>
-    <li>Pi payment interactions</li>
-    <li>DAO-inspired governance experiments</li>
-    <li>Community engagement tasks</li>
-  </ul>
-  <p>
-    PiDao is not the final destination. It is the first layer for testing tools,
-    building community trust, and preparing the path toward larger decentralized
-    governance models.
-  </p>
-
-  <h2 id="dig">5. What is DIG?</h2>
-  <p>
-    DIG stands for Decentralized International Government. It is a conceptual
-    model for a future global decision-making framework where people can
-    participate more directly in important international matters.
-  </p>
-  <p>
-    DIG is currently a vision and development path, not a legal government or
-    official authority. Its purpose is to explore whether transparent,
-    technology-enabled, people-powered governance can become a meaningful layer
-    of global coordination.
-  </p>
-
-  <h2 id="pi-network">6. Role of Pi Network</h2>
-  <p>
-    Pi Network can serve as an early entry point for the PiDao ecosystem because
-    it provides a large user community, identity-related tools, Pi Browser,
-    Pi SDK, and payment infrastructure.
-  </p>
-  <p>
-    In the PiDao model, Pi can help with:
-  </p>
-  <ul>
-    <li>User login and participation</li>
-    <li>Reducing duplicate votes</li>
-    <li>Creating an early community of participants</li>
-    <li>Testing payment flows and digital services</li>
-    <li>Building trust around real user interaction</li>
-  </ul>
-
-  <h2 id="governance">7. Governance Model</h2>
-  <p>
-    The governance model is expected to evolve gradually. In the early stage,
-    PiDao focuses on simple voting, participation, and community interaction.
-    Later stages may include proposal systems, voting history, delegated
-    participation, reputation mechanisms, and DAO-style decision structures.
-  </p>
-  <p>
-    The key principle is gradual development. Governance should not be forced
-    from the beginning. It should grow based on real participation, community
-    feedback, technical reliability, and transparent results.
-  </p>
-
-  <h2 id="voting">8. Voting System</h2>
-  <p>
-    Voting is one of the most important components of the DIG vision. The first
-    voting models are experimental and designed to measure public participation.
-  </p>
-  <p>
-    Early voting goals include:
-  </p>
-  <ul>
-    <li>One authenticated user, one vote where possible</li>
-    <li>Transparent recording of poll results</li>
-    <li>Prevention of duplicate voting</li>
-    <li>Community participation analytics</li>
-    <li>Gradual improvement toward more secure voting models</li>
-  </ul>
-
-  <h2 id="economy">9. Digital Economy</h2>
-  <p>
-    A decentralized governance ecosystem also needs an economic layer. PiDao
-    starts with digital products, Pi payments, and community tasks as an early
-    economic foundation.
-  </p>
-  <p>
-    This economic layer may later support services, rewards, voting rights,
-    participation incentives, and decentralized digital marketplaces.
-  </p>
-
-  <h2 id="dib">10. DIB Concept</h2>
-  <p>
-    DIB stands for Decentralized International Bank. It is a future concept that
-    may be explored as an economic complement to DIG.
-  </p>
-  <p>
-    At this stage, DIB is only an idea. It may involve future research into
-    decentralized finance, transparent reserves, global digital value exchange,
-    and community-driven financial governance.
-  </p>
-
-  <h2 id="roadmap">11. Roadmap</h2>
-  <ul>
-    <li>
-      <strong>Phase 1:</strong> Build the early PiDao community and introduce
-      the DIG vision.
-    </li>
-    <li>
-      <strong>Phase 2:</strong> Launch experimental voting and measure community
-      participation.
-    </li>
-    <li>
-      <strong>Phase 3:</strong> Use Pi authentication to reduce duplicate votes
-      and improve trusted participation.
-    </li>
-    <li>
-      <strong>Phase 4:</strong> Develop DAO-inspired proposal and governance
-      tools.
-    </li>
-    <li>
-      <strong>Phase 5:</strong> Expand toward DIG as a broader model for
-      decentralized global decision-making.
-    </li>
-    <li>
-      <strong>Phase 6:</strong> Explore DIB and decentralized financial
-      infrastructure as a future economic layer.
-    </li>
-  </ul>
-
-  <h2 id="security">12. Security & Transparency</h2>
-  <p>
-    Security and transparency are essential for any decentralized governance
-    project. PiDao aims to improve reliability through authentication, backend
-    verification, transparent records, secure APIs, and gradual technical
-    improvements.
-  </p>
-  <p>
-    Future versions may explore blockchain-based voting records, cryptographic
-    verification, anti-fraud mechanisms, and stronger identity protection.
-  </p>
-
-  <h2 id="disclaimer">13. Disclaimer</h2>
-  <p>
-    PiDao is an experimental platform. DIG is a vision and conceptual development
-    path. Nothing in this whitepaper should be considered legal, financial,
-    investment, governmental, or political advice.
-  </p>
-  <p>
-    Participation in PiDao is voluntary and should be done at the user’s own
-    discretion. The project may change, evolve, pause, or discontinue features
-    as development continues.
-  </p>
-
-  <h2 id="conclusion">14. Conclusion</h2>
-  <p>
-    PiDao begins with practical tools: Pi login, voting, payments, tasks, and
-    digital services. DIG represents the broader long-term vision: a more
-    transparent, participatory, and decentralized approach to global
-    decision-making.
-  </p>
-  <p>
-    The project does not claim that such a transformation can happen instantly.
-    Instead, it begins with small experiments, community participation, and
-    gradual development.
-  </p>
-
-  <div class="footer">
-    <p>
-      <a href="/">Back to PiDao</a> ·
-      <a href="/privacy.html">Privacy Policy</a> ·
-      <a href="/terms.html">Terms of Service</a>
-    </p>
-    <p>
-      © 2026 PiDao. All rights reserved.
-    </p>
-  </div>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
