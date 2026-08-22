@@ -1,61 +1,119 @@
 /* frontend/src/pages/Shop.css */
 
+.shop-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(255, 202, 40, 0.14), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(111, 45, 189, 0.32), transparent 34%),
+    linear-gradient(180deg, #0f0820 0%, #180d31 100%);
+}
+
 .shop-container {
-    padding: 80px 20px 40px 20px;
-    min-height: 100vh;
-    background-color: #0f0c29; /* تم تیره هماهنگ با پروژه */
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  padding: 92px 20px 60px 20px;
+  min-height: 100vh;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .shop-header {
-    text-align: center;
-    margin-bottom: 40px;
+  text-align: center;
+  margin-bottom: 42px;
+  max-width: 850px;
 }
 
-.shop-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    background: linear-gradient(to right, #00d2ff, #3a7bd5);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.shop-kicker {
+  display: inline-flex;
+  margin-bottom: 14px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 202, 40, 0.12);
+  border: 1px solid rgba(255, 202, 40, 0.28);
+  color: #ffca28;
+  font-size: 0.82rem;
+  font-weight: 950;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-.shop-header p {
-    color: #b0b0b0;
-    font-size: 1.1rem;
+.shop-title {
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  margin: 0 0 14px;
+  color: #ffffff;
+  font-weight: 950;
+  line-height: 1.25;
+}
+
+.shop-subtitle {
+  color: #d8cfee;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  margin: 0 auto;
+  max-width: 780px;
+}
+
+.status-banner {
+  width: min(900px, 100%);
+  margin: 0 auto 26px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  font-size: 0.94rem;
+  line-height: 1.7;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.status-banner.success {
+  background: rgba(34, 197, 94, 0.1);
+  color: #bbf7d0;
+  border-color: rgba(34, 197, 94, 0.22);
+}
+
+.status-banner.error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fecaca;
+  border-color: rgba(239, 68, 68, 0.22);
+}
+
+.status-banner.info {
+  background: rgba(59, 130, 246, 0.1);
+  color: #bfdbfe;
+  border-color: rgba(59, 130, 246, 0.22);
 }
 
 .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-    width: 100%;
-    max-width: 1200px;
-}
-
-/* استایل برای حالت موبایل */
-@media (max-width: 768px) {
-    .products-grid {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 15px;
-    }
-    
-    .shop-header h1 {
-        font-size: 2rem;
-    }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+  gap: 26px;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .shop-empty-state {
-    text-align: center;
-    margin-top: 100px;
-    color: #888;
+  text-align: center;
+  margin-top: 100px;
+  color: #b9aed5;
 }
 
 .shop-empty-state i {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    display: block;
+  font-size: 4rem;
+  margin-bottom: 20px;
+  display: block;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .shop-container {
+    padding: 78px 16px 46px;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+    gap: 18px;
+  }
+
+  .shop-subtitle {
+    font-size: 0.98rem;
+  }
 }
