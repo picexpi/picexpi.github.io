@@ -1149,6 +1149,445 @@ export const translations: TranslationsMap = {
     tr: 'Tüm hakları saklıdır.',
     zh: '保留所有权利。',
   },
+    piUser: {
+    en: 'Pi User',
+    fa: 'کاربر Pi',
+    ar: 'مستخدم Pi',
+    tr: 'Pi Kullanıcısı',
+    zh: 'Pi 用户',
+  },
+
+  welcome: {
+    en: 'Welcome',
+    fa: 'خوش آمدید',
+    ar: 'مرحباً',
+    tr: 'Hoş geldiniz',
+    zh: '欢迎',
+  },
+
+  amount: {
+    en: 'Amount',
+    fa: 'مبلغ',
+    ar: 'المبلغ',
+    tr: 'Tutar',
+    zh: '金额',
+  },
+
+  purpose: {
+    en: 'Purpose',
+    fa: 'هدف',
+    ar: 'الغرض',
+    tr: 'Amaç',
+    zh: '用途',
+  },
+
+  payWithPi: {
+    en: 'Pay with Pi',
+    fa: 'پرداخت با Pi',
+    ar: 'ادفع بـ Pi',
+    tr: 'Pi ile öde',
+    zh: '使用 Pi 支付',
+  },
+
+  paymentCompleted: {
+    en: 'Payment completed successfully.',
+    fa: 'پرداخت با موفقیت تکمیل شد.',
+    ar: 'تم إكمال الدفع بنجاح.',
+    tr: 'Ödeme başarıyla tamamlandı.',
+    zh: '支付已成功完成。',
+  },
+
+  paymentError: {
+    en: 'Payment error.',
+    fa: 'خطا در پرداخت.',
+    ar: 'خطأ في الدفع.',
+    tr: 'Ödeme hatası.',
+    zh: '支付错误。',
+  },
+
+  paymentFailed: {
+    en: 'Payment failed.',
+    fa: 'پرداخت ناموفق بود.',
+    ar: 'فشل الدفع.',
+    tr: 'Ödeme başarısız.',
+    zh: '支付失败。',
+  },
+
+  picexPiSdkInitializing: {
+    en: 'Initializing Pi SDK for picex...',
+    fa: 'در حال راه‌اندازی Pi SDK برای picex...',
+    ar: 'جارٍ تهيئة Pi SDK لـ picex...',
+    tr: 'picex için Pi SDK başlatılıyor...',
+    zh: '正在为 picex 初始化 Pi SDK...',
+  },
+
+  picexPiSdkReadyNetwork: {
+    en: 'Pi SDK ready for picex. Network: {network}',
+    fa: 'Pi SDK برای picex آماده است. شبکه: {network}',
+    ar: 'Pi SDK جاهز لـ picex. الشبكة: {network}',
+    tr: 'Pi SDK picex için hazır. Ağ: {network}',
+    zh: 'Pi SDK 已为 picex 准备就绪。网络：{network}',
+  },
+
+  piSdkInitError: {
+    en: 'Pi SDK init error: {message}',
+    fa: 'خطای راه‌اندازی Pi SDK: {message}',
+    ar: 'خطأ في تهيئة Pi SDK: {message}',
+    tr: 'Pi SDK başlatma hatası: {message}',
+    zh: 'Pi SDK 初始化错误：{message}',
+  },
+
+  incompletePaymentFoundLong: {
+    en: 'Incomplete Pi payment found. Please complete or cancel it in Pi Browser before starting a new picex payment.',
+    fa: 'یک پرداخت ناقص Pi پیدا شد. لطفاً قبل از شروع پرداخت جدید در picex، آن را در Pi Browser تکمیل یا لغو کنید.',
+    ar: 'تم العثور على دفعة Pi غير مكتملة. يرجى إكمالها أو إلغاؤها في Pi Browser قبل بدء دفعة جديدة في picex.',
+    tr: 'Tamamlanmamış bir Pi ödemesi bulundu. Yeni bir picex ödemesi başlatmadan önce lütfen Pi Browser içinde tamamlayın veya iptal edin.',
+    zh: '发现未完成的 Pi 支付。请在开始新的 picex 支付前，在 Pi Browser 中完成或取消它。',
+  },
+
+  apiUrlMissing: {
+    en: 'VITE_API_URL is not set.',
+    fa: 'VITE_API_URL تنظیم نشده است.',
+    ar: 'لم يتم تعيين VITE_API_URL.',
+    tr: 'VITE_API_URL ayarlanmamış.',
+    zh: '未设置 VITE_API_URL。',
+  },
+
+  apiUrlRequired: {
+    en: 'VITE_API_URL is not set. Backend URL is required.',
+    fa: 'VITE_API_URL تنظیم نشده است. آدرس بک‌اند الزامی است.',
+    ar: 'لم يتم تعيين VITE_API_URL. عنوان الخادم الخلفي مطلوب.',
+    tr: 'VITE_API_URL ayarlanmamış. Backend URL gereklidir.',
+    zh: '未设置 VITE_API_URL。需要后端地址。',
+  },
+
+  warmingUpBackend: {
+    en: 'Warming up picex backend...',
+    fa: 'در حال آماده‌سازی بک‌اند picex...',
+    ar: 'جارٍ تهيئة خادم picex الخلفي...',
+    tr: 'picex backend hazırlanıyor...',
+    zh: '正在预热 picex 后端...',
+  },
+
+  authContextMissing: {
+    en: 'Auth context is missing.',
+    fa: 'کانتکست احراز هویت وجود ندارد.',
+    ar: 'سياق المصادقة مفقود.',
+    tr: 'Kimlik doğrulama bağlamı eksik.',
+    zh: '缺少认证上下文。',
+  },
+
+  piAuthenticateUnavailable: {
+    en: 'Pi authenticate function is not available.',
+    fa: 'تابع احراز هویت Pi در دسترس نیست.',
+    ar: 'دالة مصادقة Pi غير متاحة.',
+    tr: 'Pi kimlik doğrulama fonksiyonu kullanılamıyor.',
+    zh: 'Pi 认证功能不可用。',
+  },
+
+  piCreatePaymentUnavailable: {
+    en: 'Pi createPayment function is not available.',
+    fa: 'تابع createPayment در Pi در دسترس نیست.',
+    ar: 'دالة createPayment في Pi غير متاحة.',
+    tr: 'Pi createPayment fonksiyonu kullanılamıyor.',
+    zh: 'Pi createPayment 功能不可用。',
+  },
+
+  authenticatingWithPiForPicex: {
+    en: 'Authenticating with Pi for picex...',
+    fa: 'در حال احراز هویت با Pi برای picex...',
+    ar: 'جارٍ المصادقة عبر Pi لـ picex...',
+    tr: 'picex için Pi ile kimlik doğrulanıyor...',
+    zh: '正在使用 Pi 为 picex 认证...',
+  },
+
+  invalidPiUserDataMissingId: {
+    en: 'Invalid Pi user data received. Missing user id.',
+    fa: 'اطلاعات کاربر Pi نامعتبر است. شناسه کاربر وجود ندارد.',
+    ar: 'تم استلام بيانات مستخدم Pi غير صالحة. معرّف المستخدم مفقود.',
+    tr: 'Geçersiz Pi kullanıcı verisi alındı. Kullanıcı kimliği eksik.',
+    zh: '收到无效的 Pi 用户数据。缺少用户 ID。',
+  },
+
+  userCancelledOrAuthFailed: {
+    en: 'User cancelled or authentication failed',
+    fa: 'کاربر عملیات را لغو کرد یا احراز هویت ناموفق بود',
+    ar: 'ألغى المستخدم العملية أو فشلت المصادقة',
+    tr: 'Kullanıcı iptal etti veya kimlik doğrulama başarısız oldu',
+    zh: '用户取消或认证失败',
+  },
+
+  loginFailedWithMessage: {
+    en: 'Login failed: {message}',
+    fa: 'ورود ناموفق بود: {message}',
+    ar: 'فشل تسجيل الدخول: {message}',
+    tr: 'Giriş başarısız: {message}',
+    zh: '登录失败：{message}',
+  },
+
+  picexLoginWelcome: {
+    en: 'picex login successful. Welcome @{username}',
+    fa: 'ورود به picex موفق بود. خوش آمدید @{username}',
+    ar: 'تم تسجيل الدخول إلى picex بنجاح. مرحباً @{username}',
+    tr: 'picex girişi başarılı. Hoş geldiniz @{username}',
+    zh: 'picex 登录成功。欢迎 @{username}',
+  },
+
+  enterValidPiAmount: {
+    en: 'Please enter a valid Pi amount.',
+    fa: 'لطفاً یک مقدار معتبر Pi وارد کنید.',
+    ar: 'يرجى إدخال مبلغ Pi صالح.',
+    tr: 'Lütfen geçerli bir Pi miktarı girin.',
+    zh: '请输入有效的 Pi 数量。',
+  },
+
+  minimumPiAmount: {
+    en: 'Minimum amount is {min} Pi.',
+    fa: 'حداقل مقدار {min} Pi است.',
+    ar: 'الحد الأدنى هو {min} Pi.',
+    tr: 'Minimum miktar {min} Pi.',
+    zh: '最小数量为 {min} Pi。',
+  },
+
+  maximumPiAmount: {
+    en: 'Maximum amount is {max} Pi.',
+    fa: 'حداکثر مقدار {max} Pi است.',
+    ar: 'الحد الأقصى هو {max} Pi.',
+    tr: 'Maksimum miktar {max} Pi.',
+    zh: '最大数量为 {max} Pi。',
+  },
+
+  connectPiBeforePayment: {
+    en: 'Please connect with Pi before creating a picex payment.',
+    fa: 'لطفاً قبل از ایجاد پرداخت در picex با Pi متصل شوید.',
+    ar: 'يرجى الاتصال بـ Pi قبل إنشاء دفعة في picex.',
+    tr: 'picex ödemesi oluşturmadan önce lütfen Pi ile bağlanın.',
+    zh: '创建 picex 支付前请先连接 Pi。',
+  },
+
+  creatingNetworkPiPayment: {
+    en: 'Creating {network} Pi payment for picex...',
+    fa: 'در حال ایجاد پرداخت Pi در شبکه {network} برای picex...',
+    ar: 'جارٍ إنشاء دفعة Pi على شبكة {network} لـ picex...',
+    tr: 'picex için {network} Pi ödemesi oluşturuluyor...',
+    zh: '正在为 picex 创建 {network} Pi 支付...',
+  },
+
+  approvingPicexPaymentOnServer: {
+    en: 'Approving picex payment on server...',
+    fa: 'در حال تأیید پرداخت picex روی سرور...',
+    ar: 'جارٍ الموافقة على دفعة picex على الخادم...',
+    tr: 'picex ödemesi sunucuda onaylanıyor...',
+    zh: '正在服务器上批准 picex 支付...',
+  },
+
+  paymentApprovedContinueWallet: {
+    en: 'Payment approved by picex server. Continue in Pi Wallet.',
+    fa: 'پرداخت توسط سرور picex تأیید شد. در Pi Wallet ادامه دهید.',
+    ar: 'تمت الموافقة على الدفع من خادم picex. تابع في Pi Wallet.',
+    tr: 'Ödeme picex sunucusu tarafından onaylandı. Pi Wallet içinde devam edin.',
+    zh: '支付已由 picex 服务器批准。请在 Pi Wallet 中继续。',
+  },
+
+  completingPicexPaymentOnServer: {
+    en: 'Completing picex payment on server...',
+    fa: 'در حال تکمیل پرداخت picex روی سرور...',
+    ar: 'جارٍ إكمال دفعة picex على الخادم...',
+    tr: 'picex ödemesi sunucuda tamamlanıyor...',
+    zh: '正在服务器上完成 picex 支付...',
+  },
+
+  serverApprovalFailed: {
+    en: 'Server approval failed.',
+    fa: 'تأیید سرور ناموفق بود.',
+    ar: 'فشلت موافقة الخادم.',
+    tr: 'Sunucu onayı başarısız oldu.',
+    zh: '服务器批准失败。',
+  },
+
+  serverCompletionFailed: {
+    en: 'Server completion failed.',
+    fa: 'تکمیل پرداخت در سرور ناموفق بود.',
+    ar: 'فشل إكمال الدفع على الخادم.',
+    tr: 'Sunucu tamamlama işlemi başarısız oldu.',
+    zh: '服务器完成支付失败。',
+  },
+
+  serverApprovalError: {
+    en: 'Server approval error: {message}',
+    fa: 'خطای تأیید سرور: {message}',
+    ar: 'خطأ موافقة الخادم: {message}',
+    tr: 'Sunucu onay hatası: {message}',
+    zh: '服务器批准错误：{message}',
+  },
+
+  serverCompletionError: {
+    en: 'Server completion error: {message}',
+    fa: 'خطای تکمیل سرور: {message}',
+    ar: 'خطأ إكمال الخادم: {message}',
+    tr: 'Sunucu tamamlama hatası: {message}',
+    zh: '服务器完成错误：{message}',
+  },
+
+  paymentCancelledByUser: {
+    en: 'Payment cancelled by user.',
+    fa: 'پرداخت توسط کاربر لغو شد.',
+    ar: 'تم إلغاء الدفع من قبل المستخدم.',
+    tr: 'Ödeme kullanıcı tarafından iptal edildi.',
+    zh: '支付已由用户取消。',
+  },
+
+  paymentErrorWithMessage: {
+    en: 'Payment error: {message}',
+    fa: 'خطای پرداخت: {message}',
+    ar: 'خطأ في الدفع: {message}',
+    tr: 'Ödeme hatası: {message}',
+    zh: '支付错误：{message}',
+  },
+
+  paymentRequestSentToWallet: {
+    en: 'Payment request sent to Pi Wallet. Please confirm in Pi Browser.',
+    fa: 'درخواست پرداخت به Pi Wallet ارسال شد. لطفاً در Pi Browser تأیید کنید.',
+    ar: 'تم إرسال طلب الدفع إلى Pi Wallet. يرجى التأكيد في Pi Browser.',
+    tr: 'Ödeme isteği Pi Wallet’a gönderildi. Lütfen Pi Browser içinde onaylayın.',
+    zh: '支付请求已发送到 Pi Wallet。请在 Pi Browser 中确认。',
+  },
+
+  createPaymentError: {
+    en: 'Create payment error: {message}',
+    fa: 'خطا در ایجاد پرداخت: {message}',
+    ar: 'خطأ في إنشاء الدفع: {message}',
+    tr: 'Ödeme oluşturma hatası: {message}',
+    zh: '创建支付错误：{message}',
+  },
+
+  picexWalletPayment: {
+    en: 'picex Wallet Payment',
+    fa: 'پرداخت کیف پول picex',
+    ar: 'دفع محفظة picex',
+    tr: 'picex Cüzdan Ödemesi',
+    zh: 'picex 钱包支付',
+  },
+
+  paymentReadyToCreate: {
+    en: 'Ready to create a Pi payment for picex.',
+    fa: 'آماده ایجاد پرداخت Pi برای picex.',
+    ar: 'جاهز لإنشاء دفعة Pi لـ picex.',
+    tr: 'picex için Pi ödemesi oluşturmaya hazır.',
+    zh: '已准备好为 picex 创建 Pi 支付。',
+  },
+
+  piSdkUnavailableOpenPiBrowser: {
+    en: 'Pi SDK is not available. Please open picex in the Pi Browser.',
+    fa: 'Pi SDK در دسترس نیست. لطفاً picex را در Pi Browser باز کنید.',
+    ar: 'Pi SDK غير متاح. يرجى فتح picex في Pi Browser.',
+    tr: 'Pi SDK kullanılamıyor. Lütfen picex’i Pi Browser içinde açın.',
+    zh: 'Pi SDK 不可用。请在 Pi Browser 中打开 picex。',
+  },
+
+  loginWithPiBeforePayment: {
+    en: 'Please login with Pi before creating a picex payment.',
+    fa: 'لطفاً قبل از ایجاد پرداخت picex با Pi وارد شوید.',
+    ar: 'يرجى تسجيل الدخول باستخدام Pi قبل إنشاء دفعة picex.',
+    tr: 'picex ödemesi oluşturmadan önce lütfen Pi ile giriş yapın.',
+    zh: '创建 picex 支付前请先使用 Pi 登录。',
+  },
+
+  creatingPicexPiPayment: {
+    en: 'Creating picex Pi payment...',
+    fa: 'در حال ایجاد پرداخت Pi در picex...',
+    ar: 'جارٍ إنشاء دفعة Pi في picex...',
+    tr: 'picex Pi ödemesi oluşturuluyor...',
+    zh: '正在创建 picex Pi 支付...',
+  },
+
+  approvingPaymentOnPicexServer: {
+    en: 'Approving payment on picex server...',
+    fa: 'در حال تأیید پرداخت روی سرور picex...',
+    ar: 'جارٍ الموافقة على الدفع على خادم picex...',
+    tr: 'Ödeme picex sunucusunda onaylanıyor...',
+    zh: '正在 picex 服务器上批准支付...',
+  },
+
+  paymentApprovedConfirmWallet: {
+    en: 'Payment approved. Please confirm in Pi Wallet.',
+    fa: 'پرداخت تأیید شد. لطفاً در Pi Wallet تأیید کنید.',
+    ar: 'تمت الموافقة على الدفع. يرجى التأكيد في Pi Wallet.',
+    tr: 'Ödeme onaylandı. Lütfen Pi Wallet içinde onaylayın.',
+    zh: '支付已批准。请在 Pi Wallet 中确认。',
+  },
+
+  completingPaymentOnPicexServer: {
+    en: 'Completing payment on picex server...',
+    fa: 'در حال تکمیل پرداخت روی سرور picex...',
+    ar: 'جارٍ إكمال الدفع على خادم picex...',
+    tr: 'Ödeme picex sunucusunda tamamlanıyor...',
+    zh: '正在 picex 服务器上完成支付...',
+  },
+
+  failedToFinalizeTransaction: {
+    en: 'Failed to finalize transaction.',
+    fa: 'نهایی‌سازی تراکنش ناموفق بود.',
+    ar: 'فشل إتمام المعاملة.',
+    tr: 'İşlem sonlandırılamadı.',
+    zh: '交易最终确认失败。',
+  },
+
+  paymentRequestSentConfirm: {
+    en: 'Payment request sent to Pi Wallet. Please confirm.',
+    fa: 'درخواست پرداخت به Pi Wallet ارسال شد. لطفاً تأیید کنید.',
+    ar: 'تم إرسال طلب الدفع إلى Pi Wallet. يرجى التأكيد.',
+    tr: 'Ödeme isteği Pi Wallet’a gönderildi. Lütfen onaylayın.',
+    zh: '支付请求已发送到 Pi Wallet。请确认。',
+  },
+
+  paymentFailedToStart: {
+    en: 'Payment failed to start.',
+    fa: 'شروع پرداخت ناموفق بود.',
+    ar: 'فشل بدء الدفع.',
+    tr: 'Ödeme başlatılamadı.',
+    zh: '支付启动失败。',
+  },
+
+  picexPayment: {
+    en: 'picex Payment',
+    fa: 'پرداخت picex',
+    ar: 'دفع picex',
+    tr: 'picex Ödemesi',
+    zh: 'picex 支付',
+  },
+
+  completePiPayment: {
+    en: 'Complete Pi Payment',
+    fa: 'تکمیل پرداخت Pi',
+    ar: 'إكمال دفع Pi',
+    tr: 'Pi ödemesini tamamla',
+    zh: '完成 Pi 支付',
+  },
+
+  paymentComponentSubtitle: {
+    en: 'Use Pi Network payments to unlock or test picex wallet and exchange features.',
+    fa: 'از پرداخت‌های Pi Network برای فعال‌سازی یا تست امکانات کیف پول و صرافی picex استفاده کنید.',
+    ar: 'استخدم مدفوعات Pi Network لفتح أو اختبار ميزات محفظة وتداول picex.',
+    tr: 'picex cüzdan ve borsa özelliklerini açmak veya test etmek için Pi Network ödemelerini kullanın.',
+    zh: '使用 Pi Network 支付来解锁或测试 picex 钱包和交易功能。',
+  },
+
+  cancelReset: {
+    en: 'Cancel / Reset',
+    fa: 'لغو / بازنشانی',
+    ar: 'إلغاء / إعادة تعيين',
+    tr: 'İptal / Sıfırla',
+    zh: '取消 / 重置',
+  },
+
+  doNotClosePiBrowser: {
+    en: 'Please do not close the Pi Browser while payment is processing.',
+    fa: 'لطفاً هنگام پردازش پرداخت، Pi Browser را نبندید.',
+    ar: 'يرجى عدم إغلاق Pi Browser أثناء معالجة الدفع.',
+    tr: 'Ödeme işlenirken lütfen Pi Browser’ı kapatmayın.',
+    zh: '支付处理中请不要关闭 Pi Browser。',
+  },
 };
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
@@ -1245,3 +1684,5 @@ export const useI18n = (): I18nContextType => {
 };
 
 export default I18nContext;
+
+  
