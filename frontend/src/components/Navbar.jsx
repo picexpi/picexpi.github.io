@@ -10,6 +10,11 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const tx = (key, fallback) => {
+    const value = t(key);
+    return value && value !== key ? value : fallback;
+  };
+
   const scrollToSection = (sectionId) => {
     const doScroll = () => {
       const element = document.getElementById(sectionId);
@@ -38,33 +43,47 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        {/* لوگو */}
+        {/* Logo */}
         <div className="navbar-logo">
-          <Link to="/" className="navbar-logo-link" aria-label="PiCex Home">
+          <Link to="/" className="navbar-logo-link" aria-label="picex Home">
             <img
               src={logo}
-              alt="PiCex Logo"
+              alt="picex Logo"
               className="navbar-logo-img"
             />
 
             <span className="navbar-logo-text">
-              Pi<span>CEX</span>
+              pic<span>ex</span>
             </span>
           </Link>
         </div>
 
-        {/* منوی اصلی */}
+        {/* Main menu */}
         <ul className="nav-menu">
           <li className="nav-item">
             <Link to="/" className="nav-link">
-              {t('home')}
+              {tx('home', 'Home')}
             </Link>
           </li>
 
           <li className="nav-item">
-            <Link to="/dig" className="nav-link">
-              {t('navDig')}
-            </Link>
+            <button
+              type="button"
+              className="nav-link nav-button"
+              onClick={() => scrollToSection('markets')}
+            >
+              {tx('markets', 'Markets')}
+            </button>
+          </li>
+
+          <li className="nav-item">
+            <button
+              type="button"
+              className="nav-link nav-button"
+              onClick={() => scrollToSection('pi-payment-panel')}
+            >
+              {tx('wallet', 'Wallet')}
+            </button>
           </li>
 
           <li className="nav-item">
@@ -73,7 +92,17 @@ const Navbar = () => {
               className="nav-link nav-button"
               onClick={() => scrollToSection('features')}
             >
-              {t('features')}
+              {tx('features', 'Features')}
+            </button>
+          </li>
+
+          <li className="nav-item">
+            <button
+              type="button"
+              className="nav-link nav-button"
+              onClick={() => scrollToSection('support-ai')}
+            >
+              {tx('aiSupport', 'AI Support')}
             </button>
           </li>
 
@@ -83,7 +112,7 @@ const Navbar = () => {
               className="nav-link nav-button"
               onClick={() => scrollToSection('roadmap')}
             >
-              {t('navRoadmap')}
+              {tx('navRoadmap', 'Roadmap')}
             </button>
           </li>
 
@@ -93,7 +122,7 @@ const Navbar = () => {
               className="nav-link nav-button"
               onClick={() => scrollToSection('poll')}
             >
-              {t('governance')}
+              {tx('governance', 'Governance')}
             </button>
           </li>
 
@@ -103,24 +132,31 @@ const Navbar = () => {
               className="nav-link nav-button"
               onClick={() => scrollToSection('about')}
             >
-              {t('aboutUs')}
+              {tx('aboutUs', 'About')}
             </button>
           </li>
 
-          <li className="nav-item">
+          {/* Existing routes preserved */}
+          <li className="nav-item nav-item-optional">
             <Link to="/shop" className="nav-link">
-              {t('shop')}
+              {tx('shop', 'Products')}
             </Link>
           </li>
 
-          <li className="nav-item">
+          <li className="nav-item nav-item-optional">
             <Link to="/tasks" className="nav-link">
-              {t('tasks')}
+              {tx('tasks', 'Tasks')}
             </Link>
           </li>
         </ul>
 
-        {/* دکمه Login از Navbar حذف شده تا ورود اصلی با Pi داخل صفحه انجام شود */}
+        <button
+          type="button"
+          className="navbar-cta"
+          onClick={() => scrollToSection('pi-payment-panel')}
+        >
+          {tx('joinWithPi', 'Connect Pi')}
+        </button>
       </div>
     </nav>
   );
