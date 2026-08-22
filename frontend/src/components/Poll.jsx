@@ -30,23 +30,33 @@ const Poll = () => {
 
   const textAlign = lang === 'fa' || lang === 'ar' ? 'right' : 'left';
 
+  const tx = (key, fallback) => {
+    const value = t(key);
+    return value && value !== key ? value : fallback;
+  };
+
   const getToken = () => {
     return localStorage.getItem('token');
   };
 
   const getLocalizedQuestion = () => {
+    const fallbackQuestion = tx(
+      'picexPollQuestion',
+      'Should picex prioritize Spot Market and Wallet Deposit/Withdraw before launching Futures?'
+    );
+
     if (!pollData) {
-      return t('pollQuestion');
+      return fallbackQuestion;
     }
 
-    if (lang === 'fa') return pollData.questionFa || pollData.question || t('pollQuestion');
-    if (lang === 'en') return pollData.questionEn || pollData.question || t('pollQuestion');
-    if (lang === 'tr') return pollData.questionTr || pollData.question || t('pollQuestion');
-    if (lang === 'zh') return pollData.questionZh || pollData.question || t('pollQuestion');
-    if (lang === 'hi') return pollData.questionHi || pollData.question || t('pollQuestion');
-    if (lang === 'ar') return pollData.questionAr || pollData.question || t('pollQuestion');
+    if (lang === 'fa') return pollData.questionFa || pollData.question || fallbackQuestion;
+    if (lang === 'en') return pollData.questionEn || pollData.question || fallbackQuestion;
+    if (lang === 'tr') return pollData.questionTr || pollData.question || fallbackQuestion;
+    if (lang === 'zh') return pollData.questionZh || pollData.question || fallbackQuestion;
+    if (lang === 'hi') return pollData.questionHi || pollData.question || fallbackQuestion;
+    if (lang === 'ar') return pollData.questionAr || pollData.question || fallbackQuestion;
 
-    return pollData.question || t('pollQuestion');
+    return pollData.question || fallbackQuestion;
   };
 
   const maskUsername = (username) => {
@@ -88,7 +98,10 @@ const Poll = () => {
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        throw new Error(data.message || t('pollConnectionError'));
+        throw new Error(
+          data.message ||
+          tx('pollConnectionError', 'Unable to connect to the poll service.')
+        );
       }
 
       setVotes(data.data.votes);
@@ -96,7 +109,10 @@ const Poll = () => {
       setPollData(data.data.poll || null);
     } catch (err) {
       console.error('Poll fetch error:', err);
-      setError(err.message || t('pollConnectionError'));
+      setError(
+        err.message ||
+        tx('pollConnectionError', 'Unable to connect to the poll service.')
+      );
     } finally {
       setLoading(false);
     }
@@ -144,12 +160,12 @@ const Poll = () => {
     const token = getToken();
 
     if (!auth?.isAuthenticated || !token) {
-      setMessage(t('pollLoginRequired'));
+      setMessage(tx('pollLoginRequired', 'Please connect with Pi before voting.'));
       return;
     }
 
     if (userVote) {
-      setMessage(t('pollAlreadyVoted'));
+      setMessage(tx('pollAlreadyVoted', 'You have already voted in this poll.'));
       return;
     }
 
@@ -176,22 +192,28 @@ const Poll = () => {
           setVotes(data.data.votes);
           setUserVote(data.data.userVote);
           setPollData(data.data.poll || null);
-          setMessage(t('pollAlreadyVoted'));
+          setMessage(tx('pollAlreadyVoted', 'You have already voted in this poll.'));
           return;
         }
 
-        throw new Error(data.message || t('pollConnectionError'));
+        throw new Error(
+          data.message ||
+          tx('pollConnectionError', 'Unable to connect to the poll service.')
+        );
       }
 
       setVotes(data.data.votes);
       setUserVote(data.data.userVote);
       setPollData(data.data.poll || null);
-      setMessage(t('pollVoteSuccess'));
+      setMessage(tx('pollVoteSuccess', 'Your vote has been recorded successfully.'));
 
       await fetchVoteHistory();
     } catch (err) {
       console.error('Poll vote error:', err);
-      setError(err.message || t('pollConnectionError'));
+      setError(
+        err.message ||
+        tx('pollConnectionError', 'Unable to connect to the poll service.')
+      );
     } finally {
       setVoting(false);
     }
@@ -220,11 +242,11 @@ const Poll = () => {
       <section id="poll" className="poll-section">
         <div className="poll-container">
           <div className="poll-badge">
-            {t('digShortName')} · {t('governance')}
+            picex · {tx('governance', 'Governance')}
           </div>
 
           <p className="poll-loading-text">
-            {t('pollLoading')}
+            {tx('pollLoading', 'Loading governance poll...')}
           </p>
         </div>
       </section>
@@ -235,7 +257,7 @@ const Poll = () => {
     <section id="poll" className="poll-section">
       <div className="poll-container">
         <div className="poll-badge">
-          {t('digShortName')} · {t('governance')}
+          picex · {tx('governance', 'Governance')}
         </div>
 
         <h2 className="poll-question">
@@ -243,11 +265,14 @@ const Poll = () => {
         </h2>
 
         <p className="poll-description">
-          {t('pollDescription')}
+          {tx(
+            'picexPollDescription',
+            'picex governance polls help the community guide product priorities such as spot trading, wallet operations, AI support, native charts, and futures readiness.'
+          )}
         </p>
 
         <div className="poll-total">
-          <span>{t('totalVotes')}</span>
+          <span>{tx('totalVotes', 'Total votes')}</span>
           <strong>{votes.total}</strong>
         </div>
 
@@ -258,7 +283,7 @@ const Poll = () => {
               onClick={() => handleVote('yes')}
               disabled={voting}
             >
-              {voting ? t('processing') : t('pollYes')}
+              {voting ? tx('processing', 'Processing...') : tx('pollYes', 'Yes')}
             </button>
 
             <button
@@ -266,20 +291,22 @@ const Poll = () => {
               onClick={() => handleVote('no')}
               disabled={voting}
             >
-              {voting ? t('processing') : t('pollNo')}
+              {voting ? tx('processing', 'Processing...') : tx('pollNo', 'No')}
             </button>
           </div>
         ) : (
           <div className="poll-user-vote">
             <div>
-              {t('yourVote')}:{' '}
+              {tx('yourVote', 'Your vote')}:{' '}
               <strong>
-                {userVote.option === 'yes' ? t('yesLabel') : t('noLabel')}
+                {userVote.option === 'yes'
+                  ? tx('yesLabel', 'Yes')
+                  : tx('noLabel', 'No')}
               </strong>
             </div>
 
             <span>
-              {t('voteDate')}: {formatDate(userVote.createdAt)}
+              {tx('voteDate', 'Vote date')}: {formatDate(userVote.createdAt)}
             </span>
           </div>
         )}
@@ -295,7 +322,7 @@ const Poll = () => {
             className="poll-result-label"
             style={{ textAlign }}
           >
-            <span>{t('yesLabel')}</span>
+            <span>{tx('yesLabel', 'Yes')}</span>
             <strong>{votes.yesPercent}% ({votes.yes})</strong>
           </div>
 
@@ -305,14 +332,14 @@ const Poll = () => {
               style={{
                 width: `${votes.yesPercent}%`,
               }}
-            ></div>
+            />
           </div>
 
           <div
             className="poll-result-label poll-result-label-no"
             style={{ textAlign }}
           >
-            <span>{t('noLabel')}</span>
+            <span>{tx('noLabel', 'No')}</span>
             <strong>{votes.noPercent}% ({votes.no})</strong>
           </div>
 
@@ -322,7 +349,7 @@ const Poll = () => {
               style={{
                 width: `${votes.noPercent}%`,
               }}
-            ></div>
+            />
           </div>
         </div>
 
@@ -331,7 +358,7 @@ const Poll = () => {
             className="poll-history"
             style={{ textAlign }}
           >
-            <strong>{t('voteHistory')}</strong>
+            <strong>{tx('voteHistory', 'Vote history')}</strong>
 
             <ul>
               {history.map((item) => (
@@ -351,8 +378,8 @@ const Poll = () => {
 
                     <span>
                       {item.vote_option === 'yes'
-                        ? t('yesLabel')
-                        : t('noLabel')}
+                        ? tx('yesLabel', 'Yes')
+                        : tx('noLabel', 'No')}
                     </span>
 
                     <span className="poll-history-separator"> - </span>
