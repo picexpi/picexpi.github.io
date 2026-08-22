@@ -8,7 +8,7 @@
     radial-gradient(circle at bottom left, rgba(255, 202, 40, 0.13) 0%, transparent 29%),
     linear-gradient(180deg, #0f0820 0%, #180d31 100%);
   color: #ffffff;
-  direction: rtl;
+  direction: inherit;
   overflow: hidden;
 }
 
@@ -126,7 +126,7 @@
 .roadmap-number {
   position: absolute;
   top: 22px;
-  left: 24px;
+  inset-inline-start: 24px;
   color: rgba(255, 255, 255, 0.12);
   font-size: 2.4rem;
   font-weight: 950;
@@ -185,6 +185,20 @@
   line-height: 1.9;
 }
 
+/* LTR / RTL compatibility */
+html[dir='ltr'] .roadmap-section {
+  text-align: left;
+}
+
+html[dir='rtl'] .roadmap-section {
+  text-align: right;
+}
+
+html[dir='ltr'] .roadmap-heading,
+html[dir='rtl'] .roadmap-heading {
+  text-align: center;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .roadmap-section::before {
@@ -216,7 +230,7 @@
 
   .roadmap-number {
     top: 18px;
-    left: 20px;
+    inset-inline-start: 20px;
     font-size: 2rem;
   }
 
