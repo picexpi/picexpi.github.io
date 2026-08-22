@@ -1,23 +1,41 @@
 /* frontend/src/components/ProductCard.css */
 
 .product-card {
-  background: rgba(255, 255, 255, 0.05); /* Glassmorphism */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.045)),
+    radial-gradient(circle at top right, rgba(255, 202, 40, 0.08), transparent 44%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 26px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
   height: 100%;
   color: white;
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.3);
 }
 
 .product-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-  border-color: #ffca28; /* طلایی هنگام هاور */
+  box-shadow:
+    0 28px 68px rgba(0, 0, 0, 0.46),
+    0 0 32px rgba(255, 202, 40, 0.08);
+  border-color: rgba(255, 202, 40, 0.58);
+}
+
+.product-visual-wrapper {
+  position: relative;
+  width: 100%;
+  height: 190px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(255, 202, 40, 0.16), transparent 38%),
+    linear-gradient(135deg, #3c096c, #0f0820);
 }
 
 .product-image-wrapper {
@@ -35,82 +53,127 @@
 }
 
 .product-card:hover .product-image {
-  transform: scale(1.1);
+  transform: scale(1.08);
+}
+
+.product-icon-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4.6rem;
+  font-weight: 950;
+  color: #ffca28;
+  text-shadow: 0 0 34px rgba(255, 202, 40, 0.3);
 }
 
 .product-price-badge {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background: rgba(0, 0, 0, 0.7);
+  bottom: 13px;
+  right: 13px;
+  background: rgba(15, 8, 32, 0.78);
   color: #ffca28;
-  padding: 5px 12px;
-  border-radius: 50px;
-  font-weight: bold;
-  font-size: 0.9rem;
-  backdrop-filter: blur(5px);
-  border: 1px solid #ffca28;
+  padding: 6px 13px;
+  border-radius: 999px;
+  font-weight: 950;
+  font-size: 0.86rem;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 202, 40, 0.42);
+}
+
+.product-top-badge {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  background: rgba(255, 202, 40, 0.94);
+  color: #16091f;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 950;
+  font-size: 0.75rem;
 }
 
 .product-content {
-  padding: 20px;
+  padding: 22px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
+.product-category {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255, 202, 40, 0.11);
+  border: 1px solid rgba(255, 202, 40, 0.24);
+  color: #ffe7a3;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+}
+
 .product-title {
-  font-size: 1.2rem;
+  font-size: 1.22rem;
   color: #ffffff;
   margin: 0 0 10px 0;
-  font-weight: 600;
+  font-weight: 950;
+  line-height: 1.45;
 }
 
 .product-description {
-  font-size: 0.9rem;
-  color: #b0b0b0;
-  line-height: 1.5;
-  margin-bottom: 20px;
+  font-size: 0.92rem;
+  color: #d8cfee;
+  line-height: 1.7;
+  margin-bottom: 22px;
   flex-grow: 1;
 }
 
 .product-button {
   width: 100%;
-  padding: 12px;
+  padding: 13px;
   border: none;
-  border-radius: 12px;
-  background: linear-gradient(45deg, #673ab7, #9c27b0); /* گرادینت بنفش */
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6f2dbd, #8b5cf6);
   color: white;
-  font-weight: bold;
-  font-size: 1rem;
+  font-weight: 950;
+  font-size: 0.98rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 14px 30px rgba(111, 45, 189, 0.24);
 }
 
 .product-button:hover:not(:disabled) {
-  background: linear-gradient(45deg, #ffca28, #ff9800); /* تبدیل به طلایی هنگام هاور */
-  color: #000;
+  background: linear-gradient(135deg, #ffe7a3, #ffca28, #f4b942);
+  color: #180d31;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 38px rgba(244, 185, 66, 0.28);
 }
 
 .product-button:disabled {
-  background: #444;
+  background: #4b5563;
   cursor: not-allowed;
-  opacity: 0.7;
+  opacity: 0.8;
+  box-shadow: none;
 }
 
-/* انیمیشن لودینگ */
-.spinner {
-  width: 20px;
-  height: 20px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
+/* Loading spinner */
+.product-spinner {
+  width: 19px;
+  height: 19px;
+  border: 3px solid rgba(255, 255, 255, 0.28);
   border-radius: 50%;
-  border-top-color: #fff;
-  animation: spin 1s ease-in-out infinite;
+  border-top-color: #ffffff;
+  animation: productSpin 1s ease-in-out infinite;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+@keyframes productSpin {
+  to {
+    transform: rotate(360deg);
+  }
 }
