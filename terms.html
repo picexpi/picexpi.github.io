@@ -1,115 +1,902 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terms of Service - PiDao</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms of Service | picex</title>
+  <meta
+    name="description"
+    content="Terms of Service for picex, a hybrid trading platform for the Pi Network ecosystem."
+  />
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.7;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 32px 20px;
-      color: #1f2937;
-      background: #ffffff;
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #152238;
+      --muted: #607089;
+      --border: #dce4ef;
+      --primary: #145ee8;
+      --primary-soft: #eaf1ff;
+      --danger: #b42318;
+      --warning: #8a4b00;
+      --success: #0f8b7a;
+      --shadow: 0 12px 32px rgba(21, 34, 56, 0.08);
+      --radius: 16px;
+      --max: 1120px;
     }
 
-    h1, h2 {
-      color: #4c1d95;
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, #e8f0ff 0, transparent 320px),
+        linear-gradient(180deg, #f8fbff 0, var(--bg) 100%);
+      line-height: 1.9;
     }
 
     a {
-      color: #673ab7;
+      color: var(--primary);
+      text-decoration: none;
     }
 
-    .date {
-      color: #6b7280;
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header {
+      padding: 32px 0 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin: 0 0 12px;
+      line-height: 1.25;
+    }
+
+    .lead {
+      color: var(--muted);
+      max-width: 900px;
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .meta-card {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .meta-label {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .meta-value {
+      font-weight: 700;
+      direction: ltr;
+      text-align: right;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    nav {
+      position: sticky;
+      top: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    nav h2 {
+      font-size: 16px;
+      margin: 0 0 10px;
+    }
+
+    nav ol {
+      margin: 0;
+      padding-right: 18px;
+      color: var(--muted);
       font-size: 14px;
+    }
+
+    nav li {
+      margin: 7px 0;
+    }
+
+    nav a {
+      color: var(--text);
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      line-height: 1.35;
+    }
+
+    h3 {
+      margin: 20px 0 8px;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    ul,
+    ol {
+      margin: 10px 0;
+      padding-right: 22px;
+    }
+
+    li {
+      margin: 7px 0;
+    }
+
+    .notice,
+    .warning,
+    .danger {
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin: 14px 0;
+    }
+
+    .notice {
+      background: #eef5ff;
+      border-right: 4px solid var(--primary);
+    }
+
+    .warning {
+      background: #fff8ea;
+      border-right: 4px solid var(--warning);
+    }
+
+    .danger {
+      background: #fff1f0;
+      border-right: 4px solid var(--danger);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 14px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+      background: #fff;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: right;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f0f5fb;
+      font-weight: 700;
+    }
+
+    code {
+      direction: ltr;
+      unicode-bidi: embed;
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 13px;
+    }
+
+    .ltr {
+      direction: ltr;
+      text-align: left;
+      unicode-bidi: embed;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 24px 0 44px;
+      text-align: center;
+    }
+
+    @media (max-width: 960px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        position: static;
+      }
+
+      .meta {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 18px;
+      }
     }
   </style>
 </head>
+
 <body>
-  <h1>Terms of Service</h1>
-  <p class="date">Last updated: August 2026</p>
+  <div class="container">
+    <header>
+      <span class="badge">picex Terms of Service</span>
+      <h1>شرایط استفاده از خدمات picex</h1>
+      <p class="lead">
+        این سند، شرایط و قوانین استفاده از پلتفرم معاملاتی picex را توضیح می‌دهد.
+        با ثبت‌نام، ورود، استفاده از خدمات، واریز، برداشت، معامله، مشاهده داده‌های بازار
+        یا استفاده از پشتیبانی آنلاین، شما تأیید می‌کنید که این شرایط را خوانده‌اید،
+        درک کرده‌اید و با آن موافق هستید.
+      </p>
 
-  <p>
-    Welcome to PiDao. By using this application, you agree to these Terms of
-    Service. If you do not agree, please do not use the application.
-  </p>
+      <div class="meta">
+        <div class="meta-card">
+          <span class="meta-label">نام پلتفرم</span>
+          <span class="meta-value">picex</span>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">آخرین به‌روزرسانی</span>
+          <span class="meta-value">[Insert Date]</span>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">نسخه سند</span>
+          <span class="meta-value">v1.0</span>
+        </div>
+      </div>
+    </header>
 
-  <h2>1. Purpose of the Application</h2>
-  <p>
-    PiDao is an experimental platform for Pi-based participation, voting,
-    digital services, payments, and the gradual development of decentralized
-    governance concepts related to the DIG vision.
-  </p>
+    <div class="layout">
+      <nav aria-label="Table of contents">
+        <h2>فهرست</h2>
+        <ol>
+          <li><a href="#intro">مقدمه</a></li>
+          <li><a href="#definitions">تعاریف</a></li>
+          <li><a href="#eligibility">شرایط استفاده</a></li>
+          <li><a href="#account">حساب کاربری و Pi</a></li>
+          <li><a href="#kyc">KYC و AML</a></li>
+          <li><a href="#services">خدمات picex</a></li>
+          <li><a href="#wallet">کیف پول، واریز و برداشت</a></li>
+          <li><a href="#trading">معاملات و دفتر سفارش</a></li>
+          <li><a href="#fees">کارمزدها</a></li>
+          <li><a href="#market-data">نمودارها و داده بازار</a></li>
+          <li><a href="#ai-support">پشتیبانی هوش مصنوعی</a></li>
+          <li><a href="#risks">ریسک‌ها</a></li>
+          <li><a href="#prohibited">استفاده ممنوع</a></li>
+          <li><a href="#security">امنیت حساب</a></li>
+          <li><a href="#suspension">تعلیق و محدودیت</a></li>
+          <li><a href="#liability">مسئولیت‌ها</a></li>
+          <li><a href="#changes">تغییرات شرایط</a></li>
+          <li><a href="#contact">تماس</a></li>
+        </ol>
+      </nav>
 
-  <h2>2. DIG Vision</h2>
-  <p>
-    DIG, or Decentralized International Government, is currently a vision,
-    concept, and development path. It does not represent an official government,
-    legal authority, or recognized international institution.
-  </p>
+      <main>
+        <section id="intro">
+          <h2>1. مقدمه</h2>
+          <p>
+            picex یک پلتفرم معاملاتی هیبرید برای اکوسیستم Pi Network است که هدف آن
+            ارائه تجربه‌ای سریع، شفاف و کاربرپسند برای معامله دارایی‌های دیجیتال،
+            مدیریت موجودی، و انجام واریز و برداشت است.
+          </p>
+          <p>
+            picex ممکن است شامل خدمات مختلفی از جمله بازار اسپات، ابزارهای معاملاتی،
+            کیف پول داخلی، تسویه دارایی‌ها، نمودارهای قیمت، API، پشتیبانی آنلاین،
+            و در صورت فعال‌سازی رسمی، معاملات مشتقه یا perpetual futures باشد.
+          </p>
 
-  <h2>3. User Eligibility</h2>
-  <p>
-    You are responsible for ensuring that your use of PiDao complies with the
-    laws and regulations applicable in your location.
-  </p>
+          <div class="warning">
+            <strong>هشدار حقوقی:</strong>
+            این سند یک نمونه عملیاتی و محصولی است و جایگزین مشاوره حقوقی، مالیاتی،
+            سرمایه‌گذاری یا انطباق با قوانین محلی نیست. قبل از انتشار رسمی، باید
+            توسط مشاور حقوقی بررسی و متناسب با حوزه قضایی فعالیت picex اصلاح شود.
+          </div>
+        </section>
 
-  <h2>4. Pi Network Login</h2>
-  <p>
-    Some features may require authentication through Pi Network tools such as
-    Pi SDK. You are responsible for keeping your Pi account and wallet secure.
-  </p>
+        <section id="definitions">
+          <h2>2. تعاریف</h2>
+          <ul>
+            <li>
+              <strong>picex:</strong>
+              پلتفرم، وب‌سایت، اپلیکیشن، APIها، سرویس‌ها، ابزارها و زیرساخت معاملاتی
+              مرتبط با نام picex.
+            </li>
+            <li>
+              <strong>کاربر:</strong>
+              هر شخصی که به هر شکل از خدمات picex استفاده می‌کند.
+            </li>
+            <li>
+              <strong>حساب کاربری:</strong>
+              حساب داخلی ایجادشده برای کاربر در picex که ممکن است از طریق Pi Login،
+              Pi SDK، ایمیل، شماره تلفن یا سایر روش‌های احراز هویت پشتیبانی‌شده
+              فعال شود.
+            </li>
+            <li>
+              <strong>KYC:</strong>
+              فرایند شناخت مشتری و احراز هویت کاربر که ممکن است از طریق وضعیت KYC
+              در اکوسیستم Pi یا ارائه‌دهندگان تأیید هویت معتبر بررسی شود.
+            </li>
+            <li>
+              <strong>دفترکل داخلی:</strong>
+              سیستم حسابداری داخلی picex برای ثبت موجودی، سفارش‌ها، قفل دارایی،
+              کارمزدها، و وضعیت واریز و برداشت.
+            </li>
+            <li>
+              <strong>واریز:</strong>
+              انتقال دارایی از کیف پول یا حساب خارجی کاربر به آدرس یا مقصد تعیین‌شده
+              توسط picex.
+            </li>
+            <li>
+              <strong>برداشت:</strong>
+              انتقال دارایی از حساب داخلی کاربر در picex به آدرس یا مقصد خارجی
+              معرفی‌شده توسط کاربر.
+            </li>
+            <li>
+              <strong>Hot Wallet:</strong>
+              کیف پول عملیاتی آنلاین برای پردازش برداشت‌های روزمره با سقف محدود.
+            </li>
+            <li>
+              <strong>Cold Wallet:</strong>
+              کیف پول ذخیره‌سازی امن و محدود برای نگه‌داری بخش عمده دارایی‌ها.
+            </li>
+            <li>
+              <strong>داده بازار:</strong>
+              اطلاعاتی مانند قیمت، معاملات انجام‌شده، کندل‌ها، حجم، دفتر سفارش،
+              عمق بازار و نمودارهای تولیدشده توسط picex.
+            </li>
+          </ul>
+        </section>
 
-  <h2>5. Voting and Participation</h2>
-  <p>
-    Voting features are experimental and intended to measure community
-    participation. Poll results should not be considered legally binding unless
-    explicitly stated by the project in the future.
-  </p>
+        <section id="eligibility">
+          <h2>3. شرایط استفاده و صلاحیت کاربر</h2>
+          <p>
+            با استفاده از picex، شما اعلام و تضمین می‌کنید که:
+          </p>
+          <ul>
+            <li>حداقل سن قانونی لازم در کشور محل اقامت خود را دارید.</li>
+            <li>از نظر قانونی مجاز به استفاده از خدمات دارایی دیجیتال و صرافی هستید.</li>
+            <li>از کشوری که استفاده از چنین خدماتی در آن ممنوع است، به picex دسترسی ندارید.</li>
+            <li>اطلاعاتی که ارائه می‌دهید صحیح، کامل و به‌روز است.</li>
+            <li>از خدمات picex برای پول‌شویی، تأمین مالی تروریسم، کلاهبرداری، دور زدن تحریم‌ها یا فعالیت غیرقانونی استفاده نمی‌کنید.</li>
+          </ul>
 
-  <h2>6. Payments and Digital Products</h2>
-  <p>
-    PiDao may provide digital products, tasks, or Pi payment interactions.
-    Payment completion depends on Pi Network infrastructure and related
-    services.
-  </p>
+          <div class="danger">
+            picex حق دارد دسترسی کاربران، کشورها، مناطق، IPها، حساب‌ها یا تراکنش‌هایی
+            را که از نظر حقوقی، امنیتی یا عملیاتی پرریسک هستند محدود، بررسی، تعلیق
+            یا مسدود کند.
+          </div>
+        </section>
 
-  <h2>7. No Financial or Legal Advice</h2>
-  <p>
-    PiDao does not provide financial, investment, legal, or governmental advice.
-    Any participation is at your own discretion and risk.
-  </p>
+        <section id="account">
+          <h2>4. حساب کاربری، ورود با Pi و اطلاعات کاربر</h2>
+          <p>
+            picex ممکن است برای ورود، شناسایی اولیه و تعامل با اکوسیستم Pi از
+            <span class="ltr">Pi SDK</span>، ورود با حساب Pi، یا سایر روش‌های رسمی
+            پشتیبانی‌شده استفاده کند.
+          </p>
+          <p>
+            استفاده از Pi Login یا Pi SDK به معنای آن نیست که picex به اطلاعات حساس
+            هویتی شما دسترسی کامل دارد. picex ممکن است صرفاً شناسه کاربر، نام کاربری،
+            وضعیت احراز، یا داده‌هایی را دریافت کند که برای عملکرد سرویس و مطابق
+            با مجوزهای رسمی در دسترس قرار می‌گیرد.
+          </p>
+          <p>
+            شما مسئول حفظ امنیت حساب، دستگاه، مرورگر، کیف پول، رمز عبور، کلیدهای
+            خصوصی شخصی، عبارت بازیابی و هرگونه ابزار احراز هویت خود هستید.
+          </p>
+        </section>
 
-  <h2>8. Service Availability</h2>
-  <p>
-    We may update, modify, suspend, or discontinue parts of the application at
-    any time, especially because the platform is under active development.
-  </p>
+        <section id="kyc">
+          <h2>5. احراز هویت، KYC و مبارزه با پول‌شویی</h2>
+          <p>
+            picex ممکن است برای تعیین سطح دسترسی، محدودیت واریز/برداشت، فعال‌سازی
+            برخی قابلیت‌ها و کاهش ریسک سوءاستفاده، وضعیت KYC کاربر را بررسی کند.
+          </p>
 
-  <h2>9. Limitation of Liability</h2>
-  <p>
-    PiDao is provided on an experimental basis. We are not liable for indirect,
-    incidental, or consequential damages arising from use of the application.
-  </p>
+          <h3>5.1 سطح‌های کاربری</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>وضعیت کاربر</th>
+                  <th>دسترسی احتمالی</th>
+                  <th>محدودیت‌ها</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>تأییدنشده / Unverified</td>
+                  <td>دسترسی محدود به برخی بخش‌ها</td>
+                  <td>سقف پایین‌تر، محدودیت برداشت، عدم دسترسی به قابلیت‌های پرریسک</td>
+                </tr>
+                <tr>
+                  <td>KYC-Verified</td>
+                  <td>دسترسی گسترده‌تر به معاملات و برداشت</td>
+                  <td>همچنان مشمول کنترل‌های امنیتی، AML و قوانین پلتفرم</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-  <h2>10. Changes to Terms</h2>
-  <p>
-    These Terms may be updated from time to time. Continued use of the
-    application means you accept the updated Terms.
-  </p>
+          <p>
+            picex حق دارد در هر زمان مدارک بیشتر، بررسی منبع دارایی، بررسی مقصد
+            برداشت یا توضیح درباره فعالیت‌های معاملاتی را درخواست کند.
+          </p>
+        </section>
 
-  <h2>11. Contact</h2>
-  <p>
-    If you have questions about these Terms, please contact the PiDao project
-    team through the official project communication channels.
-  </p>
+        <section id="services">
+          <h2>6. خدمات picex</h2>
+          <p>
+            خدمات picex ممکن است شامل موارد زیر باشد:
+          </p>
+          <ul>
+            <li>بازار اسپات برای خرید و فروش دارایی‌های پشتیبانی‌شده.</li>
+            <li>دفتر سفارش و موتور تطبیق سفارش داخلی.</li>
+            <li>کیف پول داخلی برای نگه‌داری موجودی قابل معامله در پلتفرم.</li>
+            <li>واریز و برداشت دارایی‌های پشتیبانی‌شده.</li>
+            <li>نمودار قیمت و داده بازار تولیدشده از معاملات داخلی picex.</li>
+            <li>پشتیبانی آنلاین، از جمله پشتیبانی مبتنی بر هوش مصنوعی.</li>
+            <li>API عمومی یا خصوصی برای کاربران یا معامله‌گران الگوریتمی، در صورت فعال‌سازی.</li>
+            <li>معاملات مشتقه، فیوچرز یا perpetual، فقط در صورتی که به‌صورت رسمی فعال و مجاز شود.</li>
+          </ul>
 
-  <p>
-    <a href="/">Back to PiDao</a>
-  </p>
+          <div class="notice">
+            برخی قابلیت‌ها ممکن است در نسخه‌های اولیه، آزمایشی، محدود یا فقط برای
+            گروه خاصی از کاربران فعال باشند.
+          </div>
+        </section>
+
+        <section id="wallet">
+          <h2>7. کیف پول، واریز و برداشت</h2>
+
+          <h3>7.1 ماهیت کیف پول داخلی</h3>
+          <p>
+            موجودی نمایش‌داده‌شده در حساب picex، نشان‌دهنده ثبت داخلی دارایی در
+            دفترکل picex است. تا زمانی که دارایی در داخل پلتفرم معامله می‌شود،
+            تغییرات موجودی از طریق دفترکل داخلی ثبت می‌شود و لزوماً برای هر معامله
+            یک تراکنش مستقل روی زنجیره انجام نمی‌شود.
+          </p>
+
+          <h3>7.2 واریز دارایی</h3>
+          <p>
+            برای واریز، picex ممکن است برای هر کاربر یک آدرس اختصاصی، شناسه واریز،
+            memo، tag یا مقصد مشابه ایجاد کند. کاربر موظف است فقط دارایی و شبکه
+            صحیح را به مقصد اعلام‌شده ارسال کند.
+          </p>
+          <ul>
+            <li>واریز تنها پس از مشاهده، اعتبارسنجی و رسیدن به تعداد تأییدهای لازم، به موجودی قابل استفاده تبدیل می‌شود.</li>
+            <li>تا پیش از تأیید نهایی، واریز ممکن است به‌صورت <code>Pending</code> نمایش داده شود.</li>
+            <li>ارسال دارایی به شبکه اشتباه، آدرس اشتباه، memo/tag اشتباه یا دارایی پشتیبانی‌نشده ممکن است غیرقابل‌بازیابی باشد.</li>
+            <li>picex هیچ تعهد قطعی برای بازیابی واریزهای اشتباه ندارد.</li>
+          </ul>
+
+          <h3>7.3 برداشت دارایی</h3>
+          <p>
+            برداشت‌ها پس از ثبت درخواست، بررسی موجودی آزاد، کنترل امنیتی، بررسی
+            KYC/AML، کنترل مقصد، محاسبه کارمزد و در صورت نیاز بررسی دستی پردازش
+            می‌شوند.
+          </p>
+          <ul>
+            <li>picex ممکن است برداشت را به دلایل امنیتی، فنی، حقوقی یا عملیاتی به تأخیر بیندازد.</li>
+            <li>برداشت‌های بزرگ، مقصدهای جدید، رفتارهای مشکوک یا حساب‌های پرریسک ممکن است نیازمند بررسی دستی باشند.</li>
+            <li>پس از ارسال تراکنش به شبکه، امکان لغو یا بازگردانی آن ممکن است وجود نداشته باشد.</li>
+            <li>کاربر مسئول صحت آدرس مقصد، شبکه، memo/tag و مقدار برداشت است.</li>
+          </ul>
+
+          <h3>7.4 کیف پول گرم و سرد</h3>
+          <p>
+            picex ممکن است برای امنیت دارایی‌ها از ساختار کیف پول گرم و سرد استفاده کند.
+            کیف پول گرم برای برداشت‌های عملیاتی روزمره و کیف پول سرد برای نگه‌داری
+            بخش عمده دارایی‌ها با دسترسی محدود استفاده می‌شود.
+          </p>
+
+          <div class="warning">
+            در شرایط خاص مانند حمله سایبری، اختلال شبکه، خطای زیرساخت، بررسی AML،
+            دستور قانونی یا ریسک عملیاتی، picex می‌تواند برداشت‌ها را موقتاً متوقف
+            یا محدود کند.
+          </div>
+        </section>
+
+        <section id="trading">
+          <h2>8. معاملات، دفتر سفارش و موتور تطبیق</h2>
+          <p>
+            picex ممکن است سفارش‌های کاربران را از طریق موتور تطبیق داخلی پردازش کند.
+            سفارش‌ها بر اساس نوع سفارش، قیمت، زمان ثبت، نقدینگی، محدودیت‌های حساب
+            و وضعیت بازار پردازش می‌شوند.
+          </p>
+
+          <h3>8.1 انواع سفارش‌ها</h3>
+          <ul>
+            <li><strong>Market Order:</strong> سفارش با بهترین قیمت‌های موجود در بازار اجرا می‌شود.</li>
+            <li><strong>Limit Order:</strong> سفارش در قیمت مشخص یا بهتر از آن اجرا می‌شود.</li>
+            <li><strong>Stop / Stop-Limit:</strong> در صورت فعال‌سازی، سفارش مشروط بر رسیدن قیمت به سطح مشخص خواهد بود.</li>
+          </ul>
+
+          <h3>8.2 معاملات مشتقه و فیوچرز</h3>
+          <p>
+            اگر picex معاملات فیوچرز، perpetual یا اهرمی را فعال کند، این خدمات
+            دارای ریسک بسیار بالا خواهند بود و ممکن است فقط برای کاربران واجد شرایط،
+            KYC-Verified و در حوزه‌های مجاز ارائه شوند.
+          </p>
+          <p>
+            picex ممکن است پوزیشن‌ها را در شرایطی مانند کاهش مارجین، رسیدن به سطح
+            لیکوییدیشن، اختلال قیمت، خطای بازار یا شرایط اضطراری ببندد، محدود کند
+            یا تسویه کند.
+          </p>
+        </section>
+
+        <section id="fees">
+          <h2>9. کارمزدها</h2>
+          <p>
+            picex ممکن است برای معاملات، واریز، برداشت، تبدیل، استفاده از API،
+            خدمات ویژه یا سایر فعالیت‌ها کارمزد دریافت کند.
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>نوع کارمزد</th>
+                  <th>توضیح</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Maker Fee</td>
+                  <td>کارمزد سفارش‌هایی که به دفتر سفارش نقدینگی اضافه می‌کنند.</td>
+                </tr>
+                <tr>
+                  <td>Taker Fee</td>
+                  <td>کارمزد سفارش‌هایی که نقدینگی موجود را مصرف می‌کنند.</td>
+                </tr>
+                <tr>
+                  <td>Withdrawal Fee</td>
+                  <td>کارمزد برداشت که ممکن است شامل هزینه شبکه و هزینه عملیاتی باشد.</td>
+                </tr>
+                <tr>
+                  <td>Network Fee</td>
+                  <td>هزینه‌ای که توسط شبکه بلاکچین یا زیرساخت مربوطه اعمال می‌شود.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            نرخ کارمزدها ممکن است بر اساس وضعیت KYC، نوع بازار، نوع دارایی، شرایط
+            شبکه، سطح ریسک یا سیاست‌های تشویقی تغییر کند. نرخ‌های نهایی باید در
+            صفحه کارمزدهای رسمی picex منتشر شوند.
+          </p>
+        </section>
+
+        <section id="market-data">
+          <h2>10. نمودار قیمت و داده‌های بازار</h2>
+          <p>
+            نمودارها، کندل‌ها، قیمت‌ها، حجم معاملات، دفتر سفارش و سایر داده‌های
+            بازار در picex، تا حد امکان بر اساس معاملات و داده‌های داخلی خود picex
+            تولید می‌شوند.
+          </p>
+          <p>
+            این داده‌ها ممکن است با قیمت سایر صرافی‌ها یا منابع خارجی متفاوت باشند،
+            زیرا هر بازار نقدینگی، دفتر سفارش و حجم معاملاتی مستقل خود را دارد.
+          </p>
+
+          <ul>
+            <li>picex تلاش می‌کند داده‌های بازار را دقیق، به‌روز و قابل اتکا نمایش دهد.</li>
+            <li>با این حال، تأخیر، خطای محاسباتی، اختلال WebSocket، قطعی سرور یا مشکل دیتابیس ممکن است رخ دهد.</li>
+            <li>کاربر نباید صرفاً بر اساس نمودارها یا داده‌های نمایش‌داده‌شده، بدون بررسی مستقل تصمیم مالی بگیرد.</li>
+            <li>داده‌های بازار picex توصیه سرمایه‌گذاری محسوب نمی‌شوند.</li>
+          </ul>
+        </section>
+
+        <section id="ai-support">
+          <h2>11. پشتیبانی آنلاین و هوش مصنوعی</h2>
+          <p>
+            picex ممکن است برای پاسخ‌گویی سریع‌تر به کاربران از سیستم پشتیبانی
+            آنلاین مبتنی بر هوش مصنوعی استفاده کند. این سیستم می‌تواند بر اساس
+            مستندات picex، قوانین، راهنماها، وضعیت عمومی سرویس و پرسش‌های متداول
+            پاسخ تولید کند.
+          </p>
+
+          <h3>11.1 محدودیت‌های پاسخ هوش مصنوعی</h3>
+          <ul>
+            <li>پاسخ هوش مصنوعی ممکن است ناقص، قدیمی، غیرقطعی یا نیازمند بررسی انسانی باشد.</li>
+            <li>پاسخ AI مشاوره حقوقی، مالی، مالیاتی یا سرمایه‌گذاری محسوب نمی‌شود.</li>
+            <li>در موضوعات حساس مانند برداشت، مسدودی حساب، KYC، تراکنش‌های مشکوک یا اختلافات مالی، تصمیم نهایی با تیم پشتیبانی انسانی یا تیم انطباق picex است.</li>
+            <li>picex می‌تواند مکالمات پشتیبانی را برای امنیت، بهبود کیفیت، آموزش سیستم و رسیدگی به اختلافات ذخیره و بررسی کند.</li>
+          </ul>
+
+          <h3>11.2 ارسال اطلاعات حساس</h3>
+          <div class="danger">
+            کاربران نباید عبارت بازیابی کیف پول، کلید خصوصی، رمز عبور، کدهای یکبارمصرف،
+            اطلاعات کامل کارت بانکی یا مدارک بسیار حساس را در چت AI وارد کنند، مگر
+            اینکه یک مسیر رسمی و امن برای آن اعلام شده باشد.
+          </div>
+        </section>
+
+        <section id="risks">
+          <h2>12. افشای ریسک‌ها</h2>
+          <p>
+            معامله و نگه‌داری دارایی‌های دیجیتال ریسک بالایی دارد. شما می‌پذیرید
+            که ممکن است بخشی یا تمام دارایی خود را از دست بدهید.
+          </p>
+
+          <ul>
+            <li>قیمت دارایی‌های دیجیتال ممکن است شدیداً نوسان کند.</li>
+            <li>نقدینگی ممکن است در برخی بازارها محدود باشد.</li>
+            <li>اختلال شبکه بلاکچین، تأخیر تأیید، ازدحام شبکه یا خطای زیرساخت ممکن است رخ دهد.</li>
+            <li>معاملات اهرمی یا فیوچرز، در صورت فعال‌سازی، می‌توانند باعث لیکوییدیشن سریع شوند.</li>
+            <li>قوانین کشورها درباره دارایی دیجیتال ممکن است تغییر کند.</li>
+            <li>حملات سایبری، خطاهای نرم‌افزاری یا مشکلات عملیاتی می‌توانند بر دسترسی یا دارایی‌ها اثر بگذارند.</li>
+          </ul>
+
+          <div class="warning">
+            شما مسئول تصمیم‌های معاملاتی خود هستید. picex هیچ تضمینی درباره سود،
+            بازده، حفظ ارزش دارایی یا امکان برداشت در تمام شرایط ارائه نمی‌دهد.
+          </div>
+        </section>
+
+        <section id="prohibited">
+          <h2>13. استفاده‌های ممنوع</h2>
+          <p>
+            شما موافقت می‌کنید که از picex برای موارد زیر استفاده نکنید:
+          </p>
+          <ul>
+            <li>پول‌شویی، تأمین مالی تروریسم، فرار از تحریم‌ها یا فعالیت غیرقانونی.</li>
+            <li>کلاهبرداری، فیشینگ، جعل هویت یا سوءاستفاده از حساب دیگران.</li>
+            <li>دستکاری بازار، wash trading، spoofing، layering یا ایجاد حجم جعلی.</li>
+            <li>حمله به زیرساخت، تلاش برای نفوذ، مهندسی معکوس غیرمجاز یا سوءاستفاده از باگ‌ها.</li>
+            <li>استفاده از ربات‌ها یا API برخلاف محدودیت‌ها، rate limit یا قوانین پلتفرم.</li>
+            <li>ایجاد چند حساب برای دور زدن محدودیت‌ها، KYC، کارمزدها یا سیاست‌های ریسک.</li>
+            <li>ارسال محتوای توهین‌آمیز، تهدیدآمیز، غیرقانونی یا مخرب در بخش پشتیبانی.</li>
+          </ul>
+        </section>
+
+        <section id="security">
+          <h2>14. امنیت حساب و مسئولیت کاربر</h2>
+          <p>
+            شما مسئول حفظ محرمانگی اطلاعات ورود، دستگاه‌ها، کیف پول‌ها و ابزارهای
+            امنیتی خود هستید.
+          </p>
+          <ul>
+            <li>همیشه از رمز عبور قوی و احراز هویت دومرحله‌ای استفاده کنید.</li>
+            <li>قبل از برداشت، آدرس مقصد و شبکه را با دقت بررسی کنید.</li>
+            <li>به پیام‌ها، لینک‌ها یا افراد مدعی پشتیبانی picex خارج از کانال‌های رسمی اعتماد نکنید.</li>
+            <li>در صورت مشاهده ورود مشکوک یا برداشت غیرمجاز، فوراً به پشتیبانی اطلاع دهید.</li>
+          </ul>
+
+          <p>
+            picex ممکن است برای محافظت از حساب، برداشت را به تأخیر بیندازد، ورود
+            را مسدود کند، احراز مجدد درخواست کند یا حساب را وارد بررسی امنیتی کند.
+          </p>
+        </section>
+
+        <section id="suspension">
+          <h2>15. محدودیت، تعلیق یا مسدودسازی حساب</h2>
+          <p>
+            picex می‌تواند در شرایط زیر، حساب یا برخی قابلیت‌های آن را محدود، تعلیق
+            یا مسدود کند:
+          </p>
+          <ul>
+            <li>نقض این شرایط استفاده.</li>
+            <li>عدم تکمیل KYC یا ارائه اطلاعات نادرست.</li>
+            <li>الگوهای مشکوک معاملاتی، واریز یا برداشت.</li>
+            <li>درخواست نهاد قانونی، الزامات انطباق یا بررسی AML.</li>
+            <li>ریسک امنیتی، هک، استفاده غیرمجاز یا سوءاستفاده از پلتفرم.</li>
+            <li>اختلال فنی، تعمیرات اضطراری یا شرایط خارج از کنترل picex.</li>
+          </ul>
+
+          <p>
+            در صورت امکان و در حد مجاز قانونی، picex تلاش می‌کند دلیل محدودیت را
+            به کاربر اطلاع دهد، اما در برخی موارد امنیتی یا قانونی ممکن است امکان
+            ارائه جزئیات وجود نداشته باشد.
+          </p>
+        </section>
+
+        <section id="privacy">
+          <h2>16. حریم خصوصی و داده‌ها</h2>
+          <p>
+            picex ممکن است داده‌هایی مانند شناسه کاربر، اطلاعات حساب، وضعیت KYC،
+            تاریخچه ورود، دستگاه، IP، سفارش‌ها، تراکنش‌ها، مکالمات پشتیبانی و
+            داده‌های لازم برای انطباق را جمع‌آوری و پردازش کند.
+          </p>
+          <p>
+            نحوه جمع‌آوری، نگه‌داری، پردازش و اشتراک‌گذاری داده‌ها باید در
+            <a href="/privacy.html">سیاست حریم خصوصی picex</a>
+            توضیح داده شود.
+          </p>
+        </section>
+
+        <section id="taxes">
+          <h2>17. مالیات</h2>
+          <p>
+            شما مسئول بررسی، گزارش و پرداخت هرگونه مالیات، عوارض یا هزینه قانونی
+            مرتبط با معاملات، سود، زیان، واریز، برداشت یا استفاده از خدمات picex
+            در کشور محل اقامت خود هستید.
+          </p>
+          <p>
+            picex مشاوره مالیاتی ارائه نمی‌دهد.
+          </p>
+        </section>
+
+        <section id="intellectual-property">
+          <h2>18. مالکیت فکری</h2>
+          <p>
+            نام، نشان، طراحی، رابط کاربری، کدها، مستندات، نمودارها، داده‌های تولیدی،
+            محتوا، الگوریتم‌ها و سایر عناصر مرتبط با picex متعلق به picex یا
+            مجوزدهندگان آن است، مگر اینکه خلاف آن صراحتاً اعلام شود.
+          </p>
+          <p>
+            شما حق ندارید بدون اجازه کتبی، از نام، برند، کد، API، داده‌ها یا محتوای
+            picex سوءاستفاده، کپی، بازنشر، مهندسی معکوس یا بهره‌برداری تجاری
+            غیرمجاز کنید.
+          </p>
+        </section>
+
+        <section id="third-party">
+          <h2>19. سرویس‌های شخص ثالث</h2>
+          <p>
+            picex ممکن است برای برخی خدمات از زیرساخت‌ها یا سرویس‌های شخص ثالث
+            استفاده کند؛ از جمله سرویس‌های احراز هویت، KYC، داده، میزبانی، امنیت،
+            بلاکچین، کیف پول، تحلیل ریسک، ارسال پیام یا هوش مصنوعی.
+          </p>
+          <p>
+            picex مسئول قطعی، خطا، تغییر سیاست، محدودیت یا اختلال سرویس‌های شخص
+            ثالث نیست، اما تلاش می‌کند اثر آن‌ها را بر کاربران کاهش دهد.
+          </p>
+        </section>
+
+        <section id="liability">
+          <h2>20. محدودیت مسئولیت</h2>
+          <p>
+            تا حد مجاز قانون، picex در برابر خسارت‌های غیرمستقیم، اتفاقی، خاص،
+            تبعی، از دست رفتن سود، از دست رفتن فرصت، کاهش ارزش دارایی، اختلال بازار،
+            خطای کاربر، ارسال اشتباه دارایی، افشای کلید خصوصی یا تصمیم‌های معاملاتی
+            کاربر مسئول نخواهد بود.
+          </p>
+
+          <p>
+            خدمات picex بر اساس وضعیت موجود ارائه می‌شوند و هیچ تضمینی درباره
+            دسترسی دائمی، عملکرد بدون خطا، سودآوری، نقدینگی، قیمت، یا امکان برداشت
+            در همه شرایط ارائه نمی‌شود.
+          </p>
+        </section>
+
+        <section id="indemnity">
+          <h2>21. جبران خسارت</h2>
+          <p>
+            شما موافقت می‌کنید که در صورت نقض این شرایط، نقض قانون، سوءاستفاده از
+            خدمات، ارائه اطلاعات نادرست، نقض حقوق دیگران یا ایجاد خسارت برای picex،
+            مسئول جبران خسارت‌ها، هزینه‌ها، ادعاها و مسئولیت‌های ناشی از آن باشید.
+          </p>
+        </section>
+
+        <section id="changes">
+          <h2>22. تغییرات شرایط استفاده</h2>
+          <p>
+            picex می‌تواند این شرایط را در هر زمان به‌روزرسانی کند. نسخه جدید از
+            زمان انتشار در وب‌سایت یا اپلیکیشن لازم‌الاجرا می‌شود، مگر اینکه تاریخ
+            دیگری اعلام شده باشد.
+          </p>
+          <p>
+            ادامه استفاده شما از خدمات پس از انتشار نسخه جدید، به معنای پذیرش شرایط
+            اصلاح‌شده است.
+          </p>
+        </section>
+
+        <section id="governing-law">
+          <h2>23. قانون حاکم و حل اختلاف</h2>
+          <p>
+            قانون حاکم، مرجع رسیدگی و روش حل اختلاف باید بر اساس ساختار حقوقی نهایی
+            شرکت یا نهاد اداره‌کننده picex مشخص شود.
+          </p>
+
+          <div class="notice">
+            <strong>Placeholder:</strong>
+            این بخش باید توسط مشاور حقوقی تکمیل شود:
+            <br />
+            کشور/حوزه قضایی: <code>[Insert Jurisdiction]</code>
+            <br />
+            مرجع حل اختلاف: <code>[Insert Dispute Resolution Method]</code>
+          </div>
+        </section>
+
+        <section id="contact">
+          <h2>24. تماس با picex</h2>
+          <p>
+            برای سوالات مرتبط با این شرایط، حساب کاربری، واریز، برداشت، KYC یا
+            پشتیبانی، از کانال‌های رسمی picex استفاده کنید.
+          </p>
+
+          <ul>
+            <li>ایمیل پشتیبانی: <code>support@picex.com</code></li>
+            <li>وب‌سایت رسمی: <code>https://picex.com</code></li>
+            <li>صفحه پشتیبانی: <code>/support</code></li>
+          </ul>
+
+          <div class="warning">
+            picex هرگز از شما عبارت بازیابی کیف پول، کلید خصوصی یا رمز عبور کامل
+            درخواست نمی‌کند.
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      © <span id="year"></span> picex. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
