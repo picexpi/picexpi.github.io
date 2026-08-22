@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fees | picex</title>
+  <meta
+    name="description"
+    content="Fee schedule for picex trading, deposits, withdrawals and platform services."
+  />
+
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #152238;
+      --muted: #607089;
+      --border: #dce4ef;
+      --primary: #145ee8;
+      --primary-soft: #eaf1ff;
+      --success: #0f8b7a;
+      --warning: #8a4b00;
+      --danger: #b42318;
+      --shadow: 0 12px 32px rgba(21, 34, 56, 0.08);
+      --radius: 16px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, #e8f0ff 0, transparent 320px),
+        linear-gradient(180deg, #f8fbff 0, var(--bg) 100%);
+      line-height: 1.75;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header {
+      padding: 32px 0 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin: 0 0 12px;
+      line-height: 1.25;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      line-height: 1.35;
+    }
+
+    h3 {
+      margin: 20px 0 8px;
+      font-size: 18px;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    ul,
+    ol {
+      margin: 10px 0;
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 7px 0;
+    }
+
+    .lead {
+      color: var(--muted);
+      max-width: 900px;
+      margin: 0;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    nav {
+      position: sticky;
+      top: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    nav h2 {
+      font-size: 16px;
+      margin: 0 0 10px;
+    }
+
+    nav ol {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    nav li {
+      margin: 7px 0;
+    }
+
+    nav a {
+      color: var(--text);
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 14px 0;
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f0f5fb;
+      font-weight: 700;
+    }
+
+    .notice,
+    .warning,
+    .danger {
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin: 14px 0;
+    }
+
+    .notice {
+      background: #eef5ff;
+      border-left: 4px solid var(--primary);
+    }
+
+    .warning {
+      background: #fff8ea;
+      border-left: 4px solid var(--warning);
+    }
+
+    .danger {
+      background: #fff1f0;
+      border-left: 4px solid var(--danger);
+    }
+
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 13px;
+    }
+
+    .positive {
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 24px 0 44px;
+      text-align: center;
+    }
+
+    @media (max-width: 960px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        position: static;
+      }
+
+      section {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <span class="badge">picex Fee Schedule</span>
+      <h1>Fees</h1>
+      <p class="lead">
+        This page explains the trading, deposit, withdrawal and platform fee structure for picex.
+        picex aims to provide transparent, competitive and liquidity-friendly fees for users of the
+        Pi ecosystem.
+      </p>
+    </header>
+
+    <div class="layout">
+      <nav aria-label="Table of contents">
+        <h2>Contents</h2>
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#user-levels">User Levels</a></li>
+          <li><a href="#spot-fees">Spot Trading Fees</a></li>
+          <li><a href="#futures-fees">Futures / Perpetual Fees</a></li>
+          <li><a href="#deposits">Deposit Fees</a></li>
+          <li><a href="#withdrawals">Withdrawal Fees</a></li>
+          <li><a href="#network">Network Fees</a></li>
+          <li><a href="#maker">Market Maker Rebates</a></li>
+          <li><a href="#api">API and Premium Services</a></li>
+          <li><a href="#changes">Fee Changes</a></li>
+        </ol>
+      </nav>
+
+      <main>
+        <section id="overview">
+          <h2>1. Overview</h2>
+          <p>
+            picex uses a maker/taker fee model. This model is designed to reward liquidity
+            providers and keep trading costs transparent.
+          </p>
+
+          <ul>
+            <li>
+              <strong>Maker:</strong>
+              A user who adds liquidity by placing an order that rests on the order book.
+            </li>
+            <li>
+              <strong>Taker:</strong>
+              A user who removes liquidity by executing against an existing order.
+            </li>
+          </ul>
+
+          <div class="notice">
+            picex aims to offer low and competitive fees. However, any statement about “lowest fees”
+            should not be interpreted as a permanent guarantee against all exchanges or market conditions.
+          </div>
+        </section>
+
+        <section id="user-levels">
+          <h2>2. User Levels</h2>
+          <p>
+            picex uses a simple two-level user model for access, risk controls and fee policy.
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>User Level</th>
+                  <th>Description</th>
+                  <th>Benefits / Restrictions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Unverified</td>
+                  <td>A user without completed or verifiable KYC status.</td>
+                  <td>Limited access, lower withdrawal limits and higher fees than verified users.</td>
+                </tr>
+                <tr>
+                  <td>KYC-Verified</td>
+                  <td>A user whose identity or KYC status has been verified.</td>
+                  <td>Lower fees, higher limits and broader access to platform features.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="spot-fees">
+          <h2>3. Spot Trading Fees</h2>
+          <p>
+            The table below shows an initial proposed fee schedule for picex spot markets. Final
+            rates may change before launch and should always be displayed inside the official fee page
+            and order preview.
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>User Status</th>
+                  <th>Maker Fee</th>
+                  <th>Taker Fee</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Unverified</td>
+                  <td>0.05%</td>
+                  <td>0.08%</td>
+                  <td>For limited or unverified accounts.</td>
+                </tr>
+                <tr>
+                  <td>KYC-Verified</td>
+                  <td class="positive">0.015%</td>
+                  <td class="positive">0.035%</td>
+                  <td>Preferred rate for verified users.</td>
+                </tr>
+                <tr>
+                  <td>Official Market Maker</td>
+                  <td>0.00% to rebate</td>
+                  <td>Contract-based</td>
+                  <td>For approved liquidity providers with market-making obligations.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="warning">
+            These numbers are proposed policy values. The production platform must show the final
+            fee before order submission.
+          </div>
+        </section>
+
+        <section id="futures-fees">
+          <h2>4. Futures / Perpetual Fees</h2>
+          <p>
+            If picex launches futures or perpetual contracts, these markets may be available only
+            to eligible KYC-verified users in permitted jurisdictions.
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>User Type</th>
+                  <th>Maker Fee</th>
+                  <th>Taker Fee</th>
+                  <th>Additional Costs</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>KYC-Verified</td>
+                  <td>0.010%</td>
+                  <td>0.030%</td>
+                  <td>Funding rate, possible liquidation fee and settlement costs.</td>
+                </tr>
+                <tr>
+                  <td>Official Market Maker</td>
+                  <td>0.00% to rebate</td>
+                  <td>Contract-based</td>
+                  <td>Subject to liquidity, spread, uptime and order depth commitments.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="danger">
+            Low fees do not reduce the inherent risk of leveraged trading, liquidation or market loss.
+          </div>
+        </section>
+
+        <section id="deposits">
+          <h2>5. Deposit Fees</h2>
+          <p>
+            picex may not charge a direct deposit fee for supported assets under normal conditions.
+            However, network costs or infrastructure costs may still apply depending on the asset,
+            blockchain or service provider.
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Asset / Network</th>
+                  <th>picex Deposit Fee</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>PI / Pi Network</td>
+                  <td>0 or as officially published</td>
+                  <td>May depend on network status, Pi integration, infrastructure and policy.</td>
+                </tr>
+                <tr>
+                  <td>Supported tokens or future assets</td>
+                  <td>0 or as officially published</td>
+                  <td>Supported assets will be shown in the Deposit page.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            Incorrect deposits, unsupported assets, wrong networks or missing memo/tag values may
+            require manual review and may be unrecoverable. Recovery is not guaranteed.
+          </p>
+        </section>
+
+        <section id="withdrawals">
+          <h2>6. Withdrawal Fees</h2>
+          <p>
+            Withdrawals may include a network fee and an operational fee. The final withdrawal fee
+            should be displayed before the user confirms the request.
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Asset / Network</th>
+                  <th>Minimum Withdrawal</th>
+                  <th>Withdrawal Fee</th>
+                  <th>Estimated Processing Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>PI</td>
+                  <td><code>[Insert Minimum]</code></td>
+                  <td>Dynamic / based on network and picex policy</td>
+                  <td>Depends on security review and network confirmation.</td>
+                </tr>
+                <tr>
+                  <td>USDT or future supported assets</td>
+                  <td><code>[Insert Minimum]</code></td>
+                  <td>Based on selected network</td>
+                  <td>Depends on network, hot wallet liquidity and AML review.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <ul>
+            <li>Large withdrawals may require manual review.</li>
+            <li>New withdrawal addresses may be subject to a security waiting period.</li>
+            <li>Withdrawals may be paused during network disruption, maintenance or security incidents.</li>
+          </ul>
+        </section>
+
+        <section id="network">
+          <h2>7. Network Fees and Variable Costs</h2>
+          <p>
+            Network fees are determined by the relevant blockchain or settlement infrastructure.
+            They may change due to congestion, transaction type, asset, chain conditions or provider policy.
+          </p>
+
+          <p>
+            picex may dynamically adjust withdrawal fees to avoid operational loss or failed transactions.
+            The final fee must be shown before submission.
+          </p>
+        </section>
+
+        <section id="maker">
+          <h2>8. Market Maker Rebates and Incentives</h2>
+          <p>
+            picex may offer reduced maker fees or rebates to approved market makers in order to
+            improve order book depth and reduce user slippage.
+          </p>
+
+          <ul>
+            <li>Rebates are available only to approved and eligible accounts.</li>
+            <li>Market makers may be required to maintain volume, spread and uptime commitments.</li>
+            <li>picex may change, suspend or terminate market maker programs.</li>
+            <li>Manipulative activity such as spoofing, layering or wash trading may result in disqualification, fee reversal, suspension or account closure.</li>
+          </ul>
+        </section>
+
+        <section id="api">
+          <h2>9. API, Market Data and Premium Services</h2>
+          <p>
+            picex may charge separate fees for premium APIs, institutional access, advanced reporting,
+            professional market data or enterprise services.
+          </p>
+
+          <ul>
+            <li>Public APIs may be free but subject to rate limits.</li>
+            <li>Professional or institutional APIs may require subscription or approval.</li>
+            <li>Internal market data generated by picex may be subject to data usage rules.</li>
+          </ul>
+        </section>
+
+        <section id="changes">
+          <h2>10. Fee Changes</h2>
+          <p>
+            picex may update fees at any time due to market conditions, network costs, legal requirements,
+            risk controls or product changes.
+          </p>
+
+          <p>
+            Material changes may be communicated through the website, app, official announcements or
+            fee page. Continued use of picex means you accept the updated fees.
+          </p>
+
+          <div class="notice">
+            Last updated: <code>[Insert Date]</code>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      © <span id="year"></span> picex. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+  </html>
+    
