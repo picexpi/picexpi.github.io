@@ -43,7 +43,7 @@ const AISupportSection = () => {
   ];
 
   return (
-    <section id="ai-support" className="ai-support-section">
+    <section id="support-ai" className="ai-support-section">
       <div className="container">
         <div className="ai-support-wrapper">
           <div className="ai-support-content">
