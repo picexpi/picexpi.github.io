@@ -8,7 +8,7 @@
     radial-gradient(circle at bottom right, rgba(255, 202, 40, 0.13) 0%, transparent 30%),
     linear-gradient(180deg, #110820 0%, #0f0820 100%);
   color: #ffffff;
-  direction: rtl;
+  direction: inherit;
   overflow: hidden;
 }
 
@@ -197,6 +197,22 @@
   font-size: 0.97rem;
   line-height: 1.85;
   color: #cfc5e8;
+}
+
+/* LTR / RTL compatibility */
+html[dir='ltr'] .features-section {
+  text-align: left;
+}
+
+html[dir='rtl'] .features-section {
+  text-align: right;
+}
+
+html[dir='ltr'] .features-heading,
+html[dir='rtl'] .features-heading,
+html[dir='ltr'] .feature-card,
+html[dir='rtl'] .feature-card {
+  text-align: center;
 }
 
 /* Responsive */
