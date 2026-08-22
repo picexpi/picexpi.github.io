@@ -1,27 +1,36 @@
 // frontend/src/lib/axiosClient.ts
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
+const API_BASE_URL =
+  (import.meta.env.VITE_API_URL || 'https://pidao.bonto.run/api').replace(
+    /\/+$/,
+    ''
+  );
+
 const axiosClient = axios.create({
-  // استفاده از URL محیطی؛ اگر نبود از آدرس پیش‌فرض استفاده کن
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  // Production fallback must point to the real backend, not localhost.
+  baseURL: API_BASE_URL,
+
   headers: {
     'Content-Type': 'application/json',
   },
-  // اضافه کردن تایم‌اوت برای جلوگیری از معلق ماندن درخواست‌ها
-  timeout: 10000, 
+
+  // Bonto/server cold start may take more than 10 seconds.
+  timeout: 30000,
 });
 
 /**
  * Request Interceptor
- * اضافه کردن توکن به تمام درخواست‌ها
+ * Add JWT token to all authenticated requests.
  */
 axiosClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = localStorage.getItem('token');
-    
+
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
   (error) => {
@@ -31,44 +40,48 @@ axiosClient.interceptors.request.use(
 
 /**
  * Response Interceptor
- * مدیریت هوشمند خطاها برای جلوگیری از صفحه سفید
+ * Handle errors safely to avoid white screen.
  */
 axiosClient.interceptors.response.use(
   (response) => response,
   (error: AxiosError<any>) => {
-    // ۱. مدیریت خطای عدم دسترسی یا انقضای توکن (401)
     if (error.response) {
       const status = error.response.status;
 
       if (status === 401) {
         console.warn('Unauthorized! Cleaning up session...');
-        
-        // پاکسازی حافظه
+
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        
-        // IMPORTANT: با HashRouter باید از hash استفاده کنیم، نه path مستقیم
-        // در GitHub Pages /jugl می‌شود 404، ولی /#/login همیشه کار می‌کند
+
+        // IMPORTANT:
+        // If you use HashRouter, use hash navigation.
         const currentHash = window.location.hash || '#/';
+
         if (!currentHash.includes('/login')) {
-          window.location.hash = '#/login'; 
+          window.location.hash = '#/login';
         }
-      } 
-      else if (status === 500) {
-        console.error('Server Error: Something went wrong on the backend.');
+      } else if (status === 403) {
+        console.error('Forbidden:', error.response.data);
+      } else if (status === 404) {
+        console.error('API route not found:', error.config?.url);
+      } else if (status === 500) {
+        console.error('Server Error:', error.response.data);
+      } else {
+        console.error('API Error:', {
+          status,
+          data: error.response.data,
+          url: error.config?.url,
+        });
       }
-    } 
-    // ۲. مدیریت خطای شبکه (وقتی سرور اصلاً پاسخ نمی‌دهد - بسیار مهم!)
-    else if (error.request) {
-      // این بخش زمانی اجرا می‌شود که درخواست فرستاده شده اما پاسخی دریافت نشده (مثلاً سرور خاموش است)
-      console.error('Network Error: Cannot connect to the server. Please check your internet or server status.');
-      // اینجا می‌توانید یک پیام کاربرپسند نشان دهید (مثلاً با استفاده از یک Toast)
-    } 
-    // ۳. مدیریت خطاهای دیگر
-    else {
-      console.error('Error:', error.message);
+    } else if (error.request) {
+      console.error(
+        'Network Error: Cannot connect to the server. Please check VITE_API_URL, CORS, internet, or backend status.'
+      );
+    } else {
+      console.error('Axios Error:', error.message);
     }
-    
+
     return Promise.reject(error);
   }
 );
