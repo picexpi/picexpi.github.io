@@ -6,23 +6,28 @@ import { useI18n } from '../i18n/I18nContext';
 export interface Product {
   id: string;
 
-  name: string;
-  description: string;
+  nameKey: string;
+  fallbackName: string;
 
-  nameFa?: string;
-  nameEn?: string;
-  nameTr?: string;
+  descriptionKey: string;
+  fallbackDescription: string;
 
-  descriptionFa?: string;
-  descriptionEn?: string;
-  descriptionTr?: string;
-
-  image?: string;
   icon?: string;
-  category?: string;
-  badge?: string;
-  priceDisplay: string;
-  actionLabel?: string;
+  image?: string;
+
+  categoryKey: string;
+  fallbackCategory: string;
+
+  badgeKey: string;
+  fallbackBadge: string;
+
+  priceDisplayKey: string;
+  fallbackPriceDisplay: string;
+
+  actionLabelKey: string;
+  fallbackActionLabel: string;
+
+  disabled?: boolean;
 }
 
 interface ProductCardProps {
@@ -36,36 +41,37 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onBuy,
   isProcessing,
 }) => {
-  const { lang, t } = useI18n();
-
-  const loading = isProcessing === product.id;
+  const { t } = useI18n();
 
   const tx = (key: string, fallback: string) => {
     const value = t(key);
     return value && value !== key ? value : fallback;
   };
 
-  const getProductName = () => {
-    if (lang === 'fa') return product.nameFa || product.name;
-    if (lang === 'en') return product.nameEn || product.name;
-    if (lang === 'tr') return product.nameTr || product.name;
+  const loading = isProcessing === product.id;
+  const disabled = Boolean(product.disabled || loading);
 
-    return product.name;
-  };
+  const productName = tx(product.nameKey, product.fallbackName);
+  const productDescription = tx(
+    product.descriptionKey,
+    product.fallbackDescription
+  );
 
-  const getProductDescription = () => {
-    if (lang === 'fa') return product.descriptionFa || product.description;
-    if (lang === 'en') return product.descriptionEn || product.description;
-    if (lang === 'tr') return product.descriptionTr || product.description;
-
-    return product.description;
-  };
-
-  const productName = getProductName();
-  const productDescription = getProductDescription();
+  const category = tx(product.categoryKey, product.fallbackCategory);
+  const badge = tx(product.badgeKey, product.fallbackBadge);
+  const priceDisplay = tx(
+    product.priceDisplayKey,
+    product.fallbackPriceDisplay
+  );
+  const actionLabel = tx(
+    product.actionLabelKey,
+    product.fallbackActionLabel
+  );
 
   return (
-    <article className="product-card">
+    <article
+      className={`product-card ${disabled ? 'product-card-disabled' : ''}`}
+    >
       <div className="product-visual-wrapper">
         {product.image ? (
           <img
@@ -80,43 +86,46 @@ const ProductCard: React.FC<ProductCardProps> = ({
         )}
 
         <div className="product-price-badge">
-          {product.priceDisplay}
+          {priceDisplay}
         </div>
 
-        {product.badge && (
+        {badge && (
           <div className="product-top-badge">
-            {product.badge}
+            {badge}
           </div>
         )}
       </div>
 
       <div className="product-content">
-        {product.category && (
+        {category && (
           <div className="product-category">
-            {product.category}
+            {category}
           </div>
         )}
 
-        <h3 className="product-title">{productName}</h3>
+        <h3 className="product-title">
+          {productName}
+        </h3>
 
         <p className="product-description">
           {productDescription}
         </p>
 
         <button
+          type="button"
           className={`product-button ${loading ? 'loading' : ''}`}
           onClick={() => onBuy(product)}
-          disabled={loading}
+          disabled={disabled}
         >
           {loading ? (
             <>
-              <span className="product-spinner"></span>
+              <span className="product-spinner" />
               <span style={{ marginInlineStart: '8px' }}>
                 {tx('processing', 'Processing...')}
               </span>
             </>
           ) : (
-            product.actionLabel || tx('buyNow', 'Open')
+            actionLabel || tx('open', 'Open')
           )}
         </button>
       </div>
@@ -124,4 +133,5 @@ const ProductCard: React.FC<ProductCardProps> = ({
   );
 };
 
-export default ProductCard;
+expo
+  rt default ProductCard;
