@@ -1,108 +1,584 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy - PiDao</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.7;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 32px 20px;
-      color: #1f2937;
-      background: #ffffff;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy | picex</title>
 
-    h1, h2 {
-      color: #4c1d95;
-    }
+    <meta
+      name="description"
+      content="Privacy Policy for picex, a Pi Network focused hybrid exchange and payment experience."
+    />
 
-    a {
-      color: #673ab7;
-    }
+    <style>
+      :root {
+        --bg-main: #0f0820;
+        --bg-card: rgba(255, 255, 255, 0.08);
+        --bg-card-strong: rgba(255, 255, 255, 0.12);
+        --border: rgba(255, 255, 255, 0.14);
+        --text-main: #ffffff;
+        --text-muted: #d8cfee;
+        --text-soft: #b9aed5;
+        --gold: #ffca28;
+        --gold-soft: rgba(255, 202, 40, 0.12);
+        --purple: #6f2dbd;
+        --danger: #fecaca;
+        --success: #86efac;
+      }
 
-    .date {
-      color: #6b7280;
-      font-size: 14px;
-    }
-  </style>
-</head>
-<body>
-  <h1>Privacy Policy</h1>
-  <p class="date">Last updated: August 2026</p>
+      * {
+        box-sizing: border-box;
+      }
 
-  <p>
-    PiDao respects your privacy. This Privacy Policy explains how we collect,
-    use, and protect information when you use our application.
-  </p>
+      html {
+        scroll-behavior: smooth;
+      }
 
-  <h2>1. Information We Collect</h2>
-  <p>
-    When you use PiDao, we may collect basic information provided through
-    Pi Network authentication, such as your Pi user ID and username.
-  </p>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        color: var(--text-main);
+        background:
+          radial-gradient(circle at top left, rgba(255, 202, 40, 0.14), transparent 30%),
+          radial-gradient(circle at bottom right, rgba(111, 45, 189, 0.34), transparent 34%),
+          linear-gradient(180deg, #0f0820 0%, #180d31 100%);
+        line-height: 1.75;
+      }
 
-  <p>
-    We may also collect interaction data related to voting, tasks, payments,
-    and usage of the application.
-  </p>
+      a {
+        color: var(--gold);
+        text-decoration: none;
+      }
 
-  <h2>2. How We Use Information</h2>
-  <p>
-    We use collected information to provide authentication, prevent duplicate
-    voting, process Pi-related interactions, display user participation, and
-    improve the platform.
-  </p>
+      a:hover {
+        text-decoration: underline;
+      }
 
-  <h2>3. Pi Network Authentication</h2>
-  <p>
-    PiDao uses Pi Network tools such as Pi SDK for user authentication and
-    participation. We do not collect or store your Pi wallet private keys.
-  </p>
+      .page {
+        width: min(1040px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 34px 0 54px;
+      }
 
-  <h2>4. Payments</h2>
-  <p>
-    If Pi payments are used, payment-related information such as payment ID,
-    transaction status, and transaction identifiers may be processed to complete
-    and verify transactions.
-  </p>
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 28px;
+      }
 
-  <h2>5. Data Storage</h2>
-  <p>
-    Some application data may be stored in our backend systems or database,
-    including voting records and user participation data.
-  </p>
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.8rem;
+        font-weight: 950;
+        letter-spacing: -0.04em;
+      }
 
-  <h2>6. Data Sharing</h2>
-  <p>
-    We do not sell your personal data. We may share limited data only when
-    required to operate the application, comply with legal obligations, or
-    interact with Pi Network services.
-  </p>
+      .logo span {
+        color: var(--gold);
+      }
 
-  <h2>7. Security</h2>
-  <p>
-    We use reasonable technical measures to protect user data. However, no
-    digital system can be guaranteed to be completely secure.
-  </p>
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 9px 16px;
+        border-radius: 999px;
+        color: #180d31;
+        background: linear-gradient(135deg, #ffe7a3, #ffca28, #f4b942);
+        font-size: 0.9rem;
+        font-weight: 900;
+        text-decoration: none;
+        box-shadow: 0 14px 30px rgba(244, 185, 66, 0.22);
+      }
 
-  <h2>8. DIG Vision</h2>
-  <p>
-    PiDao is an early infrastructure related to the DIG vision. At this stage,
-    DIG is a concept and development path for transparent and people-powered
-    participation.
-  </p>
+      .hero {
+        padding: 38px 30px;
+        border: 1px solid var(--border);
+        border-radius: 30px;
+        background:
+          linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.055)),
+          radial-gradient(circle at top right, rgba(255, 202, 40, 0.08), transparent 46%);
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38);
+        backdrop-filter: blur(18px);
+      }
 
-  <h2>9. Contact</h2>
-  <p>
-    If you have questions about this Privacy Policy, please contact the PiDao
-    project team through the official project communication channels.
-  </p>
+      .badge {
+        display: inline-flex;
+        margin-bottom: 16px;
+        padding: 7px 14px;
+        border-radius: 999px;
+        background: var(--gold-soft);
+        border: 1px solid rgba(255, 202, 40, 0.28);
+        color: var(--gold);
+        font-size: 0.78rem;
+        font-weight: 950;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
 
-  <p>
-    <a href="/">Back to PiDao</a>
-  </p>
-</body>
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2.15rem, 6vw, 4rem);
+        line-height: 1.05;
+        letter-spacing: -0.06em;
+        font-weight: 950;
+      }
+
+      .subtitle {
+        max-width: 820px;
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 1.03rem;
+      }
+
+      .updated {
+        margin-top: 16px;
+        color: var(--text-soft);
+        font-size: 0.92rem;
+      }
+
+      .content {
+        display: grid;
+        gap: 18px;
+        margin-top: 24px;
+      }
+
+      .card {
+        padding: 26px;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        background:
+          linear-gradient(145deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.045));
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        color: #ffffff;
+        font-size: 1.35rem;
+        line-height: 1.35;
+        font-weight: 950;
+      }
+
+      h3 {
+        margin: 20px 0 8px;
+        color: #ffffff;
+        font-size: 1.04rem;
+        font-weight: 900;
+      }
+
+      p {
+        margin: 0 0 12px;
+        color: var(--text-muted);
+      }
+
+      ul {
+        margin: 10px 0 0;
+        padding-left: 22px;
+        color: var(--text-muted);
+      }
+
+      li {
+        margin-bottom: 8px;
+      }
+
+      .notice {
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: rgba(255, 202, 40, 0.08);
+        border: 1px solid rgba(255, 202, 40, 0.22);
+        color: #ffe7a3;
+      }
+
+      .notice p {
+        margin: 0;
+        color: #ffe7a3;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 12px;
+      }
+
+      table {
+        width: 100%;
+        min-width: 720px;
+        border-collapse: collapse;
+        color: var(--text-muted);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      th,
+      td {
+        padding: 13px 14px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        color: #ffffff;
+        font-size: 0.88rem;
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      .footer {
+        margin-top: 28px;
+        padding: 22px;
+        text-align: center;
+        color: var(--text-soft);
+        font-size: 0.9rem;
+      }
+
+      .footer strong {
+        color: var(--gold);
+      }
+
+      @media (max-width: 720px) {
+        .page {
+          width: min(100% - 24px, 1040px);
+          padding-top: 22px;
+        }
+
+        .topbar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .hero {
+          padding: 30px 20px;
+          border-radius: 24px;
+        }
+
+        .card {
+          padding: 22px 18px;
+          border-radius: 22px;
+        }
+
+        h1 {
+          font-size: clamp(2rem, 12vw, 3rem);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <header class="topbar">
+        <a href="/" class="logo" aria-label="picex home">
+          pi<span>cex</span>
+        </a>
+
+        <a href="/" class="back-link">Back to picex</a>
+      </header>
+
+      <section class="hero">
+        <div class="badge">Privacy Policy</div>
+
+        <h1>Privacy Policy</h1>
+
+        <p class="subtitle">
+          This Privacy Policy explains how picex collects, uses, stores, and protects information when you use our Pi Network focused payment, wallet, governance, market data, AI support, and future exchange-related services.
+        </p>
+
+        <p class="updated">
+          Last updated: January 2026
+        </p>
+      </section>
+
+      <main class="content">
+        <section class="card notice">
+          <p>
+            picex is under active development. Some features described in this policy may be planned, experimental, or not yet available in production. This policy will be updated as the platform evolves.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>1. Introduction</h2>
+
+          <p>
+            picex is a Pi-first hybrid exchange and payment experience designed for the Pi Network ecosystem. Our services may include Pi login, Pi payment flows, wallet access, governance polls, native market data, AI support, and future trading-related features.
+          </p>
+
+          <p>
+            By using picex, you agree to the collection and use of information in accordance with this Privacy Policy. If you do not agree with this policy, please do not use the platform.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>2. Information We May Collect</h2>
+
+          <p>
+            The information we collect depends on how you use picex and which features are available at the time.
+          </p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Examples</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>Pi account information</td>
+                  <td>Pi user ID, Pi username, Pi authentication response, Pi access token if provided by Pi SDK</td>
+                  <td>To authenticate users, create sessions, and enable Pi-based access.</td>
+                </tr>
+
+                <tr>
+                  <td>Payment information</td>
+                  <td>Payment ID, transaction ID/TXID, amount, order ID, payment status, network type, timestamps</td>
+                  <td>To approve, complete, record, and verify Pi payment flows.</td>
+                </tr>
+
+                <tr>
+                  <td>Wallet-related data</td>
+                  <td>Pending balance records, deposit/withdrawal requests, internal ledger entries, wallet operation status</td>
+                  <td>To support wallet, deposit, withdrawal, and reconciliation features when available.</td>
+                </tr>
+
+                <tr>
+                  <td>Governance and poll data</td>
+                  <td>Vote option, poll ID, vote timestamp, masked username or user identifier</td>
+                  <td>To operate community governance polls and prevent duplicate votes.</td>
+                </tr>
+
+                <tr>
+                  <td>Technical data</td>
+                  <td>IP address, browser type, device data, user agent, page URL, request logs, error logs</td>
+                  <td>To secure, debug, operate, and improve picex services.</td>
+                </tr>
+
+                <tr>
+                  <td>Local browser data</td>
+                  <td>Language preference, authentication token, cached user profile, session-related values</td>
+                  <td>To keep users logged in, remember language settings, and improve user experience.</td>
+                </tr>
+
+                <tr>
+                  <td>Support and AI interaction data</td>
+                  <td>Questions, support messages, issue descriptions, AI assistant prompts, support metadata</td>
+                  <td>To provide user support, answer questions, improve documentation, and resolve issues.</td>
+                </tr>
+
+                <tr>
+                  <td>Future trading data</td>
+                  <td>Orders, trades, balances, market interactions, chart data, order book activity</td>
+                  <td>To operate trading, market data, and exchange-related features if and when they become available.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>3. How We Use Information</h2>
+
+          <p>
+            We may use collected information for the following purposes:
+          </p>
+
+          <ul>
+            <li>To authenticate users through Pi Network login flows.</li>
+            <li>To approve, complete, verify, and record Pi payments.</li>
+            <li>To provide wallet access and future deposit/withdrawal functionality.</li>
+            <li>To operate governance polls and prevent duplicate voting.</li>
+            <li>To provide customer support and AI-assisted guidance.</li>
+            <li>To maintain platform security and detect abuse, fraud, or suspicious activity.</li>
+            <li>To debug errors, monitor availability, and improve performance.</li>
+            <li>To comply with legal, regulatory, security, or platform requirements.</li>
+            <li>To develop future market, trading, charting, and exchange infrastructure.</li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <h2>4. Pi Network and Third-Party Services</h2>
+
+          <p>
+            picex uses or may use the official Pi Network SDK and Pi Network Developer Platform to provide Pi login and payment functionality. When you authenticate or create a payment through Pi, certain information may be processed by Pi Network according to its own policies and developer platform rules.
+          </p>
+
+          <p>
+            picex may also use infrastructure providers, database providers, hosting services, analytics tools, security tools, or support services to operate and improve the platform. These providers may process limited information only as necessary to deliver their services.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>5. Authentication Tokens and Local Storage</h2>
+
+          <p>
+            picex may store authentication tokens, user profile data, and language preferences in your browser using local storage or similar browser storage technologies. This helps keep you logged in and remembers your selected language.
+          </p>
+
+          <p>
+            You can clear local storage through your browser settings. Clearing local storage may log you out or reset your preferences.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>6. Cookies and Similar Technologies</h2>
+
+          <p>
+            picex may use cookies or similar technologies for session management, security, analytics, performance monitoring, and user experience improvements. If analytics or tracking tools are added in the future, this Privacy Policy may be updated accordingly.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>7. Data Sharing</h2>
+
+          <p>
+            We do not sell your personal information. We may share limited information only in the following cases:
+          </p>
+
+          <ul>
+            <li>With service providers that help operate hosting, storage, security, payments, support, or infrastructure.</li>
+            <li>With Pi Network services when required for Pi login or Pi payment functionality.</li>
+            <li>When required by law, regulation, legal process, or government request.</li>
+            <li>To protect the rights, safety, security, or integrity of picex, users, or the public.</li>
+            <li>In connection with a merger, acquisition, financing, reorganization, or transfer of platform assets.</li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <h2>8. Data Security</h2>
+
+          <p>
+            We use reasonable technical and organizational measures to protect information, including access controls, secure API design, backend validation, token-based authentication, and controlled database access.
+          </p>
+
+          <p>
+            However, no method of transmission over the internet or electronic storage is completely secure. We cannot guarantee absolute security.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>9. Data Retention</h2>
+
+          <p>
+            We keep information only as long as necessary for the purposes described in this policy, including security, payment verification, audit, dispute resolution, legal compliance, and platform operation.
+          </p>
+
+          <p>
+            Payment records, governance votes, wallet records, and security logs may be retained for longer periods where needed for auditability, fraud prevention, or compliance.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>10. Your Choices and Rights</h2>
+
+          <p>
+            Depending on your location and applicable laws, you may have rights to:
+          </p>
+
+          <ul>
+            <li>Access the information we hold about you.</li>
+            <li>Request correction of inaccurate information.</li>
+            <li>Request deletion of certain information.</li>
+            <li>Withdraw consent where processing is based on consent.</li>
+            <li>Object to or restrict certain processing.</li>
+            <li>Request a copy of your data where applicable.</li>
+          </ul>
+
+          <p>
+            Some information may need to be retained for security, payment verification, legal, or operational reasons.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>11. AI Support and User Messages</h2>
+
+          <p>
+            picex may provide AI-assisted support features. If you submit questions, issue descriptions, or support messages, we may process that content to generate responses, improve documentation, troubleshoot issues, and escalate sensitive cases to human support.
+          </p>
+
+          <p>
+            Do not submit passwords, private keys, seed phrases, wallet secrets, or sensitive personal documents through AI support unless explicitly requested through a secure official process.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>12. Wallet, Trading, and Compliance Considerations</h2>
+
+          <p>
+            picex may introduce wallet, deposit, withdrawal, market data, spot trading, futures-ready, or other exchange-related functionality over time. Such features may require additional verification, compliance checks, risk controls, or user limits.
+          </p>
+
+          <p>
+            If KYC, compliance screening, fraud prevention, or regulatory checks become required, additional data may be collected and this policy may be updated.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>13. Children’s Privacy</h2>
+
+          <p>
+            picex is not intended for children or users who are not permitted to use Pi Network, payment, wallet, or exchange-related services under applicable laws. We do not knowingly collect personal information from children.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>14. International Use</h2>
+
+          <p>
+            picex may be accessed from different countries. Your information may be processed in jurisdictions where our infrastructure, service providers, or databases operate. By using picex, you understand that information may be processed outside your country of residence.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>15. Changes to This Privacy Policy</h2>
+
+          <p>
+            We may update this Privacy Policy from time to time as picex evolves, new features are added, or legal and platform requirements change. Updates will be posted on this page with a revised “Last updated” date.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>16. Contact</h2>
+
+          <p>
+            If you have questions about this Privacy Policy or how picex handles information, you can contact the picex team through the official support channels provided in the app or website.
+          </p>
+
+          <p>
+            Contact email:
+            <a href="mailto:support@picex.app">support@picex.app</a>
+          </p>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>
+          © <span id="year"></span> <strong>picex</strong>. All rights reserved.
+        </p>
+      </footer>
+    </div>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
 </html>
