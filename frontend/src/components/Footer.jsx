@@ -190,6 +190,39 @@ const Footer = () => {
                   {tx('privacyPolicy', 'Privacy')}
                 </a>
               </li>
+
+              <li>
+                <a
+                  href="/risk-disclosure.html"
+                  className="footer-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {tx('riskDisclosure', 'Risk Disclosure')}
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="/fees.html"
+                  className="footer-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {tx('fees', 'Fees')}
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="/cookie-policy.html"
+                  className="footer-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {tx('cookiePolicy', 'Cookie Policy')}
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -213,6 +246,39 @@ const Footer = () => {
             rel="noopener noreferrer"
           >
             {tx('termsOfService', 'Terms of Service')}
+          </a>
+
+          <span className="footer-legal-separator">•</span>
+
+          <a
+            href="/risk-disclosure.html"
+            className="footer-legal-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {tx('riskDisclosure', 'Risk Disclosure')}
+          </a>
+
+          <span className="footer-legal-separator">•</span>
+
+          <a
+            href="/fees.html"
+            className="footer-legal-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {tx('fees', 'Fees')}
+          </a>
+
+          <span className="footer-legal-separator">•</span>
+
+          <a
+            href="/cookie-policy.html"
+            className="footer-legal-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {tx('cookiePolicy', 'Cookie Policy')}
           </a>
 
           <span className="footer-legal-separator">•</span>
