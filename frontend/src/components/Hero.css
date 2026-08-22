@@ -3,74 +3,133 @@
 .hero {
   position: relative;
   overflow: hidden;
-  padding: 110px 5% 70px 5%;
+  padding: 112px 5% 82px 5%;
   text-align: center;
   background:
-    radial-gradient(circle at top left, rgba(103, 58, 183, 0.14) 0%, transparent 32%),
-    radial-gradient(circle at top right, rgba(255, 202, 40, 0.18) 0%, transparent 28%),
-    linear-gradient(180deg, #f8f7ff 0%, #ffffff 100%);
+    radial-gradient(circle at top left, rgba(111, 45, 189, 0.34) 0%, transparent 36%),
+    radial-gradient(circle at top right, rgba(255, 202, 40, 0.18) 0%, transparent 30%),
+    radial-gradient(circle at bottom center, rgba(139, 92, 246, 0.18) 0%, transparent 38%),
+    linear-gradient(180deg, #0f0820 0%, #170b2f 100%);
+  color: #ffffff;
 }
 
-/* افکت تزئینی پس‌زمینه */
 .hero::before {
   content: '';
   position: absolute;
-  top: -120px;
-  left: 50%;
-  width: 520px;
-  height: 520px;
-  transform: translateX(-50%);
-  background: radial-gradient(circle, rgba(103, 58, 183, 0.12), transparent 68%);
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7), transparent 82%);
   pointer-events: none;
   z-index: 0;
 }
 
-.hero > * {
-  position: relative;
+.hero::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -1px;
+  width: min(920px, 88%);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 202, 40, 0.44),
+    rgba(111, 45, 189, 0.52),
+    transparent
+  );
   z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: min(1050px, 100%);
+  margin: 0 auto;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+  filter: blur(8px);
+  opacity: 0.75;
+  z-index: 0;
+}
+
+.hero-orb-one {
+  top: 80px;
+  right: 8%;
+  width: 170px;
+  height: 170px;
+  background: radial-gradient(circle, rgba(255, 202, 40, 0.26), transparent 65%);
+}
+
+.hero-orb-two {
+  bottom: 65px;
+  left: 7%;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(111, 45, 189, 0.42), transparent 68%);
 }
 
 .hero-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-  padding: 9px 18px;
+  gap: 9px;
+  margin-bottom: 22px;
+  padding: 10px 18px;
   border-radius: 999px;
-  background: rgba(103, 58, 183, 0.08);
-  border: 1px solid rgba(103, 58, 183, 0.22);
-  color: var(--primary);
+  background: rgba(255, 255, 255, 0.075);
+  border: 1px solid rgba(255, 202, 40, 0.28);
+  color: #ffe7a3;
   font-size: 0.92rem;
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: 0.2px;
-  box-shadow: 0 8px 24px rgba(103, 58, 183, 0.08);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.hero-badge-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #ffca28;
+  box-shadow: 0 0 18px rgba(255, 202, 40, 0.9);
 }
 
 .hero h1 {
-  max-width: 900px;
-  margin: 0 auto 22px auto;
-  font-size: clamp(2.35rem, 5vw, 4rem);
-  line-height: 1.18;
-  font-weight: 900;
+  max-width: 980px;
+  margin: 0 auto 24px auto;
+  font-size: clamp(2.45rem, 5.5vw, 5rem);
+  line-height: 1.08;
+  font-weight: 950;
+  letter-spacing: -1.6px;
   background: linear-gradient(
     90deg,
-    var(--primary),
-    var(--secondary),
-    #ffca28
+    #ffffff 0%,
+    #ffe7a3 34%,
+    #ffca28 58%,
+    #b79cff 100%
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: var(--primary);
+  color: #ffffff;
 }
 
 .hero p {
-  max-width: 760px;
-  margin: 0 auto 34px auto;
-  color: var(--gray);
-  font-size: clamp(1rem, 2vw, 1.22rem);
+  max-width: 820px;
+  margin: 0 auto 36px auto;
+  color: #d8cfee;
+  font-size: clamp(1rem, 2vw, 1.24rem);
   line-height: 1.9;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .hero-btns {
@@ -81,52 +140,55 @@
   flex-wrap: wrap;
 }
 
-/* دکمه اصلی */
+/* Primary button */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 52px;
+  min-height: 54px;
   padding: 15px 34px;
   border: none;
-  border-radius: 14px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: #ffffff;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ffe7a3, #ffca28, #f4b942);
+  color: #1a1028;
   font-size: 1.05rem;
-  font-weight: 800;
+  font-weight: 950;
   text-decoration: none;
   cursor: pointer;
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
     filter 0.2s ease;
-  box-shadow: 0 12px 28px rgba(103, 58, 183, 0.28);
+  box-shadow:
+    0 16px 35px rgba(244, 185, 66, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
 .btn-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 16px 34px rgba(103, 58, 183, 0.36);
+  box-shadow:
+    0 20px 42px rgba(244, 185, 66, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
   filter: brightness(1.03);
 }
 
 .btn-primary:active {
   transform: translateY(0);
-  box-shadow: 0 8px 18px rgba(103, 58, 183, 0.26);
 }
 
-/* دکمه دوم */
+/* Secondary button */
 .btn-secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 52px;
+  min-height: 54px;
   padding: 14px 30px;
-  border-radius: 14px;
-  border: 1px solid rgba(103, 58, 183, 0.28);
-  background: rgba(255, 255, 255, 0.78);
-  color: var(--primary);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
   font-size: 1.05rem;
-  font-weight: 800;
+  font-weight: 900;
   text-decoration: none;
   cursor: pointer;
   transition:
@@ -134,32 +196,68 @@
     box-shadow 0.2s ease,
     background 0.2s ease,
     border-color 0.2s ease;
-  box-shadow: 0 10px 24px rgba(15, 10, 30, 0.07);
-  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .btn-secondary:hover {
   transform: translateY(-3px);
-  background: rgba(255, 255, 255, 0.95);
-  border-color: rgba(255, 202, 40, 0.85);
-  box-shadow: 0 14px 30px rgba(255, 202, 40, 0.18);
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 202, 40, 0.62);
+  box-shadow: 0 16px 34px rgba(255, 202, 40, 0.14);
 }
 
 .btn-secondary:active {
   transform: translateY(0);
 }
 
-/* دسترسی‌پذیری */
+/* Stats */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 900px;
+  margin: 42px auto 0;
+}
+
+.hero-stat-card {
+  padding: 18px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.045));
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.hero-stat-card strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #ffca28;
+  font-size: 1.05rem;
+  font-weight: 950;
+}
+
+.hero-stat-card span {
+  display: block;
+  color: #d8cfee;
+  font-size: 0.87rem;
+  line-height: 1.55;
+}
+
+/* Accessibility */
 .btn-primary:focus-visible,
 .btn-secondary:focus-visible {
   outline: 3px solid rgba(255, 202, 40, 0.75);
   outline-offset: 4px;
 }
 
-/* موبایل */
+/* Mobile */
 @media (max-width: 768px) {
   .hero {
-    padding: 82px 6% 52px 6%;
+    padding: 82px 6% 58px 6%;
   }
 
   .hero-badge {
@@ -170,6 +268,7 @@
 
   .hero h1 {
     margin-bottom: 18px;
+    letter-spacing: -0.8px;
   }
 
   .hero p {
@@ -185,13 +284,18 @@
   .btn-primary,
   .btn-secondary {
     width: 100%;
-    max-width: 340px;
+    max-width: 350px;
     min-height: 50px;
     font-size: 1rem;
   }
+
+  .hero-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 32px;
+  }
 }
 
-/* موبایل خیلی کوچک */
+/* Very small mobile */
 @media (max-width: 420px) {
   .hero {
     padding-top: 70px;
@@ -206,5 +310,9 @@
   .btn-primary,
   .btn-secondary {
     padding-inline: 20px;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
   }
 }
