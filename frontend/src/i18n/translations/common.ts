@@ -400,5 +400,19 @@ export const commonTranslations: TranslationsMap = {
     tr: 'Amaç',
     zh: '用途',
   },
+  connectingToServer: {
+  en: 'Connecting to server...',
+  fa: 'در حال اتصال به سرور...',
+  ar: 'جارٍ الاتصال بالخادم...',
+  tr: 'Sunucuya bağlanıyor...',
+  zh: '正在连接服务器...',
+  },
+  open: {
+    en: 'Open',
+    fa: 'باز کردن',
+    ar: 'فتح',
+    tr: 'Aç',
+    zh: '打开',
+  },
 };
   
