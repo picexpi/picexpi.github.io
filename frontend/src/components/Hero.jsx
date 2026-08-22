@@ -70,23 +70,23 @@ const Hero = () => {
 
         <div className="hero-stats" aria-label="picex platform highlights">
           <div className="hero-stat-card">
-            <strong>Spot</strong>
-            <span>Order book trading</span>
+            <strong>{tx('spot', 'Spot')}</strong>
+            <span>{tx('orderBookTrading', 'Order book trading')}</span>
           </div>
 
           <div className="hero-stat-card">
-            <strong>Futures</strong>
-            <span>Planned perpetual layer</span>
+            <strong>{tx('futures', 'Futures')}</strong>
+            <span>{tx('plannedPerpetualLayer', 'Planned perpetual layer')}</span>
           </div>
 
           <div className="hero-stat-card">
-            <strong>AI</strong>
-            <span>Online support assistant</span>
+            <strong>{tx('ai', 'AI')}</strong>
+            <span>{tx('onlineSupportAssistant', 'Online support assistant')}</span>
           </div>
 
           <div className="hero-stat-card">
-            <strong>Charts</strong>
-            <span>picex native data</span>
+            <strong>{tx('charts', 'Charts')}</strong>
+            <span>{tx('picexNativeData', 'picex native data')}</span>
           </div>
         </div>
       </div>
