@@ -26,22 +26,26 @@ export const languageLabels: Record<Language, string> = {
 };
 
 const translations: Translations = {
+  // -------------------------
+  // App / Common
+  // -------------------------
+
   appTitle: {
-    fa: 'Pi DAO',
-    en: 'Pi DAO',
-    tr: 'Pi DAO',
-    zh: 'Pi DAO',
-    hi: 'Pi DAO',
-    ar: 'Pi DAO',
+    fa: 'picex',
+    en: 'picex',
+    tr: 'picex',
+    zh: 'picex',
+    hi: 'picex',
+    ar: 'picex',
   },
 
   brandName: {
-    fa: 'PiDao',
-    en: 'PiDao',
-    tr: 'PiDao',
-    zh: 'PiDao',
-    hi: 'PiDao',
-    ar: 'PiDao',
+    fa: 'picex',
+    en: 'picex',
+    tr: 'picex',
+    zh: 'picex',
+    hi: 'picex',
+    ar: 'picex',
   },
 
   language: {
@@ -62,13 +66,22 @@ const translations: Translations = {
     ar: 'الرئيسية',
   },
 
-  navDig: {
-    fa: 'معرفی DIG',
-    en: 'DIG',
-    tr: 'DIG',
-    zh: 'DIG',
-    hi: 'DIG',
-    ar: 'DIG',
+  markets: {
+    fa: 'بازارها',
+    en: 'Markets',
+    tr: 'Piyasalar',
+    zh: '市场',
+    hi: 'बाज़ार',
+    ar: 'الأسواق',
+  },
+
+  wallet: {
+    fa: 'کیف پول',
+    en: 'Wallet',
+    tr: 'Cüzdan',
+    zh: '钱包',
+    hi: 'वॉलेट',
+    ar: 'المحفظة',
   },
 
   features: {
@@ -80,8 +93,17 @@ const translations: Translations = {
     ar: 'الميزات',
   },
 
+  aiSupport: {
+    fa: 'پشتیبانی هوش مصنوعی',
+    en: 'AI Support',
+    tr: 'Yapay Zeka Desteği',
+    zh: 'AI 支持',
+    hi: 'AI सहायता',
+    ar: 'دعم الذكاء الاصطناعي',
+  },
+
   navRoadmap: {
-    fa: 'مسیر راه',
+    fa: 'نقشه راه',
     en: 'Roadmap',
     tr: 'Yol Haritası',
     zh: '路线图',
@@ -99,21 +121,30 @@ const translations: Translations = {
   },
 
   aboutUs: {
-    fa: 'درباره ما',
-    en: 'About Us',
-    tr: 'Hakkımızda',
-    zh: '关于我们',
-    hi: 'हमारे बारे में',
-    ar: 'من نحن',
+    fa: 'درباره picex',
+    en: 'About picex',
+    tr: 'picex Hakkında',
+    zh: '关于 picex',
+    hi: 'picex के बारे में',
+    ar: 'حول picex',
   },
 
   shop: {
-    fa: 'فروشگاه',
-    en: 'Shop',
-    tr: 'Mağaza',
-    zh: '商店',
-    hi: 'दुकान',
-    ar: 'المتجر',
+    fa: 'محصولات معاملاتی',
+    en: 'Trading Products',
+    tr: 'İşlem Ürünleri',
+    zh: '交易产品',
+    hi: 'ट्रेडिंग उत्पाद',
+    ar: 'منتجات التداول',
+  },
+
+  tradingProducts: {
+    fa: 'محصولات معاملاتی',
+    en: 'Trading Products',
+    tr: 'İşlem Ürünleri',
+    zh: '交易产品',
+    hi: 'ट्रेडिंग उत्पाद',
+    ar: 'منتجات التداول',
   },
 
   tasks: {
@@ -188,6 +219,51 @@ const translations: Translations = {
     ar: 'جارٍ المعالجة...',
   },
 
+  completed: {
+    fa: 'تکمیل شده',
+    en: 'Completed',
+    tr: 'Tamamlandı',
+    zh: '已完成',
+    hi: 'पूर्ण',
+    ar: 'مكتمل',
+  },
+
+  available: {
+    fa: 'در دسترس',
+    en: 'Available',
+    tr: 'Mevcut',
+    zh: '可用',
+    hi: 'उपलब्ध',
+    ar: 'متاح',
+  },
+
+  comingSoon: {
+    fa: 'به‌زودی',
+    en: 'Coming soon',
+    tr: 'Yakında',
+    zh: '即将推出',
+    hi: 'जल्द आ रहा है',
+    ar: 'قريباً',
+  },
+
+  soon: {
+    fa: 'به‌زودی',
+    en: 'Soon',
+    tr: 'Yakında',
+    zh: '即将',
+    hi: 'जल्द',
+    ar: 'قريباً',
+  },
+
+  unknown: {
+    fa: 'نامشخص',
+    en: 'Unknown',
+    tr: 'Bilinmiyor',
+    zh: '未知',
+    hi: 'अज्ञात',
+    ar: 'غير معروف',
+  },
+
   serverConnectionError: {
     fa: 'خطا در اتصال به سرور. لطفاً دوباره تلاش کنید.',
     en: 'Server connection error. Please try again.',
@@ -229,111 +305,102 @@ const translations: Translations = {
   },
 
   joinWithPi: {
-    fa: 'ورود با Pi و مشارکت',
-    en: 'Join with Pi',
-    tr: 'Pi ile Katıl',
-    zh: '使用 Pi 参与',
-    hi: 'Pi के साथ जुड़ें',
-    ar: 'شارك باستخدام Pi',
+    fa: 'اتصال با Pi',
+    en: 'Connect with Pi',
+    tr: 'Pi ile Bağlan',
+    zh: '连接 Pi',
+    hi: 'Pi से कनेक्ट करें',
+    ar: 'الاتصال بـ Pi',
   },
 
   welcome: {
-    fa: 'خوش آمدی',
+    fa: 'خوش آمدید',
     en: 'Welcome',
-    tr: 'Hoş geldin',
+    tr: 'Hoş geldiniz',
     zh: '欢迎',
     hi: 'स्वागत है',
     ar: 'مرحباً',
   },
 
   signInTitle: {
-    fa: 'ورود به Pi DAO',
-    en: 'Pi DAO Login',
-    tr: 'Pi DAO Giriş',
-    zh: 'Pi DAO 登录',
-    hi: 'Pi DAO लॉगिन',
-    ar: 'تسجيل الدخول إلى Pi DAO',
+    fa: 'ورود به picex',
+    en: 'Sign in to picex',
+    tr: 'picex’e Giriş',
+    zh: '登录 picex',
+    hi: 'picex में साइन इन करें',
+    ar: 'تسجيل الدخول إلى picex',
   },
 
   signInDescription: {
-    fa: 'با حساب Pi Network خود وارد شوید.',
-    en: 'Sign in with your Pi Network account.',
-    tr: 'Pi Network hesabınızla giriş yapın.',
-    zh: '使用您的 Pi Network 账户登录。',
-    hi: 'अपने Pi Network खाते से साइन इन करें।',
-    ar: 'سجّل الدخول باستخدام حساب Pi Network الخاص بك.',
+    fa: 'با حساب Pi Network خود وارد شوید و به ابزارهای معاملاتی، پرداخت، کیف پول و حاکمیت picex دسترسی داشته باشید.',
+    en: 'Sign in with your Pi Network account to access picex trading tools, payments, wallet features, and governance.',
+    tr: 'picex işlem araçlarına, ödemelere, cüzdan özelliklerine ve yönetişime erişmek için Pi Network hesabınızla giriş yapın.',
+    zh: '使用您的 Pi Network 账户登录，以访问 picex 交易工具、支付、钱包功能和治理。',
+    hi: 'picex ट्रेडिंग टूल्स, भुगतान, वॉलेट सुविधाओं और गवर्नेंस तक पहुँचने के लिए अपने Pi Network खाते से साइन इन करें।',
+    ar: 'سجّل الدخول باستخدام حساب Pi Network للوصول إلى أدوات التداول والمدفوعات والمحفظة والحوكمة في picex.',
   },
 
   piLoginTitle: {
-    fa: 'ورود به پلتفرم با حساب Pi',
-    en: 'Sign in with your Pi account',
-    tr: 'Pi hesabınızla giriş yapın',
-    zh: '使用您的 Pi 账户登录',
-    hi: 'अपने Pi खाते से साइन इन करें',
-    ar: 'سجّل الدخول باستخدام حساب Pi الخاص بك',
+    fa: 'اتصال به picex با حساب Pi',
+    en: 'Connect to picex with your Pi account',
+    tr: 'Pi hesabınızla picex’e bağlanın',
+    zh: '使用您的 Pi 账户连接 picex',
+    hi: 'अपने Pi खाते से picex से जुड़ें',
+    ar: 'اتصل بـ picex باستخدام حساب Pi الخاص بك',
   },
 
   piLoginDescription: {
-    fa: 'برای تعامل با برنامه، ابتدا با مرورگر Pi وارد شوید.',
-    en: 'To interact with the app, please sign in using Pi Browser.',
-    tr: 'Uygulamayla etkileşim için Pi Browser ile giriş yapın.',
-    zh: '要与应用交互，请使用 Pi Browser 登录。',
-    hi: 'ऐप से इंटरैक्ट करने के लिए कृपया Pi Browser से साइन इन करें।',
-    ar: 'للتفاعل مع التطبيق، يرجى تسجيل الدخول باستخدام متصفح Pi.',
+    fa: 'برای استفاده از پرداخت‌ها، رأی‌گیری، کیف پول و امکانات آینده معاملاتی، ابتدا با Pi Browser وارد شوید.',
+    en: 'To use payments, governance, wallet access, and future trading features, sign in using Pi Browser first.',
+    tr: 'Ödemeler, yönetişim, cüzdan erişimi ve gelecekteki işlem özellikleri için önce Pi Browser ile giriş yapın.',
+    zh: '要使用支付、治理、钱包访问和未来交易功能，请先使用 Pi Browser 登录。',
+    hi: 'भुगतान, गवर्नेंस, वॉलेट एक्सेस और भविष्य की ट्रेडिंग सुविधाओं का उपयोग करने के लिए पहले Pi Browser से साइन इन करें।',
+    ar: 'لاستخدام المدفوعات والحوكمة والوصول إلى المحفظة وميزات التداول المستقبلية، سجّل الدخول أولاً عبر Pi Browser.',
   },
 
   initializingPiSdk: {
-    fa: 'در حال راه‌اندازی Pi SDK...',
-    en: 'Initializing Pi SDK...',
-    tr: 'Pi SDK başlatılıyor...',
-    zh: '正在初始化 Pi SDK...',
-    hi: 'Pi SDK प्रारंभ हो रहा है...',
-    ar: 'جارٍ تهيئة Pi SDK...',
+    fa: 'در حال راه‌اندازی Pi SDK برای picex...',
+    en: 'Initializing Pi SDK for picex...',
+    tr: 'picex için Pi SDK başlatılıyor...',
+    zh: '正在为 picex 初始化 Pi SDK...',
+    hi: 'picex के लिए Pi SDK प्रारंभ हो रहा है...',
+    ar: 'جارٍ تهيئة Pi SDK لـ picex...',
   },
 
   piSdkNotFound: {
-    fa: 'Pi SDK پیدا نشد. لطفاً سایت را داخل Pi Browser باز کنید.',
-    en: 'Pi SDK not found. Please open this website inside Pi Browser.',
-    tr: 'Pi SDK bulunamadı. Lütfen siteyi Pi Browser içinde açın.',
-    zh: '未找到 Pi SDK。请在 Pi Browser 中打开此网站。',
-    hi: 'Pi SDK नहीं मिला। कृपया इस वेबसाइट को Pi Browser में खोलें।',
-    ar: 'لم يتم العثور على Pi SDK. يرجى فتح هذا الموقع داخل متصفح Pi.',
+    fa: 'Pi SDK پیدا نشد. لطفاً picex را داخل Pi Browser باز کنید.',
+    en: 'Pi SDK not found. Please open picex inside Pi Browser.',
+    tr: 'Pi SDK bulunamadı. Lütfen picex’i Pi Browser içinde açın.',
+    zh: '未找到 Pi SDK。请在 Pi Browser 中打开 picex。',
+    hi: 'Pi SDK नहीं मिला। कृपया picex को Pi Browser में खोलें।',
+    ar: 'لم يتم العثور على Pi SDK. يرجى فتح picex داخل Pi Browser.',
   },
 
   piSdkReady: {
-    fa: 'Pi SDK آماده است.',
-    en: 'Pi SDK is ready.',
-    tr: 'Pi SDK hazır.',
-    zh: 'Pi SDK 已准备就绪。',
-    hi: 'Pi SDK तैयार है।',
-    ar: 'Pi SDK جاهز.',
-  },
-
-  piSdkReadyLogin: {
-    fa: 'Pi SDK آماده است. می‌توانید با Pi وارد شوید.',
-    en: 'Pi SDK is ready. You can login with Pi.',
-    tr: 'Pi SDK hazır. Pi ile giriş yapabilirsiniz.',
-    zh: 'Pi SDK 已准备就绪。您可以使用 Pi 登录。',
-    hi: 'Pi SDK तैयार है। आप Pi से लॉगिन कर सकते हैं।',
-    ar: 'Pi SDK جاهز. يمكنك تسجيل الدخول باستخدام Pi.',
+    fa: 'Pi SDK برای picex آماده است.',
+    en: 'Pi SDK is ready for picex.',
+    tr: 'Pi SDK picex için hazır.',
+    zh: 'Pi SDK 已为 picex 准备就绪。',
+    hi: 'Pi SDK picex के लिए तैयार है।',
+    ar: 'Pi SDK جاهز لـ picex.',
   },
 
   authenticating: {
-    fa: 'در حال احراز هویت با Pi...',
-    en: 'Authenticating with Pi...',
-    tr: 'Pi ile kimlik doğrulanıyor...',
-    zh: '正在使用 Pi 认证...',
-    hi: 'Pi से प्रमाणीकरण हो रहा है...',
-    ar: 'جارٍ المصادقة باستخدام Pi...',
+    fa: 'در حال احراز هویت با Pi برای picex...',
+    en: 'Authenticating with Pi for picex...',
+    tr: 'picex için Pi ile kimlik doğrulanıyor...',
+    zh: '正在为 picex 使用 Pi 认证...',
+    hi: 'picex के लिए Pi से प्रमाणीकरण हो रहा है...',
+    ar: 'جارٍ المصادقة باستخدام Pi لـ picex...',
   },
 
   loginSuccess: {
-    fa: 'ورود موفق بود.',
-    en: 'Login successful.',
-    tr: 'Giriş başarılı.',
-    zh: '登录成功。',
-    hi: 'लॉगिन सफल रहा।',
-    ar: 'تم تسجيل الدخول بنجاح.',
+    fa: 'ورود به picex موفق بود.',
+    en: 'picex login successful.',
+    tr: 'picex girişi başarılı.',
+    zh: 'picex 登录成功。',
+    hi: 'picex लॉगिन सफल रहा।',
+    ar: 'تم تسجيل الدخول إلى picex بنجاح.',
   },
 
   loginFailed: {
@@ -346,21 +413,21 @@ const translations: Translations = {
   },
 
   pleaseUsePiBrowser: {
-    fa: 'لطفاً برای احراز هویت از Pi Browser استفاده کنید.',
-    en: 'Please use Pi Browser for authentication.',
-    tr: 'Kimlik doğrulama için lütfen Pi Browser kullanın.',
-    zh: '请使用 Pi Browser 进行认证。',
-    hi: 'प्रमाणीकरण के लिए कृपया Pi Browser का उपयोग करें।',
-    ar: 'يرجى استخدام متصفح Pi للمصادقة.',
+    fa: 'برای بهترین تجربه Pi SDK، لطفاً از Pi Browser استفاده کنید.',
+    en: 'Please use Pi Browser for the best Pi SDK experience.',
+    tr: 'En iyi Pi SDK deneyimi için lütfen Pi Browser kullanın.',
+    zh: '请使用 Pi Browser 以获得最佳 Pi SDK 体验。',
+    hi: 'सर्वश्रेष्ठ Pi SDK अनुभव के लिए कृपया Pi Browser का उपयोग करें।',
+    ar: 'يرجى استخدام Pi Browser للحصول على أفضل تجربة Pi SDK.',
   },
 
   incompletePaymentFound: {
-    fa: 'یک پرداخت نیمه‌تمام پیدا شد. لطفاً آن را در کیف پول Pi تکمیل یا لغو کنید.',
-    en: 'Incomplete payment found. Please complete or cancel it in Pi Wallet.',
-    tr: 'Tamamlanmamış ödeme bulundu. Lütfen Pi Wallet içinde tamamlayın veya iptal edin.',
-    zh: '发现未完成的付款。请在 Pi Wallet 中完成或取消。',
-    hi: 'अधूरा भुगतान मिला। कृपया इसे Pi Wallet में पूरा या रद्द करें।',
-    ar: 'تم العثور على دفعة غير مكتملة. يرجى إكمالها أو إلغاؤها في محفظة Pi.',
+    fa: 'یک پرداخت نیمه‌تمام پیدا شد. لطفاً آن را در Pi Browser تکمیل یا لغو کنید.',
+    en: 'Incomplete payment found. Please complete or cancel it in Pi Browser.',
+    tr: 'Tamamlanmamış ödeme bulundu. Lütfen Pi Browser içinde tamamlayın veya iptal edin.',
+    zh: '发现未完成的付款。请在 Pi Browser 中完成或取消。',
+    hi: 'अधूरा भुगतान मिला। कृपया इसे Pi Browser में पूरा या रद्द करें।',
+    ar: 'تم العثور على دفعة غير مكتملة. يرجى إكمالها أو إلغاؤها داخل Pi Browser.',
   },
 
   network: {
@@ -391,440 +458,572 @@ const translations: Translations = {
   },
 
   // -------------------------
-  // DIG / Hero
+  // Hero
   // -------------------------
 
-  digShortName: {
-    fa: 'DIG',
-    en: 'DIG',
-    tr: 'DIG',
-    zh: 'DIG',
-    hi: 'DIG',
-    ar: 'DIG',
+  picexBadge: {
+    fa: 'picex · هاب معاملاتی هیبرید برای Pi Network',
+    en: 'picex · Hybrid Trading Hub for Pi Network',
+    tr: 'picex · Pi Network için Hibrit İşlem Merkezi',
+    zh: 'picex · Pi Network 混合交易中心',
+    hi: 'picex · Pi Network के लिए हाइब्रिड ट्रेडिंग हब',
+    ar: 'picex · مركز تداول هجين لشبكة Pi',
   },
 
-  digFullName: {
-    fa: 'دولت بین‌المللی غیرمتمرکز',
-    en: 'Decentralized International Government',
-    tr: 'Merkeziyetsiz Uluslararası Hükümet',
-    zh: '去中心化国际政府',
-    hi: 'विकेंद्रीकृत अंतरराष्ट्रीय सरकार',
-    ar: 'الحكومة الدولية اللامركزية',
+  picexHeroTitle: {
+    fa: 'دارایی‌های Pi را با سرعت، کارمزد پایین و پشتیبانی هوشمند معامله کنید',
+    en: 'Trade Pi assets with speed, low fees, and intelligent support',
+    tr: 'Pi varlıklarını hız, düşük ücret ve akıllı destek ile alıp satın',
+    zh: '以高速、低费用和智能支持交易 Pi 资产',
+    hi: 'Pi संपत्तियों का तेज़ी, कम शुल्क और बुद्धिमान सहायता के साथ ट्रेड करें',
+    ar: 'تداول أصول Pi بسرعة ورسوم منخفضة ودعم ذكي',
   },
 
-  digHeroTitle: {
-    fa: 'تصمیم‌گیری جهانی را غیرمتمرکز کنیم',
-    en: 'Decentralizing Global Decision-Making',
-    tr: 'Küresel Karar Almayı Merkeziyetsizleştirelim',
-    zh: '让全球决策走向去中心化',
-    hi: 'वैश्विक निर्णय प्रक्रिया को विकेंद्रीकृत करें',
-    ar: 'نحو لامركزية صناعة القرار العالمي',
+  picexHeroDescription: {
+    fa: 'picex موتور تطبیق سریع آف‌چین، تسویه مبتنی بر Pi، داده بازار اختصاصی، پشتیبانی هوش مصنوعی و تجربه کیف پول‌محور را برای اکوسیستم Pi Network ترکیب می‌کند.',
+    en: 'picex combines a fast off-chain matching engine, Pi-based settlement, native market data, AI online support, and a wallet-first trading experience for the Pi Network ecosystem.',
+    tr: 'picex, Pi Network ekosistemi için hızlı off-chain eşleştirme motoru, Pi tabanlı uzlaşma, yerel piyasa verisi, yapay zeka desteği ve cüzdan odaklı işlem deneyimini birleştirir.',
+    zh: 'picex 为 Pi Network 生态系统结合了高速链下撮合引擎、基于 Pi 的结算、原生市场数据、AI 在线支持和钱包优先的交易体验。',
+    hi: 'picex Pi Network पारिस्थितिकी तंत्र के लिए तेज़ ऑफ-चेन मैचिंग इंजन, Pi-आधारित सेटलमेंट, नेटिव मार्केट डेटा, AI ऑनलाइन सहायता और वॉलेट-फर्स्ट ट्रेडिंग अनुभव को जोड़ता है।',
+    ar: 'يجمع picex بين محرك مطابقة سريع خارج السلسلة، وتسوية قائمة على Pi، وبيانات سوق أصلية، ودعم ذكي، وتجربة تداول تعتمد على المحفظة أولاً لنظام Pi Network.',
   },
 
-  digHeroDescription: {
-    fa: 'PiDao گامی اولیه برای ساخت زیرساختی شفاف، مردمی و غیرمتمرکز است؛ جایی که آینده تصمیم‌گیری جهانی می‌تواند با رأی مستقیم مردم شکل بگیرد.',
-    en: 'PiDao is an early step toward building a transparent, people-powered, decentralized infrastructure where the future of global decision-making can be shaped by direct public participation.',
-    tr: 'PiDao, küresel karar alma süreçlerinin doğrudan halk katılımıyla şekillenebileceği şeffaf, topluluk odaklı ve merkeziyetsiz bir altyapı oluşturma yolunda ilk adımdır.',
-    zh: 'PiDao 是构建透明、由人民驱动、去中心化基础设施的早期一步，让全球决策的未来能够由公众直接参与塑造。',
-    hi: 'PiDao एक पारदर्शी, जन-संचालित और विकेंद्रीकृत आधारभूत संरचना बनाने की शुरुआती पहल है, जहाँ वैश्विक निर्णयों का भविष्य जनता की सीधी भागीदारी से आकार ले सकता है।',
-    ar: 'PiDao خطوة أولية لبناء بنية تحتية شفافة ولامركزية يقودها الناس، حيث يمكن أن يتشكل مستقبل القرار العالمي عبر المشاركة المباشرة للجمهور.',
-  },
-
-  exploreDig: {
-    fa: 'آشنایی با DIG',
-    en: 'Explore DIG',
-    tr: 'DIG’i Keşfet',
-    zh: '了解 DIG',
-    hi: 'DIG को जानें',
-    ar: 'استكشف DIG',
-  },
-
-  // -------------------------
-  // About
-  // -------------------------
-
-  aboutDigKicker: {
-    fa: 'PiDao + DIG',
-    en: 'PiDao + DIG',
-    tr: 'PiDao + DIG',
-    zh: 'PiDao + DIG',
-    hi: 'PiDao + DIG',
-    ar: 'PiDao + DIG',
-  },
-
-  aboutDigSubtitle: {
-    fa: 'درباره چشم‌انداز ما',
-    en: 'About Our Vision',
-    tr: 'Vizyonumuz Hakkında',
-    zh: '关于我们的愿景',
-    hi: 'हमारे दृष्टिकोण के बारे में',
-    ar: 'حول رؤيتنا',
-  },
-
-  aboutDigTitleBefore: {
-    fa: 'از جامعه Pi تا',
-    en: 'From the Pi community to',
-    tr: 'Pi topluluğundan',
-    zh: '从 Pi 社区走向',
-    hi: 'Pi समुदाय से',
-    ar: 'من مجتمع Pi إلى',
-  },
-
-  aboutDigTitleHighlight: {
-    fa: 'تصمیم‌گیری جهانی غیرمتمرکز',
-    en: 'Decentralized Global Decision-Making',
-    tr: 'Merkeziyetsiz Küresel Karar Almaya',
-    zh: '去中心化全球决策',
-    hi: 'विकेंद्रीकृत वैश्विक निर्णय प्रक्रिया',
-    ar: 'صناعة قرار عالمية لامركزية',
-  },
-
-  aboutDigText: {
-    fa: 'PiDao یک زیرساخت اولیه برای مشارکت، رأی‌گیری، پرداخت‌های Pi و ساخت جامعه‌ای است که می‌تواند به‌تدریج به سمت چشم‌انداز DIG حرکت کند؛ مدلی که در آن مردم نقش مستقیم‌تری در تصمیم‌گیری‌های مهم خواهند داشت.',
-    en: 'PiDao is an early infrastructure for participation, voting, Pi payments, and building a community that can gradually move toward the DIG vision: a model where people can play a more direct role in important decisions.',
-    tr: 'PiDao; katılım, oylama, Pi ödemeleri ve zamanla DIG vizyonuna ilerleyebilecek bir topluluk oluşturmak için erken bir altyapıdır. Bu modelde insanlar önemli kararlarda daha doğrudan rol alabilir.',
-  },
-
-  aboutDigTextSecondary: {
-    fa: 'هدف فعلی ما ساخت ابزارهای آزمایشی، سنجش مشارکت جامعه و ایجاد مسیر تدریجی برای حاکمیت شفاف، مردمی و غیرمتمرکز است.',
-    en: 'Our current goal is to build experimental tools, measure community participation, and create a gradual path toward transparent, people-powered, decentralized governance.',
-    tr: 'Mevcut hedefimiz; deneysel araçlar oluşturmak, topluluk katılımını ölçmek ve şeffaf, halk odaklı, merkeziyetsiz yönetişime doğru kademeli bir yol oluşturmaktır.',
-  },
-
-  statGlobalGovernance: {
-    fa: 'حاکمیت جهانی',
-    en: 'Global Governance',
-    tr: 'Küresel Yönetişim',
-    zh: '全球治理',
-    hi: 'वैश्विक शासन',
-    ar: 'الحوكمة العالمية',
-  },
-
-  statPiIdentity: {
-    fa: 'هویت و مشارکت',
-    en: 'Identity & Participation',
-    tr: 'Kimlik ve Katılım',
-    zh: '身份与参与',
-    hi: 'पहचान और भागीदारी',
-    ar: 'الهوية والمشاركة',
-  },
-
-  statPeopleVoting: {
-    fa: 'رأی مستقیم مردم',
-    en: 'Direct Public Voting',
-    tr: 'Doğrudan Halk Oylaması',
-    zh: '公众直接投票',
-    hi: 'जनता का प्रत्यक्ष मतदान',
-    ar: 'تصويت مباشر من الناس',
-  },
-
-  digMissionTitle: {
-    fa: 'مأموریت DIG',
-    en: 'DIG Mission',
-    tr: 'DIG Misyonu',
-    zh: 'DIG 使命',
-    hi: 'DIG मिशन',
-    ar: 'مهمة DIG',
-  },
-
-  digMissionText: {
-    fa: 'هدف DIG ایجاد بستری شفاف، ضدتقلب و جهانی برای رأی‌گیری، قانون‌گذاری مردمی، حل اختلافات و در آینده بررسی سیستم مالی غیرمتمرکز بین‌المللی است.',
-    en: 'DIG aims to create a transparent, tamper-resistant, global platform for voting, people-driven legislation, conflict resolution, and later exploring an international decentralized financial system.',
-    tr: 'DIG; oylama, halk odaklı yasa yapımı, uyuşmazlık çözümü ve ileride uluslararası merkeziyetsiz bir finansal sistemi araştırmak için şeffaf, müdahaleye dayanıklı ve küresel bir platform oluşturmayı amaçlar.',
-  },
-
-  digPointVoting: {
-    fa: 'رأی‌گیری شفاف و مشارکت مستقیم مردم',
-    en: 'Transparent voting and direct public participation',
-    tr: 'Şeffaf oylama ve doğrudan halk katılımı',
-    zh: '透明投票与公众直接参与',
-    hi: 'पारदर्शी मतदान और जनता की सीधी भागीदारी',
-    ar: 'تصويت شفاف ومشاركة مباشرة من الناس',
-  },
-
-  digPointTransparency: {
-    fa: 'فرآیندهای قابل بررسی و مقاوم در برابر دستکاری',
-    en: 'Verifiable and tamper-resistant processes',
-    tr: 'Doğrulanabilir ve müdahaleye dayanıklı süreçler',
-    zh: '可验证且抗篡改的流程',
-    hi: 'सत्यापनीय और छेड़छाड़-रोधी प्रक्रियाएँ',
-    ar: 'عمليات قابلة للتحقق ومقاومة للتلاعب',
-  },
-
-  digPointUnity: {
-    fa: 'حرکت تدریجی به سمت اتحاد و تصمیم‌گیری جهانی',
-    en: 'A gradual move toward unity and global decision-making',
-    tr: 'Birlik ve küresel karar almaya doğru kademeli ilerleme',
-    zh: '逐步走向团结与全球决策',
-    hi: 'एकता और वैश्विक निर्णय की ओर क्रमिक बढ़त',
-    ar: 'تحرك تدريجي نحو الوحدة وصناعة القرار العالمي',
-  },
-
-  digVisionBadge: {
-    fa: 'مسیر آینده',
-    en: 'Future Path',
-    tr: 'Gelecek Yolu',
-    zh: '未来路径',
-    hi: 'भविष्य का मार्ग',
-    ar: 'مسار المستقبل',
+  exploreMarkets: {
+    fa: 'مشاهده بازارها',
+    en: 'Explore Markets',
+    tr: 'Piyasaları Keşfet',
+    zh: '探索市场',
+    hi: 'बाज़ार देखें',
+    ar: 'استكشف الأسواق',
   },
 
   // -------------------------
   // Features
   // -------------------------
 
-  digFeaturesSectionTitle: {
-    fa: 'زیرساخت‌های اصلی DIG',
-    en: 'Core DIG Infrastructure',
-    tr: 'DIG Temel Altyapısı',
-    zh: 'DIG 核心基础设施',
-    hi: 'DIG की मुख्य आधारभूत संरचना',
-    ar: 'البنية الأساسية لـ DIG',
+  picexFeaturesKicker: {
+    fa: 'زیرساخت اصلی picex',
+    en: 'picex Core Infrastructure',
+    tr: 'picex Temel Altyapısı',
+    zh: 'picex 核心基础设施',
+    hi: 'picex मुख्य आधारभूत संरचना',
+    ar: 'البنية الأساسية لـ picex',
   },
 
-  digFeaturesSectionIntro: {
-    fa: 'DIG فقط یک ایده سیاسی نیست؛ یک مسیر فنی، اجتماعی و اقتصادی برای ساخت تصمیم‌گیری شفاف، مشارکتی و جهانی است.',
-    en: 'DIG is not only a political idea; it is a technical, social, and economic path toward transparent, participatory, and global decision-making.',
-    tr: 'DIG yalnızca politik bir fikir değildir; şeffaf, katılımcı ve küresel karar alma için teknik, sosyal ve ekonomik bir yoldur.',
+  picexFeaturesTitle: {
+    fa: 'ساخته‌شده برای معاملات پرسرعت در اکوسیستم Pi',
+    en: 'Built for high-performance Pi trading',
+    tr: 'Yüksek performanslı Pi işlemleri için tasarlandı',
+    zh: '为高性能 Pi 交易而构建',
+    hi: 'उच्च-प्रदर्शन Pi ट्रेडिंग के लिए निर्मित',
+    ar: 'مصمم لتداول Pi عالي الأداء',
   },
 
-  featureGlobalVotingTitle: {
-    fa: 'رأی‌گیری جهانی',
-    en: 'Global Voting',
-    tr: 'Küresel Oylama',
-    zh: '全球投票',
-    hi: 'वैश्विक मतदान',
-    ar: 'التصويت العالمي',
+  picexFeaturesIntro: {
+    fa: 'picex سرعت صرافی‌های حرفه‌ای، دسترسی به اکوسیستم Pi، عملیات کیف پول، داده بازار اختصاصی و پشتیبانی هوش مصنوعی را در یک تجربه واحد ترکیب می‌کند.',
+    en: 'picex combines exchange-grade speed, Pi ecosystem access, wallet operations, native market data, and AI-powered support into one unified trading experience.',
+    tr: 'picex; borsa seviyesinde hız, Pi ekosistemi erişimi, cüzdan operasyonları, yerel piyasa verisi ve yapay zeka destekli yardımı tek bir işlem deneyiminde birleştirir.',
+    zh: 'picex 将交易所级速度、Pi 生态访问、钱包操作、原生市场数据和 AI 支持整合为统一的交易体验。',
+    hi: 'picex एक्सचेंज-ग्रेड गति, Pi इकोसिस्टम एक्सेस, वॉलेट संचालन, नेटिव मार्केट डेटा और AI-संचालित सहायता को एकीकृत ट्रेडिंग अनुभव में जोड़ता है।',
+    ar: 'يجمع picex بين سرعة بمستوى البورصات، والوصول إلى نظام Pi، وعمليات المحفظة، وبيانات السوق الأصلية، والدعم المدعوم بالذكاء الاصطناعي في تجربة تداول موحدة.',
   },
 
-  featureGlobalVotingDescription: {
-    fa: 'ایجاد سازوکاری برای مشارکت مستقیم مردم در موضوعات مهم جهانی، بدون وابستگی کامل به ساختارهای متمرکز.',
-    en: 'Creating a mechanism for direct public participation in important global issues without full dependence on centralized structures.',
-    tr: 'Merkezi yapılara tamamen bağımlı olmadan önemli küresel konularda doğrudan halk katılımı için bir mekanizma oluşturmak.',
+  picexFeatureSpotTitle: {
+    fa: 'معاملات اسپات',
+    en: 'Spot Trading',
+    tr: 'Spot İşlemler',
+    zh: '现货交易',
+    hi: 'स्पॉट ट्रेडिंग',
+    ar: 'التداول الفوري',
   },
 
-  featureTransparentGovernanceTitle: {
-    fa: 'حاکمیت شفاف',
-    en: 'Transparent Governance',
-    tr: 'Şeffaf Yönetişim',
-    zh: '透明治理',
-    hi: 'पारदर्शी शासन',
-    ar: 'حوكمة شفافة',
+  picexFeatureSpotDescription: {
+    fa: 'معامله دارایی‌های مبتنی بر Pi از طریق تجربه دفتر سفارش سریع و مناسب بازارهای لحظه‌ای.',
+    en: 'Trade Pi-based assets through a fast order book experience designed for real-time spot markets.',
+    tr: 'Gerçek zamanlı spot piyasalar için tasarlanmış hızlı emir defteri deneyimiyle Pi tabanlı varlıkları alıp satın.',
+    zh: '通过为实时现货市场设计的高速订单簿体验交易基于 Pi 的资产。',
+    hi: 'रीयल-टाइम स्पॉट बाज़ारों के लिए डिज़ाइन किए गए तेज़ ऑर्डर बुक अनुभव के माध्यम से Pi-आधारित संपत्तियों का ट्रेड करें।',
+    ar: 'تداول الأصول القائمة على Pi عبر تجربة دفتر أوامر سريعة مصممة للأسواق الفورية.',
   },
 
-  featureTransparentGovernanceDescription: {
-    fa: 'تصمیم‌ها، رأی‌ها و نتایج باید تا حد امکان قابل بررسی، شفاف و مقاوم در برابر دستکاری باشند.',
-    en: 'Decisions, votes, and results should be as verifiable, transparent, and tamper-resistant as possible.',
-    tr: 'Kararlar, oylar ve sonuçlar mümkün olduğunca doğrulanabilir, şeffaf ve müdahaleye dayanıklı olmalıdır.',
+  picexFeatureFuturesTitle: {
+    fa: 'معماری آماده فیوچرز',
+    en: 'Futures Ready Architecture',
+    tr: 'Vadeli İşlemlere Hazır Mimari',
+    zh: '期货就绪架构',
+    hi: 'फ्यूचर्स-रेडी आर्किटेक्चर',
+    ar: 'معمارية جاهزة للعقود الآجلة',
   },
 
-  featurePiIdentityTitle: {
-    fa: 'هویت و مشارکت با Pi',
-    en: 'Pi Identity & Participation',
-    tr: 'Pi Kimliği ve Katılım',
-    zh: 'Pi 身份与参与',
-    hi: 'Pi पहचान और भागीदारी',
-    ar: 'هوية Pi والمشاركة',
+  picexFeatureFuturesDescription: {
+    fa: 'picex برای پشتیبانی از معاملات دائمی پس از بلوغ موتور ریسک، سیستم مارجین و لایه لیکوییدیشن طراحی می‌شود.',
+    en: 'picex is designed to support perpetual futures after the risk engine, margin system, and liquidation layer are mature.',
+    tr: 'picex, risk motoru, marjin sistemi ve likidasyon katmanı olgunlaştıktan sonra sürekli vadeli işlemleri destekleyecek şekilde tasarlanır.',
+    zh: 'picex 设计为在风险引擎、保证金系统和清算层成熟后支持永续期货。',
+    hi: 'picex को जोखिम इंजन, मार्जिन सिस्टम और लिक्विडेशन लेयर परिपक्व होने के बाद पर्पेचुअल फ्यूचर्स का समर्थन करने के लिए डिज़ाइन किया गया है।',
+    ar: 'تم تصميم picex لدعم العقود الآجلة الدائمة بعد نضج محرك المخاطر ونظام الهامش وطبقة التصفية.',
   },
 
-  featurePiIdentityDescription: {
-    fa: 'Pi Network می‌تواند نقطه شروعی برای ورود کاربران، کاهش رأی‌های تکراری و ایجاد جامعه اولیه مشارکت‌کنندگان باشد.',
-    en: 'Pi Network can be a starting point for user entry, reducing duplicate votes, and forming an early community of participants.',
-    tr: 'Pi Network; kullanıcı girişi, tekrar oyların azaltılması ve ilk katılımcı topluluğunun oluşması için bir başlangıç noktası olabilir.',
+  picexFeatureWalletTitle: {
+    fa: 'کیف پول، واریز و برداشت',
+    en: 'Wallet, Deposit & Withdraw',
+    tr: 'Cüzdan, Yatırma ve Çekme',
+    zh: '钱包、充值与提现',
+    hi: 'वॉलेट, जमा और निकासी',
+    ar: 'المحفظة والإيداع والسحب',
   },
 
-  featureDaoInfrastructureTitle: {
-    fa: 'زیرساخت DAO',
-    en: 'DAO Infrastructure',
-    tr: 'DAO Altyapısı',
-    zh: 'DAO 基础设施',
-    hi: 'DAO आधारभूत संरचना',
-    ar: 'بنية DAO الأساسية',
+  picexFeatureWalletDescription: {
+    fa: 'جریان کیف پول‌محور برای واریزها، موجودی‌های در انتظار، درخواست‌های برداشت، عملیات کیف پول گرم و کنترل خزانه سرد.',
+    en: 'A wallet-first flow for deposits, pending balances, withdrawals, hot wallet operations, and cold wallet treasury controls.',
+    tr: 'Yatırmalar, bekleyen bakiyeler, çekimler, sıcak cüzdan operasyonları ve soğuk cüzdan hazine kontrolleri için cüzdan odaklı akış.',
+    zh: '面向钱包的流程，支持充值、待处理余额、提现、热钱包操作和冷钱包资金控制。',
+    hi: 'जमा, लंबित बैलेंस, निकासी, हॉट वॉलेट संचालन और कोल्ड वॉलेट ट्रेजरी नियंत्रण के लिए वॉलेट-फर्स्ट प्रवाह।',
+    ar: 'تدفق يعتمد على المحفظة للإيداعات والأرصدة المعلقة والسحوبات وعمليات المحفظة الساخنة وضوابط خزينة المحفظة الباردة.',
   },
 
-  featureDaoInfrastructureDescription: {
-    fa: 'ساختار DAO می‌تواند پایه‌ای برای پیشنهادها، رأی‌گیری‌ها، تصمیم‌سازی جمعی و توسعه تدریجی حاکمیت غیرمتمرکز باشد.',
-    en: 'DAO structure can become a foundation for proposals, voting, collective decision-making, and the gradual development of decentralized governance.',
-    tr: 'DAO yapısı; öneriler, oylamalar, kolektif karar alma ve merkeziyetsiz yönetişimin kademeli gelişimi için temel olabilir.',
+  picexFeaturePiTitle: {
+    fa: 'ورود Pi و دسترسی مبتنی بر KYC',
+    en: 'Pi Login & KYC-Aware Access',
+    tr: 'Pi Girişi ve KYC Odaklı Erişim',
+    zh: 'Pi 登录与 KYC 感知访问',
+    hi: 'Pi लॉगिन और KYC-जागरूक एक्सेस',
+    ar: 'تسجيل الدخول عبر Pi ووصول مرتبط بـ KYC',
   },
 
-  featureDigitalEconomyTitle: {
-    fa: 'اقتصاد دیجیتال',
-    en: 'Digital Economy',
-    tr: 'Dijital Ekonomi',
-    zh: '数字经济',
-    hi: 'डिजिटल अर्थव्यवस्था',
-    ar: 'الاقتصاد الرقمي',
+  picexFeaturePiDescription: {
+    fa: 'کاربران از طریق جریان هویتی Pi متصل می‌شوند و picex محدودیت حساب، دسترسی مبتنی بر KYC و قوانین معاملاتی امن‌تر را اعمال می‌کند.',
+    en: 'Users connect through Pi identity flows while picex applies account limits, KYC-aware access, and safer trading rules.',
+    tr: 'Kullanıcılar Pi kimlik akışlarıyla bağlanırken picex hesap limitleri, KYC odaklı erişim ve daha güvenli işlem kuralları uygular.',
+    zh: '用户通过 Pi 身份流程连接，同时 picex 应用账户限制、KYC 感知访问和更安全的交易规则。',
+    hi: 'उपयोगकर्ता Pi पहचान प्रवाह के माध्यम से जुड़ते हैं, जबकि picex खाता सीमाएँ, KYC-जागरूक एक्सेस और सुरक्षित ट्रेडिंग नियम लागू करता है।',
+    ar: 'يتصل المستخدمون عبر تدفقات هوية Pi بينما يطبق picex حدود الحساب والوصول المرتبط بـ KYC وقواعد تداول أكثر أماناً.',
   },
 
-  featureDigitalEconomyDescription: {
-    fa: 'فروشگاه، پرداخت‌های Pi و خدمات دیجیتال می‌توانند پایه‌های اولیه یک اقتصاد مردمی و غیرمتمرکز را شکل دهند.',
-    en: 'The marketplace, Pi payments, and digital services can form the early foundations of a people-powered decentralized economy.',
-    tr: 'Pazar yeri, Pi ödemeleri ve dijital hizmetler, topluluk odaklı merkeziyetsiz bir ekonominin ilk temellerini oluşturabilir.',
+  picexFeatureChartsTitle: {
+    fa: 'نمودارهای اختصاصی picex',
+    en: 'Native picex Charts',
+    tr: 'Yerel picex Grafikleri',
+    zh: 'picex 原生图表',
+    hi: 'नेटिव picex चार्ट',
+    ar: 'مخططات picex الأصلية',
   },
 
-  featureConflictResolutionTitle: {
-    fa: 'حل اختلاف با رأی مردم',
-    en: 'People-Driven Conflict Resolution',
-    tr: 'Halk Odaklı Uyuşmazlık Çözümü',
-    zh: '由人民驱动的争端解决',
-    hi: 'जन-आधारित विवाद समाधान',
-    ar: 'حل النزاعات بمشاركة الناس',
+  picexFeatureChartsDescription: {
+    fa: 'نمودارهای قیمت بر اساس معاملات انجام‌شده، رویدادهای دفتر سفارش و کندل‌های OHLC خود picex تولید می‌شوند.',
+    en: 'Price charts are planned to be generated from picex’s own executed trades, order book events, and OHLC candles.',
+    tr: 'Fiyat grafiklerinin picex’in kendi gerçekleşen işlemleri, emir defteri olayları ve OHLC mumlarından üretilmesi planlanır.',
+    zh: '价格图表计划由 picex 自身的已执行交易、订单簿事件和 OHLC K 线生成。',
+    hi: 'मूल्य चार्ट picex के अपने निष्पादित ट्रेड, ऑर्डर बुक इवेंट और OHLC कैंडल से बनाए जाने की योजना है।',
+    ar: 'من المخطط إنشاء مخططات الأسعار من صفقات picex المنفذة وأحداث دفتر الأوامر وشموع OHLC الخاصة بها.',
   },
 
-  featureConflictResolutionDescription: {
-    fa: 'در چشم‌انداز DIG، اختلافات بزرگ می‌توانند به‌تدریج با سازوکارهای شفاف، چندمرحله‌ای و مبتنی بر رأی عمومی بررسی شوند.',
-    en: 'In the DIG vision, major disputes can gradually be examined through transparent, multi-step mechanisms based on public voting.',
-    tr: 'DIG vizyonunda büyük anlaşmazlıklar, kamu oylamasına dayalı şeffaf ve çok aşamalı mekanizmalarla kademeli olarak değerlendirilebilir.',
+  picexFeatureAiTitle: {
+    fa: 'پشتیبانی آنلاین هوش مصنوعی',
+    en: 'AI Online Support',
+    tr: 'Yapay Zeka Online Destek',
+    zh: 'AI 在线支持',
+    hi: 'AI ऑनलाइन सहायता',
+    ar: 'دعم ذكي مباشر',
+  },
+
+  picexFeatureAiDescription: {
+    fa: 'دستیار هوشمند به کاربران درباره ورود Pi، پرداخت‌ها، واریز، برداشت، KYC، کارمزدها و وضعیت سفارش کمک می‌کند.',
+    en: 'An intelligent support assistant will help users with Pi login, payments, deposits, withdrawals, KYC, fees, and order issues.',
+    tr: 'Akıllı destek asistanı; Pi girişi, ödemeler, yatırma, çekme, KYC, ücretler ve emir sorunlarında kullanıcılara yardımcı olur.',
+    zh: '智能支持助手将帮助用户处理 Pi 登录、支付、充值、提现、KYC、费用和订单问题。',
+    hi: 'एक बुद्धिमान सहायता सहायक उपयोगकर्ताओं को Pi लॉगिन, भुगतान, जमा, निकासी, KYC, शुल्क और ऑर्डर समस्याओं में मदद करेगा।',
+    ar: 'سيساعد المساعد الذكي المستخدمين في تسجيل الدخول عبر Pi والمدفوعات والإيداعات والسحوبات وKYC والرسوم ومشكلات الأوامر.',
   },
 
   // -------------------------
   // Roadmap
   // -------------------------
 
-  roadmapTitle: {
-    fa: 'مسیر راه DIG',
-    en: 'DIG Roadmap',
-    tr: 'DIG Yol Haritası',
-    zh: 'DIG 路线图',
-    hi: 'DIG रोडमैप',
-    ar: 'خارطة طريق DIG',
+  picexRoadmapKicker: {
+    fa: 'نقشه راه picex',
+    en: 'picex Roadmap',
+    tr: 'picex Yol Haritası',
+    zh: 'picex 路线图',
+    hi: 'picex रोडमैप',
+    ar: 'خارطة طريق picex',
   },
 
-  roadmapIntro: {
-    fa: 'DIG یک تغییر یک‌مرحله‌ای نیست؛ مسیری تدریجی برای ساخت اعتماد، مشارکت، رأی‌گیری، حاکمیت و اقتصاد غیرمتمرکز جهانی است.',
-    en: 'DIG is not a one-step change; it is a gradual path toward building trust, participation, voting, governance, and a decentralized global economy.',
-    tr: 'DIG tek aşamalı bir değişim değildir; güven, katılım, oylama, yönetişim ve merkeziyetsiz küresel ekonomi inşa etmeye yönelik kademeli bir yoldur.',
+  picexRoadmapTitle: {
+    fa: 'از اپ پرداخت Pi تا زیرساخت معاملاتی',
+    en: 'From Pi payment app to trading infrastructure',
+    tr: 'Pi ödeme uygulamasından işlem altyapısına',
+    zh: '从 Pi 支付应用到交易基础设施',
+    hi: 'Pi भुगतान ऐप से ट्रेडिंग इंफ्रास्ट्रक्चर तक',
+    ar: 'من تطبيق دفع Pi إلى بنية تداول تحتية',
   },
 
-  roadmapStep1Title: {
-    fa: 'جامعه اولیه PiDao',
-    en: 'Early PiDao Community',
-    tr: 'İlk PiDao Topluluğu',
-    zh: '早期 PiDao 社区',
-    hi: 'प्रारंभिक PiDao समुदाय',
-    ar: 'مجتمع PiDao الأولي',
+  picexRoadmapIntro: {
+    fa: 'picex مرحله‌به‌مرحله رشد می‌کند: ابتدا حفظ ورود Pi، پرداخت، رأی‌گیری و جریان کاربر؛ سپس توسعه کیف پول، بازار اسپات، نمودار اختصاصی، پشتیبانی هوش مصنوعی و زیرساخت آماده فیوچرز.',
+    en: 'picex will evolve step by step: first preserving Pi login, payment, poll, and user flows, then expanding toward wallet operations, spot trading, native charts, AI support, and futures-ready infrastructure.',
+    tr: 'picex adım adım gelişir: önce Pi girişi, ödeme, anket ve kullanıcı akışları korunur; ardından cüzdan işlemleri, spot alım satım, yerel grafikler, yapay zeka desteği ve vadeli işlemlere hazır altyapıya genişler.',
+    zh: 'picex 将逐步发展：首先保留 Pi 登录、支付、投票和用户流程，然后扩展到钱包操作、现货交易、原生图表、AI 支持和期货就绪基础设施。',
+    hi: 'picex चरणबद्ध रूप से विकसित होगा: पहले Pi लॉगिन, भुगतान, पोल और उपयोगकर्ता प्रवाह को सुरक्षित रखते हुए, फिर वॉलेट संचालन, स्पॉट ट्रेडिंग, नेटिव चार्ट, AI सहायता और फ्यूचर्स-रेडी इंफ्रास्ट्रक्चर तक विस्तार करेगा।',
+    ar: 'سيتطور picex خطوة بخطوة: أولاً الحفاظ على تسجيل الدخول عبر Pi والمدفوعات والتصويت وتدفقات المستخدم، ثم التوسع نحو عمليات المحفظة والتداول الفوري والمخططات الأصلية والدعم الذكي والبنية الجاهزة للعقود الآجلة.',
   },
 
-  roadmapStep1Description: {
-    fa: 'شروع پروژه با ایجاد جامعه‌ای از کاربران Pi، علاقه‌مندان به DAO و افرادی که به تصمیم‌گیری شفاف و مردمی باور دارند.',
-    en: 'Starting the project by building a community of Pi users, DAO supporters, and people who believe in transparent, people-driven decision-making.',
-    tr: 'Projeye Pi kullanıcıları, DAO destekçileri ve şeffaf, halk odaklı karar almaya inanan kişilerden oluşan bir toplulukla başlamak.',
+  picexRoadmapStep1Title: {
+    fa: 'زیرساخت پایه و اتصال Pi',
+    en: 'Foundation & Pi Integration',
+    tr: 'Temel Altyapı ve Pi Entegrasyonu',
+    zh: '基础架构与 Pi 集成',
+    hi: 'फाउंडेशन और Pi इंटीग्रेशन',
+    ar: 'الأساس وتكامل Pi',
   },
 
-  roadmapStep2Title: {
-    fa: 'رأی‌گیری‌های آزمایشی',
-    en: 'Experimental Voting',
-    tr: 'Deneysel Oylamalar',
-    zh: '实验性投票',
-    hi: 'प्रायोगिक मतदान',
-    ar: 'تصويت تجريبي',
+  picexRoadmapStep1Description: {
+    fa: 'ساخت فرانت React/Vite، بک‌اند Node/Express، ذخیره‌سازی PostgreSQL، ورود Pi، جریان پرداخت، احراز هویت و ساختار API امن.',
+    en: 'Build the base React/Vite frontend, Node.js/Express backend, PostgreSQL storage, Pi login, payment flow, authentication, and secure API structure.',
+    tr: 'Temel React/Vite frontend, Node.js/Express backend, PostgreSQL depolama, Pi girişi, ödeme akışı, kimlik doğrulama ve güvenli API yapısını oluşturma.',
+    zh: '构建基础 React/Vite 前端、Node.js/Express 后端、PostgreSQL 存储、Pi 登录、支付流程、认证和安全 API 结构。',
+    hi: 'बेस React/Vite फ्रंटएंड, Node.js/Express बैकएंड, PostgreSQL स्टोरेज, Pi लॉगिन, भुगतान प्रवाह, प्रमाणीकरण और सुरक्षित API संरचना बनाना।',
+    ar: 'بناء واجهة React/Vite الأساسية، وخلفية Node.js/Express، وتخزين PostgreSQL، وتسجيل دخول Pi، وتدفق الدفع، والمصادقة، وبنية API آمنة.',
   },
 
-  roadmapStep2Description: {
-    fa: 'اجرای رأی‌گیری‌های ساده برای سنجش مشارکت، رفتار جامعه و آمادگی کاربران برای تصمیم‌گیری غیرمتمرکز.',
-    en: 'Running simple voting experiments to measure participation, community behavior, and user readiness for decentralized decision-making.',
-    tr: 'Katılımı, topluluk davranışını ve kullanıcıların merkeziyetsiz karar almaya hazır olup olmadığını ölçmek için basit oylamalar yürütmek.',
+  picexRoadmapStep2Title: {
+    fa: 'لایه کیف پول، واریز و برداشت',
+    en: 'Wallet, Deposit & Withdraw Layer',
+    tr: 'Cüzdan, Yatırma ve Çekme Katmanı',
+    zh: '钱包、充值与提现层',
+    hi: 'वॉलेट, जमा और निकासी लेयर',
+    ar: 'طبقة المحفظة والإيداع والسحب',
   },
 
-  roadmapStep3Title: {
-    fa: 'احراز هویت با Pi',
-    en: 'Pi Authentication',
-    tr: 'Pi Kimlik Doğrulaması',
-    zh: 'Pi 身份认证',
-    hi: 'Pi प्रमाणीकरण',
-    ar: 'مصادقة Pi',
+  picexRoadmapStep2Description: {
+    fa: 'طراحی موجودی داخلی، واریزهای در انتظار، درخواست برداشت، نگاشت آدرس، عملیات کیف پول گرم، سیاست کیف پول سرد و تطبیق موجودی.',
+    en: 'Design internal balances, pending deposits, withdrawal requests, address mapping, hot wallet operations, cold wallet policy, and reconciliation.',
+    tr: 'Dahili bakiyeler, bekleyen yatırmalar, çekim talepleri, adres eşleştirme, sıcak cüzdan operasyonları, soğuk cüzdan politikası ve mutabakat tasarımı.',
+    zh: '设计内部余额、待处理充值、提现请求、地址映射、热钱包操作、冷钱包策略和对账。',
+    hi: 'आंतरिक बैलेंस, लंबित जमा, निकासी अनुरोध, एड्रेस मैपिंग, हॉट वॉलेट संचालन, कोल्ड वॉलेट नीति और रिकंसिलिएशन डिज़ाइन करना।',
+    ar: 'تصميم الأرصدة الداخلية، والإيداعات المعلقة، وطلبات السحب، وربط العناوين، وعمليات المحفظة الساخنة، وسياسة المحفظة الباردة، والمطابقة.',
   },
 
-  roadmapStep3Description: {
-    fa: 'استفاده از Pi SDK برای ورود کاربران، کاهش رأی‌های تکراری و ایجاد پایه‌ای اولیه برای مشارکت معتبرتر.',
-    en: 'Using the Pi SDK for user login, reducing duplicate votes, and creating an early foundation for more trusted participation.',
-    tr: 'Kullanıcı girişi, tekrar oyların azaltılması ve daha güvenilir katılım için Pi SDK kullanmak.',
+  picexRoadmapStep3Title: {
+    fa: 'بازار اسپات و دفتر سفارش',
+    en: 'Spot Market & Order Book',
+    tr: 'Spot Piyasa ve Emir Defteri',
+    zh: '现货市场与订单簿',
+    hi: 'स्पॉट मार्केट और ऑर्डर बुक',
+    ar: 'السوق الفوري ودفتر الأوامر',
   },
 
-  roadmapStep4Title: {
-    fa: 'زیرساخت DAO',
-    en: 'DAO Infrastructure',
-    tr: 'DAO Altyapısı',
-    zh: 'DAO 基础设施',
-    hi: 'DAO आधारभूत संरचना',
-    ar: 'بنية DAO الأساسية',
+  picexRoadmapStep3Description: {
+    fa: 'راه‌اندازی معاملات اسپات با سفارش محدود و بازار، تسویه دفترکل داخلی، تاریخچه معاملات، وضعیت سفارش و کارمزد پایین Maker/Taker.',
+    en: 'Launch spot trading with limit and market orders, internal ledger settlement, trade history, order status, and low maker/taker fees.',
+    tr: 'Limit ve piyasa emirleri, dahili defter uzlaşması, işlem geçmişi, emir durumu ve düşük maker/taker ücretleriyle spot işlemleri başlatma.',
+    zh: '推出支持限价单和市价单、内部账本结算、交易历史、订单状态和低 maker/taker 费用的现货交易。',
+    hi: 'लिमिट और मार्केट ऑर्डर, आंतरिक लेजर सेटलमेंट, ट्रेड हिस्ट्री, ऑर्डर स्टेटस और कम maker/taker फीस के साथ स्पॉट ट्रेडिंग लॉन्च करना।',
+    ar: 'إطلاق التداول الفوري بأوامر محددة وسوقية، وتسوية دفتر داخلي، وسجل تداول، وحالة أوامر، ورسوم maker/taker منخفضة.',
   },
 
-  roadmapStep4Description: {
-    fa: 'توسعه تدریجی ساختار پیشنهادها، رأی‌گیری‌ها، سوابق تصمیم‌گیری و مشارکت جامعه در مدیریت پروژه.',
-    en: 'Gradually developing proposals, voting flows, decision records, and community participation in project governance.',
-    tr: 'Öneriler, oylama süreçleri, karar kayıtları ve proje yönetişiminde topluluk katılımını kademeli olarak geliştirmek.',
+  picexRoadmapStep4Title: {
+    fa: 'نمودارها و داده بازار اختصاصی',
+    en: 'Native Charts & Market Data',
+    tr: 'Yerel Grafikler ve Piyasa Verisi',
+    zh: '原生图表与市场数据',
+    hi: 'नेटिव चार्ट और मार्केट डेटा',
+    ar: 'المخططات وبيانات السوق الأصلية',
   },
 
-  roadmapStep5Title: {
-    fa: 'حرکت به سمت DIG',
-    en: 'Moving Toward DIG',
-    tr: 'DIG’e Doğru İlerleme',
-    zh: '迈向 DIG',
-    hi: 'DIG की ओर बढ़ना',
-    ar: 'التحرك نحو DIG',
+  picexRoadmapStep4Description: {
+    fa: 'تولید کندل‌های OHLC، تیکرها، عمق بازار، snapshot دفتر سفارش و بروزرسانی لحظه‌ای از داده داخلی picex.',
+    en: 'Generate picex-native OHLC candles, tickers, depth, order book snapshots, and real-time chart updates from internal trade data.',
+    tr: 'Dahili işlem verilerinden picex yerel OHLC mumları, tickerlar, derinlik, emir defteri görüntüleri ve gerçek zamanlı grafik güncellemeleri oluşturma.',
+    zh: '从内部交易数据生成 picex 原生 OHLC K 线、行情、深度、订单簿快照和实时图表更新。',
+    hi: 'आंतरिक ट्रेड डेटा से picex-नेटिव OHLC कैंडल, टिकर, डेप्थ, ऑर्डर बुक स्नैपशॉट और रीयल-टाइम चार्ट अपडेट जनरेट करना।',
+    ar: 'إنشاء شموع OHLC أصلية لـ picex، ومؤشرات، وعمق سوق، ولقطات دفتر الأوامر، وتحديثات مخططات فورية من بيانات التداول الداخلية.',
   },
 
-  roadmapStep5Description: {
-    fa: 'گسترش مفهوم از یک جامعه دیجیتال به مدلی برای بررسی موضوعات بزرگ‌تر و تصمیم‌گیری‌های جهانی با مشارکت مستقیم مردم.',
-    en: 'Expanding the concept from a digital community into a model for examining larger issues and global decisions through direct public participation.',
-    tr: 'Kavramı dijital bir topluluktan, daha büyük konuların ve küresel kararların doğrudan halk katılımıyla ele alındığı bir modele genişletmek.',
+  picexRoadmapStep5Title: {
+    fa: 'پشتیبانی هوش مصنوعی و پایگاه دانش',
+    en: 'AI Support & Knowledge Base',
+    tr: 'Yapay Zeka Desteği ve Bilgi Tabanı',
+    zh: 'AI 支持与知识库',
+    hi: 'AI सहायता और ज्ञान आधार',
+    ar: 'الدعم الذكي وقاعدة المعرفة',
   },
 
-  roadmapStep6Title: {
-    fa: 'بررسی DIB',
-    en: 'Exploring DIB',
-    tr: 'DIB Araştırması',
-    zh: '探索 DIB',
-    hi: 'DIB की खोज',
-    ar: 'استكشاف DIB',
+  picexRoadmapStep5Description: {
+    fa: 'افزودن دستیار پشتیبانی هوش مصنوعی با پاسخ‌های مبتنی بر مستندات برای واریز، برداشت، ورود Pi، کارمزدها، KYC، خطاهای پرداخت و وضعیت سفارش.',
+    en: 'Add AI online support with documentation-based answers for deposits, withdrawals, Pi login, fees, KYC, payment errors, and order issues.',
+    tr: 'Yatırma, çekme, Pi girişi, ücretler, KYC, ödeme hataları ve emir sorunları için dokümantasyon tabanlı cevaplar veren yapay zeka desteği ekleme.',
+    zh: '添加基于文档回答充值、提现、Pi 登录、费用、KYC、支付错误和订单问题的 AI 在线支持。',
+    hi: 'जमा, निकासी, Pi लॉगिन, फीस, KYC, भुगतान त्रुटियों और ऑर्डर समस्याओं के लिए दस्तावेज़-आधारित उत्तरों वाला AI ऑनलाइन समर्थन जोड़ना।',
+    ar: 'إضافة دعم ذكي مباشر بإجابات مبنية على الوثائق للإيداعات والسحوبات وتسجيل دخول Pi والرسوم وKYC وأخطاء الدفع ومشكلات الأوامر.',
   },
 
-  roadmapStep6Description: {
-    fa: 'در مراحل بعدی، بررسی امکان ایجاد بانک یا سیستم مالی بین‌المللی غیرمتمرکز به عنوان مکمل اقتصادی DIG.',
-    en: 'In later phases, exploring the possibility of an international decentralized bank or financial system as the economic complement to DIG.',
-    tr: 'Sonraki aşamalarda DIG’in ekonomik tamamlayıcısı olarak uluslararası merkeziyetsiz bir banka veya finansal sistem olasılığını araştırmak.',
+  picexRoadmapStep6Title: {
+    fa: 'فیوچرز، موتور ریسک و مقیاس‌پذیری',
+    en: 'Futures, Risk Engine & Scaling',
+    tr: 'Vadeli İşlemler, Risk Motoru ve Ölçekleme',
+    zh: '期货、风险引擎与扩展',
+    hi: 'फ्यूचर्स, जोखिम इंजन और स्केलिंग',
+    ar: 'العقود الآجلة ومحرك المخاطر والتوسع',
+  },
+
+  picexRoadmapStep6Description: {
+    fa: 'پس از بلوغ نقدینگی و عملیات، افزودن فیوچرز دائمی، کنترل مارجین، موتور لیکوییدیشن، کنترل ریسک، مقیاس‌پذیری Docker/Nginx و API بازارسازها.',
+    en: 'After liquidity and operational maturity, add perpetual futures, margin checks, liquidation engine, risk controls, Docker/Nginx scaling, and API access.',
+    tr: 'Likidite ve operasyonel olgunluktan sonra sürekli vadeli işlemler, marjin kontrolleri, likidasyon motoru, risk kontrolleri, Docker/Nginx ölçekleme ve API erişimi ekleme.',
+    zh: '在流动性和运营成熟后，添加永续期货、保证金检查、清算引擎、风险控制、Docker/Nginx 扩展和 API 访问。',
+    hi: 'लिक्विडिटी और संचालन परिपक्व होने के बाद पर्पेचुअल फ्यूचर्स, मार्जिन चेक, लिक्विडेशन इंजन, जोखिम नियंत्रण, Docker/Nginx स्केलिंग और API एक्सेस जोड़ना।',
+    ar: 'بعد نضج السيولة والعمليات، إضافة العقود الآجلة الدائمة، وفحوصات الهامش، ومحرك التصفية، وضوابط المخاطر، وتوسيع Docker/Nginx، ووصول API.',
+  },
+
+  roadmapStatusDesign: {
+    fa: 'طراحی / ساخت',
+    en: 'Design / Build',
+    tr: 'Tasarım / İnşa',
+    zh: '设计 / 构建',
+    hi: 'डिज़ाइन / निर्माण',
+    ar: 'تصميم / بناء',
+  },
+
+  roadmapStatusPlanned: {
+    fa: 'برنامه‌ریزی‌شده',
+    en: 'Planned',
+    tr: 'Planlandı',
+    zh: '已规划',
+    hi: 'योजनाबद्ध',
+    ar: 'مخطط',
+  },
+
+  roadmapStatusCore: {
+    fa: 'فاز اصلی',
+    en: 'Core Phase',
+    tr: 'Ana Aşama',
+    zh: '核心阶段',
+    hi: 'मुख्य चरण',
+    ar: 'المرحلة الأساسية',
+  },
+
+  roadmapStatusMarket: {
+    fa: 'داده بازار',
+    en: 'Market Data',
+    tr: 'Piyasa Verisi',
+    zh: '市场数据',
+    hi: 'मार्केट डेटा',
+    ar: 'بيانات السوق',
+  },
+
+  roadmapStatusAi: {
+    fa: 'لایه هوش مصنوعی',
+    en: 'AI Layer',
+    tr: 'Yapay Zeka Katmanı',
+    zh: 'AI 层',
+    hi: 'AI लेयर',
+    ar: 'طبقة الذكاء الاصطناعي',
+  },
+
+  roadmapStatusFuture: {
+    fa: 'فاز آینده',
+    en: 'Future Phase',
+    tr: 'Gelecek Aşama',
+    zh: '未来阶段',
+    hi: 'भविष्य चरण',
+    ar: 'المرحلة المستقبلية',
   },
 
   // -------------------------
-  // Poll
+  // About
   // -------------------------
 
-  pollQuestion: {
-    fa: 'آیا موافقید بخشی از تصمیم‌گیری‌های مهم جهانی به‌تدریج با رأی مستقیم مردم انجام شود؟',
-    en: 'Do you support gradually moving part of major global decision-making toward direct public voting?',
-    tr: 'Önemli küresel kararların bir bölümünün kademeli olarak doğrudan halk oylamasına taşınmasını destekliyor musunuz?',
-    zh: '您是否支持逐步将部分重大全球决策转向公众直接投票？',
-    hi: 'क्या आप प्रमुख वैश्विक निर्णयों के एक हिस्से को धीरे-धीरे जनता के प्रत्यक्ष मतदान की ओर ले जाने का समर्थन करते हैं?',
-    ar: 'هل تؤيد نقل جزء من القرارات العالمية المهمة تدريجياً نحو التصويت المباشر من الناس؟',
+  picexAboutKicker: {
+    fa: 'درباره picex',
+    en: 'About picex',
+    tr: 'picex Hakkında',
+    zh: '关于 picex',
+    hi: 'picex के बारे में',
+    ar: 'حول picex',
   },
 
-  pollDescription: {
-    fa: 'این رأی‌گیری یک نمونه اولیه برای سنجش مشارکت جامعه در تصمیم‌گیری‌های غیرمتمرکز جهانی است. هر کاربر واردشده با Pi فقط یک رأی می‌تواند ثبت کند.',
-    en: 'This poll is an early prototype for measuring community participation in decentralized global decision-making. Each Pi-authenticated user can submit only one vote.',
-    tr: 'Bu anket, merkeziyetsiz küresel karar alma süreçlerinde topluluk katılımını ölçmek için erken bir prototiptir. Pi ile doğrulanan her kullanıcı yalnızca bir oy kullanabilir.',
-    zh: '这是一个用于衡量社区参与去中心化全球决策的早期原型。每个通过 Pi 认证的用户只能投一票。',
-    hi: 'यह विकेंद्रीकृत वैश्विक निर्णय प्रक्रिया में समुदाय की भागीदारी मापने का एक प्रारंभिक प्रोटोटाइप है। प्रत्येक Pi-प्रमाणित उपयोगकर्ता केवल एक वोट दे सकता है।',
-    ar: 'هذا التصويت نموذج أولي لقياس مشاركة المجتمع في صناعة القرار العالمي اللامركزي. يمكن لكل مستخدم موثق عبر Pi تسجيل صوت واحد فقط.',
+  picexAboutSubtitle: {
+    fa: 'لایه صرافی هیبرید برای اکوسیستم Pi',
+    en: 'A hybrid exchange layer for the Pi ecosystem',
+    tr: 'Pi ekosistemi için hibrit borsa katmanı',
+    zh: '面向 Pi 生态系统的混合交易层',
+    hi: 'Pi पारिस्थितिकी तंत्र के लिए हाइब्रिड एक्सचेंज लेयर',
+    ar: 'طبقة تداول هجينة لنظام Pi',
+  },
+
+  picexAboutTitleBefore: {
+    fa: 'ساخته‌شده برای تبدیل Pi به',
+    en: 'Built to turn Pi into a',
+    tr: 'Pi’yi dönüştürmek için tasarlandı:',
+    zh: '旨在将 Pi 转变为',
+    hi: 'Pi को बदलने के लिए निर्मित',
+    ar: 'مصمم لتحويل Pi إلى',
+  },
+
+  picexAboutTitleHighlight: {
+    fa: 'تجربه معاملاتی واقعی',
+    en: 'tradable market experience',
+    tr: 'işlem yapılabilir bir piyasa deneyimi',
+    zh: '可交易的市场体验',
+    hi: 'ट्रेडेबल मार्केट अनुभव',
+    ar: 'تجربة سوق قابلة للتداول',
+  },
+
+  picexAboutText: {
+    fa: 'picex به‌عنوان یک پلتفرم معاملاتی هیبرید پرسرعت برای اکوسیستم Pi Network طراحی شده است. این پروژه موتور تطبیق آف‌چین، تسویه امن، جریان هویتی Pi، معاملات کم‌کارمزد و داده بازار اختصاصی را ترکیب می‌کند.',
+    en: 'picex is designed as a high-performance hybrid trading platform for the Pi Network ecosystem. It combines fast off-chain order matching with secure settlement, Pi-based identity flows, low-fee trading, and native market data generated from picex activity.',
+    tr: 'picex, Pi Network ekosistemi için yüksek performanslı hibrit bir işlem platformu olarak tasarlanmıştır. Hızlı off-chain emir eşleştirme, güvenli uzlaşma, Pi tabanlı kimlik akışları, düşük ücretli işlem ve picex aktivitesinden üretilen yerel piyasa verisini birleştirir.',
+    zh: 'picex 被设计为 Pi Network 生态系统的高性能混合交易平台。它结合了快速链下订单撮合、安全结算、基于 Pi 的身份流程、低费用交易以及由 picex 活动生成的原生市场数据。',
+    hi: 'picex को Pi Network पारिस्थितिकी तंत्र के लिए उच्च-प्रदर्शन हाइब्रिड ट्रेडिंग प्लेटफ़ॉर्म के रूप में डिज़ाइन किया गया है। यह तेज़ ऑफ-चेन ऑर्डर मैचिंग, सुरक्षित सेटलमेंट, Pi-आधारित पहचान प्रवाह, कम शुल्क ट्रेडिंग और picex गतिविधि से बने नेटिव मार्केट डेटा को जोड़ता है।',
+    ar: 'تم تصميم picex كمنصة تداول هجينة عالية الأداء لنظام Pi Network. فهي تجمع بين مطابقة أوامر سريعة خارج السلسلة، وتسوية آمنة، وتدفقات هوية قائمة على Pi، وتداول منخفض الرسوم، وبيانات سوق أصلية ناتجة عن نشاط picex.',
+  },
+
+  picexAboutTextSecondary: {
+    fa: 'هدف picex جایگزینی اکوسیستم Pi نیست؛ هدف ساخت یک هاب معاملاتی حرفه‌ای روی آن است: ابتدا بازار اسپات، سپس عملیات کیف پول و نمودار اختصاصی، بعد پشتیبانی هوش مصنوعی، حاکمیت و در نهایت فیوچرز پس از بلوغ موتور ریسک.',
+    en: 'The goal is not to replace the Pi ecosystem, but to build a professional trading hub on top of it: spot markets first, wallet operations and native charts next, then AI support, governance, and futures once the risk engine is mature.',
+    tr: 'Amaç Pi ekosisteminin yerini almak değil, onun üzerinde profesyonel bir işlem merkezi oluşturmaktır: önce spot piyasalar, ardından cüzdan operasyonları ve yerel grafikler, sonra yapay zeka desteği, yönetişim ve risk motoru olgunlaştığında vadeli işlemler.',
+    zh: '目标不是取代 Pi 生态系统，而是在其之上构建专业交易中心：首先是现货市场，其次是钱包操作和原生图表，然后是 AI 支持、治理，并在风险引擎成熟后推出期货。',
+    hi: 'लक्ष्य Pi इकोसिस्टम को बदलना नहीं है, बल्कि उसके ऊपर एक पेशेवर ट्रेडिंग हब बनाना है: पहले स्पॉट मार्केट, फिर वॉलेट संचालन और नेटिव चार्ट, फिर AI सहायता, गवर्नेंस और जोखिम इंजन परिपक्व होने के बाद फ्यूचर्स।',
+    ar: 'الهدف ليس استبدال نظام Pi، بل بناء مركز تداول احترافي فوقه: الأسواق الفورية أولاً، ثم عمليات المحفظة والمخططات الأصلية، ثم الدعم الذكي والحوكمة، وأخيراً العقود الآجلة بعد نضج محرك المخاطر.',
+  },
+
+  picexStatCex: {
+    fa: 'تطبیق داخلی سریع',
+    en: 'Fast internal matching',
+    tr: 'Hızlı dahili eşleştirme',
+    zh: '快速内部撮合',
+    hi: 'तेज़ आंतरिक मैचिंग',
+    ar: 'مطابقة داخلية سريعة',
+  },
+
+  picexStatPi: {
+    fa: 'هویت و تسویه Pi',
+    en: 'Pi identity and settlement',
+    tr: 'Pi kimliği ve uzlaşma',
+    zh: 'Pi 身份与结算',
+    hi: 'Pi पहचान और सेटलमेंट',
+    ar: 'هوية وتسوية Pi',
+  },
+
+  picexStatAi: {
+    fa: 'لایه پشتیبانی هوشمند',
+    en: 'Smart support layer',
+    tr: 'Akıllı destek katmanı',
+    zh: '智能支持层',
+    hi: 'स्मार्ट सपोर्ट लेयर',
+    ar: 'طبقة دعم ذكية',
+  },
+
+  picexVisionLabel: {
+    fa: 'موتور هیبرید picex',
+    en: 'picex Hybrid Engine',
+    tr: 'picex Hibrit Motoru',
+    zh: 'picex 混合引擎',
+    hi: 'picex हाइब्रिड इंजन',
+    ar: 'محرك picex الهجين',
+  },
+
+  picexMissionTitle: {
+    fa: 'سرعت در جایی که معامله‌گر نیاز دارد، تسویه در جایی که اعتماد مهم است',
+    en: 'Speed where traders need it, settlement where trust matters',
+    tr: 'Yatırımcının ihtiyaç duyduğu yerde hız, güvenin önemli olduğu yerde uzlaşma',
+    zh: '交易者需要速度的地方提供速度，信任重要的地方进行结算',
+    hi: 'जहाँ ट्रेडर को गति चाहिए वहाँ गति, जहाँ भरोसा ज़रूरी है वहाँ सेटलमेंट',
+    ar: 'السرعة حيث يحتاجها المتداولون، والتسوية حيث تكون الثقة مهمة',
+  },
+
+  picexMissionText: {
+    fa: 'سفارش‌ها برای تطبیق سریع در موتور معاملاتی picex طراحی می‌شوند، در حالی که واریز، برداشت، قوانین حساب و تسویه نهایی از طریق معماری کنترل‌شده کیف پول و دفترکل قابل حسابرسی می‌مانند.',
+    en: 'Orders are designed to be matched quickly inside the picex trading engine, while deposits, withdrawals, account rules, and final settlement remain auditable through a controlled wallet and ledger architecture.',
+    tr: 'Emirler picex işlem motorunda hızlı eşleşecek şekilde tasarlanırken yatırmalar, çekimler, hesap kuralları ve nihai uzlaşma kontrollü cüzdan ve defter mimarisiyle denetlenebilir kalır.',
+    zh: '订单设计为在 picex 交易引擎内快速撮合，而充值、提现、账户规则和最终结算则通过受控的钱包和账本架构保持可审计。',
+    hi: 'ऑर्डर picex ट्रेडिंग इंजन के अंदर तेज़ी से मैच होने के लिए डिज़ाइन किए गए हैं, जबकि जमा, निकासी, खाता नियम और अंतिम सेटलमेंट नियंत्रित वॉलेट और लेजर आर्किटेक्चर के माध्यम से ऑडिट योग्य रहते हैं।',
+    ar: 'تم تصميم الأوامر لتتم مطابقتها بسرعة داخل محرك تداول picex، بينما تبقى الإيداعات والسحوبات وقواعد الحساب والتسوية النهائية قابلة للتدقيق عبر بنية محفظة ودفتر أستاذ محكومة.',
+  },
+
+  picexPointOrderbook: {
+    fa: 'معاملات دفتر سفارش برای بازارهای اسپات',
+    en: 'Order book trading for spot markets',
+    tr: 'Spot piyasalar için emir defteri işlemleri',
+    zh: '面向现货市场的订单簿交易',
+    hi: 'स्पॉट मार्केट के लिए ऑर्डर बुक ट्रेडिंग',
+    ar: 'تداول دفتر الأوامر للأسواق الفورية',
+  },
+
+  picexPointWallet: {
+    fa: 'عملیات کیف پول با کنترل خزانه گرم و سرد',
+    en: 'Wallet operations with hot and cold treasury controls',
+    tr: 'Sıcak ve soğuk hazine kontrolleriyle cüzdan operasyonları',
+    zh: '具备热/冷资金库控制的钱包操作',
+    hi: 'हॉट और कोल्ड ट्रेजरी नियंत्रणों के साथ वॉलेट संचालन',
+    ar: 'عمليات محفظة مع ضوابط خزينة ساخنة وباردة',
+  },
+
+  picexPointCharts: {
+    fa: 'نمودارهای اختصاصی بر اساس فعالیت بازار picex',
+    en: 'Native charts based on picex market activity',
+    tr: 'picex piyasa aktivitesine dayalı yerel grafikler',
+    zh: '基于 picex 市场活动的原生图表',
+    hi: 'picex मार्केट गतिविधि पर आधारित नेटिव चार्ट',
+    ar: 'مخططات أصلية مبنية على نشاط سوق picex',
+  },
+
+  picexPointAi: {
+    fa: 'پشتیبانی هوش مصنوعی برای راهنمایی کاربر و حل مشکل',
+    en: 'AI support for user guidance and issue resolution',
+    tr: 'Kullanıcı rehberliği ve sorun çözümü için yapay zeka desteği',
+    zh: '用于用户指导和问题解决的 AI 支持',
+    hi: 'उपयोगकर्ता मार्गदर्शन और समस्या समाधान के लिए AI सहायता',
+    ar: 'دعم ذكاء اصطناعي لإرشاد المستخدم وحل المشكلات',
+  },
+
+  picexVisionBadge: {
+    fa: 'زیرساخت صرافی Pi-first',
+    en: 'Pi-first exchange infrastructure',
+    tr: 'Pi odaklı borsa altyapısı',
+    zh: 'Pi 优先的交易所基础设施',
+    hi: 'Pi-first एक्सचेंज इंफ्रास्ट्रक्चर',
+    ar: 'بنية تداول تضع Pi أولاً',
+  },
+
+  // -------------------------
+  // Poll / Governance
+  // -------------------------
+
+  picexPollQuestion: {
+    fa: 'آیا موافقید picex ابتدا بازار اسپات و واریز/برداشت کیف پول را قبل از راه‌اندازی فیوچرز اولویت دهد؟',
+    en: 'Should picex prioritize Spot Market and Wallet Deposit/Withdraw before launching Futures?',
+    tr: 'picex, vadeli işlemleri başlatmadan önce Spot Piyasa ve Cüzdan Yatırma/Çekme özelliklerine öncelik vermeli mi?',
+    zh: 'picex 是否应在推出期货之前优先开发现货市场和钱包充值/提现？',
+    hi: 'क्या picex को फ्यूचर्स लॉन्च करने से पहले स्पॉट मार्केट और वॉलेट जमा/निकासी को प्राथमिकता देनी चाहिए?',
+    ar: 'هل يجب أن يعطي picex الأولوية للسوق الفوري والإيداع/السحب من المحفظة قبل إطلاق العقود الآجلة؟',
+  },
+
+  picexPollDescription: {
+    fa: 'رأی‌گیری‌های حاکمیتی picex به جامعه کمک می‌کند اولویت‌های محصول مانند معاملات اسپات، عملیات کیف پول، پشتیبانی هوش مصنوعی، نمودارهای اختصاصی و آمادگی فیوچرز را جهت‌دهی کند.',
+    en: 'picex governance polls help the community guide product priorities such as spot trading, wallet operations, AI support, native charts, and futures readiness.',
+    tr: 'picex yönetişim anketleri; spot işlemler, cüzdan operasyonları, yapay zeka desteği, yerel grafikler ve vadeli işlemlere hazırlık gibi ürün önceliklerini topluluğun yönlendirmesine yardımcı olur.',
+    zh: 'picex 治理投票帮助社区指导产品优先级，例如现货交易、钱包操作、AI 支持、原生图表和期货准备。',
+    hi: 'picex गवर्नेंस पोल समुदाय को स्पॉट ट्रेडिंग, वॉलेट संचालन, AI सहायता, नेटिव चार्ट और फ्यूचर्स तैयारी जैसी उत्पाद प्राथमिकताओं को दिशा देने में मदद करते हैं।',
+    ar: 'تساعد استطلاعات حوكمة picex المجتمع على توجيه أولويات المنتج مثل التداول الفوري وعمليات المحفظة والدعم الذكي والمخططات الأصلية والاستعداد للعقود الآجلة.',
   },
 
   pollYes: {
-    fa: 'بله، از تصمیم‌گیری مردمی حمایت می‌کنم',
-    en: 'Yes, I support people-driven decision-making',
-    tr: 'Evet, halk odaklı karar almayı destekliyorum',
-    zh: '是的，我支持由人民驱动的决策',
-    hi: 'हाँ, मैं जन-आधारित निर्णय प्रक्रिया का समर्थन करता हूँ',
-    ar: 'نعم، أؤيد صناعة القرار بمشاركة الناس',
+    fa: 'بله، ابتدا اسپات و کیف پول',
+    en: 'Yes, Spot and Wallet first',
+    tr: 'Evet, önce Spot ve Cüzdan',
+    zh: '是，先做现货和钱包',
+    hi: 'हाँ, पहले स्पॉट और वॉलेट',
+    ar: 'نعم، السوق الفوري والمحفظة أولاً',
   },
 
   pollNo: {
-    fa: 'خیر، فعلاً مدل متمرکز بهتر است',
-    en: 'No, the centralized model is better for now',
-    tr: 'Hayır, şimdilik merkezi model daha iyi',
-    zh: '不，目前中心化模式更合适',
-    hi: 'नहीं, फिलहाल केंद्रीकृत मॉडल बेहतर है',
-    ar: 'لا، النموذج المركزي أفضل حالياً',
+    fa: 'خیر، فیوچرز را زودتر اضافه کنیم',
+    en: 'No, launch Futures earlier',
+    tr: 'Hayır, Vadeli işlemler daha erken başlasın',
+    zh: '不，先更早推出期货',
+    hi: 'नहीं, फ्यूचर्स पहले लॉन्च करें',
+    ar: 'لا، أطلقوا العقود الآجلة مبكراً',
   },
 
   yesLabel: {
@@ -846,12 +1045,12 @@ const translations: Translations = {
   },
 
   pollLoading: {
-    fa: 'در حال دریافت نتایج رأی‌گیری...',
-    en: 'Loading poll results...',
-    tr: 'Anket sonuçları yükleniyor...',
-    zh: '正在加载投票结果...',
-    hi: 'मतदान परिणाम लोड हो रहे हैं...',
-    ar: 'جارٍ تحميل نتائج التصويت...',
+    fa: 'در حال دریافت رأی‌گیری حاکمیتی picex...',
+    en: 'Loading picex governance poll...',
+    tr: 'picex yönetişim anketi yükleniyor...',
+    zh: '正在加载 picex 治理投票...',
+    hi: 'picex गवर्नेंस पोल लोड हो रहा है...',
+    ar: 'جارٍ تحميل استطلاع حوكمة picex...',
   },
 
   pollLoginRequired: {
@@ -927,246 +1126,57 @@ const translations: Translations = {
   },
 
   // -------------------------
-  // DIG Page / Manifesto
+  // Products / Market Modules
   // -------------------------
 
-  digPageTitle: {
-    fa: 'مانیفست دولت بین‌المللی غیرمتمرکز',
-    en: 'Decentralized International Government Manifesto',
-    tr: 'Merkeziyetsiz Uluslararası Hükümet Manifestosu',
-    zh: '去中心化国际政府宣言',
-    hi: 'विकेंद्रीकृत अंतरराष्ट्रीय सरकार घोषणापत्र',
-    ar: 'بيان الحكومة الدولية اللامركزية',
+  picexProductsTitle: {
+    fa: 'بازارها، ابزارهای کیف پول و ماژول‌های صرافی',
+    en: 'Markets, wallet tools, and exchange modules',
+    tr: 'Piyasalar, cüzdan araçları ve borsa modülleri',
+    zh: '市场、钱包工具和交易所模块',
+    hi: 'बाज़ार, वॉलेट टूल और एक्सचेंज मॉड्यूल',
+    ar: 'الأسواق وأدوات المحفظة ووحدات التداول',
   },
 
-  digPageLead: {
-    fa: 'DIG چشم‌اندازی برای آینده‌ای است که در آن بخشی از تصمیم‌گیری‌های بزرگ جهانی می‌تواند شفاف‌تر، مردمی‌تر و با مشارکت مستقیم انسان‌ها انجام شود.',
-    en: 'DIG is a vision for a future where part of major global decision-making can become more transparent, people-powered, and directly participatory.',
-    tr: 'DIG, büyük küresel kararların bir bölümünün daha şeffaf, halk odaklı ve doğrudan katılımcı hale gelebileceği bir gelecek vizyonudur.',
-  },
-
-  digWhatTitle: {
-    fa: 'DIG چیست؟',
-    en: 'What is DIG?',
-    tr: 'DIG Nedir?',
-    zh: '什么是 DIG？',
-    hi: 'DIG क्या है?',
-    ar: 'ما هو DIG؟',
-  },
-
-  digWhatText: {
-    fa: 'DIG یا دولت بین‌المللی غیرمتمرکز، یک مدل پیشنهادی برای تصمیم‌گیری جهانی است؛ مدلی که تلاش می‌کند به‌تدریج نقش مردم را در رأی‌گیری، قانون‌گذاری، حل اختلافات و مدیریت مسائل جهانی پررنگ‌تر کند.',
-    en: 'DIG, or Decentralized International Government, is a proposed model for global decision-making that aims to gradually increase the role of people in voting, legislation, conflict resolution, and global issue management.',
-    tr: 'DIG yani Merkeziyetsiz Uluslararası Hükümet, halkın oylama, yasa yapımı, uyuşmazlık çözümü ve küresel sorunların yönetimindeki rolünü kademeli olarak artırmayı amaçlayan önerilen bir karar alma modelidir.',
-  },
-
-  digVotingTitle: {
-    fa: 'رأی مستقیم مردم',
-    en: 'Direct Public Voting',
-    tr: 'Doğrudan Halk Oylaması',
-    zh: '公众直接投票',
-    hi: 'जनता का प्रत्यक्ष मतदान',
-    ar: 'تصويت مباشر من الناس',
-  },
-
-  digVotingText: {
-    fa: 'در چشم‌انداز DIG، رأی‌گیری‌های شفاف و ضدتقلب می‌توانند به ابزاری برای سنجش اراده عمومی در موضوعات مهم تبدیل شوند.',
-    en: 'In the DIG vision, transparent and tamper-resistant voting can become a tool for measuring public will on important issues.',
-    tr: 'DIG vizyonunda şeffaf ve müdahaleye dayanıklı oylamalar, önemli konularda halk iradesini ölçmek için bir araç olabilir.',
-  },
-
-  digTransparencyTitle: {
-    fa: 'شفافیت و اعتماد',
-    en: 'Transparency & Trust',
-    tr: 'Şeffaflık ve Güven',
-    zh: '透明与信任',
-    hi: 'पारदर्शिता और विश्वास',
-    ar: 'الشفافية والثقة',
-  },
-
-  digTransparencyText: {
-    fa: 'تصمیم‌گیری غیرمتمرکز بدون شفافیت ممکن نیست. هدف، ساخت سازوکارهایی است که رأی‌ها، نتایج و فرآیندها تا حد امکان قابل بررسی باشند.',
-    en: 'Decentralized decision-making is impossible without transparency. The goal is to build mechanisms where votes, results, and processes are as verifiable as possible.',
-    tr: 'Şeffaflık olmadan merkeziyetsiz karar alma mümkün değildir. Amaç; oyların, sonuçların ve süreçlerin mümkün olduğunca doğrulanabilir olduğu mekanizmalar oluşturmaktır.',
-  },
-
-  digPiRoleTitle: {
-    fa: 'نقش Pi Network',
-    en: 'Role of Pi Network',
-    tr: 'Pi Network’ün Rolü',
-    zh: 'Pi Network 的角色',
-    hi: 'Pi Network की भूमिका',
-    ar: 'دور Pi Network',
-  },
-
-  digPiRoleText: {
-    fa: 'Pi می‌تواند نقطه شروعی برای ورود کاربران، مشارکت اولیه، پرداخت‌ها و کاهش رأی‌های تکراری باشد؛ نه پایان مسیر، بلکه آغاز جامعه DIG.',
-    en: 'Pi can be a starting point for user entry, early participation, payments, and reducing duplicate votes—not the final destination, but the beginning of the DIG community.',
-    tr: 'Pi; kullanıcı girişi, erken katılım, ödemeler ve tekrar oyların azaltılması için bir başlangıç noktası olabilir; son hedef değil, DIG topluluğunun başlangıcıdır.',
-  },
-
-  digConflictTitle: {
-    fa: 'حل اختلافات جهانی',
-    en: 'Global Conflict Resolution',
-    tr: 'Küresel Uyuşmazlık Çözümü',
-    zh: '全球冲突解决',
-    hi: 'वैश्विक विवाद समाधान',
-    ar: 'حل النزاعات العالمية',
-  },
-
-  digConflictText: {
-    fa: 'در آینده، DIG می‌تواند مدل‌هایی آزمایشی برای بررسی اختلافات و بحران‌ها با رأی‌گیری چندمرحله‌ای و مشارکت عمومی ارائه دهد.',
-    en: 'In the future, DIG can provide experimental models for examining disputes and crises through multi-step voting and public participation.',
-    tr: 'Gelecekte DIG, uyuşmazlıkları ve krizleri çok aşamalı oylama ve halk katılımıyla değerlendirmek için deneysel modeller sunabilir.',
-  },
-
-  digDibTitle: {
-    fa: 'DIB و اقتصاد غیرمتمرکز',
-    en: 'DIB & Decentralized Economy',
-    tr: 'DIB ve Merkeziyetsiz Ekonomi',
-    zh: 'DIB 与去中心化经济',
-    hi: 'DIB और विकेंद्रीकृत अर्थव्यवस्था',
-    ar: 'DIB والاقتصاد اللامركزي',
-  },
-
-  digDibText: {
-    fa: 'DIB می‌تواند در آینده به عنوان ایده‌ای برای بانک یا سیستم مالی بین‌المللی غیرمتمرکز بررسی شود؛ مکملی اقتصادی برای DIG.',
-    en: 'DIB can later be explored as an idea for an international decentralized bank or financial system: an economic complement to DIG.',
-    tr: 'DIB, ileride uluslararası merkeziyetsiz bir banka veya finansal sistem fikri olarak araştırılabilir; DIG’in ekonomik tamamlayıcısıdır.',
-  },
-
-  digManifestoRoadmapTitle: {
-    fa: 'مسیر توسعه DIG',
-    en: 'DIG Development Path',
-    tr: 'DIG Gelişim Yolu',
-    zh: 'DIG 发展路径',
-    hi: 'DIG विकास पथ',
-    ar: 'مسار تطوير DIG',
-  },
-
-  digManifestoRoadmapIntro: {
-    fa: 'این مسیر مرحله‌ای است. ابتدا جامعه، ابزار و رأی‌گیری آزمایشی ساخته می‌شود؛ سپس مدل‌های بزرگ‌تر تصمیم‌گیری و اقتصاد غیرمتمرکز بررسی می‌شوند.',
-    en: 'This path is gradual. First, the community, tools, and experimental voting are built; then larger decision-making and decentralized economy models are explored.',
-    tr: 'Bu yol kademelidir. Önce topluluk, araçlar ve deneysel oylama oluşturulur; ardından daha büyük karar alma ve merkeziyetsiz ekonomi modelleri araştırılır.',
-  },
-
-  digDisclaimerTitle: {
-    fa: 'یادداشت مهم',
-    en: 'Important Note',
-    tr: 'Önemli Not',
-    zh: '重要说明',
-    hi: 'महत्वपूर्ण नोट',
-    ar: 'ملاحظة مهمة',
-  },
-
-  digDisclaimerText: {
-    fa: 'DIG در این مرحله یک چشم‌انداز، ایده و مسیر توسعه است. هدف فعلی، ساخت ابزارهای آزمایشی، سنجش مشارکت جامعه و حرکت تدریجی به سمت سازوکارهای شفاف‌تر برای تصمیم‌گیری مردمی است.',
-    en: 'At this stage, DIG is a vision, idea, and development path. The current goal is to build experimental tools, measure community participation, and gradually move toward more transparent mechanisms for people-driven decision-making.',
-    tr: 'Bu aşamada DIG bir vizyon, fikir ve gelişim yoludur. Mevcut hedef; deneysel araçlar oluşturmak, topluluk katılımını ölçmek ve halk odaklı karar alma için daha şeffaf mekanizmalara kademeli olarak ilerlemektir.',
-  },
-
-  // -------------------------
-  // Shop / Products / Payments
-  // -------------------------
-
-  shopTitle: {
-    fa: 'بازار Pi DAO',
-    en: 'Pi DAO Marketplace',
-    tr: 'Pi DAO Pazarı',
-    zh: 'Pi DAO 市场',
-    hi: 'Pi DAO मार्केटप्लेस',
-    ar: 'سوق Pi DAO',
-  },
-
-  shopSubtitle: {
-    fa: 'محصولات دیجیتال با امنیت بلاک‌چین',
-    en: 'Digital products secured by blockchain',
-    tr: 'Blockchain güvenliğiyle dijital ürünler',
-    zh: '由区块链保护的数字产品',
-    hi: 'ब्लॉकचेन द्वारा सुरक्षित डिजिटल उत्पाद',
-    ar: 'منتجات رقمية مؤمنة عبر البلوكشين',
+  picexProductsSubtitle: {
+    fa: 'ماژول‌های اصلی picex را ببینید: بازار اسپات، عملیات کیف پول، نمودارهای اختصاصی، پشتیبانی هوش مصنوعی، حاکمیت و زیرساخت آماده فیوچرز.',
+    en: 'Explore the product modules that shape picex: spot markets, wallet operations, native charts, AI support, governance, and futures-ready infrastructure.',
+    tr: 'picex’i şekillendiren ürün modüllerini keşfedin: spot piyasalar, cüzdan operasyonları, yerel grafikler, yapay zeka desteği, yönetişim ve vadeli işlemlere hazır altyapı.',
+    zh: '探索构成 picex 的产品模块：现货市场、钱包操作、原生图表、AI 支持、治理和期货就绪基础设施。',
+    hi: 'picex को आकार देने वाले उत्पाद मॉड्यूल देखें: स्पॉट मार्केट, वॉलेट संचालन, नेटिव चार्ट, AI सहायता, गवर्नेंस और फ्यूचर्स-रेडी इंफ्रास्ट्रक्चर।',
+    ar: 'استكشف وحدات المنتج التي تشكل picex: الأسواق الفورية وعمليات المحفظة والمخططات الأصلية والدعم الذكي والحوكمة والبنية الجاهزة للعقود الآجلة.',
   },
 
   buyNow: {
-    fa: 'خرید',
-    en: 'Buy Now',
-    tr: 'Satın Al',
-    zh: '立即购买',
-    hi: 'अभी खरीदें',
-    ar: 'اشترِ الآن',
+    fa: 'باز کردن',
+    en: 'Open',
+    tr: 'Aç',
+    zh: '打开',
+    hi: 'खोलें',
+    ar: 'فتح',
   },
 
   purchaseSuccess: {
-    fa: 'خرید با موفقیت انجام شد',
-    en: 'Purchase completed successfully',
-    tr: 'Satın alma başarıyla tamamlandı',
-    zh: '购买成功完成',
-    hi: 'खरीद सफलतापूर्वक पूरी हुई',
-    ar: 'تمت عملية الشراء بنجاح',
+    fa: 'عملیات با موفقیت انجام شد',
+    en: 'Action completed successfully',
+    tr: 'İşlem başarıyla tamamlandı',
+    zh: '操作成功完成',
+    hi: 'क्रिया सफलतापूर्वक पूरी हुई',
+    ar: 'تم تنفيذ العملية بنجاح',
   },
 
   purchaseError: {
-    fa: 'خطا در تراکنش. دوباره تلاش کنید.',
-    en: 'Transaction error. Please try again.',
+    fa: 'خطا در عملیات. دوباره تلاش کنید.',
+    en: 'Action error. Please try again.',
     tr: 'İşlem hatası. Lütfen tekrar deneyin.',
-    zh: '交易错误。请重试。',
-    hi: 'लेनदेन त्रुटि। कृपया पुनः प्रयास करें।',
-    ar: 'خطأ في المعاملة. يرجى المحاولة مرة أخرى.',
+    zh: '操作错误。请重试。',
+    hi: 'क्रिया त्रुटि। कृपया पुनः प्रयास करें।',
+    ar: 'خطأ في العملية. يرجى المحاولة مرة أخرى.',
   },
 
-  productDigitalArtName: {
-    fa: 'هنر دیجیتال Pi',
-    en: 'Pi Digital Art',
-    tr: 'Pi Dijital Sanat',
-    zh: 'Pi 数字艺术',
-    hi: 'Pi डिजिटल आर्ट',
-    ar: 'فن Pi الرقمي',
-  },
-
-  productDigitalArtDesc: {
-    fa: 'مجموعه اختصاصی NFT برای کاربران Pi.',
-    en: 'Exclusive NFT collection for Pi users.',
-    tr: 'Pi kullanıcıları için özel NFT koleksiyonu.',
-    zh: '面向 Pi 用户的专属 NFT 收藏。',
-    hi: 'Pi उपयोगकर्ताओं के लिए विशेष NFT संग्रह।',
-    ar: 'مجموعة NFT حصرية لمستخدمي Pi.',
-  },
-
-  productMembershipName: {
-    fa: 'عضویت Pi',
-    en: 'Pi Membership',
-    tr: 'Pi Üyeliği',
-    zh: 'Pi 会员',
-    hi: 'Pi सदस्यता',
-    ar: 'عضوية Pi',
-  },
-
-  productMembershipDesc: {
-    fa: 'دسترسی به حق رأی ممتاز DAO.',
-    en: 'Access to premium DAO voting rights.',
-    tr: 'Premium DAO oy haklarına erişim.',
-    zh: '获得高级 DAO 投票权。',
-    hi: 'प्रीमियम DAO मतदान अधिकारों तक पहुँच।',
-    ar: 'الوصول إلى حقوق تصويت DAO المميزة.',
-  },
-
-  productCourseName: {
-    fa: 'دوره کریپتو',
-    en: 'Crypto Course',
-    tr: 'Kripto Kursu',
-    zh: '加密课程',
-    hi: 'क्रिप्टो कोर्स',
-    ar: 'دورة كريبتو',
-  },
-
-  productCourseDesc: {
-    fa: 'یاد بگیرید چگونه کوین‌های کوچک بازار را معامله کنید.',
-    en: 'Learn how to trade micro-cap coins.',
-    tr: 'Mikro piyasa değerli coinleri nasıl trade edeceğinizi öğrenin.',
-    zh: '学习如何交易小市值代币。',
-    hi: 'माइक्रो-कैप कॉइन ट्रेड करना सीखें।',
-    ar: 'تعلّم كيفية تداول العملات ذات القيمة السوقية الصغيرة.',
-  },
+  // -------------------------
+  // Payment / History / Success
+  // -------------------------
 
   paymentSuccessful: {
     fa: 'پرداخت موفقیت‌آمیز بود!',
@@ -1178,16 +1188,16 @@ const translations: Translations = {
   },
 
   transactionRegistered: {
-    fa: 'تراکنش شما با موفقیت در شبکه ثبت شد.',
-    en: 'Your transaction was successfully registered on the network.',
-    tr: 'İşleminiz ağ üzerinde başarıyla kaydedildi.',
-    zh: '您的交易已成功在网络上注册。',
-    hi: 'आपका लेनदेन नेटवर्क पर सफलतापूर्वक दर्ज हो गया।',
-    ar: 'تم تسجيل معاملتك بنجاح على الشبكة.',
+    fa: 'پرداخت شما با موفقیت در picex ثبت شد.',
+    en: 'Your payment was successfully registered in picex.',
+    tr: 'Ödemeniz picex içinde başarıyla kaydedildi.',
+    zh: '您的付款已成功记录在 picex 中。',
+    hi: 'आपका भुगतान picex में सफलतापूर्वक दर्ज हो गया।',
+    ar: 'تم تسجيل دفعتك بنجاح في picex.',
   },
 
   transactionId: {
-    fa: 'ID تراکنش',
+    fa: 'شناسه تراکنش',
     en: 'Transaction ID',
     tr: 'İşlem ID',
     zh: '交易 ID',
@@ -1214,12 +1224,12 @@ const translations: Translations = {
   },
 
   product: {
-    fa: 'محصول',
-    en: 'Product',
-    tr: 'Ürün',
-    zh: '产品',
-    hi: 'उत्पाद',
-    ar: 'المنتج',
+    fa: 'هدف',
+    en: 'Purpose',
+    tr: 'Amaç',
+    zh: '用途',
+    hi: 'उद्देश्य',
+    ar: 'الغرض',
   },
 
   status: {
@@ -1286,12 +1296,21 @@ const translations: Translations = {
   },
 
   historyTitle: {
-    fa: '📜 تاریخچه تراکنش‌های PiDao',
-    en: '📜 PiDao Transaction History',
-    tr: '📜 PiDao İşlem Geçmişi',
-    zh: '📜 PiDao 交易历史',
-    hi: '📜 PiDao लेनदेन इतिहास',
-    ar: '📜 سجل معاملات PiDao',
+    fa: 'تاریخچه پرداخت و فعالیت کیف پول',
+    en: 'Payment & Wallet Activity',
+    tr: 'Ödeme ve Cüzdan Aktivitesi',
+    zh: '支付与钱包活动',
+    hi: 'भुगतान और वॉलेट गतिविधि',
+    ar: 'نشاط الدفع والمحفظة',
+  },
+
+  picexHistorySubtitle: {
+    fa: 'تأییدها، تکمیل پرداخت‌ها، شناسه تراکنش‌ها و در آینده سوابق واریز و برداشت کیف پول خود را دنبال کنید.',
+    en: 'Track your Pi payment approvals, completions, transaction IDs, and future wallet-related activity records.',
+    tr: 'Pi ödeme onaylarınızı, tamamlamalarınızı, işlem kimliklerinizi ve gelecekteki cüzdan kayıtlarınızı takip edin.',
+    zh: '跟踪您的 Pi 支付批准、完成、交易 ID 以及未来的钱包相关活动记录。',
+    hi: 'अपने Pi भुगतान अनुमोदन, पूर्णता, लेनदेन ID और भविष्य के वॉलेट-संबंधित गतिविधि रिकॉर्ड ट्रैक करें।',
+    ar: 'تتبع موافقات مدفوعات Pi وإكمالها ومعرفات المعاملات وسجلات نشاط المحفظة المستقبلية.',
   },
 
   noTransactions: {
@@ -1304,7 +1323,7 @@ const translations: Translations = {
   },
 
   backToHome: {
-    fa: 'بازگشت به صفحه اصلی',
+    fa: 'بازگشت به خانه',
     en: 'Back to Home',
     tr: 'Ana Sayfaya Dön',
     zh: '返回首页',
@@ -1313,52 +1332,142 @@ const translations: Translations = {
   },
 
   // -------------------------
-  // Tasks
+  // Engagement Tasks
   // -------------------------
 
   tasksTitle: {
-    fa: 'تسک‌های روزانه تعامل',
-    en: 'Daily Engagement Tasks',
-    tr: 'Günlük Etkileşim Görevleri',
-    zh: '每日互动任务',
-    hi: 'दैनिक सहभागिता कार्य',
-    ar: 'مهام التفاعل اليومية',
+    fa: 'تسک‌های جامعه picex',
+    en: 'picex Community Tasks',
+    tr: 'picex Topluluk Görevleri',
+    zh: 'picex 社区任务',
+    hi: 'picex सामुदायिक कार्य',
+    ar: 'مهام مجتمع picex',
   },
 
   tasksSubtitle: {
-    fa: 'این تسک‌ها را کامل کنید و پاداش Pi دریافت کنید.',
-    en: 'Complete these tasks to earn Pi rewards.',
-    tr: 'Pi ödülleri kazanmak için bu görevleri tamamlayın.',
-    zh: '完成这些任务以获得 Pi 奖励。',
-    hi: 'Pi पुरस्कार पाने के लिए इन कार्यों को पूरा करें।',
-    ar: 'أكمل هذه المهام لكسب مكافآت Pi.',
+    fa: 'تسک‌های آموزشی و اجتماعی را کامل کنید و با ورود Pi، حاکمیت، امنیت کیف پول، داده بازار و پشتیبانی هوشمند picex آشنا شوید.',
+    en: 'Complete educational and community tasks to learn how picex works: Pi login, governance, wallet safety, market data, AI support, and future trading modules.',
+    tr: 'picex’in nasıl çalıştığını öğrenmek için eğitim ve topluluk görevlerini tamamlayın: Pi girişi, yönetişim, cüzdan güvenliği, piyasa verisi, yapay zeka desteği ve gelecekteki işlem modülleri.',
+    zh: '完成教育和社区任务，了解 picex 的工作方式：Pi 登录、治理、钱包安全、市场数据、AI 支持和未来交易模块。',
+    hi: 'picex कैसे काम करता है यह सीखने के लिए शैक्षिक और सामुदायिक कार्य पूरे करें: Pi लॉगिन, गवर्नेंस, वॉलेट सुरक्षा, मार्केट डेटा, AI सहायता और भविष्य के ट्रेडिंग मॉड्यूल।',
+    ar: 'أكمل المهام التعليمية والمجتمعية لتتعلم كيف يعمل picex: تسجيل دخول Pi، الحوكمة، أمان المحفظة، بيانات السوق، الدعم الذكي، ووحدات التداول المستقبلية.',
   },
 
-  taskWatchVideo: {
-    fa: 'تماشای تبلیغ ویدیویی',
-    en: 'Watch Video Ad',
-    tr: 'Video Reklam İzle',
-    zh: '观看视频广告',
-    hi: 'वीडियो विज्ञापन देखें',
-    ar: 'شاهد إعلان فيديو',
+  tasksCompleted: {
+    fa: 'تسک تکمیل شده',
+    en: 'tasks completed',
+    tr: 'görev tamamlandı',
+    zh: '任务已完成',
+    hi: 'कार्य पूर्ण',
+    ar: 'مهام مكتملة',
   },
 
-  taskJoinPoll: {
-    fa: 'شرکت در نظرسنجی جامعه',
-    en: 'Join Community Poll',
-    tr: 'Topluluk Anketine Katıl',
-    zh: '参与社区投票',
-    hi: 'समुदाय मतदान में शामिल हों',
-    ar: 'شارك في تصويت المجتمع',
+  taskConnectPiTitle: {
+    fa: 'اتصال با Pi',
+    en: 'Connect with Pi',
+    tr: 'Pi ile Bağlan',
+    zh: '连接 Pi',
+    hi: 'Pi से कनेक्ट करें',
+    ar: 'الاتصال بـ Pi',
   },
 
-  taskDailyCheckin: {
-    fa: 'ورود روزانه',
-    en: 'Daily Check-in',
-    tr: 'Günlük Giriş',
-    zh: '每日签到',
-    hi: 'दैनिक चेक-इन',
-    ar: 'تسجيل الحضور اليومي',
+  taskConnectPiDescription: {
+    fa: 'حساب Pi خود را متصل کنید تا رأی‌گیری، پرداخت، کیف پول و امکانات آینده معاملاتی picex فعال شود.',
+    en: 'Connect your Pi account to unlock picex governance, payments, wallet access, and future trading features.',
+    tr: 'picex yönetişimi, ödemeler, cüzdan erişimi ve gelecekteki işlem özellikleri için Pi hesabınızı bağlayın.',
+    zh: '连接您的 Pi 账户以解锁 picex 治理、支付、钱包访问和未来交易功能。',
+    hi: 'picex गवर्नेंस, भुगतान, वॉलेट एक्सेस और भविष्य की ट्रेडिंग सुविधाओं को अनलॉक करने के लिए अपना Pi खाता कनेक्ट करें।',
+    ar: 'اربط حساب Pi الخاص بك لفتح حوكمة picex والمدفوعات والوصول إلى المحفظة وميزات التداول المستقبلية.',
+  },
+
+  taskJoinGovernanceTitle: {
+    fa: 'شرکت در حاکمیت picex',
+    en: 'Vote in picex Governance',
+    tr: 'picex Yönetişiminde Oy Ver',
+    zh: '参与 picex 治理投票',
+    hi: 'picex गवर्नेंस में वोट करें',
+    ar: 'صوّت في حوكمة picex',
+  },
+
+  taskJoinGovernanceDescription: {
+    fa: 'در رأی‌گیری‌های جامعه شرکت کنید و به اولویت‌بندی بازار اسپات، عملیات کیف پول، AI و فیوچرز کمک کنید.',
+    en: 'Participate in community polls and help prioritize spot trading, wallet operations, AI support, and futures readiness.',
+    tr: 'Topluluk anketlerine katılın ve spot işlemler, cüzdan operasyonları, yapay zeka desteği ve vadeli işlemlere hazırlık önceliklerine yardımcı olun.',
+    zh: '参与社区投票，帮助确定现货交易、钱包操作、AI 支持和期货准备的优先级。',
+    hi: 'सामुदायिक पोल में भाग लें और स्पॉट ट्रेडिंग, वॉलेट संचालन, AI सहायता और फ्यूचर्स तैयारी को प्राथमिकता देने में मदद करें।',
+    ar: 'شارك في استطلاعات المجتمع وساعد في تحديد أولويات التداول الفوري وعمليات المحفظة والدعم الذكي والاستعداد للعقود الآجلة.',
+  },
+
+  taskLearnWalletTitle: {
+    fa: 'یادگیری امنیت کیف پول',
+    en: 'Learn Wallet Safety',
+    tr: 'Cüzdan Güvenliğini Öğren',
+    zh: '学习钱包安全',
+    hi: 'वॉलेट सुरक्षा सीखें',
+    ar: 'تعلم أمان المحفظة',
+  },
+
+  taskLearnWalletDescription: {
+    fa: 'قبل از استفاده از امکانات کیف پول، درباره آدرس واریز، صف برداشت، کیف پول گرم، کیف پول سرد و تطبیق موجودی یاد بگیرید.',
+    en: 'Read about deposit addresses, withdrawal queues, hot wallets, cold wallets, and reconciliation before using exchange wallet features.',
+    tr: 'Borsa cüzdan özelliklerini kullanmadan önce yatırma adresleri, çekim kuyrukları, sıcak cüzdanlar, soğuk cüzdanlar ve mutabakat hakkında bilgi edinin.',
+    zh: '在使用交易所钱包功能之前，了解充值地址、提现队列、热钱包、冷钱包和对账。',
+    hi: 'एक्सचेंज वॉलेट सुविधाओं का उपयोग करने से पहले जमा पते, निकासी कतार, हॉट वॉलेट, कोल्ड वॉलेट और रिकंसिलिएशन के बारे में पढ़ें।',
+    ar: 'اقرأ عن عناوين الإيداع وقوائم السحب والمحافظ الساخنة والباردة والمطابقة قبل استخدام ميزات محفظة المنصة.',
+  },
+
+  taskExploreMarketsTitle: {
+    fa: 'بررسی بازارهای picex',
+    en: 'Explore picex Markets',
+    tr: 'picex Piyasalarını Keşfet',
+    zh: '探索 picex 市场',
+    hi: 'picex बाज़ार देखें',
+    ar: 'استكشف أسواق picex',
+  },
+
+  taskExploreMarketsDescription: {
+    fa: 'تجربه آینده بازار اسپات، نمودار اختصاصی، دفتر سفارش و ماژول‌های معاملاتی را بررسی کنید.',
+    en: 'Preview the future spot market experience, native chart data, order book design, and trading modules.',
+    tr: 'Gelecekteki spot piyasa deneyimini, yerel grafik verilerini, emir defteri tasarımını ve işlem modüllerini önizleyin.',
+    zh: '预览未来的现货市场体验、原生图表数据、订单簿设计和交易模块。',
+    hi: 'भविष्य के स्पॉट मार्केट अनुभव, नेटिव चार्ट डेटा, ऑर्डर बुक डिज़ाइन और ट्रेडिंग मॉड्यूल का पूर्वावलोकन करें।',
+    ar: 'عاين تجربة السوق الفوري المستقبلية وبيانات المخططات الأصلية وتصميم دفتر الأوامر ووحدات التداول.',
+  },
+
+  taskTryAiSupportTitle: {
+    fa: 'آزمایش پشتیبانی هوش مصنوعی',
+    en: 'Try AI Support',
+    tr: 'Yapay Zeka Desteğini Dene',
+    zh: '试用 AI 支持',
+    hi: 'AI सहायता आज़माएँ',
+    ar: 'جرّب الدعم الذكي',
+  },
+
+  taskTryAiSupportDescription: {
+    fa: 'از دستیار هوش مصنوعی آینده برای سوالات مربوط به ورود Pi، پرداخت، واریز، برداشت، KYC و کارمزدها استفاده کنید.',
+    en: 'Use the future AI support assistant for questions about Pi login, payments, deposits, withdrawals, KYC, and fees.',
+    tr: 'Pi girişi, ödemeler, yatırmalar, çekimler, KYC ve ücretlerle ilgili sorular için gelecekteki yapay zeka destek asistanını kullanın.',
+    zh: '使用未来的 AI 支持助手来解答关于 Pi 登录、支付、充值、提现、KYC 和费用的问题。',
+    hi: 'Pi लॉगिन, भुगतान, जमा, निकासी, KYC और फीस से जुड़े सवालों के लिए भविष्य के AI सहायता सहायक का उपयोग करें।',
+    ar: 'استخدم مساعد الدعم الذكي المستقبلي للأسئلة حول تسجيل دخول Pi والمدفوعات والإيداعات والسحوبات وKYC والرسوم.',
+  },
+
+  taskReadWhitepaperTitle: {
+    fa: 'مطالعه وایت‌پیپر picex',
+    en: 'Read the picex Whitepaper',
+    tr: 'picex Whitepaper’ını Oku',
+    zh: '阅读 picex 白皮书',
+    hi: 'picex व्हाइटपेपर पढ़ें',
+    ar: 'اقرأ الورقة البيضاء لـ picex',
+  },
+
+  taskReadWhitepaperDescription: {
+    fa: 'معماری صرافی هیبرید، دفترکل داخلی، لایه تسویه Pi، فرضیات توکن و نقشه راه را مطالعه کنید.',
+    en: 'Understand the hybrid exchange architecture, internal ledger, Pi settlement layer, token assumptions, and roadmap.',
+    tr: 'Hibrit borsa mimarisini, dahili defteri, Pi uzlaşma katmanını, token varsayımlarını ve yol haritasını anlayın.',
+    zh: '了解混合交易所架构、内部账本、Pi 结算层、代币假设和路线图。',
+    hi: 'हाइब्रिड एक्सचेंज आर्किटेक्चर, आंतरिक लेजर, Pi सेटलमेंट लेयर, टोकन मान्यताओं और रोडमैप को समझें।',
+    ar: 'افهم معمارية التداول الهجينة، ودفتر الأستاذ الداخلي، وطبقة تسوية Pi، وافتراضات الرمز، وخارطة الطريق.',
   },
 
   reward: {
@@ -1379,20 +1488,71 @@ const translations: Translations = {
     ar: 'المطالبة',
   },
 
+  claimed: {
+    fa: 'دریافت شد',
+    en: 'Claimed',
+    tr: 'Alındı',
+    zh: '已领取',
+    hi: 'दावा किया गया',
+    ar: 'تمت المطالبة',
+  },
+
   // -------------------------
   // Footer
   // -------------------------
 
-  footerDescription: {
-    fa: 'PiDao زیرساختی اولیه برای مشارکت، رأی‌گیری، پرداخت‌های Pi و حرکت تدریجی به سمت چشم‌انداز DIG است؛ مدلی شفاف‌تر و مردمی‌تر برای تصمیم‌گیری جهانی.',
-    en: 'PiDao is an early infrastructure for participation, voting, Pi payments, and a gradual move toward the DIG vision: a more transparent and people-powered model for global decision-making.',
-    tr: 'PiDao; katılım, oylama, Pi ödemeleri ve DIG vizyonuna kademeli geçiş için erken bir altyapıdır: küresel karar alma için daha şeffaf ve halk odaklı bir model.',
+  picexFooterBadge: {
+    fa: 'هاب معاملاتی هیبرید برای Pi Network',
+    en: 'Hybrid Trading Hub for Pi Network',
+    tr: 'Pi Network için Hibrit İşlem Merkezi',
+    zh: 'Pi Network 混合交易中心',
+    hi: 'Pi Network के लिए हाइब्रिड ट्रेडिंग हब',
+    ar: 'مركز تداول هجين لشبكة Pi',
   },
 
-  footerNote: {
-    fa: 'DIG در این مرحله یک چشم‌انداز و مسیر توسعه است. هدف فعلی، ساخت ابزارهای آزمایشی، جامعه اولیه و سازوکارهای شفاف برای مشارکت مردم است.',
-    en: 'At this stage, DIG is a vision and development path. The current goal is to build experimental tools, an early community, and transparent mechanisms for public participation.',
-    tr: 'Bu aşamada DIG bir vizyon ve gelişim yoludur. Mevcut amaç; deneysel araçlar, erken bir topluluk ve halk katılımı için şeffaf mekanizmalar oluşturmaktır.',
+  picexFooterDescription: {
+    fa: 'picex تجربه‌ای Pi-first برای صرافی هیبرید است که معاملات سریع، ورود Pi، جریان پرداخت، داده بازار اختصاصی، پشتیبانی هوش مصنوعی و معماری آماده کیف پول را ترکیب می‌کند.',
+    en: 'picex is a Pi-first hybrid exchange experience combining fast trading, Pi login, payment flows, native market data, AI support, and a wallet-ready architecture.',
+    tr: 'picex; hızlı işlem, Pi girişi, ödeme akışları, yerel piyasa verisi, yapay zeka desteği ve cüzdana hazır mimariyi birleştiren Pi odaklı hibrit borsa deneyimidir.',
+    zh: 'picex 是一种 Pi 优先的混合交易体验，结合了快速交易、Pi 登录、支付流程、原生市场数据、AI 支持和钱包就绪架构。',
+    hi: 'picex एक Pi-first हाइब्रिड एक्सचेंज अनुभव है जो तेज़ ट्रेडिंग, Pi लॉगिन, भुगतान प्रवाह, नेटिव मार्केट डेटा, AI सहायता और वॉलेट-रेडी आर्किटेक्चर को जोड़ता है।',
+    ar: 'picex تجربة تداول هجينة تضع Pi أولاً، تجمع بين التداول السريع وتسجيل دخول Pi وتدفقات الدفع وبيانات السوق الأصلية والدعم الذكي وبنية جاهزة للمحفظة.',
+  },
+
+  footerExchange: {
+    fa: 'صرافی',
+    en: 'Exchange',
+    tr: 'Borsa',
+    zh: '交易所',
+    hi: 'एक्सचेंज',
+    ar: 'المنصة',
+  },
+
+  footerCommunity: {
+    fa: 'جامعه',
+    en: 'Community',
+    tr: 'Topluluk',
+    zh: '社区',
+    hi: 'समुदाय',
+    ar: 'المجتمع',
+  },
+
+  footerResources: {
+    fa: 'منابع',
+    en: 'Resources',
+    tr: 'Kaynaklar',
+    zh: '资源',
+    hi: 'संसाधन',
+    ar: 'الموارد',
+  },
+
+  picexFooterNote: {
+    fa: 'picex در حال توسعه فعال است. قابلیت‌های معامله، کیف پول، واریز، برداشت، فیوچرز و پشتیبانی هوش مصنوعی باید قبل از استفاده عملیاتی تست، ممیزی و از نظر انطباق بررسی شوند.',
+    en: 'picex is under active development. Trading, wallet, deposit, withdrawal, futures, and AI support features must be tested, audited, and reviewed for compliance before production use.',
+    tr: 'picex aktif olarak geliştirilmektedir. İşlem, cüzdan, yatırma, çekme, vadeli işlemler ve yapay zeka desteği özellikleri üretimden önce test edilmeli, denetlenmeli ve uyumluluk açısından incelenmelidir.',
+    zh: 'picex 正在积极开发中。交易、钱包、充值、提现、期货和 AI 支持功能在生产使用前必须经过测试、审计和合规审查。',
+    hi: 'picex सक्रिय विकास में है। ट्रेडिंग, वॉलेट, जमा, निकासी, फ्यूचर्स और AI सहायता सुविधाओं को उत्पादन उपयोग से पहले परीक्षण, ऑडिट और अनुपालन समीक्षा से गुजरना चाहिए।',
+    ar: 'picex قيد التطوير النشط. يجب اختبار ميزات التداول والمحفظة والإيداع والسحب والعقود الآجلة والدعم الذكي وتدقيقها ومراجعتها من حيث الامتثال قبل الاستخدام الإنتاجي.',
   },
 
   footerRights: {
@@ -1403,7 +1563,8 @@ const translations: Translations = {
     hi: 'सर्वाधिकार सुरक्षित।',
     ar: 'جميع الحقوق محفوظة.',
   },
-    privacyPolicy: {
+
+  privacyPolicy: {
     fa: 'سیاست حفظ حریم خصوصی',
     en: 'Privacy Policy',
     tr: 'Gizlilik Politikası',
@@ -1420,14 +1581,199 @@ const translations: Translations = {
     hi: 'सेवा की शर्तें',
     ar: 'شروط الخدمة',
   },
+
   whitepaper: {
-  fa: 'وایت‌پیپر',
-  en: 'Whitepaper',
-  tr: 'Whitepaper',
-  zh: '白皮书',
-  hi: 'व्हाइटपेपर',
-  ar: 'الورقة البيضاء',
-},
+    fa: 'وایت‌پیپر',
+    en: 'Whitepaper',
+    tr: 'Whitepaper',
+    zh: '白皮书',
+    hi: 'व्हाइटपेपर',
+    ar: 'الورقة البيضاء',
+  },
+
+  // -------------------------
+  // Architecture / Former DIG Page
+  // -------------------------
+
+  picexArchitecturePageTitle: {
+    fa: 'معماری صرافی هیبرید picex',
+    en: 'picex Hybrid Exchange Architecture',
+    tr: 'picex Hibrit Borsa Mimarisi',
+    zh: 'picex 混合交易所架构',
+    hi: 'picex हाइब्रिड एक्सचेंज आर्किटेक्चर',
+    ar: 'معمارية منصة picex الهجينة',
+  },
+
+  picexArchitecturePageLead: {
+    fa: 'مروری فنی بر اینکه چگونه picex از یک اپ ورود و پرداخت Pi به یک هاب معاملاتی هیبرید با کیف پول، نمودار اختصاصی، پشتیبانی هوش مصنوعی و زیرساخت آینده فیوچرز تبدیل می‌شود.',
+    en: 'A technical overview of how picex evolves from a Pi login and payment application into a hybrid trading hub with wallet operations, native charts, AI support, and future futures infrastructure.',
+    tr: 'picex’in Pi giriş ve ödeme uygulamasından cüzdan operasyonları, yerel grafikler, yapay zeka desteği ve gelecekteki vadeli işlem altyapısına sahip hibrit bir işlem merkezine nasıl dönüştüğüne dair teknik bir genel bakış.',
+    zh: '技术概览：picex 如何从 Pi 登录和支付应用发展为具有钱包操作、原生图表、AI 支持和未来期货基础设施的混合交易中心。',
+    hi: 'एक तकनीकी अवलोकन कि picex कैसे Pi लॉगिन और भुगतान एप्लिकेशन से वॉलेट संचालन, नेटिव चार्ट, AI सहायता और भविष्य की फ्यूचर्स इंफ्रास्ट्रक्चर वाले हाइब्रिड ट्रेडिंग हब में विकसित होता है।',
+    ar: 'نظرة تقنية على كيفية تطور picex من تطبيق لتسجيل دخول ومدفوعات Pi إلى مركز تداول هجين مع عمليات محفظة ومخططات أصلية ودعم ذكي وبنية مستقبلية للعقود الآجلة.',
+  },
+
+  picexWhatTitle: {
+    fa: 'picex چیست؟',
+    en: 'What is picex?',
+    tr: 'picex Nedir?',
+    zh: '什么是 picex？',
+    hi: 'picex क्या है?',
+    ar: 'ما هو picex؟',
+  },
+
+  picexWhatText: {
+    fa: 'picex یک مفهوم صرافی هیبرید Pi-first است. عملیات معاملاتی سریع در سیستم داخلی تطبیق و دفترکل انجام می‌شود، در حالی که ورود Pi، پرداخت‌ها، واریز، برداشت و قوانین تسویه به اکوسیستم Pi متصل می‌مانند.',
+    en: 'picex is a Pi-first hybrid exchange concept. It keeps fast trading operations inside an internal matching and ledger system, while Pi login, Pi payments, deposits, withdrawals, and settlement rules connect the platform to the Pi ecosystem.',
+    tr: 'picex, Pi odaklı bir hibrit borsa konseptidir. Hızlı işlem operasyonlarını dahili eşleştirme ve defter sistemi içinde tutarken Pi girişi, Pi ödemeleri, yatırmalar, çekimler ve uzlaşma kuralları platformu Pi ekosistemine bağlar.',
+    zh: 'picex 是一个 Pi 优先的混合交易所概念。它将快速交易操作保留在内部撮合和账本系统中，同时 Pi 登录、Pi 支付、充值、提现和结算规则将平台连接到 Pi 生态系统。',
+    hi: 'picex एक Pi-first हाइब्रिड एक्सचेंज अवधारणा है। यह तेज़ ट्रेडिंग संचालन को आंतरिक मैचिंग और लेजर सिस्टम के अंदर रखता है, जबकि Pi लॉगिन, Pi भुगतान, जमा, निकासी और सेटलमेंट नियम प्लेटफ़ॉर्म को Pi इकोसिस्टम से जोड़ते हैं।',
+    ar: 'picex مفهوم منصة تداول هجينة تضع Pi أولاً. فهي تبقي عمليات التداول السريعة داخل نظام مطابقة ودفتر أستاذ داخلي، بينما يربط تسجيل دخول Pi ومدفوعات Pi والإيداعات والسحوبات وقواعد التسوية المنصة بنظام Pi.',
+  },
+
+  picexArchMatchingTitle: {
+    fa: 'موتور تطبیق آف‌چین',
+    en: 'Off-chain Matching Engine',
+    tr: 'Off-chain Eşleştirme Motoru',
+    zh: '链下撮合引擎',
+    hi: 'ऑफ-चेन मैचिंग इंजन',
+    ar: 'محرك مطابقة خارج السلسلة',
+  },
+
+  picexArchMatchingText: {
+    fa: 'سفارش‌ها در یک موتور کم‌تاخیر بک‌اند تطبیق داده می‌شوند تا معامله‌گران تجربه‌ای سریع شبیه صرافی‌های مدرن داشته باشند.',
+    en: 'Orders are planned to be matched inside a low-latency backend engine so traders can experience fast execution similar to modern centralized exchanges.',
+    tr: 'Emirlerin düşük gecikmeli bir backend motorunda eşleştirilmesi planlanır, böylece yatırımcılar modern merkezi borsalara benzer hızlı yürütme deneyimi yaşayabilir.',
+    zh: '订单计划在低延迟后端引擎内撮合，使交易者能够获得类似现代中心化交易所的快速执行体验。',
+    hi: 'ऑर्डर कम-लेटेंसी बैकएंड इंजन के अंदर मैच किए जाने की योजना है ताकि ट्रेडर आधुनिक केंद्रीकृत एक्सचेंज जैसी तेज़ निष्पादन सुविधा अनुभव कर सकें।',
+    ar: 'من المخطط مطابقة الأوامر داخل محرك خلفي منخفض التأخير حتى يحصل المتداولون على تنفيذ سريع يشبه المنصات المركزية الحديثة.',
+  },
+
+  picexArchWalletTitle: {
+    fa: 'لایه کیف پول و تسویه',
+    en: 'Wallet & Settlement Layer',
+    tr: 'Cüzdan ve Uzlaşma Katmanı',
+    zh: '钱包与结算层',
+    hi: 'वॉलेट और सेटलमेंट लेयर',
+    ar: 'طبقة المحفظة والتسوية',
+  },
+
+  picexArchWalletText: {
+    fa: 'واریزها، برداشت‌ها، موجودی‌های در انتظار، عملیات کیف پول گرم، خزانه سرد و تطبیق موجودی از موتور معاملات جدا نگه داشته می‌شوند.',
+    en: 'Deposits, withdrawals, pending balances, hot wallet operations, cold wallet treasury, and reconciliation are separated from the trading engine.',
+    tr: 'Yatırmalar, çekimler, bekleyen bakiyeler, sıcak cüzdan operasyonları, soğuk cüzdan hazinesi ve mutabakat işlem motorundan ayrılır.',
+    zh: '充值、提现、待处理余额、热钱包操作、冷钱包资金库和对账与交易引擎分离。',
+    hi: 'जमा, निकासी, लंबित बैलेंस, हॉट वॉलेट संचालन, कोल्ड वॉलेट ट्रेजरी और रिकंसिलिएशन को ट्रेडिंग इंजन से अलग रखा जाता है।',
+    ar: 'يتم فصل الإيداعات والسحوبات والأرصدة المعلقة وعمليات المحفظة الساخنة وخزينة المحفظة الباردة والمطابقة عن محرك التداول.',
+  },
+
+  picexArchPiTitle: {
+    fa: 'هویت و پرداخت‌های Pi',
+    en: 'Pi Identity & Payment Flows',
+    tr: 'Pi Kimliği ve Ödeme Akışları',
+    zh: 'Pi 身份与支付流程',
+    hi: 'Pi पहचान और भुगतान प्रवाह',
+    ar: 'هوية Pi وتدفقات الدفع',
+  },
+
+  picexArchPiText: {
+    fa: 'Pi SDK برای ورود و مجوز پرداخت در موارد پشتیبانی‌شده استفاده می‌شود، در حالی که نگه‌داری دارایی و حسابداری دفترکل توسط زیرساخت picex کنترل می‌شود.',
+    en: 'Pi SDK is used for login and payment authorization where supported, while custody and ledger accounting remain controlled by picex infrastructure.',
+    tr: 'Pi SDK, desteklenen yerlerde giriş ve ödeme yetkilendirmesi için kullanılır; saklama ve defter muhasebesi ise picex altyapısı tarafından kontrol edilir.',
+    zh: 'Pi SDK 用于支持的登录和支付授权场景，而托管和账本会计仍由 picex 基础设施控制。',
+    hi: 'Pi SDK का उपयोग जहाँ समर्थित हो वहाँ लॉगिन और भुगतान अनुमति के लिए किया जाता है, जबकि कस्टडी और लेजर अकाउंटिंग picex इंफ्रास्ट्रक्चर द्वारा नियंत्रित रहती है।',
+    ar: 'يُستخدم Pi SDK لتسجيل الدخول وتفويض الدفع حيثما كان مدعوماً، بينما تبقى الحفظ ومحاسبة دفتر الأستاذ تحت سيطرة بنية picex.',
+  },
+
+  picexArchChartsTitle: {
+    fa: 'داده بازار اختصاصی',
+    en: 'Native Market Data',
+    tr: 'Yerel Piyasa Verisi',
+    zh: '原生市场数据',
+    hi: 'नेटिव मार्केट डेटा',
+    ar: 'بيانات سوق أصلية',
+  },
+
+  picexArchChartsText: {
+    fa: 'نمودارها، تیکرها، معاملات و کندل‌های OHLC از معاملات انجام‌شده و داده دفتر سفارش داخلی picex تولید می‌شوند.',
+    en: 'Charts, tickers, trades, and OHLC candles are designed to come from picex internal executed trades and order book data.',
+    tr: 'Grafikler, tickerlar, işlemler ve OHLC mumları picex’in dahili gerçekleşen işlemleri ve emir defteri verilerinden gelecek şekilde tasarlanır.',
+    zh: '图表、行情、交易和 OHLC K 线设计为来自 picex 内部已执行交易和订单簿数据。',
+    hi: 'चार्ट, टिकर, ट्रेड और OHLC कैंडल picex के आंतरिक निष्पादित ट्रेड और ऑर्डर बुक डेटा से आने के लिए डिज़ाइन किए गए हैं।',
+    ar: 'تم تصميم المخططات والمؤشرات والصفقات وشموع OHLC لتأتي من صفقات picex الداخلية وبيانات دفتر الأوامر.',
+  },
+
+  picexArchAiTitle: {
+    fa: 'لایه پشتیبانی هوش مصنوعی',
+    en: 'AI Support Layer',
+    tr: 'Yapay Zeka Destek Katmanı',
+    zh: 'AI 支持层',
+    hi: 'AI सहायता लेयर',
+    ar: 'طبقة الدعم الذكي',
+  },
+
+  picexArchAiText: {
+    fa: 'پشتیبانی هوش مصنوعی با استفاده از مستندات picex، قوانین کیف پول، جریان پرداخت، سیاست KYC و راهنمای رفع خطا به سوالات کاربران پاسخ می‌دهد.',
+    en: 'AI support will answer user questions using picex documentation, wallet rules, payment flows, KYC policy, and troubleshooting guides.',
+    tr: 'Yapay zeka desteği, picex dokümantasyonu, cüzdan kuralları, ödeme akışları, KYC politikası ve sorun giderme kılavuzlarını kullanarak kullanıcı sorularını yanıtlar.',
+    zh: 'AI 支持将使用 picex 文档、钱包规则、支付流程、KYC 政策和故障排除指南回答用户问题。',
+    hi: 'AI सहायता picex दस्तावेज़, वॉलेट नियम, भुगतान प्रवाह, KYC नीति और ट्रबलशूटिंग गाइड का उपयोग करके उपयोगकर्ता प्रश्नों का उत्तर देगी।',
+    ar: 'سيجيب الدعم الذكي عن أسئلة المستخدمين باستخدام وثائق picex وقواعد المحفظة وتدفقات الدفع وسياسة KYC وأدلة استكشاف الأخطاء.',
+  },
+
+  picexArchRiskTitle: {
+    fa: 'ریسک، KYC و کنترل انطباق',
+    en: 'Risk, KYC & Compliance Controls',
+    tr: 'Risk, KYC ve Uyumluluk Kontrolleri',
+    zh: '风险、KYC 与合规控制',
+    hi: 'जोखिम, KYC और अनुपालन नियंत्रण',
+    ar: 'ضوابط المخاطر وKYC والامتثال',
+  },
+
+  picexArchRiskText: {
+    fa: 'محدودیت حساب، بررسی برداشت‌ها، هشدار فعالیت مشکوک و کنترل‌های آینده مشتقات بخشی از چارچوب مدیریت ریسک هستند.',
+    en: 'Account limits, withdrawal reviews, suspicious activity alerts, and future derivatives controls are part of the operational risk framework.',
+    tr: 'Hesap limitleri, çekim incelemeleri, şüpheli etkinlik uyarıları ve gelecekteki türev kontrolleri operasyonel risk çerçevesinin parçasıdır.',
+    zh: '账户限制、提现审查、可疑活动警报和未来衍生品控制是运营风险框架的一部分。',
+    hi: 'खाता सीमाएँ, निकासी समीक्षा, संदिग्ध गतिविधि अलर्ट और भविष्य के डेरिवेटिव नियंत्रण संचालन जोखिम ढाँचे का हिस्सा हैं।',
+    ar: 'حدود الحساب ومراجعات السحب وتنبيهات النشاط المشبوه وضوابط المشتقات المستقبلية جزء من إطار المخاطر التشغيلية.',
+  },
+
+  picexManifestoRoadmapTitle: {
+    fa: 'نقشه راه فنی',
+    en: 'Technical Roadmap',
+    tr: 'Teknik Yol Haritası',
+    zh: '技术路线图',
+    hi: 'तकनीकी रोडमैप',
+    ar: 'خارطة الطريق التقنية',
+  },
+
+  picexManifestoRoadmapIntro: {
+    fa: 'پروژه باید مرحله‌ای رشد کند: ابتدا حفظ ورود Pi، Poll و پرداخت، سپس افزودن کیف پول، بازار اسپات، داده نمودار، AI و در نهایت فیوچرز پس از بلوغ کنترل ریسک.',
+    en: 'The project should grow in controlled phases: preserve the working Pi login, poll, and payment flows first, then add wallet operations, spot markets, native chart data, AI support, and futures only after risk controls are mature.',
+    tr: 'Proje kontrollü aşamalarla büyümelidir: önce çalışan Pi girişi, anket ve ödeme akışları korunur; ardından cüzdan operasyonları, spot piyasalar, yerel grafik verisi, yapay zeka desteği ve risk kontrolleri olgunlaştığında vadeli işlemler eklenir.',
+    zh: '项目应按受控阶段发展：首先保留可用的 Pi 登录、投票和支付流程，然后添加钱包操作、现货市场、原生图表数据、AI 支持，并在风险控制成熟后再添加期货。',
+    hi: 'परियोजना को नियंत्रित चरणों में बढ़ना चाहिए: पहले कार्यरत Pi लॉगिन, पोल और भुगतान प्रवाह को सुरक्षित रखें, फिर वॉलेट संचालन, स्पॉट मार्केट, नेटिव चार्ट डेटा, AI सहायता और जोखिम नियंत्रण परिपक्व होने के बाद ही फ्यूचर्स जोड़ें।',
+    ar: 'يجب أن ينمو المشروع على مراحل محكومة: الحفاظ أولاً على تسجيل دخول Pi والتصويت وتدفقات الدفع العاملة، ثم إضافة عمليات المحفظة والأسواق الفورية وبيانات المخططات الأصلية والدعم الذكي، والعقود الآجلة فقط بعد نضج ضوابط المخاطر.',
+  },
+
+  picexDisclaimerTitle: {
+    fa: 'یادداشت فنی مهم',
+    en: 'Important technical disclaimer',
+    tr: 'Önemli teknik sorumluluk reddi',
+    zh: '重要技术免责声明',
+    hi: 'महत्वपूर्ण तकनीकी अस्वीकरण',
+    ar: 'إخلاء مسؤولية تقني مهم',
+  },
+
+  picexDisclaimerText: {
+    fa: 'Pi SDK نباید به‌عنوان سیستم کامل کیف پول custodial در نظر گرفته شود. ورود، احراز هویت و پرداخت باید از دفترکل داخلی، پایش بلاکچین، کیف پول گرم، کیف پول سرد، تطبیق موجودی، KYC و کنترل برداشت جدا باشند.',
+    en: 'Pi SDK should not be treated as a complete custodial wallet system. Login, authentication, and payment flows must be separated from internal ledger accounting, blockchain monitoring, hot wallet, cold wallet, reconciliation, KYC, and withdrawal controls.',
+    tr: 'Pi SDK tam bir saklama cüzdan sistemi olarak görülmemelidir. Giriş, kimlik doğrulama ve ödeme akışları; dahili defter muhasebesi, blockchain izleme, sıcak cüzdan, soğuk cüzdan, mutabakat, KYC ve çekim kontrollerinden ayrılmalıdır.',
+    zh: 'Pi SDK 不应被视为完整的托管钱包系统。登录、认证和支付流程必须与内部账本会计、区块链监控、热钱包、冷钱包、对账、KYC 和提现控制分离。',
+    hi: 'Pi SDK को पूर्ण कस्टोडियल वॉलेट सिस्टम नहीं माना जाना चाहिए। लॉगिन, प्रमाणीकरण और भुगतान प्रवाह को आंतरिक लेजर अकाउंटिंग, ब्लॉकचेन मॉनिटरिंग, हॉट वॉलेट, कोल्ड वॉलेट, रिकंसिलिएशन, KYC और निकासी नियंत्रणों से अलग रखना चाहिए।',
+    ar: 'لا ينبغي اعتبار Pi SDK نظام محفظة حفظ كامل. يجب فصل تسجيل الدخول والمصادقة وتدفقات الدفع عن محاسبة دفتر الأستاذ الداخلي ومراقبة البلوكشين والمحفظة الساخنة والباردة والمطابقة وKYC وضوابط السحب.',
+  },
 };
 
 interface I18nContextType {
@@ -1450,27 +1796,29 @@ export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({
   const [lang, setLangState] = useState<Language>('fa');
 
   useEffect(() => {
-    const savedLang = localStorage.getItem('pidao_lang');
+    const savedPicexLang = localStorage.getItem('picex_lang');
+    const savedLegacyLang = localStorage.getItem('pidao_lang');
 
-    if (isSupportedLanguage(savedLang)) {
-      setLangState(savedLang);
+    if (isSupportedLanguage(savedPicexLang)) {
+      setLangState(savedPicexLang);
+      return;
+    }
+
+    if (isSupportedLanguage(savedLegacyLang)) {
+      setLangState(savedLegacyLang);
     }
   }, []);
 
   useEffect(() => {
     document.documentElement.lang = lang;
 
-    /**
-     * فارسی و عربی راست‌چین هستند.
-     * انگلیسی، ترکی، چینی و هندی چپ‌چین هستند.
-     */
     document.documentElement.dir =
       lang === 'fa' || lang === 'ar' ? 'rtl' : 'ltr';
   }, [lang]);
 
   const setLang = (newLang: Language) => {
     setLangState(newLang);
-    localStorage.setItem('pidao_lang', newLang);
+    localStorage.setItem('picex_lang', newLang);
   };
 
   const t = (key: string) => {
