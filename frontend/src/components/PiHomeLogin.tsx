@@ -19,18 +19,13 @@ const parseBooleanEnv = (value: unknown, defaultValue = false): boolean => {
   return String(value).trim().toLowerCase() === 'true';
 };
 
-/**
- * Mainnet by default.
- * برای Sandbox/Testnet در env بگذار:
- * VITE_PI_SANDBOX=true
- */
 const PI_SANDBOX = parseBooleanEnv(import.meta.env.VITE_PI_SANDBOX, false);
 
 const PiHomeLogin: React.FC = () => {
   const auth = useAuth();
   const { t } = useI18n();
 
-  const [status, setStatus] = useState<string>(t('initializingPiSdk'));
+  const [status, setStatus] = useState<string>('Initializing Pi SDK for picex...');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const networkLabel = PI_SANDBOX ? t('testnet') : t('mainnet');
@@ -43,7 +38,7 @@ const PiHomeLogin: React.FC = () => {
     console.log('PiHomeLogin PI_SANDBOX:', PI_SANDBOX);
 
     if (!window.Pi) {
-      setStatus(t('piSdkNotFound'));
+      setStatus('Pi SDK not found. Please open picex inside Pi Browser.');
       return;
     }
 
@@ -67,26 +62,26 @@ const PiHomeLogin: React.FC = () => {
         });
       }
 
-      setStatus(`${t('piSdkReady')} ${t('network')}: ${networkLabel}`);
+      setStatus(`Pi SDK ready for picex. Network: ${networkLabel}`);
     } catch (error: any) {
       console.error('Pi SDK init error:', error);
       setStatus('Pi SDK error: ' + (error?.message || String(error)));
     }
-  }, [t, networkLabel]);
+  }, [networkLabel]);
 
   const onIncompletePaymentFound = (payment: any) => {
     console.log('Incomplete payment found:', payment);
-    setStatus(t('incompletePaymentFound'));
+    setStatus('Incomplete payment found. Complete or cancel it inside Pi Browser.');
   };
 
   const handleLogin = async () => {
     if (!auth) {
-      setStatus(t('authContextMissing'));
+      setStatus('Auth context is missing.');
       return;
     }
 
     if (!window.Pi) {
-      setStatus(t('piSdkNotFound'));
+      setStatus('Pi SDK not found. Please open picex inside Pi Browser.');
       return;
     }
 
@@ -97,7 +92,7 @@ const PiHomeLogin: React.FC = () => {
 
     try {
       setIsLoading(true);
-      setStatus(t('authenticating'));
+      setStatus('Authenticating with Pi for picex...');
 
       const authResult = await window.Pi.authenticate(
         ['username', 'payments'],
@@ -129,12 +124,12 @@ const PiHomeLogin: React.FC = () => {
 
       await auth.login(String(piUserId), String(username), accessToken);
 
-      setStatus(`${t('loginSuccess')} @${username}`);
+      setStatus(`picex login successful. Welcome @${username}`);
     } catch (error: any) {
       console.error('Pi login error:', error);
 
       setStatus(
-        `${t('loginFailed')} ` +
+        'Login failed: ' +
           (
             error?.response?.data?.message ||
             error?.message ||
@@ -148,7 +143,7 @@ const PiHomeLogin: React.FC = () => {
 
   const handleLogout = () => {
     auth?.logout();
-    setStatus(`${t('piSdkReady')} ${t('network')}: ${networkLabel}`);
+    setStatus(`Pi SDK ready for picex. Network: ${networkLabel}`);
   };
 
   const isAuthenticated = auth?.isAuthenticated;
@@ -158,22 +153,43 @@ const PiHomeLogin: React.FC = () => {
     <section
       style={{
         margin: '20px auto',
-        padding: '22px',
-        maxWidth: '460px',
-        borderRadius: '20px',
-        background: '#ffffff',
-        boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
-        border: '1px solid rgba(103,58,183,0.18)',
+        padding: '26px',
+        maxWidth: '480px',
+        borderRadius: '24px',
+        background:
+          'linear-gradient(145deg, rgba(255,255,255,0.11), rgba(255,255,255,0.055))',
+        boxShadow: '0 24px 58px rgba(0,0,0,0.34)',
+        border: '1px solid rgba(255,202,40,0.24)',
         textAlign: 'center',
         fontFamily: 'sans-serif',
+        color: '#ffffff',
+        backdropFilter: 'blur(16px)',
       }}
     >
-      <h2 style={{ color: '#673ab7', marginBottom: '8px' }}>
-        {t('piLoginTitle')}
+      <div
+        style={{
+          display: 'inline-flex',
+          marginBottom: '14px',
+          padding: '7px 14px',
+          borderRadius: '999px',
+          background: 'rgba(255,202,40,0.12)',
+          border: '1px solid rgba(255,202,40,0.28)',
+          color: '#ffca28',
+          fontSize: '12px',
+          fontWeight: 900,
+        }}
+      >
+        picex Pi Access
+      </div>
+
+      <h2 style={{ color: '#ffffff', marginBottom: '8px' }}>
+        Connect with Pi
       </h2>
 
-      <p style={{ color: '#666', fontSize: '14px', lineHeight: 1.7 }}>
-        {t('piLoginDescription')}
+      <p style={{ color: '#d8cfee', fontSize: '14px', lineHeight: 1.8 }}>
+        Use your Pi account to access picex, vote in governance polls, and use
+        Pi payment flows. Wallet, deposit and withdrawal features will use this
+        identity layer as the account entry point.
       </p>
 
       <div
@@ -182,10 +198,15 @@ const PiHomeLogin: React.FC = () => {
           margin: '10px 0 18px',
           padding: '6px 12px',
           borderRadius: '999px',
-          background: PI_SANDBOX ? '#fff3e0' : '#e8f5e9',
-          color: PI_SANDBOX ? '#ef6c00' : '#2e7d32',
+          background: PI_SANDBOX
+            ? 'rgba(255,152,0,0.14)'
+            : 'rgba(34,197,94,0.12)',
+          color: PI_SANDBOX ? '#ffb74d' : '#86efac',
+          border: PI_SANDBOX
+            ? '1px solid rgba(255,152,0,0.24)'
+            : '1px solid rgba(34,197,94,0.22)',
           fontSize: '12px',
-          fontWeight: 700,
+          fontWeight: 800,
         }}
       >
         {t('network')}: {networkLabel}
@@ -197,37 +218,41 @@ const PiHomeLogin: React.FC = () => {
           disabled={isLoading}
           style={{
             width: '100%',
-            maxWidth: '260px',
+            maxWidth: '270px',
             padding: '13px 22px',
-            borderRadius: '28px',
+            borderRadius: '999px',
             border: 'none',
-            background: isLoading ? '#999' : '#673ab7',
-            color: '#fff',
+            background: isLoading
+              ? '#6b7280'
+              : 'linear-gradient(135deg, #ffe7a3, #ffca28, #f4b942)',
+            color: '#180d31',
             cursor: isLoading ? 'not-allowed' : 'pointer',
             fontSize: '15px',
-            fontWeight: 700,
+            fontWeight: 900,
           }}
         >
-          {isLoading ? t('pleaseWait') : t('loginWithPi')}
+          {isLoading ? t('pleaseWait') : 'Login with Pi'}
         </button>
       ) : (
         <>
-          <p style={{ color: '#333', marginTop: '10px' }}>
-            {t('welcome')},{' '}
-            <strong>@{user?.username || 'Pi User'}</strong>
+          <p style={{ color: '#d8cfee', marginTop: '10px' }}>
+            Welcome,{' '}
+            <strong style={{ color: '#ffca28' }}>
+              @{user?.username || 'Pi User'}
+            </strong>
           </p>
 
           <button
             onClick={handleLogout}
             style={{
               padding: '10px 18px',
-              borderRadius: '22px',
-              border: '1px solid #ff5252',
-              background: '#fff',
-              color: '#ff5252',
+              borderRadius: '999px',
+              border: '1px solid rgba(248,113,113,0.55)',
+              background: 'rgba(239,68,68,0.08)',
+              color: '#fecaca',
               cursor: 'pointer',
               fontSize: '14px',
-              fontWeight: 600,
+              fontWeight: 800,
             }}
           >
             {t('logout')}
@@ -239,12 +264,13 @@ const PiHomeLogin: React.FC = () => {
         style={{
           marginTop: '16px',
           padding: '12px',
-          borderRadius: '10px',
-          background: '#f5f5f5',
-          color: '#444',
+          borderRadius: '14px',
+          background: 'rgba(255,255,255,0.07)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          color: '#d8cfee',
           fontSize: '13px',
           wordBreak: 'break-word',
-          lineHeight: 1.5,
+          lineHeight: 1.6,
         }}
       >
         {status}
