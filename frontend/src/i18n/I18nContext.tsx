@@ -1758,6 +1758,176 @@ export const translations: TranslationsMap = {
     tr: 'Likidite ve operasyonel olgunluk sonrasında sürekli vadeli işlemler, marjin kontrolleri, likidasyon motoru, risk kontrolleri, Docker/Nginx ölçekleme ve API erişimi eklemek.',
     zh: '在流动性和运营成熟后，添加永续期货、保证金检查、清算引擎、风险控制、Docker/Nginx 扩展和 API 访问。',
   },
+    // ---------------------------------------------------------------------------
+  // Features Section
+  // ---------------------------------------------------------------------------
+  picexFeaturesKicker: {
+    en: 'picex Core Infrastructure',
+    fa: 'زیرساخت اصلی picex',
+    ar: 'البنية الأساسية لـ picex',
+    tr: 'picex Temel Altyapısı',
+    zh: 'picex 核心基础设施',
+  },
+
+  picexFeaturesTitle: {
+    en: 'Built for high-performance Pi trading',
+    fa: 'ساخته‌شده برای معاملات پرسرعت Pi',
+    ar: 'مصمم لتداول Pi عالي الأداء',
+    tr: 'Yüksek performanslı Pi işlemleri için geliştirildi',
+    zh: '为高性能 Pi 交易而构建',
+  },
+
+  picexFeaturesIntro: {
+    en: 'picex combines exchange-grade speed, Pi ecosystem access, wallet operations, native market data, and AI-powered support into one unified trading experience.',
+    fa: 'picex سرعت در سطح صرافی، دسترسی به اکوسیستم Pi، عملیات کیف پول، داده‌های بومی بازار و پشتیبانی مبتنی بر هوش مصنوعی را در یک تجربه معاملاتی یکپارچه ترکیب می‌کند.',
+    ar: 'يجمع picex بين سرعة على مستوى منصات التداول، والوصول إلى منظومة Pi، وعمليات المحفظة، وبيانات السوق الأصلية، والدعم المدعوم بالذكاء الاصطناعي في تجربة تداول موحدة.',
+    tr: 'picex; borsa seviyesinde hız, Pi ekosistemi erişimi, cüzdan işlemleri, yerel piyasa verileri ve AI destekli yardımı tek bir işlem deneyiminde birleştirir.',
+    zh: 'picex 将交易所级速度、Pi 生态访问、钱包操作、原生市场数据和 AI 支持整合到统一的交易体验中。',
+  },
+
+  featureTagSpot: {
+    en: 'Spot',
+    fa: 'اسپات',
+    ar: 'فوري',
+    tr: 'Spot',
+    zh: '现货',
+  },
+
+  featureTagPerps: {
+    en: 'Perps',
+    fa: 'پرپچوال',
+    ar: 'العقود الدائمة',
+    tr: 'Sürekli',
+    zh: '永续',
+  },
+
+  featureTagWallet: {
+    en: 'Wallet',
+    fa: 'کیف پول',
+    ar: 'المحفظة',
+    tr: 'Cüzdan',
+    zh: '钱包',
+  },
+
+  featureTagPiSdk: {
+    en: 'Pi SDK',
+    fa: 'Pi SDK',
+    ar: 'Pi SDK',
+    tr: 'Pi SDK',
+    zh: 'Pi SDK',
+  },
+
+  featureTagCharts: {
+    en: 'Charts',
+    fa: 'نمودارها',
+    ar: 'الرسوم البيانية',
+    tr: 'Grafikler',
+    zh: '图表',
+  },
+
+  featureTagAi: {
+    en: 'AI',
+    fa: 'هوش مصنوعی',
+    ar: 'الذكاء الاصطناعي',
+    tr: 'AI',
+    zh: 'AI',
+  },
+
+  picexFeatureSpotTitle: {
+    en: 'Spot Trading',
+    fa: 'معاملات اسپات',
+    ar: 'التداول الفوري',
+    tr: 'Spot İşlem',
+    zh: '现货交易',
+  },
+
+  picexFeatureSpotDescription: {
+    en: 'Trade Pi-based assets through a fast order book experience designed for real-time spot markets.',
+    fa: 'دارایی‌های مبتنی بر Pi را از طریق تجربه دفتر سفارشات سریع و طراحی‌شده برای بازارهای اسپات لحظه‌ای معامله کنید.',
+    ar: 'تداول الأصول القائمة على Pi من خلال تجربة دفتر أوامر سريعة مصممة للأسواق الفورية اللحظية.',
+    tr: 'Pi tabanlı varlıkları gerçek zamanlı spot piyasalar için tasarlanmış hızlı bir emir defteri deneyimiyle alıp satın.',
+    zh: '通过专为实时现货市场设计的快速订单簿体验交易基于 Pi 的资产。',
+  },
+
+  picexFeatureFuturesTitle: {
+    en: 'Futures Ready Architecture',
+    fa: 'معماری آماده برای فیوچرز',
+    ar: 'بنية جاهزة للعقود الآجلة',
+    tr: 'Vadeli işlemlere hazır mimari',
+    zh: '期货就绪架构',
+  },
+
+  picexFeatureFuturesDescription: {
+    en: 'picex is designed to support perpetual futures after the risk engine, margin system, and liquidation layer are mature.',
+    fa: 'picex طوری طراحی شده که پس از بلوغ موتور ریسک، سیستم مارجین و لایه لیکوییدیشن، از معاملات پرپچوال پشتیبانی کند.',
+    ar: 'تم تصميم picex لدعم العقود الدائمة بعد نضج محرك المخاطر ونظام الهامش وطبقة التصفية.',
+    tr: 'picex; risk motoru, marjin sistemi ve likidasyon katmanı olgunlaştıktan sonra sürekli vadeli işlemleri destekleyecek şekilde tasarlanmıştır.',
+    zh: 'picex 被设计为在风险引擎、保证金系统和清算层成熟后支持永续期货。',
+  },
+
+  picexFeatureWalletTitle: {
+    en: 'Wallet, Deposit & Withdraw',
+    fa: 'کیف پول، واریز و برداشت',
+    ar: 'المحفظة والإيداع والسحب',
+    tr: 'Cüzdan, yatırma ve çekme',
+    zh: '钱包、充值与提现',
+  },
+
+  picexFeatureWalletDescription: {
+    en: 'A wallet-first flow for deposits, pending balances, withdrawals, hot wallet operations, and cold wallet treasury controls.',
+    fa: 'یک جریان کیف‌پول‌محور برای واریزها، موجودی‌های در انتظار، برداشت‌ها، عملیات کیف پول گرم و کنترل خزانه سرد.',
+    ar: 'تدفق يركز على المحفظة للإيداعات والأرصدة المعلقة والسحوبات وعمليات المحفظة الساخنة وضوابط الخزينة الباردة.',
+    tr: 'Yatırma, bekleyen bakiyeler, çekme, sıcak cüzdan işlemleri ve soğuk cüzdan hazine kontrolleri için cüzdan öncelikli akış.',
+    zh: '面向充值、待处理余额、提现、热钱包操作和冷钱包金库控制的钱包优先流程。',
+  },
+
+  picexFeaturePiTitle: {
+    en: 'Pi Login & KYC-Aware Access',
+    fa: 'ورود با Pi و دسترسی آگاه از KYC',
+    ar: 'تسجيل الدخول عبر Pi ووصول مراعي لـ KYC',
+    tr: 'Pi girişi ve KYC uyumlu erişim',
+    zh: 'Pi 登录与 KYC 感知访问',
+  },
+
+  picexFeaturePiDescription: {
+    en: 'Users connect through Pi identity flows while picex applies account limits, KYC-aware access, and safer trading rules.',
+    fa: 'کاربران از طریق جریان‌های هویتی Pi متصل می‌شوند و picex محدودیت‌های حساب، دسترسی آگاه از KYC و قوانین معاملاتی امن‌تر را اعمال می‌کند.',
+    ar: 'يتصل المستخدمون عبر تدفقات هوية Pi بينما يطبق picex حدود الحساب والوصول المراعي لـ KYC وقواعد تداول أكثر أماناً.',
+    tr: 'Kullanıcılar Pi kimlik akışlarıyla bağlanırken picex hesap limitleri, KYC uyumlu erişim ve daha güvenli işlem kuralları uygular.',
+    zh: '用户通过 Pi 身份流程连接，同时 picex 应用账户限制、KYC 感知访问和更安全的交易规则。',
+  },
+
+  picexFeatureChartsTitle: {
+    en: 'Native picex Charts',
+    fa: 'نمودارهای بومی picex',
+    ar: 'رسوم picex البيانية الأصلية',
+    tr: 'Yerel picex grafikleri',
+    zh: 'picex 原生图表',
+  },
+
+  picexFeatureChartsDescription: {
+    en: 'Price charts are planned to be generated from picex’s own executed trades, order book events, and OHLC candles.',
+    fa: 'نمودارهای قیمت قرار است از معاملات انجام‌شده خود picex، رویدادهای دفتر سفارشات و کندل‌های OHLC تولید شوند.',
+    ar: 'من المخطط توليد مخططات الأسعار من صفقات picex المنفذة وأحداث دفتر الأوامر وشموع OHLC.',
+    tr: 'Fiyat grafiklerinin picex’in kendi gerçekleşen işlemleri, emir defteri olayları ve OHLC mumlarından üretilmesi planlanmaktadır.',
+    zh: '价格图表计划由 picex 自身的成交交易、订单簿事件和 OHLC K 线生成。',
+  },
+
+  picexFeatureAiTitle: {
+    en: 'AI Online Support',
+    fa: 'پشتیبانی آنلاین هوش مصنوعی',
+    ar: 'الدعم الإلكتروني بالذكاء الاصطناعي',
+    tr: 'AI çevrimiçi destek',
+    zh: 'AI 在线支持',
+  },
+
+  picexFeatureAiDescription: {
+    en: 'An intelligent support assistant will help users with Pi login, payments, deposits, withdrawals, KYC, fees, and order issues.',
+    fa: 'یک دستیار پشتیبانی هوشمند به کاربران در ورود با Pi، پرداخت‌ها، واریزها، برداشت‌ها، KYC، کارمزدها و مشکلات سفارش کمک می‌کند.',
+    ar: 'سيساعد مساعد دعم ذكي المستخدمين في تسجيل الدخول عبر Pi والمدفوعات والإيداعات والسحوبات وKYC والرسوم ومشكلات الأوامر.',
+    tr: 'Akıllı destek asistanı; Pi girişi, ödemeler, yatırma, çekme, KYC, ücretler ve emir sorunlarında kullanıcılara yardımcı olur.',
+    zh: '智能支持助手将帮助用户处理 Pi 登录、支付、充值、提现、KYC、费用和订单问题。',
+  },
 };
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
@@ -1854,3 +2024,5 @@ export const useI18n = (): I18nContextType => {
 };
 
 export default I18nContext;
+
+    
