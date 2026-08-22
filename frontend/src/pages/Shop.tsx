@@ -1,5 +1,7 @@
 // frontend/src/pages/Shop.tsx
 import React, { useState } from 'react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import ProductCard, { Product } from '../components/ProductCard';
 import { useI18n } from '../i18n/I18nContext';
 import './Shop.css';
@@ -20,159 +22,132 @@ const Shop: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState<string | null>(null);
   const [statusMsg, setStatusMsg] = useState<StatusMsg | null>(null);
 
-  const [products] = useState<Product[]>([
+  const products: Product[] = [
     {
       id: 'spot-pi-usdt',
-      name: 'PI / USDT Spot Market',
-      nameFa: 'بازار اسپات PI / USDT',
-      nameEn: 'PI / USDT Spot Market',
-      nameTr: 'PI / USDT Spot Market',
-
-      description:
+      nameKey: 'shopProductSpotPiUsdtTitle',
+      fallbackName: 'PI / USDT Spot Market',
+      descriptionKey: 'shopProductSpotPiUsdtDescription',
+      fallbackDescription:
         'A planned spot trading pair powered by the picex order book and internal trade history.',
-      descriptionFa:
-        'جفت‌ارز اسپات پیشنهادی با دفتر سفارش picex و تاریخچه معاملات داخلی.',
-      descriptionEn:
-        'A planned spot trading pair powered by the picex order book and internal trade history.',
-      descriptionTr:
-        'picex emir defteri ve dahili işlem geçmişi ile planlanan spot işlem çifti.',
-
       icon: 'π',
-      category: 'Spot',
-      badge: 'Core',
-      priceDisplay: 'Low Fee',
-      actionLabel: 'Preview Market',
+      categoryKey: 'featureTagSpot',
+      fallbackCategory: 'Spot',
+      badgeKey: 'productBadgeCore',
+      fallbackBadge: 'Core',
+      priceDisplayKey: 'productPriceLowFee',
+      fallbackPriceDisplay: 'Low Fee',
+      actionLabelKey: 'productActionPreviewMarket',
+      fallbackActionLabel: 'Preview Market',
+      disabled: false,
     },
     {
       id: 'wallet-access',
-      name: 'Wallet Deposit & Withdraw',
-      nameFa: 'کیف پول، واریز و برداشت',
-      nameEn: 'Wallet Deposit & Withdraw',
-      nameTr: 'Cüzdan Yatırma ve Çekme',
-
-      description:
+      nameKey: 'shopProductWalletAccessTitle',
+      fallbackName: 'Wallet Deposit & Withdraw',
+      descriptionKey: 'shopProductWalletAccessDescription',
+      fallbackDescription:
         'Future wallet module for deposit addresses, pending balances, withdrawal queue, and hot/cold wallet operations.',
-      descriptionFa:
-        'ماژول آینده کیف پول برای آدرس واریز، موجودی در انتظار، صف برداشت و مدیریت کیف پول گرم و سرد.',
-      descriptionEn:
-        'Future wallet module for deposit addresses, pending balances, withdrawal queue, and hot/cold wallet operations.',
-      descriptionTr:
-        'Yatırma adresleri, bekleyen bakiyeler, çekim kuyruğu ve sıcak/soğuk cüzdan operasyonları için gelecek modül.',
-
       icon: '👛',
-      category: 'Wallet',
-      badge: 'Planned',
-      priceDisplay: 'Pi Flow',
-      actionLabel: 'View Flow',
+      categoryKey: 'featureTagWallet',
+      fallbackCategory: 'Wallet',
+      badgeKey: 'planned',
+      fallbackBadge: 'Planned',
+      priceDisplayKey: 'productPricePiFlow',
+      fallbackPriceDisplay: 'Pi Flow',
+      actionLabelKey: 'productActionViewFlow',
+      fallbackActionLabel: 'View Flow',
+      disabled: false,
     },
     {
       id: 'native-charts',
-      name: 'Native picex Charts',
-      nameFa: 'نمودارهای اختصاصی picex',
-      nameEn: 'Native picex Charts',
-      nameTr: 'Yerel picex Grafikleri',
-
-      description:
+      nameKey: 'shopProductNativeChartsTitle',
+      fallbackName: 'Native picex Charts',
+      descriptionKey: 'shopProductNativeChartsDescription',
+      fallbackDescription:
         'Charts generated from picex executed trades, OHLC candles, depth, and real-time order book events.',
-      descriptionFa:
-        'نمودارهایی بر پایه معاملات انجام‌شده در picex، کندل‌های OHLC، عمق بازار و رویدادهای دفتر سفارش.',
-      descriptionEn:
-        'Charts generated from picex executed trades, OHLC candles, depth, and real-time order book events.',
-      descriptionTr:
-        'picex işlemleri, OHLC mumları, derinlik ve gerçek zamanlı emir defteri olaylarından üretilen grafikler.',
-
       icon: '📈',
-      category: 'Market Data',
-      badge: 'Native',
-      priceDisplay: 'Internal Data',
-      actionLabel: 'Explore Charts',
+      categoryKey: 'roadmapStatusMarket',
+      fallbackCategory: 'Market Data',
+      badgeKey: 'productBadgeNative',
+      fallbackBadge: 'Native',
+      priceDisplayKey: 'productPriceInternalData',
+      fallbackPriceDisplay: 'Internal Data',
+      actionLabelKey: 'productActionExploreCharts',
+      fallbackActionLabel: 'Explore Charts',
+      disabled: false,
     },
     {
       id: 'ai-support',
-      name: 'AI Support Assistant',
-      nameFa: 'دستیار پشتیبانی هوش مصنوعی',
-      nameEn: 'AI Support Assistant',
-      nameTr: 'Yapay Zeka Destek Asistanı',
-
-      description:
+      nameKey: 'shopProductAiSupportTitle',
+      fallbackName: 'AI Support Assistant',
+      descriptionKey: 'shopProductAiSupportDescription',
+      fallbackDescription:
         'AI support layer for questions about Pi login, payments, deposits, withdrawals, KYC, fees, and order status.',
-      descriptionFa:
-        'لایه پشتیبانی هوش مصنوعی برای سوالات مربوط به ورود Pi، پرداخت، واریز، برداشت، KYC، کارمزد و وضعیت سفارش.',
-      descriptionEn:
-        'AI support layer for questions about Pi login, payments, deposits, withdrawals, KYC, fees, and order status.',
-      descriptionTr:
-        'Pi girişi, ödemeler, yatırma, çekme, KYC, ücretler ve emir durumu için yapay zeka destek katmanı.',
-
       icon: '🤖',
-      category: 'Support',
-      badge: 'AI',
-      priceDisplay: '24/7',
-      actionLabel: 'Open Assistant',
+      categoryKey: 'support',
+      fallbackCategory: 'Support',
+      badgeKey: 'featureTagAi',
+      fallbackBadge: 'AI',
+      priceDisplayKey: 'productPrice247',
+      fallbackPriceDisplay: '24/7',
+      actionLabelKey: 'productActionOpenAssistant',
+      fallbackActionLabel: 'Open Assistant',
+      disabled: false,
     },
     {
       id: 'picex-governance',
-      name: 'picex Governance',
-      nameFa: 'حاکمیت جامعه picex',
-      nameEn: 'picex Governance',
-      nameTr: 'picex Yönetişim',
-
-      description:
+      nameKey: 'shopProductGovernanceTitle',
+      fallbackName: 'picex Governance',
+      descriptionKey: 'shopProductGovernanceDescription',
+      fallbackDescription:
         'Community voting and product prioritization for the picex roadmap using the existing poll infrastructure.',
-      descriptionFa:
-        'رأی‌گیری جامعه و اولویت‌بندی محصول برای نقشه‌راه picex با استفاده از زیرساخت Poll موجود.',
-      descriptionEn:
-        'Community voting and product prioritization for the picex roadmap using the existing poll infrastructure.',
-      descriptionTr:
-        'Mevcut anket altyapısı ile picex yol haritası için topluluk oylaması ve ürün önceliklendirmesi.',
-
       icon: '🗳️',
-      category: 'Governance',
-      badge: 'Community',
-      priceDisplay: 'Vote',
-      actionLabel: 'View Poll',
+      categoryKey: 'governance',
+      fallbackCategory: 'Governance',
+      badgeKey: 'footerCommunity',
+      fallbackBadge: 'Community',
+      priceDisplayKey: 'productPriceVote',
+      fallbackPriceDisplay: 'Vote',
+      actionLabelKey: 'productActionViewPoll',
+      fallbackActionLabel: 'View Poll',
+      disabled: false,
     },
     {
       id: 'futures-ready',
-      name: 'Perpetual Futures Layer',
-      nameFa: 'لایه فیوچرز دائمی',
-      nameEn: 'Perpetual Futures Layer',
-      nameTr: 'Sürekli Vadeli İşlemler Katmanı',
-
-      description:
+      nameKey: 'shopProductFuturesTitle',
+      fallbackName: 'Perpetual Futures Layer',
+      descriptionKey: 'shopProductFuturesDescription',
+      fallbackDescription:
         'A future derivatives layer planned after spot liquidity, risk engine, margin controls, and liquidation logic are ready.',
-      descriptionFa:
-        'لایه مشتقات آینده پس از آماده شدن نقدینگی اسپات، موتور ریسک، کنترل مارجین و منطق لیکوییدیشن.',
-      descriptionEn:
-        'A future derivatives layer planned after spot liquidity, risk engine, margin controls, and liquidation logic are ready.',
-      descriptionTr:
-        'Spot likidite, risk motoru, marjin kontrolleri ve likidasyon mantığı hazır olduktan sonra planlanan türev katmanı.',
-
       icon: '⚡',
-      category: 'Futures',
-      badge: 'Future',
-      priceDisplay: 'Risk Engine',
-      actionLabel: 'Learn More',
+      categoryKey: 'futures',
+      fallbackCategory: 'Futures',
+      badgeKey: 'productBadgeFuture',
+      fallbackBadge: 'Future',
+      priceDisplayKey: 'productPriceRiskEngine',
+      fallbackPriceDisplay: 'Risk Engine',
+      actionLabelKey: 'learnMore',
+      fallbackActionLabel: 'Learn More',
+      disabled: false,
     },
-  ]);
+  ];
 
   const handlePurchase = async (product: Product) => {
     setIsProcessing(product.id);
     setStatusMsg(null);
 
     try {
-      /**
-       * This is intentionally still mock.
-       * Later we can connect specific cards to routes:
-       * - Wallet -> #pi-payment-panel
-       * - Governance -> #poll
-       * - AI Support -> /support or #support-ai
-       * - Spot -> /markets or /trade
-       */
-      await new Promise((resolve) => setTimeout(resolve, 900));
+      await new Promise((resolve) => setTimeout(resolve, 700));
+
+      const productName = tx(product.nameKey, product.fallbackName);
 
       setStatusMsg({
         type: 'info',
-        text: `${product.name} is part of the picex roadmap. The previous purchase flow is preserved and can be connected to Pi payments when needed.`,
+        text: tx(
+          'productRoadmapNotice',
+          '{product} is part of the picex roadmap. This action can later be connected to Pi payments, market previews, governance, or support flows.'
+        ).replace('{product}', productName),
       });
     } catch (error) {
       setStatusMsg({
@@ -186,15 +161,17 @@ const Shop: React.FC = () => {
 
   return (
     <div className="shop-page">
-      <div className="shop-container">
+      <Navbar />
+
+      <main className="shop-container">
         <header className="shop-header">
           <div className="shop-kicker">
-            picex Trading Products
+            {tx('shopKicker', 'picex Trading Products')}
           </div>
 
-          <h2 className="shop-title">
+          <h1 className="shop-title">
             {tx('picexProductsTitle', 'Markets, wallet tools, and exchange modules')}
-          </h2>
+          </h1>
 
           <p className="shop-subtitle">
             {tx(
@@ -220,7 +197,9 @@ const Shop: React.FC = () => {
             />
           ))}
         </div>
-      </div>
+      </main>
+
+      <Footer />
     </div>
   );
 };
