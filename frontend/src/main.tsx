@@ -58,7 +58,7 @@ function initializePiSdk() {
       sandbox: PI_SANDBOX,
     });
 
-    window.__PI_SDK_INITIALIZED__ = false;
+    window.__PI_SDK_INITIALIZED__ = true;
     window.__PI_SDK_SANDBOX__ = PI_SANDBOX;
 
     console.log('Pi SDK initialized successfully from main.tsx.', {
@@ -69,7 +69,7 @@ function initializePiSdk() {
   }
 }
 
-// اگر صفحه روی tiraxturumuz1.github.io خارج از Pi Browser باز شده باشد،
+// اگر صفحه روی picexpi.github.io خارج از Pi Browser باز شده باشد،
 // index.html پیام راهنما را نمایش می‌دهد و React نباید آن را جایگزین کند.
 if (window.__PI_BROWSER_REQUIRED_BLOCKED__) {
   console.warn(
