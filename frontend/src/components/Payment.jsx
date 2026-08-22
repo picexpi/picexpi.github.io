@@ -42,7 +42,7 @@ const Payment = ({
     try {
       const payment = await window.Pi.createPayment({
         amount: 1.0, 
-        memo: "Purchase from PiDao",
+        memo: "Purchase from PiCex",
         metadata: {
           productId: "item_123",
           userId: user?.uid || 'guest',
@@ -97,7 +97,7 @@ const Payment = ({
         
         <div className="payment-details-box">
           <p>Amount: <span className="amount-highlight">1.0 PI</span></p>
-          <p>Product: <span className="product-name">PiDao Premium Item</span></p>
+          <p>Product: <span className="product-name">PiCex Premium Item</span></p>
           {transactionId && <p className="tx-id">ID: {transactionId}</p>}
         </div>
 
