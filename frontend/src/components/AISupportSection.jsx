@@ -68,9 +68,10 @@ const AISupportSection = () => {
             <div className="ai-support-list">
               {supportItems.map((item, index) => (
                 <div key={index} className="ai-support-list-item">
-                  <span className="ai-support-list-icon">
+                  <span className="ai-support-list-icon" aria-hidden="true">
                     {item.icon}
                   </span>
+
                   <p>{item.text}</p>
                 </div>
               ))}
@@ -79,9 +80,11 @@ const AISupportSection = () => {
 
           <div className="ai-support-chat-card">
             <div className="ai-chat-header">
-              <div className="ai-chat-avatar">🤖</div>
+              <div className="ai-chat-avatar" aria-hidden="true">
+                🤖
+              </div>
 
-              <div>
+              <div className="ai-chat-title-block">
                 <h3>{tx('picexAiSupport', 'picex AI Support')}</h3>
                 <p>{tx('onlineSupportAssistant', 'Online support assistant')}</p>
               </div>
@@ -121,6 +124,7 @@ const AISupportSection = () => {
                   'Ask about deposits, withdrawals, Pi login, fees, or KYC...'
                 )}
               </span>
+
               <button type="button">
                 {tx('send', 'Send')}
               </button>
