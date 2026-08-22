@@ -1,6 +1,12 @@
 // frontend/src/Router.tsx
 import React from 'react';
-import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import {
+  HashRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+
 import { useAuth } from './context/AuthContext';
 import { useI18n } from './i18n/I18nContext';
 
@@ -8,7 +14,8 @@ import { useI18n } from './i18n/I18nContext';
 import Home from './pages/Home';
 import Dig from './pages/Dig';
 import Shop from './pages/Shop';
-import TasksPage from './pages/Engagement/TasksPage';
+import Tasks from './pages/Tasks';
+
 import SignIn from './components/SignIn';
 import PiPaymentPanel from './components/PiPaymentPanel';
 import History from './components/History';
@@ -23,6 +30,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const auth = useAuth();
   const { t } = useI18n();
 
+  const tx = (key: string, fallback: string) => {
+    const value = t(key);
+    return value && value !== key ? value : fallback;
+  };
+
   if (!auth || auth.loading === undefined) {
     return (
       <div
@@ -31,12 +43,15 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
           justifyContent: 'center',
           alignItems: 'center',
           height: '100vh',
-          color: '#fff',
-          background: '#311b92',
+          color: '#ffffff',
+          background:
+            'radial-gradient(circle at top left, rgba(255,202,40,0.18), transparent 30%), radial-gradient(circle at bottom right, rgba(111,45,189,0.32), transparent 34%), linear-gradient(135deg, #0f0820, #3c096c)',
           fontFamily: 'sans-serif',
+          textAlign: 'center',
+          padding: '20px',
         }}
       >
-        <p>{t('connectingToServer')}</p>
+        <p>{tx('connectingToServer', 'Connecting to server...')}</p>
       </div>
     );
   }
@@ -53,12 +68,15 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
           alignItems: 'center',
           height: '100vh',
           fontSize: '1.2rem',
-          color: '#fff',
-          background: '#311b92',
+          color: '#ffffff',
+          background:
+            'radial-gradient(circle at top left, rgba(255,202,40,0.18), transparent 30%), radial-gradient(circle at bottom right, rgba(111,45,189,0.32), transparent 34%), linear-gradient(135deg, #0f0820, #3c096c)',
           fontFamily: 'sans-serif',
+          textAlign: 'center',
+          padding: '20px',
         }}
       >
-        {t('loading')}
+        {tx('loading', 'Loading...')}
       </div>
     );
   }
@@ -67,7 +85,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     return <Navigate to="/login" replace />;
   }
 
-  return <React.Fragment>{children}</React.Fragment>;
+  return <>{children}</>;
 };
 
 const HistoryAny = History as any;
@@ -142,7 +160,7 @@ const AppRouter: React.FC = () => {
           path="/tasks"
           element={
             <ProtectedRoute>
-              <TasksPage />
+              <Tasks />
             </ProtectedRoute>
           }
         />
