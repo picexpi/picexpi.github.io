@@ -9,6 +9,7 @@ export const footerTranslations: TranslationsMap = {
     tr: 'Pi Network için hibrit işlem merkezi',
     zh: 'Pi Network 混合交易中心',
   },
+
   picexFooterDescription: {
     en: 'picex is a Pi-first hybrid exchange experience combining fast trading, Pi login, payment flows, native market data, AI support, and a wallet-ready architecture for future deposit and withdrawal operations.',
     fa: 'picex یک تجربه صرافی هیبرید و Pi-first است که معاملات سریع، ورود با Pi، جریان‌های پرداخت، داده‌های بومی بازار، پشتیبانی هوش مصنوعی و معماری آماده کیف پول برای عملیات واریز و برداشت آینده را ترکیب می‌کند.',
@@ -16,6 +17,7 @@ export const footerTranslations: TranslationsMap = {
     tr: 'picex; hızlı işlem, Pi girişi, ödeme akışları, yerel piyasa verileri, AI destek ve gelecekteki yatırma/çekme işlemleri için cüzdana hazır mimariyi birleştiren Pi öncelikli hibrit borsa deneyimidir.',
     zh: 'picex 是 Pi 优先的混合交易体验，结合快速交易、Pi 登录、支付流程、原生市场数据、AI 支持以及面向未来充值和提现的钱包就绪架构。',
   },
+
   footerExchange: {
     en: 'Exchange',
     fa: 'صرافی',
@@ -23,6 +25,7 @@ export const footerTranslations: TranslationsMap = {
     tr: 'Borsa',
     zh: '交易所',
   },
+
   footerCommunity: {
     en: 'Community',
     fa: 'جامعه',
@@ -30,6 +33,7 @@ export const footerTranslations: TranslationsMap = {
     tr: 'Topluluk',
     zh: '社区',
   },
+
   footerResources: {
     en: 'Resources',
     fa: 'منابع',
@@ -37,6 +41,31 @@ export const footerTranslations: TranslationsMap = {
     tr: 'Kaynaklar',
     zh: '资源',
   },
+
+  riskDisclosure: {
+    en: 'Risk Disclosure',
+    fa: 'افشای ریسک',
+    ar: 'الإفصاح عن المخاطر',
+    tr: 'Risk Bildirimi',
+    zh: '风险披露',
+  },
+
+  fees: {
+    en: 'Fees',
+    fa: 'کارمزدها',
+    ar: 'الرسوم',
+    tr: 'Ücretler',
+    zh: '费用',
+  },
+
+  cookiePolicy: {
+    en: 'Cookie Policy',
+    fa: 'سیاست کوکی‌ها',
+    ar: 'سياسة ملفات تعريف الارتباط',
+    tr: 'Çerez Politikası',
+    zh: 'Cookie 政策',
+  },
+
   picexFooterNote: {
     en: 'picex is under active development. Trading, wallet, deposit, withdrawal, futures, and AI support features must be tested, audited, and reviewed for compliance before production use. Pi SDK functionality depends on the official Pi Network Developer Platform and current network availability.',
     fa: 'picex در حال توسعه فعال است. قابلیت‌های معامله، کیف پول، واریز، برداشت، فیوچرز و پشتیبانی هوش مصنوعی باید پیش از استفاده نهایی تست، حسابرسی و از نظر تطبیق با قوانین بررسی شوند. عملکرد Pi SDK به پلتفرم رسمی توسعه‌دهندگان Pi Network و وضعیت فعلی شبکه وابسته است.',
@@ -44,11 +73,13 @@ export const footerTranslations: TranslationsMap = {
     tr: 'picex aktif geliştirme aşamasındadır. Alım satım, cüzdan, yatırma, çekme, vadeli işlemler ve AI destek özellikleri üretim kullanımından önce test edilmeli, denetlenmeli ve uyumluluk açısından incelenmelidir. Pi SDK işlevselliği resmi Pi Network Developer Platformu’na ve mevcut ağ erişilebilirliğine bağlıdır.',
     zh: 'picex 正在积极开发中。交易、钱包、充值、提现、期货和 AI 支持功能在生产使用前必须经过测试、审计和合规审查。Pi SDK 功能取决于官方 Pi Network 开发者平台和当前网络可用性。',
   },
+
   footerRights: {
     en: 'All rights reserved.',
     fa: 'تمام حقوق محفوظ است.',
     ar: 'جميع الحقوق محفوظة.',
     tr: 'Tüm hakları saklıdır.',
-    zh: '保留所有权利。',
+    zh: '保留所有权利。'
+    ,
   },
 };
