@@ -6,11 +6,9 @@ import { useI18n } from '../i18n/I18nContext';
 export interface Product {
   id: string;
 
-  // حالت فعلی
   name: string;
   description: string;
 
-  // فیلدهای اختیاری برای چندزبانه کردن محصولات
   nameFa?: string;
   nameEn?: string;
   nameTr?: string;
@@ -19,8 +17,12 @@ export interface Product {
   descriptionEn?: string;
   descriptionTr?: string;
 
-  image: string;
+  image?: string;
+  icon?: string;
+  category?: string;
+  badge?: string;
   priceDisplay: string;
+  actionLabel?: string;
 }
 
 interface ProductCardProps {
@@ -37,6 +39,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const { lang, t } = useI18n();
 
   const loading = isProcessing === product.id;
+
+  const tx = (key: string, fallback: string) => {
+    const value = t(key);
+    return value && value !== key ? value : fallback;
+  };
 
   const getProductName = () => {
     if (lang === 'fa') return product.nameFa || product.name;
@@ -58,20 +65,38 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const productDescription = getProductDescription();
 
   return (
-    <div className="product-card">
-      <div className="product-image-wrapper">
-        <img
-          src={product.image}
-          alt={productName}
-          className="product-image"
-        />
+    <article className="product-card">
+      <div className="product-visual-wrapper">
+        {product.image ? (
+          <img
+            src={product.image}
+            alt={productName}
+            className="product-image"
+          />
+        ) : (
+          <div className="product-icon-fallback">
+            {product.icon || 'π'}
+          </div>
+        )}
 
         <div className="product-price-badge">
           {product.priceDisplay}
         </div>
+
+        {product.badge && (
+          <div className="product-top-badge">
+            {product.badge}
+          </div>
+        )}
       </div>
 
       <div className="product-content">
+        {product.category && (
+          <div className="product-category">
+            {product.category}
+          </div>
+        )}
+
         <h3 className="product-title">{productName}</h3>
 
         <p className="product-description">
@@ -85,17 +110,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
         >
           {loading ? (
             <>
-              <span className="spinner"></span>
+              <span className="product-spinner"></span>
               <span style={{ marginInlineStart: '8px' }}>
-                {t('processing')}
+                {tx('processing', 'Processing...')}
               </span>
             </>
           ) : (
-            t('buyNow')
+            product.actionLabel || tx('buyNow', 'Open')
           )}
         </button>
       </div>
-    </div>
+    </article>
   );
 };
 
