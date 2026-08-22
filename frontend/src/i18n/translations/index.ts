@@ -12,6 +12,7 @@ import { aiSupportTranslations } from './aiSupport';
 import { paymentTranslations } from './payment';
 import { pollTranslations } from './poll';
 import { footerTranslations } from './footer';
+import { miscTranslations } from './misc';
 
 const mergeTranslations = (...maps: TranslationsMap[]): TranslationsMap => {
   const merged: TranslationsMap = {};
@@ -40,8 +41,8 @@ export const translations: TranslationsMap = mergeTranslations(
   aiSupportTranslations,
   paymentTranslations,
   pollTranslations,
-  footerTranslations
+  footerTranslations,
+  miscTranslations
 );
 
-export type { Language, Direction, TranslationItem, TranslationsMap } from './t
-ypes';
+export type { Language, Direction, TranslationItem, TranslationsMap } from './types';
