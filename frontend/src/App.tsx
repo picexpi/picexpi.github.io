@@ -4,8 +4,8 @@ import AppRouter from './Router';
 
 /**
  * ErrorBoundary:
- * یک کامپوننت برای مدیریت خطاهای ناگهانی در اپلیکیشن.
- * این کامپوننت از نمایش صفحه سفید هنگام کرش React جلوگیری می‌کند.
+ * Prevents the whole React app from showing a blank page
+ * when an unexpected runtime error happens.
  */
 interface Props {
   children: ReactNode;
@@ -18,17 +18,19 @@ interface State {
 class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { hasError: false };
+
+    this.state = {
+      hasError: false,
+    };
   }
 
   static getDerivedStateFromError(_: Error): State {
-    // در صورت بروز خطا، وضعیت را به true تغییر می‌دهد تا UI جایگزین نمایش داده شود
-    return { hasError: true };
+    return {
+      hasError: true,
+    };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // ثبت خطا در کنسول برای دیباگ
-    // در آینده می‌توان اینجا خطا را به سرویس مانیتورینگ هم ارسال کرد
     console.error('❌ Uncaught Error in React Tree:', error, errorInfo);
   }
 
@@ -49,26 +51,47 @@ class ErrorBoundary extends Component<Props, State> {
             textAlign: 'center',
             padding: '20px',
             fontFamily: 'sans-serif',
-            background: 'linear-gradient(135deg, #311b92, #673ab7)',
-            color: '#fff',
+            background:
+              'radial-gradient(circle at top left, rgba(255,202,40,0.18), transparent 30%), radial-gradient(circle at bottom right, rgba(111,45,189,0.32), transparent 34%), linear-gradient(135deg, #0f0820, #3c096c)',
+            color: '#ffffff',
           }}
         >
           <div
             style={{
               width: '100%',
               maxWidth: '460px',
-              background: '#ffffff',
-              color: '#333',
-              borderRadius: '20px',
-              padding: '30px 24px',
-              boxShadow: '0 20px 45px rgba(0,0,0,0.25)',
+              background:
+                'linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06))',
+              color: '#ffffff',
+              borderRadius: '24px',
+              padding: '32px 24px',
+              boxShadow: '0 28px 70px rgba(0,0,0,0.42)',
+              border: '1px solid rgba(255,255,255,0.14)',
+              backdropFilter: 'blur(18px)',
             }}
           >
+            <div
+              style={{
+                display: 'inline-flex',
+                marginBottom: '14px',
+                padding: '7px 14px',
+                borderRadius: '999px',
+                background: 'rgba(255,202,40,0.12)',
+                border: '1px solid rgba(255,202,40,0.28)',
+                color: '#ffca28',
+                fontSize: '12px',
+                fontWeight: 900,
+              }}
+            >
+              picex
+            </div>
+
             <h1
               style={{
                 fontSize: '2rem',
-                color: '#ff4d4f',
+                color: '#ffffff',
                 marginBottom: '12px',
+                fontWeight: 950,
               }}
             >
               Oops! Something went wrong.
@@ -76,8 +99,8 @@ class ErrorBoundary extends Component<Props, State> {
 
             <p
               style={{
-                color: '#666',
-                lineHeight: 1.6,
+                color: '#d8cfee',
+                lineHeight: 1.7,
                 marginBottom: '20px',
               }}
             >
@@ -86,17 +109,20 @@ class ErrorBoundary extends Component<Props, State> {
             </p>
 
             <button
+              type="button"
               onClick={this.handleReload}
               style={{
                 marginTop: '10px',
                 padding: '12px 22px',
-                backgroundColor: '#673ab7',
-                color: 'white',
+                background:
+                  'linear-gradient(135deg, #ffe7a3, #ffca28, #f4b942)',
+                color: '#180d31',
                 border: 'none',
-                borderRadius: '24px',
+                borderRadius: '999px',
                 cursor: 'pointer',
                 fontSize: '15px',
-                fontWeight: 700,
+                fontWeight: 950,
+                boxShadow: '0 16px 34px rgba(244,185,66,0.24)',
               }}
             >
               Reload Page
@@ -112,16 +138,8 @@ class ErrorBoundary extends Component<Props, State> {
 
 const App: React.FC = () => {
   return (
-    // کل اپلیکیشن داخل ErrorBoundary قرار می‌گیرد
     <ErrorBoundary>
       <div className="app-container">
-        {/*
-          برای جلوگیری از خطای TS2786:
-          استفاده از React.createElement و casting به any باعث می‌شود
-          TypeScript هنگام Build خطای
-          "AppRouter cannot be used as a JSX component"
-          ندهد.
-        */}
         {React.createElement(AppRouter as any)}
       </div>
     </ErrorBoundary>
