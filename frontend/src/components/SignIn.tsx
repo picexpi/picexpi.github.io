@@ -27,7 +27,7 @@ const SignIn: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useI18n();
 
-  const [status, setStatus] = useState<string>('Initializing Pi SDK for picex...');
+  const [status, setStatus] = useState<string>(t('initializingPiSdk'));
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const networkLabel = PI_SANDBOX ? t('testnet') : t('mainnet');
@@ -40,7 +40,7 @@ const SignIn: React.FC = () => {
     console.log('SignIn PI_SANDBOX:', PI_SANDBOX);
 
     if (!window.Pi) {
-      setStatus('Pi SDK not found. Please open picex inside Pi Browser.');
+      setStatus(t('piSdkNotFound'));
       return;
     }
 
@@ -67,26 +67,28 @@ const SignIn: React.FC = () => {
         );
       }
 
-      setStatus(`Pi SDK ready for picex. Network: ${networkLabel}`);
+      setStatus(`${t('piSdkReady')} ${t('network')}: ${networkLabel}`);
     } catch (error: any) {
       console.error('Pi SDK init error:', error);
-      setStatus('Pi SDK init error: ' + (error?.message || String(error)));
+      setStatus(
+        `${t('loginFailed')} ${error?.message || String(error)}`
+      );
     }
-  }, [networkLabel]);
+  }, [networkLabel, t]);
 
   const onIncompletePaymentFound = (payment: any) => {
     console.log('Incomplete payment found:', payment);
-    setStatus('Incomplete payment found. Complete or cancel it inside Pi Browser.');
+    setStatus(t('incompletePaymentFound'));
   };
 
   const handlePiLogin = async () => {
     if (!auth) {
-      setStatus('Auth context is missing.');
+      setStatus(t('authContextMissing'));
       return;
     }
 
     if (!window.Pi) {
-      setStatus('Pi SDK not found. Please open picex inside Pi Browser.');
+      setStatus(t('piSdkNotFound'));
       return;
     }
 
@@ -97,7 +99,7 @@ const SignIn: React.FC = () => {
 
     try {
       setIsLoading(true);
-      setStatus('Authenticating with Pi for picex...');
+      setStatus(t('authenticating'));
 
       const authResult = await window.Pi.authenticate(
         ['username', 'payments'],
@@ -129,18 +131,17 @@ const SignIn: React.FC = () => {
 
       await auth.login(String(piUserId), String(username), accessToken);
 
-      setStatus('picex login successful. Redirecting...');
+      setStatus(`${t('loginSuccess')} ${t('redirecting')}`);
       navigate('/', { replace: true });
     } catch (error: any) {
       console.error('Pi login error:', error);
 
       setStatus(
-        'Login failed: ' +
-          (
-            error?.response?.data?.message ||
-            error?.message ||
-            'User cancelled or authentication failed'
-          )
+        `${t('loginFailed')} ${
+          error?.response?.data?.message ||
+          error?.message ||
+          'User cancelled or authentication failed'
+        }`
       );
     } finally {
       setIsLoading(false);
@@ -188,7 +189,7 @@ const SignIn: React.FC = () => {
             fontWeight: 900,
           }}
         >
-          picex Account
+          {t('brandName')} Account
         </div>
 
         <h1
@@ -199,7 +200,7 @@ const SignIn: React.FC = () => {
             fontWeight: 950,
           }}
         >
-          Sign in to picex
+          {t('signInTitle')}
         </h1>
 
         <p
@@ -210,8 +211,7 @@ const SignIn: React.FC = () => {
             lineHeight: 1.7,
           }}
         >
-          Connect with your Pi account to access governance, payments, wallet
-          tools, and future trading features.
+          {t('signInDescription')}
         </p>
 
         <div
@@ -252,7 +252,7 @@ const SignIn: React.FC = () => {
             boxShadow: '0 16px 34px rgba(244,185,66,0.24)',
           }}
         >
-          {isLoading ? t('pleaseWait') : 'Login with Pi'}
+          {isLoading ? t('pleaseWait') : t('loginWithPi')}
         </button>
 
         <div
@@ -279,7 +279,7 @@ const SignIn: React.FC = () => {
             lineHeight: 1.6,
           }}
         >
-          Please use Pi Browser for the best Pi SDK experience.
+          {t('pleaseUsePiBrowser')}
         </p>
       </div>
     </div>
