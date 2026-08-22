@@ -40,15 +40,15 @@ const Navbar = () => {
       <div className="navbar-container">
         {/* لوگو */}
         <div className="navbar-logo">
-          <Link to="/" className="navbar-logo-link" aria-label="PiDao Home">
+          <Link to="/" className="navbar-logo-link" aria-label="PiCex Home">
             <img
               src={logo}
-              alt="PiDao Logo"
+              alt="PiCex Logo"
               className="navbar-logo-img"
             />
 
             <span className="navbar-logo-text">
-              Pi<span>DAO</span>
+              Pi<span>CEX</span>
             </span>
           </Link>
         </div>
