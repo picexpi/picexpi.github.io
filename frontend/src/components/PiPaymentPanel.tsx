@@ -12,7 +12,7 @@ declare global {
 }
 
 const API_BASE_URL =
-  (import.meta.env.VITE_API_URL || 'https://pidao.bonto.run/api').replace(
+  (import.meta.env.VITE_API_URL || 'https://picex.bonto.run/api').replace(
     /\/+$/,
     ''
   );
@@ -44,7 +44,7 @@ function getHealthUrl() {
 const PiPaymentPanel: React.FC = () => {
   const auth = useAuth();
 
-  const [status, setStatus] = useState<string>('Initializing Pi SDK...');
+  const [status, setStatus] = useState<string>('Initializing Pi SDK for picex...');
   const [username, setUsername] = useState<string>('');
   const [isPaying, setIsPaying] = useState<boolean>(false);
   const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
@@ -57,7 +57,7 @@ const PiPaymentPanel: React.FC = () => {
   const networkValue = PI_SANDBOX ? 'testnet' : 'mainnet';
 
   useEffect(() => {
-    console.log('User Agent:', navigator.userAgent);
+    console.log('picex User Agent:', navigator.userAgent);
     console.log('window.Pi:', window.Pi);
     console.log('Current URL:', window.location.href);
     console.log('Current Origin:', window.location.origin);
@@ -65,7 +65,7 @@ const PiPaymentPanel: React.FC = () => {
     console.log('PI_SANDBOX:', PI_SANDBOX);
 
     if (!window.Pi) {
-      setStatus('Pi SDK not found. Please open this app inside Pi Browser.');
+      setStatus('Pi SDK not found. Please open picex inside Pi Browser.');
       return;
     }
 
@@ -79,7 +79,7 @@ const PiPaymentPanel: React.FC = () => {
         window.__PI_SDK_INITIALIZED__ = true;
         window.__PI_SDK_SANDBOX__ = PI_SANDBOX;
 
-        console.log('Pi SDK initialized successfully.', {
+        console.log('Pi SDK initialized successfully for picex.', {
           sandbox: PI_SANDBOX,
         });
       } else if (window.__PI_SDK_SANDBOX__ !== PI_SANDBOX) {
@@ -89,12 +89,12 @@ const PiPaymentPanel: React.FC = () => {
         });
       }
 
-      setStatus(`Pi SDK ready. Network: ${networkLabel}`);
+      setStatus(`Pi SDK ready for picex. Network: ${networkLabel}`);
     } catch (error: any) {
       console.error('Pi SDK init error:', error);
       setStatus('Pi SDK init error: ' + (error?.message || String(error)));
     }
-  }, []);
+  }, [networkLabel]);
 
   useEffect(() => {
     if (auth?.user?.username) {
@@ -104,7 +104,9 @@ const PiPaymentPanel: React.FC = () => {
 
   const onIncompletePaymentFound = (payment: any) => {
     console.log('Incomplete payment found:', payment);
-    setStatus('Incomplete payment found. Please complete or cancel it in Pi Browser.');
+    setStatus(
+      'Incomplete Pi payment found. Please complete or cancel it in Pi Browser before starting a new picex payment.'
+    );
   };
 
   const warmUpBackend = async () => {
@@ -118,8 +120,8 @@ const PiPaymentPanel: React.FC = () => {
       return;
     }
 
-    console.log('Warming up backend:', healthUrl);
-    setStatus('Warming up backend...');
+    console.log('Warming up picex backend:', healthUrl);
+    setStatus('Warming up picex backend...');
 
     try {
       await fetch(healthUrl, {
@@ -137,7 +139,7 @@ const PiPaymentPanel: React.FC = () => {
     }
 
     if (!window.Pi) {
-      setStatus('Pi SDK not found. Please open this app inside Pi Browser.');
+      setStatus('Pi SDK not found. Please open picex inside Pi Browser.');
       return;
     }
 
@@ -148,7 +150,7 @@ const PiPaymentPanel: React.FC = () => {
 
     try {
       setIsLoggingIn(true);
-      setStatus('Authenticating with Pi...');
+      setStatus('Authenticating with Pi for picex...');
 
       const authResult = await window.Pi.authenticate(
         ['username', 'payments'],
@@ -178,14 +180,10 @@ const PiPaymentPanel: React.FC = () => {
         throw new Error('Invalid Pi user data received. Missing user id.');
       }
 
-      /**
-       * سازگار با AuthContext قبلی تو:
-       * این تابع در فایل قبلی وجود داشت.
-       */
       await auth.login(String(piUserId), String(piUsername), accessToken);
 
       setUsername(String(piUsername));
-      setStatus(`Login successful. Welcome @${piUsername}`);
+      setStatus(`picex login successful. Welcome @${piUsername}`);
     } catch (error: any) {
       console.error('Pi auth error:', error);
 
@@ -205,7 +203,7 @@ const PiPaymentPanel: React.FC = () => {
   const handleLogout = () => {
     auth?.logout();
     setUsername('');
-    setStatus(`Pi SDK ready. Network: ${networkLabel}`);
+    setStatus(`Pi SDK ready for picex. Network: ${networkLabel}`);
   };
 
   const validateAmount = () => {
@@ -215,7 +213,7 @@ const PiPaymentPanel: React.FC = () => {
       return {
         valid: false,
         value: 0,
-        message: 'Please enter a valid payment amount.',
+        message: 'Please enter a valid Pi amount.',
       };
     }
 
@@ -223,7 +221,7 @@ const PiPaymentPanel: React.FC = () => {
       return {
         valid: false,
         value: parsedAmount,
-        message: `Minimum payment amount is ${MIN_AMOUNT} Pi.`,
+        message: `Minimum amount is ${MIN_AMOUNT} Pi.`,
       };
     }
 
@@ -231,7 +229,7 @@ const PiPaymentPanel: React.FC = () => {
       return {
         valid: false,
         value: parsedAmount,
-        message: `Maximum payment amount is ${MAX_AMOUNT} Pi.`,
+        message: `Maximum amount is ${MAX_AMOUNT} Pi.`,
       };
     }
 
@@ -247,7 +245,7 @@ const PiPaymentPanel: React.FC = () => {
     orderId: string,
     paymentAmount: number
   ) => {
-    console.log('Calling approve endpoint:', '/pi/approve', {
+    console.log('Calling picex approve endpoint:', '/pi/approve', {
       paymentId,
       orderId,
       amount: paymentAmount,
@@ -260,6 +258,7 @@ const PiPaymentPanel: React.FC = () => {
         orderId,
         amount: paymentAmount,
         network: networkValue,
+        paymentType: 'picex_wallet_payment',
         pageUrl: window.location.href,
         pageOrigin: window.location.origin,
       });
@@ -290,7 +289,7 @@ const PiPaymentPanel: React.FC = () => {
     orderId: string,
     paymentAmount: number
   ) => {
-    console.log('Calling complete endpoint:', '/pi/complete', {
+    console.log('Calling picex complete endpoint:', '/pi/complete', {
       paymentId,
       txid,
       orderId,
@@ -305,6 +304,7 @@ const PiPaymentPanel: React.FC = () => {
         orderId,
         amount: paymentAmount,
         network: networkValue,
+        paymentType: 'picex_wallet_payment',
         pageUrl: window.location.href,
         pageOrigin: window.location.origin,
       });
@@ -331,7 +331,7 @@ const PiPaymentPanel: React.FC = () => {
 
   const createPiPayment = async () => {
     if (!window.Pi) {
-      setStatus('Pi SDK not found. Please open this app inside Pi Browser.');
+      setStatus('Pi SDK not found. Please open picex inside Pi Browser.');
       return;
     }
 
@@ -341,7 +341,7 @@ const PiPaymentPanel: React.FC = () => {
     }
 
     if (!isAuthenticated) {
-      setStatus('Please login with Pi first.');
+      setStatus('Please connect with Pi before creating a picex payment.');
       return;
     }
 
@@ -358,20 +358,23 @@ const PiPaymentPanel: React.FC = () => {
     }
 
     const paymentAmount = amountValidation.value;
-    const orderId = (PI_SANDBOX ? 'test_order_' : 'main_order_') + Date.now();
+    const orderId =
+      (PI_SANDBOX ? 'picex_test_payment_' : 'picex_main_payment_') +
+      Date.now();
 
     try {
       setIsPaying(true);
 
       await warmUpBackend();
 
-      setStatus(`Creating ${networkLabel} Pi payment...`);
+      setStatus(`Creating ${networkLabel} Pi payment for picex...`);
 
       const paymentData = {
         amount: paymentAmount,
-        memo: `Pi CEX payment - ${paymentAmount} Pi`,
+        memo: `picex wallet payment - ${paymentAmount} Pi`,
         metadata: {
-          type: PI_SANDBOX ? 'testnet_payment' : 'mainnet_payment',
+          type: PI_SANDBOX ? 'picex_testnet_payment' : 'picex_mainnet_payment',
+          product: 'picex_wallet_access',
           orderId,
           username: currentUsername,
           amount: paymentAmount,
@@ -384,11 +387,11 @@ const PiPaymentPanel: React.FC = () => {
         onReadyForServerApproval: async function (paymentId: string) {
           try {
             console.log('Ready for server approval:', paymentId);
-            setStatus('Approving payment on server...');
+            setStatus('Approving picex payment on server...');
 
             await approvePaymentOnServer(paymentId, orderId, paymentAmount);
 
-            setStatus('Payment approved by server. Continue in Pi Wallet.');
+            setStatus('Payment approved by picex server. Continue in Pi Wallet.');
           } catch (error: any) {
             console.error('Server approval error:', error);
             setIsPaying(false);
@@ -404,7 +407,7 @@ const PiPaymentPanel: React.FC = () => {
         ) {
           try {
             console.log('Ready for server completion:', paymentId, txid);
-            setStatus('Completing payment on server...');
+            setStatus('Completing picex payment on server...');
 
             await completePaymentOnServer(
               paymentId,
@@ -413,7 +416,10 @@ const PiPaymentPanel: React.FC = () => {
               paymentAmount
             );
 
-            setStatus('Payment completed successfully. TXID: ' + txid);
+            setStatus(
+              'Payment completed successfully. Your picex wallet/payment record is updated. TXID: ' +
+                txid
+            );
             setIsPaying(false);
           } catch (error: any) {
             console.error('Server completion error:', error);
@@ -440,7 +446,7 @@ const PiPaymentPanel: React.FC = () => {
       const payment = await window.Pi.createPayment(paymentData, callbacks);
 
       console.log('Payment result:', payment);
-      setStatus('Payment request sent to Pi Wallet. Please confirm.');
+      setStatus('Payment request sent to Pi Wallet. Please confirm in Pi Browser.');
     } catch (error: any) {
       console.error('Create payment error:', error);
       setIsPaying(false);
@@ -452,34 +458,61 @@ const PiPaymentPanel: React.FC = () => {
     <section
       style={{
         margin: '24px auto',
-        padding: '20px',
-        maxWidth: '430px',
-        border: '1px solid rgba(103, 58, 183, 0.3)',
-        borderRadius: '18px',
+        padding: '28px',
+        maxWidth: '520px',
+        border: '1px solid rgba(255, 202, 40, 0.28)',
+        borderRadius: '26px',
         textAlign: 'center',
-        background: '#ffffff',
-        boxShadow: '0 10px 25px rgba(0,0,0,0.08)',
+        background:
+          'linear-gradient(145deg, rgba(255,255,255,0.11), rgba(255,255,255,0.055))',
+        boxShadow: '0 26px 64px rgba(0,0,0,0.32)',
         fontFamily: 'sans-serif',
+        color: '#ffffff',
+        backdropFilter: 'blur(16px)',
       }}
     >
-      <h2 style={{ color: '#673ab7', marginBottom: '8px' }}>
-        Pi Payment
+      <div
+        style={{
+          display: 'inline-flex',
+          marginBottom: '14px',
+          padding: '7px 14px',
+          borderRadius: '999px',
+          background: 'rgba(255, 202, 40, 0.12)',
+          border: '1px solid rgba(255, 202, 40, 0.28)',
+          color: '#ffca28',
+          fontSize: '12px',
+          fontWeight: 900,
+          letterSpacing: '0.4px',
+        }}
+      >
+        picex Wallet Access
+      </div>
+
+      <h2 style={{ color: '#ffffff', marginBottom: '8px', fontSize: '28px' }}>
+        Connect Pi & Create Payment
       </h2>
 
-      <p style={{ color: '#666', fontSize: '14px' }}>
-        Login with Pi and create a variable amount payment.
+      <p style={{ color: '#d8cfee', fontSize: '14px', lineHeight: 1.8 }}>
+        Login with Pi to access picex wallet features. This panel currently
+        keeps the existing Pi payment flow and prepares the foundation for
+        future deposit and withdrawal operations.
       </p>
 
       <div
         style={{
           display: 'inline-block',
-          marginBottom: '14px',
-          padding: '6px 12px',
+          marginBottom: '18px',
+          padding: '7px 13px',
           borderRadius: '999px',
-          background: PI_SANDBOX ? '#fff3e0' : '#e8f5e9',
-          color: PI_SANDBOX ? '#ef6c00' : '#2e7d32',
+          background: PI_SANDBOX
+            ? 'rgba(255, 152, 0, 0.14)'
+            : 'rgba(34, 197, 94, 0.12)',
+          color: PI_SANDBOX ? '#ffb74d' : '#86efac',
+          border: PI_SANDBOX
+            ? '1px solid rgba(255, 152, 0, 0.24)'
+            : '1px solid rgba(34, 197, 94, 0.22)',
           fontSize: '12px',
-          fontWeight: 700,
+          fontWeight: 800,
         }}
       >
         Network: {networkLabel}
@@ -490,52 +523,55 @@ const PiPaymentPanel: React.FC = () => {
           onClick={loginWithPi}
           disabled={isLoggingIn}
           style={{
-            padding: '12px 22px',
-            borderRadius: '24px',
+            padding: '13px 24px',
+            borderRadius: '999px',
             border: 'none',
-            background: isLoggingIn ? '#999' : '#673ab7',
-            color: '#fff',
+            background: isLoggingIn
+              ? '#6b7280'
+              : 'linear-gradient(135deg, #ffe7a3, #ffca28, #f4b942)',
+            color: '#180d31',
             cursor: isLoggingIn ? 'not-allowed' : 'pointer',
             fontSize: '15px',
-            fontWeight: 600,
+            fontWeight: 900,
+            boxShadow: '0 14px 30px rgba(244,185,66,0.24)',
           }}
         >
-          {isLoggingIn ? 'Please wait...' : 'Login with Pi'}
+          {isLoggingIn ? 'Please wait...' : 'Connect with Pi'}
         </button>
       ) : (
         <>
-          <p style={{ marginTop: '15px', color: '#333' }}>
-            Welcome <strong>@{currentUsername || 'Pi User'}</strong>
+          <p style={{ marginTop: '15px', color: '#d8cfee' }}>
+            Welcome <strong style={{ color: '#ffca28' }}>@{currentUsername || 'Pi User'}</strong>
           </p>
 
           <button
             onClick={handleLogout}
             style={{
-              marginBottom: '14px',
-              padding: '8px 16px',
-              borderRadius: '20px',
-              border: '1px solid #ff5252',
-              background: '#fff',
-              color: '#ff5252',
+              marginBottom: '16px',
+              padding: '9px 16px',
+              borderRadius: '999px',
+              border: '1px solid rgba(248,113,113,0.55)',
+              background: 'rgba(239,68,68,0.08)',
+              color: '#fecaca',
               cursor: 'pointer',
               fontSize: '13px',
-              fontWeight: 700,
+              fontWeight: 800,
             }}
           >
             Logout
           </button>
 
-          <div style={{ marginTop: '15px', marginBottom: '15px' }}>
+          <div style={{ marginTop: '15px', marginBottom: '16px' }}>
             <label
               style={{
                 display: 'block',
-                marginBottom: '6px',
-                color: '#333',
+                marginBottom: '7px',
+                color: '#ffffff',
                 fontSize: '14px',
-                fontWeight: 600,
+                fontWeight: 800,
               }}
             >
-              Payment Amount Pi
+              Pi Amount
             </label>
 
             <input
@@ -548,21 +584,24 @@ const PiPaymentPanel: React.FC = () => {
               disabled={isPaying}
               style={{
                 width: '100%',
-                maxWidth: '220px',
-                padding: '10px 12px',
-                borderRadius: '10px',
-                border: '1px solid #ccc',
+                maxWidth: '240px',
+                padding: '11px 12px',
+                borderRadius: '13px',
+                border: '1px solid rgba(255,255,255,0.18)',
                 textAlign: 'center',
                 fontSize: '15px',
                 boxSizing: 'border-box',
+                background: 'rgba(255,255,255,0.08)',
+                color: '#ffffff',
+                outline: 'none',
               }}
             />
 
             <div
               style={{
-                marginTop: '6px',
+                marginTop: '7px',
                 fontSize: '11px',
-                color: '#888',
+                color: '#b9aed5',
               }}
             >
               Min: {MIN_AMOUNT} Pi / Max: {MAX_AMOUNT} Pi
@@ -573,31 +612,35 @@ const PiPaymentPanel: React.FC = () => {
             onClick={createPiPayment}
             disabled={isPaying}
             style={{
-              padding: '12px 22px',
-              borderRadius: '24px',
+              padding: '13px 24px',
+              borderRadius: '999px',
               border: 'none',
-              background: isPaying ? '#999' : '#00c853',
-              color: '#fff',
+              background: isPaying
+                ? '#6b7280'
+                : 'linear-gradient(135deg, #6f2dbd, #8b5cf6)',
+              color: '#ffffff',
               cursor: isPaying ? 'not-allowed' : 'pointer',
               fontSize: '15px',
-              fontWeight: 700,
+              fontWeight: 900,
+              boxShadow: '0 14px 30px rgba(111,45,189,0.28)',
             }}
           >
-            {isPaying ? 'Processing...' : `Pay ${amount || '0'} Pi`}
+            {isPaying ? 'Processing...' : `Create Pi Payment ${amount || '0'} Pi`}
           </button>
         </>
       )}
 
       <div
         style={{
-          marginTop: '16px',
-          padding: '12px',
-          background: '#f5f5f5',
-          borderRadius: '8px',
+          marginTop: '18px',
+          padding: '13px',
+          background: 'rgba(255,255,255,0.07)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          borderRadius: '14px',
           fontSize: '13px',
-          color: '#444',
+          color: '#d8cfee',
           wordBreak: 'break-word',
-          lineHeight: 1.5,
+          lineHeight: 1.6,
         }}
       >
         {status}
