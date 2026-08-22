@@ -19,7 +19,7 @@ const Features = () => {
         'Trade Pi-based assets through a fast order book experience designed for real-time spot markets.'
       ),
       icon: '📊',
-      tag: 'Spot',
+      tag: tx('featureTagSpot', 'Spot'),
     },
     {
       title: tx('picexFeatureFuturesTitle', 'Futures Ready Architecture'),
@@ -28,7 +28,7 @@ const Features = () => {
         'picex is designed to support perpetual futures after the risk engine, margin system, and liquidation layer are mature.'
       ),
       icon: '⚡',
-      tag: 'Perps',
+      tag: tx('featureTagPerps', 'Perps'),
     },
     {
       title: tx('picexFeatureWalletTitle', 'Wallet, Deposit & Withdraw'),
@@ -37,7 +37,7 @@ const Features = () => {
         'A wallet-first flow for deposits, pending balances, withdrawals, hot wallet operations, and cold wallet treasury controls.'
       ),
       icon: '👛',
-      tag: 'Wallet',
+      tag: tx('featureTagWallet', 'Wallet'),
     },
     {
       title: tx('picexFeaturePiTitle', 'Pi Login & KYC-Aware Access'),
@@ -46,7 +46,7 @@ const Features = () => {
         'Users connect through Pi identity flows while picex applies account limits, KYC-aware access, and safer trading rules.'
       ),
       icon: 'π',
-      tag: 'Pi SDK',
+      tag: tx('featureTagPiSdk', 'Pi SDK'),
     },
     {
       title: tx('picexFeatureChartsTitle', 'Native picex Charts'),
@@ -55,7 +55,7 @@ const Features = () => {
         'Price charts are planned to be generated from picex’s own executed trades, order book events, and OHLC candles.'
       ),
       icon: '📈',
-      tag: 'Charts',
+      tag: tx('featureTagCharts', 'Charts'),
     },
     {
       title: tx('picexFeatureAiTitle', 'AI Online Support'),
@@ -64,7 +64,7 @@ const Features = () => {
         'An intelligent support assistant will help users with Pi login, payments, deposits, withdrawals, KYC, fees, and order issues.'
       ),
       icon: '🤖',
-      tag: 'AI',
+      tag: tx('featureTagAi', 'AI'),
     },
   ];
 
