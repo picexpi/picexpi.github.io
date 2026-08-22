@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cookie Policy | picex</title>
+  <meta
+    name="description"
+    content="Cookie Policy for picex website, trading platform and support services."
+  />
+
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #152238;
+      --muted: #607089;
+      --border: #dce4ef;
+      --primary: #145ee8;
+      --primary-soft: #eaf1ff;
+      --warning: #8a4b00;
+      --danger: #b42318;
+      --shadow: 0 12px 32px rgba(21, 34, 56, 0.08);
+      --radius: 16px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, #e8f0ff 0, transparent 320px),
+        linear-gradient(180deg, #f8fbff 0, var(--bg) 100%);
+      line-height: 1.75;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header {
+      padding: 32px 0 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin: 0 0 12px;
+      line-height: 1.25;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      line-height: 1.35;
+    }
+
+    h3 {
+      margin: 20px 0 8px;
+      font-size: 18px;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    ul,
+    ol {
+      margin: 10px 0;
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 7px 0;
+    }
+
+    .lead {
+      color: var(--muted);
+      max-width: 900px;
+      margin: 0;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    nav {
+      position: sticky;
+      top: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    nav h2 {
+      font-size: 16px;
+      margin: 0 0 10px;
+    }
+
+    nav ol {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    nav li {
+      margin: 7px 0;
+    }
+
+    nav a {
+      color: var(--text);
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 14px 0;
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f0f5fb;
+      font-weight: 700;
+    }
+
+    .notice,
+    .warning,
+    .danger {
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin: 14px 0;
+    }
+
+    .notice {
+      background: #eef5ff;
+      border-left: 4px solid var(--primary);
+    }
+
+    .warning {
+      background: #fff8ea;
+      border-left: 4px solid var(--warning);
+    }
+
+    .danger {
+      background: #fff1f0;
+      border-left: 4px solid var(--danger);
+    }
+
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 13px;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 24px 0 44px;
+      text-align: center;
+    }
+
+    @media (max-width: 960px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        position: static;
+      }
+
+      section {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <span class="badge">picex Cookie Policy</span>
+      <h1>Cookie Policy</h1>
+      <p class="lead">
+        This Cookie Policy explains how picex uses cookies, local storage, session storage,
+        device identifiers and similar technologies to provide, secure and improve its services.
+      </p>
+    </header>
+
+    <div class="layout">
+      <nav aria-label="Table of contents">
+        <h2>Contents</h2>
+        <ol>
+          <li><a href="#intro">Introduction</a></li>
+          <li><a href="#what">What Are Cookies?</a></li>
+          <li><a href="#types">Types of Cookies</a></li>
+          <li><a href="#auth">Login, Security and Pi Integration</a></li>
+          <li><a href="#analytics">Analytics and Product Improvement</a></li>
+          <li><a href="#market">Market Data Experience</a></li>
+          <li><a href="#support">Online Support and AI</a></li>
+          <li><a href="#third-party">Third-Party Services</a></li>
+          <li><a href="#manage">Managing Cookies</a></li>
+          <li><a href="#retention">Retention</a></li>
+          <li><a href="#changes">Changes to This Policy</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ol>
+      </nav>
+
+      <main>
+        <section id="intro">
+          <h2>1. Introduction</h2>
+          <p>
+            picex uses cookies and similar technologies to deliver a secure, reliable and personalized
+            trading experience. These technologies help us keep users logged in, protect accounts,
+            remember preferences, improve performance, monitor errors and support platform functionality.
+          </p>
+
+          <p>
+            This Cookie Policy should be read together with our
+            <a href="/privacy.html">Privacy Policy</a>
+            and
+            <a href="/terms.html">Terms of Service</a>.
+          </p>
+        </section>
+
+        <section id="what">
+          <h2>2. What Are Cookies?</h2>
+          <p>
+            Cookies are small text files stored on your browser or device when you visit a website.
+            They can be used to maintain sessions, store preferences, improve security, analyze usage
+            and enhance the user experience.
+          </p>
+
+          <p>
+            picex may also use similar technologies, including:
+          </p>
+
+          <ul>
+            <li><code>localStorage</code> for interface settings and user preferences.</li>
+            <li><code>sessionStorage</code> for temporary browser session data.</li>
+            <li>Device or browser identifiers for risk detection.</li>
+            <li>Authentication tokens for login and API requests.</li>
+            <li>WebSocket session identifiers for real-time market data.</li>
+          </ul>
+        </section>
+
+        <section id="types">
+          <h2>3. Types of Cookies and Similar Technologies</h2>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Purpose</th>
+                  <th>Required?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Essential Cookies</td>
+                  <td>Login, session management, security and core website functionality.</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Security Cookies</td>
+                  <td>Suspicious login detection, fraud prevention, device and IP checks.</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Preference Cookies</td>
+                  <td>Language, theme, chart settings, simple/pro mode and interface preferences.</td>
+                  <td>No, but they improve user experience.</td>
+                </tr>
+                <tr>
+                  <td>Analytics Cookies</td>
+                  <td>Understanding platform usage, identifying errors and improving product design.</td>
+                  <td>Depending on user consent and applicable law.</td>
+                </tr>
+                <tr>
+                  <td>Support Cookies</td>
+                  <td>Maintaining chat state, ticket history and support continuity.</td>
+                  <td>Depending on support usage.</td>
+                </tr>
+                <tr>
+                  <td>Third-Party Cookies</td>
+                  <td>Infrastructure, security, KYC, analytics, messaging, AI or support tools.</td>
+                  <td>Depends on the service.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="auth">
+          <h2>4. Login, Security and Pi Integration</h2>
+          <p>
+            picex may use cookies, tokens or browser storage to manage user login, protect accounts
+            and support integrations with Pi-related authentication or payment flows where applicable.
+          </p>
+
+          <ul>
+            <li>Maintaining user login status.</li>
+            <li>Authenticating API requests.</li>
+            <li>Preventing unauthorized access.</li>
+            <li>Detecting suspicious devices, sessions or locations.</li>
+            <li>Supporting secure interaction with Pi SDK or other supported authentication services.</li>
+          </ul>
+
+          <div class="warning">
+            If you disable essential cookies or storage, you may be unable to log in, place orders,
+            withdraw assets or use core picex services.
+          </div>
+        </section>
+
+        <section id="analytics">
+          <h2>5. Analytics, Performance and Product Improvement</h2>
+          <p>
+            picex may use analytics data to improve speed, reliability, user flows, design, error
+            handling and service quality.
+          </p>
+
+          <p>
+            This may include:
+          </p>
+
+          <ul>
+            <li>Visited pages and session duration.</li>
+            <li>Browser type, operating system and screen size.</li>
+            <li>JavaScript errors, API errors or WebSocket disruptions.</li>
+            <li>General usage paths for Deposit, Withdraw, Trade and Support features.</li>
+            <li>Aggregated product metrics for user experience improvement.</li>
+          </ul>
+
+          <p>
+            Where required by law, picex may request your consent before using non-essential analytics cookies.
+          </p>
+        </section>
+
+        <section id="market">
+          <h2>6. Cookies and Internal Market Data Experience</h2>
+          <p>
+            Since picex intends to generate price charts and market data from its own internal trading
+            activity, browser storage may be used to improve the trading interface.
+          </p>
+
+          <ul>
+            <li>Remembering the last selected market, such as <code>PI-USDT</code>.</li>
+            <li>Remembering chart intervals, such as <code>1m</code>, <code>5m</code> or <code>1h</code>.</li>
+            <li>Saving order book and chart display preferences.</li>
+            <li>Improving real-time WebSocket market data experience.</li>
+          </ul>
+
+          <p>
+            These values are generally used for convenience and should never include private keys,
+            seed phrases or highly sensitive information.
+          </p>
+        </section>
+
+        <section id="support">
+          <h2>7. Online Support and AI</h2>
+          <p>
+            picex may use session identifiers, chat state, ticket history and support-related storage
+            to provide online support and AI-assisted responses.
+          </p>
+
+          <ul>
+            <li>Maintaining support chat continuity.</li>
+            <li>Connecting a support conversation to a logged-in account.</li>
+            <li>Helping AI respond based on picex documentation, policies and FAQs.</li>
+            <li>Improving support quality and identifying cases that require human review.</li>
+          </ul>
+
+          <div class="danger">
+            Never enter private keys, seed phrases, passwords, 2FA codes or highly sensitive credentials
+            into support chat or AI support.
+          </div>
+        </section>
+
+        <section id="third-party">
+          <h2>8. Third-Party Services</h2>
+          <p>
+            picex may use third-party services for hosting, security, analytics, KYC, messaging,
+            support, AI, error monitoring or blockchain infrastructure. These services may use their
+            own cookies or similar technologies under their own policies.
+          </p>
+
+          <p>
+            Categories of third-party providers may include:
+          </p>
+
+          <ul>
+            <li>Infrastructure and CDN providers.</li>
+            <li>Security and anti-fraud providers.</li>
+            <li>KYC/AML service providers.</li>
+            <li>Error monitoring and performance analytics tools.</li>
+            <li>Support and AI service providers.</li>
+          </ul>
+
+          <p>
+            Use of these providers should be consistent with the
+            <a href="/privacy.html">picex Privacy Policy</a>
+            and applicable legal requirements.
+          </p>
+        </section>
+
+        <section id="manage">
+          <h2>9. Managing and Disabling Cookies</h2>
+          <p>
+            You can manage or delete cookies through your browser settings. If picex provides a cookie
+            consent or preference panel, you may also manage non-essential cookies there.
+          </p>
+
+          <ul>
+            <li>In Chrome: Settings → Privacy and Security → Cookies.</li>
+            <li>In Firefox: Settings → Privacy & Security.</li>
+            <li>In Safari: Preferences → Privacy.</li>
+            <li>On mobile browsers, cookie settings are usually located under Privacy settings.</li>
+          </ul>
+
+          <div class="warning">
+            Disabling essential cookies may break login, security, trading, withdrawals, charts or support features.
+          </div>
+        </section>
+
+        <section id="retention">
+          <h2>10. Retention</h2>
+          <p>
+            Cookie retention depends on the type of cookie or storage item.
+          </p>
+
+          <ul>
+            <li>Session cookies may be deleted when the browser is closed or when you log out.</li>
+            <li>Login cookies may remain for a limited period to keep you signed in.</li>
+            <li>Security and anti-fraud cookies may be retained as required for account protection and legal obligations.</li>
+            <li>Analytics data may be retained in aggregated or pseudonymized form for product improvement.</li>
+          </ul>
+        </section>
+
+        <section id="changes">
+          <h2>11. Changes to This Policy</h2>
+          <p>
+            picex may update this Cookie Policy at any time. The updated version becomes effective
+            when published on the website or app, unless another date is specified.
+          </p>
+
+          <p>
+            Continued use of picex after publication means you accept the updated Cookie Policy.
+          </p>
+
+          <div class="notice">
+            Last updated: <code>[Insert Date]</code>
+          </div>
+        </section>
+
+        <section id="contact">
+          <h2>12. Contact</h2>
+          <p>
+            If you have questions about cookies, privacy or data settings, please contact picex through
+            official channels.
+          </p>
+
+          <ul>
+            <li>Support email: <code>support@picex.com</code></li>
+            <li>Official website: <code>https://picex.com</code></li>
+            <li>Privacy Policy: <code>/privacy.html</code></li>
+          </ul>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      © <span id="year"></span> picex. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+        </html>
+        
