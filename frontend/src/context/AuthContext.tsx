@@ -61,10 +61,10 @@ const parseBooleanEnv = (value: unknown, defaultValue = false): boolean => {
 
 const PI_SANDBOX = parseBooleanEnv(import.meta.env.VITE_PI_SANDBOX, false);
 
-/**
- * نرمال‌سازی اطلاعات کاربر
- * چون ممکن است Backend یا Pi SDK نام فیلدها را متفاوت برگرداند.
- */
+const TOKEN_STORAGE_KEY = 'token';
+const USER_STORAGE_KEY = 'user';
+const LEGACY_USER_STORAGE_KEY = 'pidao_user';
+
 const normalizeUser = (userData: any): User => {
   const id =
     userData?.id ||
@@ -90,7 +90,9 @@ const normalizeUser = (userData: any): User => {
 
 const getSavedUser = (): User | null => {
   try {
-    const savedUser = localStorage.getItem('user');
+    const savedUser =
+      localStorage.getItem(USER_STORAGE_KEY) ||
+      localStorage.getItem(LEGACY_USER_STORAGE_KEY);
 
     if (!savedUser) {
       return null;
@@ -100,13 +102,15 @@ const getSavedUser = (): User | null => {
     const normalizedUser = normalizeUser(parsedUser);
 
     if (!normalizedUser.id) {
-      localStorage.removeItem('user');
+      localStorage.removeItem(USER_STORAGE_KEY);
+      localStorage.removeItem(LEGACY_USER_STORAGE_KEY);
       return null;
     }
 
     return normalizedUser;
   } catch {
-    localStorage.removeItem('user');
+    localStorage.removeItem(USER_STORAGE_KEY);
+    localStorage.removeItem(LEGACY_USER_STORAGE_KEY);
     return null;
   }
 };
@@ -114,7 +118,7 @@ const getSavedUser = (): User | null => {
 const ensurePiSdkInitialized = () => {
   if (!window.Pi) {
     throw new Error(
-      'Pi SDK is not loaded. Please open this app inside Pi Browser.'
+      'Pi SDK is not loaded. Please open picex inside Pi Browser.'
     );
   }
 
@@ -143,8 +147,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(() => getSavedUser());
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    const token = localStorage.getItem('token');
-    const savedUser = localStorage.getItem('user');
+    const token = localStorage.getItem(TOKEN_STORAGE_KEY);
+    const savedUser =
+      localStorage.getItem(USER_STORAGE_KEY) ||
+      localStorage.getItem(LEGACY_USER_STORAGE_KEY);
 
     return Boolean(token && savedUser);
   });
@@ -159,8 +165,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       throw new Error('Invalid authentication data received from server.');
     }
 
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(normalizedUser));
+    localStorage.setItem(TOKEN_STORAGE_KEY, token);
+    localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(normalizedUser));
+
+    /**
+     * Remove old project key if it exists.
+     */
+    localStorage.removeItem(LEGACY_USER_STORAGE_KEY);
 
     setUser(normalizedUser);
     setIsAuthenticated(true);
@@ -169,8 +180,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const clearAuth = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
+    localStorage.removeItem(USER_STORAGE_KEY);
+    localStorage.removeItem(LEGACY_USER_STORAGE_KEY);
 
     setUser(null);
     setIsAuthenticated(false);
@@ -181,7 +193,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setError(null);
 
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem(TOKEN_STORAGE_KEY);
 
       if (!token) {
         clearAuth();
@@ -208,6 +220,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     refreshAuth();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const login = async (
@@ -226,7 +239,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const response = await axiosClient.post('/auth/pi-login', {
         pi_user_id,
         username,
-        accessToken,
+        accessToken: accessToken || null,
       });
 
       const responseToken = response.data?.token;
@@ -267,8 +280,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       if (!window.Pi) {
         throw new Error(
-          'Pi SDK is not loaded. Please open this app inside Pi Browser.'
+          'Pi SDK is not loaded. Please open picex inside Pi Browser.'
         );
+      }
+
+      if (typeof window.Pi.authenticate !== 'function') {
+        throw new Error('Pi authenticate function is not available.');
       }
 
       const onIncompletePaymentFound = function (payment: any) {
@@ -349,6 +366,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useAuth = (): AuthContextType | undefined => {
-  return useContext(AuthContext);
+export const useAuth = (): AuthContextType => {
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error('useAuth must be used inside AuthProvider');
+  }
+
+  return context;
 };
