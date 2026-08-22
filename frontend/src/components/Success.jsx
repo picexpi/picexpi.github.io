@@ -5,7 +5,7 @@ import { useI18n } from '../i18n/I18nContext';
 
 const Success = ({ transactionId, onReset }) => {
   const navigate = useNavigate();
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
 
   const handleBackHome = () => {
     if (typeof onReset === 'function') {
@@ -100,32 +100,30 @@ const Success = ({ transactionId, onReset }) => {
     <div style={styles.container}>
       <div style={styles.card}>
         <div style={styles.badge}>
-          picex Transaction
+          {t('brandName')} Transaction
         </div>
 
         <div style={styles.icon}>✅</div>
 
         <h2 style={styles.title}>
-          Payment Successful
+          {t('paymentSuccessful')}
         </h2>
 
         <p style={styles.text}>
-          Your Pi payment has been registered by picex. In the full exchange
-          flow, this event can be connected to wallet balance updates, deposit
-          records, order access, or premium platform features.
+          {t('transactionRegistered')}
         </p>
 
         <div style={styles.txId}>
-          <strong>Transaction Identifier:</strong>
+          <strong>{t('transactionIdentifier')}:</strong>
           <br />
-          {transactionId || 'Processing...'}
+          {transactionId || t('processing')}
         </div>
 
         <button
           style={styles.button}
           onClick={handleBackHome}
         >
-          Back to picex Home
+          {t('backToHome')}
         </button>
       </div>
     </div>
