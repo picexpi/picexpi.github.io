@@ -1,6 +1,7 @@
 // frontend/src/components/Payment.jsx
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useI18n } from '../i18n/I18nContext';
 import axiosClient from '../lib/axiosClient';
 import './Payment.css';
 
@@ -17,15 +18,37 @@ import './Payment.css';
 const Payment = ({
   transactionId = '',
   amount = 1.0,
-  productName = 'picex Wallet Payment',
+  productName = '',
   onReset = () => {},
   onPaymentSuccess = () => {},
   onPaymentError = () => {},
 }) => {
   const { user, isAuthenticated } = useAuth();
+  const { t } = useI18n();
+
+  const tx = (key, fallback) => {
+    const value = t(key);
+    return value && value !== key ? value : fallback;
+  };
+
+  const formatText = (key, fallback, values = {}) => {
+    let text = tx(key, fallback);
+
+    Object.entries(values).forEach(([name, value]) => {
+      text = text.replaceAll(`{${name}}`, String(value));
+    });
+
+    return text;
+  };
+
+  const displayProductName =
+    productName || tx('picexWalletPayment', 'picex Wallet Payment');
+
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState(null);
-  const [status, setStatus] = useState('Ready to create a Pi payment for picex.');
+  const [status, setStatus] = useState(
+    tx('paymentReadyToCreate', 'Ready to create a Pi payment for picex.')
+  );
 
   useEffect(() => {
     if (window.Pi) {
@@ -37,41 +60,54 @@ const Payment = ({
 
   const handlePayment = async () => {
     if (!window.Pi) {
-      setError('Pi SDK is not available. Please open picex in the Pi Browser.');
+      setError(
+        tx(
+          'piSdkUnavailableOpenPiBrowser',
+          'Pi SDK is not available. Please open picex in the Pi Browser.'
+        )
+      );
       return;
     }
 
     if (typeof window.Pi.createPayment !== 'function') {
-      setError('Pi createPayment function is not available.');
+      setError(
+        tx(
+          'piCreatePaymentUnavailable',
+          'Pi createPayment function is not available.'
+        )
+      );
       return;
     }
 
     if (!isAuthenticated) {
-      setError('Please login with Pi before creating a picex payment.');
+      setError(
+        tx(
+          'loginWithPiBeforePayment',
+          'Please login with Pi before creating a picex payment.'
+        )
+      );
       return;
     }
 
     setIsProcessing(true);
     setError(null);
-    setStatus('Creating picex Pi payment...');
+    setStatus(tx('creatingPicexPiPayment', 'Creating picex Pi payment...'));
 
-    const orderId =
-      transactionId ||
-      `picex_payment_${Date.now()}`;
+    const orderId = transactionId || `picex_payment_${Date.now()}`;
 
     const paymentData = {
       amount,
       memo: `picex payment - ${amount} Pi`,
       metadata: {
         type: 'picex_payment',
-        productName,
+        productName: displayProductName,
         orderId,
         userId:
           user?.piUserId ||
           user?.uid ||
           user?.id ||
           'unknown_user',
-        username: user?.username || 'Pi User',
+        username: user?.username || tx('piUser', 'Pi User'),
         pageOrigin: window.location.origin,
       },
     };
@@ -79,22 +115,29 @@ const Payment = ({
     const callbacks = {
       onReadyForServerApproval: async (paymentId) => {
         try {
-          setStatus('Approving payment on picex server...');
+          setStatus(
+            tx('approvingPaymentOnPicexServer', 'Approving payment on picex server...')
+          );
 
           await axiosClient.post('/payment/approve', {
             paymentId,
             orderId,
             amount,
-            productName,
+            productName: displayProductName,
             paymentType: 'picex_payment',
             pageUrl: window.location.href,
             pageOrigin: window.location.origin,
           });
 
-          setStatus('Payment approved. Please confirm in Pi Wallet.');
+          setStatus(
+            tx(
+              'paymentApprovedConfirmWallet',
+              'Payment approved. Please confirm in Pi Wallet.'
+            )
+          );
         } catch (err) {
           console.error('Payment approval error:', err);
-          setError('Server approval failed.');
+          setError(tx('serverApprovalFailed', 'Server approval failed.'));
           setIsProcessing(false);
           onPaymentError(err);
         }
@@ -102,30 +145,34 @@ const Payment = ({
 
       onReadyForServerCompletion: async (paymentId, txid) => {
         try {
-          setStatus('Completing payment on picex server...');
+          setStatus(
+            tx('completingPaymentOnPicexServer', 'Completing payment on picex server...')
+          );
 
           await axiosClient.post('/payment/complete', {
             paymentId,
             txid,
             orderId,
             amount,
-            productName,
+            productName: displayProductName,
             paymentType: 'picex_payment',
             paymentDetails: {
               amount,
               currency: 'PI',
-              productName,
+              productName: displayProductName,
             },
             pageUrl: window.location.href,
             pageOrigin: window.location.origin,
           });
 
-          setStatus('Payment completed successfully.');
+          setStatus(tx('paymentCompleted', 'Payment completed successfully.'));
           setIsProcessing(false);
           onPaymentSuccess(txid);
         } catch (err) {
           console.error('Payment completion error:', err);
-          setError('Failed to finalize transaction.');
+          setError(
+            tx('failedToFinalizeTransaction', 'Failed to finalize transaction.')
+          );
           setIsProcessing(false);
           onPaymentError(err);
         }
@@ -133,14 +180,14 @@ const Payment = ({
 
       onCancel: (paymentId) => {
         console.log('Payment cancelled:', paymentId);
-        setStatus('Payment cancelled by user.');
+        setStatus(tx('paymentCancelledByUser', 'Payment cancelled by user.'));
         setIsProcessing(false);
       },
 
       onError: (err, payment) => {
         console.error('Payment error:', err, payment);
-        setError(err?.message || 'Payment failed.');
-        setStatus('Payment error.');
+        setError(err?.message || tx('paymentFailed', 'Payment failed.'));
+        setStatus(tx('paymentError', 'Payment error.'));
         setIsProcessing(false);
         onPaymentError(err);
       },
@@ -148,10 +195,12 @@ const Payment = ({
 
     try {
       await window.Pi.createPayment(paymentData, callbacks);
-      setStatus('Payment request sent to Pi Wallet. Please confirm.');
+      setStatus(
+        tx('paymentRequestSentConfirm', 'Payment request sent to Pi Wallet. Please confirm.')
+      );
     } catch (err) {
       console.error('Create payment error:', err);
-      setError(err?.message || 'Payment failed to start.');
+      setError(err?.message || tx('paymentFailedToStart', 'Payment failed to start.'));
       setIsProcessing(false);
       onPaymentError(err);
     }
@@ -161,15 +210,18 @@ const Payment = ({
     <div className="payment-container">
       <div className="payment-card">
         <div className="payment-badge">
-          picex Payment
+          {tx('picexPayment', 'picex Payment')}
         </div>
 
         <h2 className="payment-title">
-          Complete Pi Payment
+          {tx('completePiPayment', 'Complete Pi Payment')}
         </h2>
 
         <p className="payment-subtitle">
-          Use Pi Network payments to unlock or test picex wallet and exchange features.
+          {tx(
+            'paymentComponentSubtitle',
+            'Use Pi Network payments to unlock or test picex wallet and exchange features.'
+          )}
         </p>
 
         {error && (
@@ -180,22 +232,22 @@ const Payment = ({
 
         <div className="payment-details-box">
           <p>
-            Amount:{' '}
+            {tx('amount', 'Amount')}:{' '}
             <span className="amount-highlight">
               {amount} PI
             </span>
           </p>
 
           <p>
-            Purpose:{' '}
+            {tx('purpose', 'Purpose')}:{' '}
             <span className="product-name">
-              {productName}
+              {displayProductName}
             </span>
           </p>
 
           {transactionId && (
             <p className="tx-id">
-              ID: {transactionId}
+              {tx('transactionIdentifier', 'Transaction ID')}: {transactionId}
             </p>
           )}
         </div>
@@ -208,15 +260,15 @@ const Payment = ({
           {isProcessing ? (
             <>
               <span className="spinner"></span>
-              Processing...
+              {tx('processing', 'Processing...')}
             </>
           ) : (
-            'Pay with Pi'
+            tx('payWithPi', 'Pay with Pi')
           )}
         </button>
 
         <button className="payment-reset-btn" onClick={onReset}>
-          Cancel / Reset
+          {tx('cancelReset', 'Cancel / Reset')}
         </button>
 
         <div className="payment-status-box">
@@ -225,7 +277,10 @@ const Payment = ({
 
         {isProcessing && (
           <p className="payment-loader-text">
-            Please do not close the Pi Browser while payment is processing.
+            {tx(
+              'doNotClosePiBrowser',
+              'Please do not close the Pi Browser while payment is processing.'
+            )}
           </p>
         )}
       </div>
@@ -234,3 +289,4 @@ const Payment = ({
 };
 
 export default Payment;
+    
