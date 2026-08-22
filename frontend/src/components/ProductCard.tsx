@@ -133,5 +133,4 @@ const ProductCard: React.FC<ProductCardProps> = ({
   );
 };
 
-expo
-  rt default ProductCard;
+export default ProductCard;
