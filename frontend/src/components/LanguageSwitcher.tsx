@@ -11,24 +11,26 @@ const LanguageSwitcher: React.FC = () => {
     languageLabels,
   } = useI18n();
 
+  const isRtl = lang === 'fa' || lang === 'ar';
+
   return (
     <div
       style={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: '8px',
+        gap: '10px',
         margin: '16px auto',
         fontFamily: 'sans-serif',
-        direction: lang === 'fa' || lang === 'ar' ? 'rtl' : 'ltr',
+        direction: isRtl ? 'rtl' : 'ltr',
       }}
     >
       <label
         htmlFor="language-switcher"
         style={{
           fontSize: '13px',
-          color: '#666',
-          fontWeight: 600,
+          color: '#d8cfee',
+          fontWeight: 800,
         }}
       >
         {t('language')}:
@@ -40,18 +42,28 @@ const LanguageSwitcher: React.FC = () => {
         onChange={(e) => setLang(e.target.value as Language)}
         aria-label={t('language')}
         style={{
-          padding: '8px 12px',
-          borderRadius: '10px',
-          border: '1px solid #ccc',
-          background: '#fff',
-          color: '#111827',
+          padding: '9px 13px',
+          borderRadius: '999px',
+          border: '1px solid rgba(255, 202, 40, 0.28)',
+          background: 'rgba(255, 255, 255, 0.08)',
+          color: '#ffffff',
           cursor: 'pointer',
-          fontWeight: 600,
-          minWidth: '130px',
+          fontWeight: 800,
+          minWidth: '140px',
+          outline: 'none',
+          boxShadow: '0 10px 24px rgba(0,0,0,0.16)',
+          backdropFilter: 'blur(10px)',
         }}
       >
         {supportedLanguages.map((language) => (
-          <option key={language} value={language}>
+          <option
+            key={language}
+            value={language}
+            style={{
+              background: '#180d31',
+              color: '#ffffff',
+            }}
+          >
             {languageLabels[language]}
           </option>
         ))}
