@@ -1042,12 +1042,46 @@ export const translations: TranslationsMap = {
     tr: 'Emir defteri، işlemler، mumlar، hacim',
     zh: '订单簿、成交、K线、成交量',
   },
-  piPicPair: {
-    en: 'PI / PIC',
-    fa: 'PI / PIC',
-    ar: 'PI / PIC',
-    tr: 'PI / PIC',
-    zh: 'PI / PIC',
+  piNightPair: {
+  en: 'PI / NIGHT',
+  fa: 'PI / NIGHT',
+  ar: 'PI / NIGHT',
+  tr: 'PI / NIGHT',
+  zh: 'PI / NIGHT',
+},
+
+piNightMarketDescription: {
+  en: 'Designed for future picex utility economy',
+  fa: 'طراحی‌شده برای اقتصاد کاربردی آینده picex',
+  ar: 'مصمم لاقتصاد المنفعة المستقبلي في picex',
+  tr: 'Gelecekteki picex kullanım ekonomisi için tasarlandı',
+  zh: '为未来 picex 实用经济而设计',
+},
+
+nativeMarketDataFootnote: {
+  en: 'Market data is planned to be based on verified picex trading activity, internal ledgers, and exchange-generated candle data.',
+  fa: 'داده‌های بازار قرار است بر پایه فعالیت معاملاتی تأییدشده picex، دفترهای داخلی و داده‌های کندلی تولیدشده توسط صرافی ساخته شوند.',
+  ar: 'من المخطط أن تعتمد بيانات السوق على نشاط تداول picex الموثق، والسجلات الداخلية، وبيانات الشموع التي تولدها المنصة.',
+  tr: 'Piyasa verilerinin doğrulanmış picex işlem aktivitesi, iç kayıt defterleri ve borsa tarafından üretilen mum verilerine dayanması planlanmaktadır.',
+  zh: '市场数据计划基于经过验证的 picex 交易活动、内部账本以及交易所生成的 K 线数据。',
+},
+
+aiSupportInputPlaceholder: {
+  en: 'Ask about deposits, withdrawals, Pi login, fees, or KYC...',
+  fa: 'درباره واریز، برداشت، ورود با Pi، کارمزدها یا KYC بپرسید...',
+  ar: 'اسأل عن الإيداعات، والسحوبات، وتسجيل الدخول عبر Pi، والرسوم، أو KYC...',
+  tr: 'Yatırma, çekme, Pi girişi, ücretler veya KYC hakkında sorun...',
+  zh: '询问充值、提现、Pi 登录、费用或 KYC...',
+},
+
+active: {
+  en: 'Active',
+  fa: 'فعال',
+  ar: 'نشط',
+  tr: 'Aktif',
+  zh: '在线',
+},
+
   },
   ecosystemPair: {
     en: 'Ecosystem Pair',
