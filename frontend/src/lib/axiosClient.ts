@@ -2,26 +2,24 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 const API_BASE_URL =
-  (import.meta.env.VITE_API_URL || 'https://pidao.bonto.run/api').replace(
+  (import.meta.env.VITE_API_URL || 'https://picex.bonto.run/api').replace(
     /\/+$/,
     ''
   );
 
 const axiosClient = axios.create({
-  // Production fallback must point to the real backend, not localhost.
   baseURL: API_BASE_URL,
 
   headers: {
     'Content-Type': 'application/json',
   },
 
-  // Bonto/server cold start may take more than 10 seconds.
   timeout: 30000,
 });
 
 /**
  * Request Interceptor
- * Add JWT token to all authenticated requests.
+ * Adds JWT token to all authenticated requests.
  */
 axiosClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
@@ -40,44 +38,59 @@ axiosClient.interceptors.request.use(
 
 /**
  * Response Interceptor
- * Handle errors safely to avoid white screen.
+ * Handles errors safely to avoid white screen.
  */
 axiosClient.interceptors.response.use(
   (response) => response,
   (error: AxiosError<any>) => {
+    const requestUrl = error.config?.url || '';
+
     if (error.response) {
       const status = error.response.status;
 
       if (status === 401) {
-        console.warn('Unauthorized! Cleaning up session...');
+        console.warn('Unauthorized request:', {
+          url: requestUrl,
+          data: error.response.data,
+        });
 
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        /**
+         * IMPORTANT:
+         * Do not auto-redirect while the user is trying to login.
+         * Otherwise /auth/pi-login failure can cause a redirect loop or destroy debugging.
+         */
+        const isLoginRequest = requestUrl.includes('/auth/pi-login');
 
-        // IMPORTANT:
-        // If you use HashRouter, use hash navigation.
-        const currentHash = window.location.hash || '#/';
+        if (!isLoginRequest) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
 
-        if (!currentHash.includes('/login')) {
-          window.location.hash = '#/login';
+          const currentHash = window.location.hash || '#/';
+
+          if (!currentHash.includes('/login')) {
+            window.location.hash = '#/login';
+          }
         }
       } else if (status === 403) {
         console.error('Forbidden:', error.response.data);
       } else if (status === 404) {
-        console.error('API route not found:', error.config?.url);
+        console.error('API route not found:', requestUrl);
       } else if (status === 500) {
         console.error('Server Error:', error.response.data);
       } else {
         console.error('API Error:', {
           status,
           data: error.response.data,
-          url: error.config?.url,
+          url: requestUrl,
         });
       }
     } else if (error.request) {
-      console.error(
-        'Network Error: Cannot connect to the server. Please check VITE_API_URL, CORS, internet, or backend status.'
-      );
+      console.error('Network Error:', {
+        message:
+          'Cannot connect to the server. Check VITE_API_URL, CORS, internet, or backend status.',
+        baseURL: API_BASE_URL,
+        url: requestUrl,
+      });
     } else {
       console.error('Axios Error:', error.message);
     }
