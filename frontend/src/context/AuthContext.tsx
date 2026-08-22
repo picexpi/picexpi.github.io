@@ -63,7 +63,6 @@ const PI_SANDBOX = parseBooleanEnv(import.meta.env.VITE_PI_SANDBOX, false);
 
 const TOKEN_STORAGE_KEY = 'token';
 const USER_STORAGE_KEY = 'user';
-const LEGACY_USER_STORAGE_KEY = 'pidao_user';
 
 const normalizeUser = (userData: any): User => {
   const id =
@@ -90,9 +89,7 @@ const normalizeUser = (userData: any): User => {
 
 const getSavedUser = (): User | null => {
   try {
-    const savedUser =
-      localStorage.getItem(USER_STORAGE_KEY) ||
-      localStorage.getItem(LEGACY_USER_STORAGE_KEY);
+    const savedUser = localStorage.getItem(USER_STORAGE_KEY);
 
     if (!savedUser) {
       return null;
@@ -103,14 +100,12 @@ const getSavedUser = (): User | null => {
 
     if (!normalizedUser.id) {
       localStorage.removeItem(USER_STORAGE_KEY);
-      localStorage.removeItem(LEGACY_USER_STORAGE_KEY);
       return null;
     }
 
     return normalizedUser;
   } catch {
     localStorage.removeItem(USER_STORAGE_KEY);
-    localStorage.removeItem(LEGACY_USER_STORAGE_KEY);
     return null;
   }
 };
@@ -148,9 +143,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     const token = localStorage.getItem(TOKEN_STORAGE_KEY);
-    const savedUser =
-      localStorage.getItem(USER_STORAGE_KEY) ||
-      localStorage.getItem(LEGACY_USER_STORAGE_KEY);
+    const savedUser = localStorage.getItem(USER_STORAGE_KEY);
 
     return Boolean(token && savedUser);
   });
@@ -168,11 +161,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem(TOKEN_STORAGE_KEY, token);
     localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(normalizedUser));
 
-    /**
-     * Remove old project key if it exists.
-     */
-    localStorage.removeItem(LEGACY_USER_STORAGE_KEY);
-
     setUser(normalizedUser);
     setIsAuthenticated(true);
 
@@ -182,7 +170,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const clearAuth = () => {
     localStorage.removeItem(TOKEN_STORAGE_KEY);
     localStorage.removeItem(USER_STORAGE_KEY);
-    localStorage.removeItem(LEGACY_USER_STORAGE_KEY);
 
     setUser(null);
     setIsAuthenticated(false);
