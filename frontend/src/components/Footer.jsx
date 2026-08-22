@@ -39,7 +39,7 @@ const Footer = () => {
       <div className="footer-inner">
         <div className="footer-brand">
           <Link to="/" className="footer-logo">
-            Pi<span>DAO</span>
+            Pi<span>CEX</span>
           </Link>
 
           <div className="footer-badge">
@@ -152,7 +152,7 @@ const Footer = () => {
 
         <div className="copyright">
           <p>
-            &copy; {new Date().getFullYear()} PiDao. {t('footerRights')}
+            &copy; {new Date().getFullYear()} PiCex. {t('footerRights')}
           </p>
         </div>
       </div>
