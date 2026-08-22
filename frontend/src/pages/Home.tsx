@@ -11,6 +11,8 @@ import Roadmap from '../components/Roadmap';
 import Poll from '../components/Poll';
 import About from '../components/About';
 import Footer from '../components/Footer';
+import NativeMarketData from './components/NativeMarketData';
+import AISupportSection from './components/AISupportSection';
 
 const Home: React.FC = () => {
   return (
