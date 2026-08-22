@@ -20,11 +20,6 @@ const parseBooleanEnv = (value: unknown, defaultValue = false): boolean => {
   return String(value).trim().toLowerCase() === 'true';
 };
 
-/**
- * Mainnet by default.
- * برای Sandbox/Testnet در env بگذار:
- * VITE_PI_SANDBOX=true
- */
 const PI_SANDBOX = parseBooleanEnv(import.meta.env.VITE_PI_SANDBOX, false);
 
 const SignIn: React.FC = () => {
@@ -32,7 +27,7 @@ const SignIn: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useI18n();
 
-  const [status, setStatus] = useState<string>(t('initializingPiSdk'));
+  const [status, setStatus] = useState<string>('Initializing Pi SDK for picex...');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const networkLabel = PI_SANDBOX ? t('testnet') : t('mainnet');
@@ -45,14 +40,11 @@ const SignIn: React.FC = () => {
     console.log('SignIn PI_SANDBOX:', PI_SANDBOX);
 
     if (!window.Pi) {
-      setStatus(t('piSdkNotFound'));
+      setStatus('Pi SDK not found. Please open picex inside Pi Browser.');
       return;
     }
 
     try {
-      /**
-       * جلوگیری از اجرای دوباره Pi.init در React StrictMode
-       */
       if (!window.__PI_SDK_INITIALIZED__) {
         window.Pi.init({
           version: '2.0',
@@ -75,26 +67,26 @@ const SignIn: React.FC = () => {
         );
       }
 
-      setStatus(`${t('piSdkReady')} ${t('network')}: ${networkLabel}`);
+      setStatus(`Pi SDK ready for picex. Network: ${networkLabel}`);
     } catch (error: any) {
       console.error('Pi SDK init error:', error);
       setStatus('Pi SDK init error: ' + (error?.message || String(error)));
     }
-  }, [t, networkLabel]);
+  }, [networkLabel]);
 
   const onIncompletePaymentFound = (payment: any) => {
     console.log('Incomplete payment found:', payment);
-    setStatus(t('incompletePaymentFound'));
+    setStatus('Incomplete payment found. Complete or cancel it inside Pi Browser.');
   };
 
   const handlePiLogin = async () => {
     if (!auth) {
-      setStatus(t('authContextMissing'));
+      setStatus('Auth context is missing.');
       return;
     }
 
     if (!window.Pi) {
-      setStatus(t('piSdkNotFound'));
+      setStatus('Pi SDK not found. Please open picex inside Pi Browser.');
       return;
     }
 
@@ -105,7 +97,7 @@ const SignIn: React.FC = () => {
 
     try {
       setIsLoading(true);
-      setStatus(t('authenticating'));
+      setStatus('Authenticating with Pi for picex...');
 
       const authResult = await window.Pi.authenticate(
         ['username', 'payments'],
@@ -137,13 +129,13 @@ const SignIn: React.FC = () => {
 
       await auth.login(String(piUserId), String(username), accessToken);
 
-      setStatus(`${t('loginSuccess')} ${t('redirecting')}`);
+      setStatus('picex login successful. Redirecting...');
       navigate('/', { replace: true });
     } catch (error: any) {
       console.error('Pi login error:', error);
 
       setStatus(
-        `${t('loginFailed')} ` +
+        'Login failed: ' +
           (
             error?.response?.data?.message ||
             error?.message ||
@@ -162,7 +154,8 @@ const SignIn: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(135deg, #311b92, #673ab7)',
+        background:
+          'radial-gradient(circle at top left, rgba(255,202,40,0.18), transparent 30%), radial-gradient(circle at bottom right, rgba(111,45,189,0.32), transparent 34%), linear-gradient(135deg, #0f0820, #3c096c)',
         padding: '20px',
         fontFamily: 'sans-serif',
       }}
@@ -170,33 +163,55 @@ const SignIn: React.FC = () => {
       <div
         style={{
           width: '100%',
-          maxWidth: '420px',
-          background: '#ffffff',
-          borderRadius: '22px',
-          padding: '32px 24px',
+          maxWidth: '440px',
+          background:
+            'linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06))',
+          border: '1px solid rgba(255,255,255,0.14)',
+          borderRadius: '28px',
+          padding: '34px 26px',
           textAlign: 'center',
-          boxShadow: '0 20px 45px rgba(0,0,0,0.25)',
+          boxShadow: '0 28px 70px rgba(0,0,0,0.42)',
+          color: '#ffffff',
+          backdropFilter: 'blur(18px)',
         }}
       >
-        <h1
+        <div
           style={{
-            color: '#673ab7',
-            marginBottom: '8px',
-            fontSize: '28px',
+            display: 'inline-flex',
+            marginBottom: '14px',
+            padding: '7px 14px',
+            borderRadius: '999px',
+            background: 'rgba(255,202,40,0.12)',
+            border: '1px solid rgba(255,202,40,0.28)',
+            color: '#ffca28',
+            fontSize: '12px',
+            fontWeight: 900,
           }}
         >
-          {t('signInTitle')}
+          picex Account
+        </div>
+
+        <h1
+          style={{
+            color: '#ffffff',
+            marginBottom: '8px',
+            fontSize: '30px',
+            fontWeight: 950,
+          }}
+        >
+          Sign in to picex
         </h1>
 
         <p
           style={{
-            color: '#666',
-            marginBottom: '14px',
+            color: '#d8cfee',
+            marginBottom: '16px',
             fontSize: '15px',
-            lineHeight: 1.6,
+            lineHeight: 1.7,
           }}
         >
-          {t('signInDescription')}
+          Connect with your Pi account to access governance, payments, wallet
+          tools, and future trading features.
         </p>
 
         <div
@@ -205,10 +220,15 @@ const SignIn: React.FC = () => {
             marginBottom: '22px',
             padding: '6px 12px',
             borderRadius: '999px',
-            background: PI_SANDBOX ? '#fff3e0' : '#e8f5e9',
-            color: PI_SANDBOX ? '#ef6c00' : '#2e7d32',
+            background: PI_SANDBOX
+              ? 'rgba(255,152,0,0.14)'
+              : 'rgba(34,197,94,0.12)',
+            color: PI_SANDBOX ? '#ffb74d' : '#86efac',
+            border: PI_SANDBOX
+              ? '1px solid rgba(255,152,0,0.24)'
+              : '1px solid rgba(34,197,94,0.22)',
             fontSize: '12px',
-            fontWeight: 700,
+            fontWeight: 800,
           }}
         >
           {t('network')}: {networkLabel}
@@ -220,28 +240,32 @@ const SignIn: React.FC = () => {
           style={{
             width: '100%',
             padding: '14px 20px',
-            borderRadius: '30px',
+            borderRadius: '999px',
             border: 'none',
-            background: isLoading ? '#999' : '#673ab7',
-            color: '#fff',
+            background: isLoading
+              ? '#6b7280'
+              : 'linear-gradient(135deg, #ffe7a3, #ffca28, #f4b942)',
+            color: '#180d31',
             cursor: isLoading ? 'not-allowed' : 'pointer',
             fontSize: '16px',
-            fontWeight: 700,
+            fontWeight: 950,
+            boxShadow: '0 16px 34px rgba(244,185,66,0.24)',
           }}
         >
-          {isLoading ? t('pleaseWait') : t('loginWithPi')}
+          {isLoading ? t('pleaseWait') : 'Login with Pi'}
         </button>
 
         <div
           style={{
             marginTop: '20px',
-            padding: '12px',
-            borderRadius: '10px',
-            background: '#f5f5f5',
-            color: '#444',
+            padding: '13px',
+            borderRadius: '14px',
+            background: 'rgba(255,255,255,0.07)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            color: '#d8cfee',
             fontSize: '13px',
             wordBreak: 'break-word',
-            lineHeight: 1.5,
+            lineHeight: 1.6,
           }}
         >
           {status}
@@ -250,11 +274,12 @@ const SignIn: React.FC = () => {
         <p
           style={{
             marginTop: '16px',
-            color: '#999',
+            color: '#b9aed5',
             fontSize: '12px',
+            lineHeight: 1.6,
           }}
         >
-          {t('pleaseUsePiBrowser')}
+          Please use Pi Browser for the best Pi SDK experience.
         </p>
       </div>
     </div>
