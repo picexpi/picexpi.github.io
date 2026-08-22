@@ -44,7 +44,7 @@ const Footer = () => {
       <div className="footer-inner">
         <div className="footer-brand">
           <Link to="/" className="footer-logo" aria-label="picex home">
-            pic<span>ex</span>
+            pi<span>cex</span>
           </Link>
 
           <div className="footer-badge">
