@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Risk Disclosure | picex</title>
+  <meta
+    name="description"
+    content="Risk Disclosure Statement for picex, a hybrid trading platform for the Pi Network ecosystem."
+  />
+
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #152238;
+      --muted: #607089;
+      --border: #dce4ef;
+      --primary: #145ee8;
+      --primary-soft: #eaf1ff;
+      --danger: #b42318;
+      --warning: #8a4b00;
+      --shadow: 0 12px 32px rgba(21, 34, 56, 0.08);
+      --radius: 16px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, #e8f0ff 0, transparent 320px),
+        linear-gradient(180deg, #f8fbff 0, var(--bg) 100%);
+      line-height: 1.75;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header {
+      padding: 32px 0 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin: 0 0 12px;
+      line-height: 1.25;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      line-height: 1.35;
+    }
+
+    h3 {
+      margin: 20px 0 8px;
+      font-size: 18px;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    ul,
+    ol {
+      margin: 10px 0;
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 7px 0;
+    }
+
+    .lead {
+      color: var(--muted);
+      max-width: 900px;
+      margin: 0;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    nav {
+      position: sticky;
+      top: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    nav h2 {
+      font-size: 16px;
+      margin: 0 0 10px;
+    }
+
+    nav ol {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    nav li {
+      margin: 7px 0;
+    }
+
+    nav a {
+      color: var(--text);
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .danger,
+    .warning,
+    .notice {
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin: 14px 0;
+    }
+
+    .danger {
+      background: #fff1f0;
+      border-left: 4px solid var(--danger);
+    }
+
+    .warning {
+      background: #fff8ea;
+      border-left: 4px solid var(--warning);
+    }
+
+    .notice {
+      background: #eef5ff;
+      border-left: 4px solid var(--primary);
+    }
+
+    code {
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 13px;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 24px 0 44px;
+      text-align: center;
+    }
+
+    @media (max-width: 960px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        position: static;
+      }
+
+      section {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <span class="badge">picex Risk Disclosure</span>
+      <h1>Risk Disclosure Statement</h1>
+      <p class="lead">
+        This Risk Disclosure Statement explains the main risks associated with using picex,
+        including digital asset trading, deposits, withdrawals, internal market data,
+        AI-powered support, spot trading, and any future derivatives or perpetual futures services.
+      </p>
+    </header>
+
+    <div class="layout">
+      <nav aria-label="Table of contents">
+        <h2>Contents</h2>
+        <ol>
+          <li><a href="#intro">Introduction</a></li>
+          <li><a href="#general">Digital Asset Risk</a></li>
+          <li><a href="#market">Market and Liquidity Risk</a></li>
+          <li><a href="#spot">Spot Trading Risk</a></li>
+          <li><a href="#futures">Futures and Leverage Risk</a></li>
+          <li><a href="#pi">Pi Network Related Risk</a></li>
+          <li><a href="#deposit">Deposit and Withdrawal Risk</a></li>
+          <li><a href="#wallet">Custody, Hot Wallet and Cold Wallet Risk</a></li>
+          <li><a href="#technology">Technology and Infrastructure Risk</a></li>
+          <li><a href="#market-data">Market Data and Chart Risk</a></li>
+          <li><a href="#ai">AI Support Risk</a></li>
+          <li><a href="#regulatory">Regulatory and Tax Risk</a></li>
+          <li><a href="#user">User Responsibility</a></li>
+        </ol>
+      </nav>
+
+      <main>
+        <section id="intro">
+          <h2>1. Introduction</h2>
+          <p>
+            Trading and holding digital assets involves significant risk. By using picex,
+            you acknowledge that you understand these risks and that you are solely responsible
+            for your decisions, transactions, orders, deposits, withdrawals and use of the platform.
+          </p>
+
+          <div class="danger">
+            <strong>Important warning:</strong>
+            You may lose part or all of your funds. picex does not guarantee profit, price stability,
+            liquidity, uninterrupted access, successful withdrawals in all circumstances, or the
+            future value of any digital asset.
+          </div>
+
+          <p>
+            This document is not financial, investment, legal or tax advice. You should consult an
+            independent professional advisor if you are unsure whether digital asset trading is
+            suitable for you.
+          </p>
+        </section>
+
+        <section id="general">
+          <h2>2. General Digital Asset Risk</h2>
+          <ul>
+            <li>Digital assets can be highly volatile and may lose value rapidly.</li>
+            <li>Transactions on blockchain networks are usually irreversible.</li>
+            <li>A digital asset may become illiquid, unsupported, restricted or legally unavailable.</li>
+            <li>Incorrect transfers may result in permanent loss of assets.</li>
+            <li>Past market performance does not indicate future results.</li>
+          </ul>
+        </section>
+
+        <section id="market">
+          <h2>3. Market, Price and Liquidity Risk</h2>
+          <p>
+            Prices displayed on picex may be based on the platform’s own order book, trades and
+            liquidity. They may differ from prices on external exchanges or data providers.
+          </p>
+
+          <ul>
+            <li>Low liquidity may cause high slippage.</li>
+            <li>Market orders may execute at prices worse than expected.</li>
+            <li>Limit orders are not guaranteed to execute fully or at all.</li>
+            <li>Extreme volatility may cause delayed execution, wider spreads or temporary market restrictions.</li>
+            <li>picex does not guarantee that a buyer or seller will always be available.</li>
+          </ul>
+        </section>
+
+        <section id="spot">
+          <h2>4. Spot Trading Risk</h2>
+          <p>
+            Spot trading involves buying and selling digital assets directly. Even without leverage,
+            spot trading can result in significant loss.
+          </p>
+
+          <ul>
+            <li>The asset price may decrease after purchase.</li>
+            <li>You may be unable to sell quickly at your desired price.</li>
+            <li>Fees and slippage may reduce your final return.</li>
+            <li>Internal market conditions on picex may differ from external exchanges.</li>
+          </ul>
+        </section>
+
+        <section id="futures">
+          <h2>5. Futures, Perpetual and Leverage Risk</h2>
+          <p>
+            If picex enables futures, perpetual contracts or leveraged products in the future,
+            those products will involve substantially higher risk than spot trading.
+          </p>
+
+          <div class="danger">
+            Leveraged trading can lead to rapid liquidation and the loss of your entire margin or collateral.
+          </div>
+
+          <ul>
+            <li>Leverage magnifies both profits and losses.</li>
+            <li>Small adverse price movements may trigger liquidation.</li>
+            <li>Funding rates, liquidation fees, index price differences and market disruptions may affect your result.</li>
+            <li>picex may restrict, adjust, settle or close positions in emergency conditions.</li>
+            <li>Derivatives may only be available to eligible, KYC-verified users in permitted jurisdictions.</li>
+          </ul>
+        </section>
+
+        <section id="pi">
+          <h2>6. Pi Network Related Risk</h2>
+          <p>
+            picex may rely on Pi Network, Pi SDK, Pi Wallet or related infrastructure for identity,
+            payment authorization, settlement flows or ecosystem integration.
+          </p>
+
+          <ul>
+            <li>Changes to Pi Network, Pi SDK, APIs or policy may affect picex functionality.</li>
+            <li>Network congestion, transfer restrictions, KYC status changes or wallet limitations may affect deposits and withdrawals.</li>
+            <li>picex does not control Pi Network, its updates, policies, availability or infrastructure decisions.</li>
+            <li>Pi KYC status may be used for access control, but it does not replace picex security and compliance controls.</li>
+          </ul>
+        </section>
+
+        <section id="deposit">
+          <h2>7. Deposit and Withdrawal Risk</h2>
+
+          <h3>7.1 Deposits</h3>
+          <ul>
+            <li>Deposits are credited only after detection, validation and the required confirmation policy.</li>
+            <li>Before final crediting, deposits may appear as <code>Pending</code>.</li>
+            <li>Sending assets to the wrong address, wrong network, wrong memo/tag or unsupported asset may be unrecoverable.</li>
+            <li>picex may delay or block deposit crediting for suspicious or non-compliant transactions.</li>
+          </ul>
+
+          <h3>7.2 Withdrawals</h3>
+          <ul>
+            <li>You are responsible for the correctness of the destination address, network, memo/tag and amount.</li>
+            <li>Once broadcast to the network, withdrawals may be irreversible.</li>
+            <li>Withdrawals may be delayed due to security checks, KYC/AML review, hot wallet liquidity, network congestion or manual review.</li>
+            <li>Large withdrawals, new destinations or unusual behavior may require additional approval.</li>
+          </ul>
+        </section>
+
+        <section id="wallet">
+          <h2>8. Custody, Hot Wallet and Cold Wallet Risk</h2>
+          <p>
+            User balances on picex may be recorded in an internal ledger. picex may use hot wallets
+            for operational withdrawals and cold wallets for reserve storage.
+          </p>
+
+          <ul>
+            <li>All digital asset custody systems involve operational and security risk.</li>
+            <li>Hot wallets are more exposed than cold wallets because they support online operations.</li>
+            <li>Cold wallet transfers may delay large withdrawals because they require stricter controls.</li>
+            <li>In security incidents, picex may temporarily pause withdrawals or restrict wallet operations.</li>
+          </ul>
+        </section>
+
+        <section id="technology">
+          <h2>9. Technology and Infrastructure Risk</h2>
+          <ul>
+            <li>Software bugs, database errors, API failures, WebSocket disruptions or server outages may occur.</li>
+            <li>The matching engine, order book, charts or account balances may experience delays or temporary unavailability.</li>
+            <li>Cyberattacks, phishing, DDoS attacks or infrastructure failures may impact service availability.</li>
+            <li>picex may suspend services for maintenance, upgrades or emergency security actions.</li>
+          </ul>
+        </section>
+
+        <section id="market-data">
+          <h2>10. Market Data, Charts and Internal Price Risk</h2>
+          <p>
+            picex intends to generate charts, candles, volume, order book and other market data
+            from its own internal trading activity.
+          </p>
+
+          <ul>
+            <li>picex prices may differ from external exchanges.</li>
+            <li>Charts and candles may be delayed or incorrect due to calculation, API or data pipeline errors.</li>
+            <li>Market data is provided for informational purposes and is not investment advice.</li>
+            <li>You should independently verify information before making trading decisions.</li>
+          </ul>
+        </section>
+
+        <section id="ai">
+          <h2>11. AI-Powered Support Risk</h2>
+          <p>
+            picex may use AI-powered support to answer questions based on documentation, policies,
+            FAQ pages and general platform information.
+          </p>
+
+          <ul>
+            <li>AI responses may be incomplete, outdated, inaccurate or require human review.</li>
+            <li>AI support is not financial, legal, tax or investment advice.</li>
+            <li>For account freezes, KYC issues, suspicious transactions or disputes, the final decision belongs to the human support or compliance team.</li>
+            <li>You should never share private keys, seed phrases, passwords or 2FA codes with AI support.</li>
+          </ul>
+        </section>
+
+        <section id="regulatory">
+          <h2>12. Regulatory and Tax Risk</h2>
+          <ul>
+            <li>Digital asset laws vary by jurisdiction and may change.</li>
+            <li>picex may restrict users, countries, assets or services due to legal or compliance obligations.</li>
+            <li>Authorities may request account or transaction information where legally required.</li>
+            <li>You are responsible for your own tax reporting and obligations.</li>
+          </ul>
+        </section>
+
+        <section id="user">
+          <h2>13. User Responsibility</h2>
+          <p>
+            By using picex, you acknowledge that:
+          </p>
+          <ul>
+            <li>You understand the risks of digital asset trading and platform use.</li>
+            <li>You are responsible for your trading decisions.</li>
+            <li>picex does not guarantee profit, liquidity, market availability or uninterrupted withdrawals.</li>
+            <li>You are responsible for securing your account, device, wallet, credentials, 2FA and withdrawal addresses.</li>
+          </ul>
+
+          <div class="notice">
+            If you do not accept these risks, you should not use picex.
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      © <span id="year"></span> picex. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+  </html>
+              
