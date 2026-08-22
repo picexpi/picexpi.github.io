@@ -53,7 +53,7 @@ const Navbar = () => {
             />
 
             <span className="navbar-logo-text">
-              pic<span>ex</span>
+              pi<span>cex</span>
             </span>
           </Link>
         </div>
