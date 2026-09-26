@@ -51,7 +51,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     environment:
-      DOMAIN_NAME: https://apppicexcfbf4957.pinet.com
+      DOMAIN_NAME: https://cex1902.pinet.com
     ports:
       - "80:80"
       - "443:443"
