@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => {
      * برای GitHub User Page مثل:
      * https://picexpi.github.io
      * و همچنین دامنه PiNet:
-     * https://apppicexcfbf4957.pinet.com
+     * https://cex1902.pinet.com
      * مقدار base باید '/' باشد.
      */
     base: '/',
